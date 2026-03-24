@@ -1,21 +1,24 @@
 # MaxPreps AI Showcase
 
-Static prototype for the MaxPreps AI design showcase.
+Local React/Vite prototype for the MaxPreps AI design showcase.
 
-## Local preview
+## Local development
 
 ```bash
-python3 -m http.server 8000 --bind 127.0.0.1
+npm install
+npm run dev
 ```
 
-Then open `http://127.0.0.1:8000`.
+Then open the local Vite URL, typically `http://127.0.0.1:5173`.
 
-## GitHub Pages deployment
+## Agentation
 
-This repo includes a GitHub Actions workflow at `.github/workflows/pages.yml`.
+`agentation` is mounted in development only. When the local dev server is running on desktop, the Agentation toolbar appears in the bottom-right corner so you can annotate the UI directly while iterating.
 
-1. Create a GitHub repo.
-2. Push this project to the `main` branch.
-3. In GitHub, enable Pages with:
-   - Source: `GitHub Actions`
-4. Every push to `main` will redeploy the site.
+## Production build
+
+```bash
+npm run build
+```
+
+Build output goes to `dist/`.
