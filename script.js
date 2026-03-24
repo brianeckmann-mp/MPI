@@ -35,9 +35,10 @@ let wheelAccumulator = 0;
 
 const introTimeline = {
   start: performance.now(),
-  textAt: prefersReducedMotion ? 350 : 1800,
-  morphAt: prefersReducedMotion ? 700 : 3900,
-  cueAt: prefersReducedMotion ? 900 : 5200,
+  dropEnd: prefersReducedMotion ? 220 : 850,
+  spinEnd: prefersReducedMotion ? 450 : 1850,
+  textAt: prefersReducedMotion ? 520 : 2200,
+  cueAt: prefersReducedMotion ? 760 : 3000,
 };
 
 const shapeRow = Array.from({ length: DOT_COUNT }, (_, index) => [
@@ -45,39 +46,34 @@ const shapeRow = Array.from({ length: DOT_COUNT }, (_, index) => [
   0.5 + Math.sin(index * 0.45) * 0.01,
 ]);
 
-const shapeIntroRow = Array.from({ length: DOT_COUNT }, (_, index) => [
-  0.08 + index * 0.075,
-  0.69 + Math.sin(index * 0.45) * 0.006,
-]);
-
 const shapeIntelligence = [
   [0.5, 0.08],
-  [0.34, 0.28],
-  [0.56, 0.28],
-  [0.18, 0.44],
-  [0.4, 0.44],
-  [0.6, 0.44],
-  [0.8, 0.44],
-  [0.46, 0.68],
-  [0.46, 0.68],
-  [0.46, 0.68],
-  [0.46, 0.68],
-  [0.46, 0.68],
+  [0.4, 0.24],
+  [0.62, 0.24],
+  [0.28, 0.42],
+  [0.5, 0.4],
+  [0.68, 0.42],
+  [0.82, 0.42],
+  [0.5, 0.64],
+  [0.5, 0.86],
+  [0.5, 0.86],
+  [0.5, 0.86],
+  [0.5, 0.86],
 ];
 
 const shapeInsights = [
   [0.28, 0.18],
-  [0.52, 0.18],
-  [0.76, 0.18],
-  [0.42, 0.42],
-  [0.66, 0.42],
-  [0.56, 0.68],
-  [0.56, 0.68],
-  [0.56, 0.68],
-  [0.56, 0.68],
-  [0.56, 0.68],
-  [0.56, 0.68],
-  [0.56, 0.68],
+  [0.52, 0.24],
+  [0.74, 0.3],
+  [0.42, 0.44],
+  [0.64, 0.5],
+  [0.56, 0.72],
+  [0.56, 0.72],
+  [0.56, 0.72],
+  [0.56, 0.72],
+  [0.56, 0.72],
+  [0.56, 0.72],
+  [0.56, 0.72],
 ];
 
 const shapeEdge = [
@@ -96,18 +92,18 @@ const shapeEdge = [
 ];
 
 const shapePulse = [
-  [0.16, 0.42],
-  [0.3, 0.42],
-  [0.44, 0.2],
-  [0.44, 0.42],
-  [0.58, 0.56],
-  [0.72, 0.56],
-  [0.86, 0.56],
-  [0.58, 0.8],
-  [0.58, 0.8],
-  [0.58, 0.8],
-  [0.58, 0.8],
-  [0.58, 0.8],
+  [0.16, 0.44],
+  [0.3, 0.44],
+  [0.42, 0.24],
+  [0.44, 0.44],
+  [0.58, 0.58],
+  [0.72, 0.58],
+  [0.86, 0.58],
+  [0.58, 0.82],
+  [0.58, 0.82],
+  [0.58, 0.82],
+  [0.58, 0.82],
+  [0.58, 0.82],
 ];
 
 const shapeOutro = [
@@ -132,11 +128,11 @@ const sceneShapes = {
   },
   intelligence: {
     points: shapeIntelligence,
-    visibility: [1, 1, 1, 1, 1, 1, 0.78, 0.4, 0, 0, 0, 0],
+    visibility: [1, 0.9, 0.72, 0.88, 0.7, 0.52, 0.3, 0.45, 0.18, 0, 0, 0],
   },
   insights: {
     points: shapeInsights,
-    visibility: [1, 0.75, 0.4, 0.82, 0.45, 0.22, 0, 0, 0, 0, 0, 0],
+    visibility: [1, 0.74, 0.42, 0.82, 0.46, 0.24, 0, 0, 0, 0, 0, 0],
   },
   edge: {
     points: shapeEdge,
@@ -144,7 +140,7 @@ const sceneShapes = {
   },
   pulse: {
     points: shapePulse,
-    visibility: [0.28, 0.46, 0.82, 0.66, 0.72, 0.88, 1, 0.52, 0, 0, 0, 0],
+    visibility: [0.28, 0.46, 0.84, 0.66, 0.74, 0.88, 1, 0.52, 0, 0, 0, 0],
   },
   outro: {
     points: shapeOutro,
@@ -194,7 +190,16 @@ function getAnchorRect(name) {
 }
 
 function getIntroCircleShape(time) {
-  const rotation = time * 0.000425;
+  const elapsed = time - introTimeline.start;
+  const spinProgress =
+    elapsed <= introTimeline.dropEnd
+      ? 0
+      : Math.min(
+          1,
+          (elapsed - introTimeline.dropEnd) /
+            Math.max(1, introTimeline.spinEnd - introTimeline.dropEnd),
+        );
+  const rotation = Math.PI * 2 * spinProgress;
   const pointerPullX = (pointer.x - 0.5) * 0.1;
   const pointerPullY = (pointer.y - 0.5) * 0.1;
 
@@ -245,17 +250,13 @@ function updateIntro(now) {
   const elapsed = now - introTimeline.start;
   const rect = getAnchorRect("intro");
   const circleShape = getIntroCircleShape(now);
-  let shape = circleShape;
-  let fadeIn = Math.min(1, elapsed / (prefersReducedMotion ? 200 : 1200));
+  const dropProgress = Math.min(1, elapsed / Math.max(1, introTimeline.dropEnd));
+  const easedDrop = 1 - Math.pow(1 - dropProgress, 3);
+  const shape = circleShape.map(([px, py]) => [px, py * easedDrop + (-0.22) * (1 - easedDrop)]);
+  const fadeIn = Math.min(1, elapsed / (prefersReducedMotion ? 140 : 520));
 
   if (elapsed >= introTimeline.textAt) {
     introScene.classList.add("is-lockup-visible");
-  }
-
-  if (elapsed >= introTimeline.morphAt) {
-    const morphDuration = prefersReducedMotion ? 220 : 1200;
-    const t = Math.min(1, (elapsed - introTimeline.morphAt) / morphDuration);
-    shape = blendShape(circleShape, shapeIntroRow, t);
   }
 
   if (elapsed >= introTimeline.cueAt) {

@@ -311,33 +311,36 @@ select {
   right: clamp(0.9rem, 2vw, 1.8rem);
   transform: translateY(-50%);
   display: grid;
-  grid-template-columns: 2px auto;
-  gap: 0.9rem;
-  align-items: start;
+  grid-template-columns: auto 2px;
+  gap: 0.65rem;
+  align-items: stretch;
   z-index: 4;
 }
 
 .progress-rail__track {
+  order: 2;
   position: relative;
   width: 2px;
-  height: 17rem;
+  height: 13.2rem;
   border-radius: 999px;
-  background: rgba(17, 17, 17, 0.12);
-  margin-top: 0.35rem;
+  background: rgba(17, 17, 17, 0.68);
+  margin-top: 0.15rem;
+  align-self: stretch;
 }
 
 .progress-rail__fill {
   position: absolute;
-  inset: auto 0 0;
+  inset: 0 0 auto;
   height: 0;
   border-radius: inherit;
-  background: linear-gradient(180deg, var(--accent-pale), var(--accent));
+  background: linear-gradient(180deg, var(--accent), var(--accent-pale));
   transition: height 0.55s ease;
 }
 
 .progress-rail__points {
+  order: 1;
   display: grid;
-  gap: 0.7rem;
+  gap: 0.62rem;
 }
 
 .progress-rail__point {
@@ -411,7 +414,7 @@ select {
 @media (max-width: 720px) {
   .progress-rail {
     right: 0.75rem;
-    gap: 0.55rem;
+    gap: 0.45rem;
   }
 
   .progress-rail__label {
@@ -419,7 +422,7 @@ select {
   }
 
   .progress-rail__track {
-    height: 13rem;
+    height: 10.5rem;
   }
 }
 
