@@ -232,6 +232,7 @@ function AiPage() {
 }
 
 function HomePage() {
+  const baseUrl = import.meta.env.BASE_URL;
   const railRef = useRef(null);
   const [artMissing, setArtMissing] = useState(false);
   const [storyMissing, setStoryMissing] = useState(false);
@@ -341,7 +342,7 @@ function HomePage() {
               <div className="home-hero__art-shell">
                 <img
                   className={`home-hero__image${artMissing ? " is-hidden" : ""}`}
-                  src="/home-index.png"
+                  src={`${baseUrl}home-index.png`}
                   alt="Football players competing for a catch"
                   onError={() => setArtMissing(true)}
                 />
@@ -361,7 +362,7 @@ function HomePage() {
             <div className="index-story-scene__frame">
               <img
                 className={`index-story-scene__image${storyMissing ? " is-hidden" : ""}`}
-                src="/index-story.png"
+                src={`${baseUrl}index-story.png`}
                 alt="Team celebration story collage"
                 onError={() => setStoryMissing(true)}
               />
@@ -383,7 +384,7 @@ function HomePage() {
             <div className="index-hype-scene__frame">
               <img
                 className={`index-hype-scene__image${hypeMissing ? " is-hidden" : ""}`}
-                src="/index-hype.png"
+                src={`${baseUrl}index-hype.png`}
                 alt="Fans and team hype moment"
                 onError={() => setHypeMissing(true)}
               />
@@ -403,7 +404,7 @@ function HomePage() {
               <div className="index-athletes-scene__imageWrap">
                 <img
                   className={`index-athletes-scene__image${athletesMissing ? " is-hidden" : ""}`}
-                  src="/index-athletes.png"
+                  src={`${baseUrl}index-athletes.png`}
                   alt="Multiple athletes across sports"
                   onError={() => setAthletesMissing(true)}
                 />
