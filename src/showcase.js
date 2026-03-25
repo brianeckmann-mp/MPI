@@ -33,9 +33,9 @@ export function initShowcase() {
   const introTimeline = {
     start: performance.now(),
     dropEnd: prefersReducedMotion ? 260 : 1050,
-    spinEnd: prefersReducedMotion ? 620 : 2850,
-    textAt: prefersReducedMotion ? 760 : 3250,
-    cueAt: prefersReducedMotion ? 980 : 4050,
+    spinEnd: prefersReducedMotion ? 520 : 1850,
+    textAt: prefersReducedMotion ? 680 : 2350,
+    cueAt: prefersReducedMotion ? 860 : 2950,
   };
 
   const shapeRow = Array.from({ length: DOT_COUNT }, (_, index) => [
@@ -103,8 +103,6 @@ export function initShowcase() {
     [0.64, 0.68],
   ];
 
-  const shapeOutro = Array.from({ length: DOT_COUNT }, (_, index) => [0.1 + index * 0.08, 0.5]);
-
   const sceneShapes = {
     manifesto: {
       points: shapeRow,
@@ -125,10 +123,6 @@ export function initShowcase() {
     pulse: {
       points: shapePulse,
       visibility: [0.74, 0.28, 0.46, 0.68, 0.66, 0.82, 1, 0.38, 0, 0, 0, 0],
-    },
-    outro: {
-      points: shapeOutro,
-      visibility: Array.from({ length: DOT_COUNT }, () => 1),
     },
   };
 
@@ -169,7 +163,7 @@ export function initShowcase() {
             (elapsed - introTimeline.dropEnd) /
               Math.max(1, introTimeline.spinEnd - introTimeline.dropEnd),
           );
-    const rotation = Math.PI * 1.55 * spinProgress;
+    const rotation = Math.PI * 0.8 * spinProgress;
     const pointerPullX = (pointer.x - 0.5) * 0.1;
     const pointerPullY = (pointer.y - 0.5) * 0.1;
 

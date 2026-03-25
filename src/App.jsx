@@ -3,6 +3,23 @@ import { Agentation } from "agentation";
 import { initShowcase } from "./showcase";
 
 const NAV_ITEMS = ["index", "system", "brand", "AI", "about"];
+const TEAM_THEMES = [
+  { name: "Red", primary: "#CC0022", secondary: "#8F0018", dark: "#52000E" },
+  { name: "Pink", primary: "#CD0066", secondary: "#A30052", dark: "#5A002D" },
+  { name: "Orange", primary: "#D5350B", secondary: "#A92A09", dark: "#611806" },
+  { name: "Yellow", primary: "#FFCC05", secondary: "#C8880A", dark: "#503604" },
+  { name: "Purple", primary: "#754ACC", secondary: "#5E3BA5", dark: "#2F1D52" },
+  { name: "Blue", primary: "#046DFF", secondary: "#034CB2", dark: "#022C66" },
+  { name: "Teal", primary: "#1580A5", secondary: "#116885", dark: "#0A3543" },
+  { name: "Green", primary: "#00824B", secondary: "#005B34", dark: "#00341E" },
+  { name: "Turquoise", primary: "#108073", secondary: "#0C665B", dark: "#07342F" },
+];
+
+function getPageFromHash() {
+  const rawHash = window.location.hash.replace(/^#/, "");
+  const normalized = rawHash.toLowerCase();
+  return NAV_ITEMS.find((item) => item.toLowerCase() === normalized) ?? "index";
+}
 
 function MaxPrepsLogo() {
   return (
@@ -71,6 +88,189 @@ function MaxPrepsLogo() {
   );
 }
 
+function MaxPrepsWordmark() {
+  return (
+    <svg
+      width="235"
+      height="66"
+      viewBox="0 0 235 66"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M99.4537 0H86.7352L83.7176 10.5233C86.272 11.3329 88.1282 13.771 88.1282 16.6599C88.1282 20.2091 85.3263 23.0837 81.87 23.0837C78.4136 23.0837 75.6118 20.2053 75.6118 16.656C75.6118 13.7434 77.4995 11.294 80.0867 10.5052L77.0431 0H64.2862L74.4764 31.6208L63.252 65.8824H76.2769L81.9083 47.9707L87.5014 65.8824H100.488L89.3404 31.6781L99.4537 0Z"
+        fill="#E10500"
+      />
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M77.417 16.7821C77.417 19.3862 79.4355 21.4971 81.9253 21.4971C84.4151 21.4971 86.4336 19.3862 86.4336 16.7821C86.4336 14.1783 84.4151 12.0671 81.9253 12.0671C79.4355 12.0671 77.417 14.1783 77.417 16.7821Z"
+        fill="#E10500"
+      />
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M233.334 22.8664L234.981 17.0819L230.346 12.9048H215.022L208.28 17.0821L204.947 28.3659L218.635 32.3983L217.454 36.4504H214.739L215.793 32.828H203.683L201.691 39.6727L206.661 44.3744H221.238L228.315 39.9548L231.917 27.5932L218.462 23.6697L219.313 20.8288H222.033L221.438 22.8664H233.334Z"
+        fill="#E10500"
+      />
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M191.389 26.9416H188.588L190.412 20.8288H193.113L191.389 26.9416ZM206.186 17.1588L201.503 12.9048H180.729L171.593 44.3744H183.516L186.332 34.6392H195.297L202.336 30.4569L206.186 17.1588Z"
+        fill="#E10500"
+      />
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M160.918 34.8656L161.767 31.9224H170.912L173.345 23.772H164.232L165.067 20.8288H176.334L178.52 12.9048H155.19L146.025 44.3744H169.326L172.081 34.8656H160.918Z"
+        fill="#E10500"
+      />
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M137.548 25.1304H134.673L135.924 20.8288H138.794L137.548 25.1304ZM144.39 28.2669L149.371 25.2415L151.631 17.2705L147.009 12.9048H126.093L116.952 44.3744H129.05L132.69 31.9224H135.574L131.95 44.3744H143.787L147.608 31.2192L144.39 28.2669Z"
+        fill="#E10500"
+      />
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M108.035 26.8807C108.035 26.8807 105.2 26.9262 105.196 26.9262L106.963 20.8288H109.797L108.035 26.8807ZM122.727 17.174L118.162 12.9048H97.8177L91.7856 31.5828L96.0349 44.3744H100.057L102.959 34.6392H111.751L118.877 30.5287L122.727 17.174Z"
+        fill="#E10500"
+      />
+      <mask id="mask0_wordmark" style={{ maskType: "alpha" }} maskUnits="userSpaceOnUse" x="0" y="12" width="72" height="33">
+        <path d="M0 12.9048H71.9002V44.3744H0V12.9048Z" fill="white" />
+      </mask>
+      <g mask="url(#mask0_wordmark)">
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M55.9255 31.6996L60.7016 20.8288H61.6081L60.3213 31.7193L55.9255 31.6996ZM67.8778 44.3744L71.9003 31.6471L66.0368 12.9048H55.0358L40.3241 42.4667L48.5179 12.9048H32.2659L23.5737 30.3587L24.946 12.9048H8.75324L0 44.3744H9.92597L15.3564 25.0851L14.868 44.3744H24.8377L35.1238 25.0851L29.6073 44.3744H51.2937L53.4642 39.2922L59.3018 39.3008L58.6263 44.3744H67.8778Z"
+          fill="#E10500"
+        />
+      </g>
+    </svg>
+  );
+}
+
+function EditorialBackdrop({
+  variant,
+  number,
+  leftEyebrow,
+  leftValue,
+  leftMeta,
+  rightEyebrow,
+  rightValue,
+  rightMeta,
+  hidePanel = false,
+}) {
+  return (
+    <div className={`editorial-art editorial-art--${variant}`} aria-hidden="true">
+      <div className="editorial-art__grid">
+        <span className="editorial-art__line editorial-art__line--v1"></span>
+        <span className="editorial-art__line editorial-art__line--v2"></span>
+        <span className="editorial-art__line editorial-art__line--v3"></span>
+        <span className="editorial-art__line editorial-art__line--h1"></span>
+        <span className="editorial-art__line editorial-art__line--h2"></span>
+        <span className="editorial-art__line editorial-art__line--h3"></span>
+      </div>
+      <div className="editorial-art__dotfield"></div>
+      <div className="editorial-art__sweep editorial-art__sweep--one"></div>
+      <div className="editorial-art__sweep editorial-art__sweep--two"></div>
+      <div className="editorial-art__axis editorial-art__axis--diag"></div>
+      <div className="editorial-art__axis editorial-art__axis--soft"></div>
+      <div className="editorial-art__arc"></div>
+      {hidePanel ? null : (
+        <div className="editorial-art__panel">
+          <div className="editorial-art__panel-lines"></div>
+          <div className="editorial-art__panel-slash"></div>
+        </div>
+      )}
+      <div className="editorial-art__play">
+        <span className="editorial-art__play-mark editorial-art__play-mark--o1"></span>
+        <span className="editorial-art__play-mark editorial-art__play-mark--o2"></span>
+        <span className="editorial-art__play-mark editorial-art__play-mark--x1"></span>
+        <span className="editorial-art__play-line editorial-art__play-line--one"></span>
+        <span className="editorial-art__play-line editorial-art__play-line--two"></span>
+      </div>
+      <div className="editorial-art__number">{number}</div>
+      <div className="editorial-art__data editorial-art__data--left">
+        <span className="editorial-art__eyebrow">{leftEyebrow}</span>
+        <span className="editorial-art__value">{leftValue}</span>
+        <span className="editorial-art__meta">{leftMeta}</span>
+      </div>
+      <div className="editorial-art__data editorial-art__data--right">
+        <span className="editorial-art__eyebrow">{rightEyebrow}</span>
+        <span className="editorial-art__value">{rightValue}</span>
+        <span className="editorial-art__meta">{rightMeta}</span>
+      </div>
+      <div className="editorial-art__route editorial-art__route--one"></div>
+      <div className="editorial-art__route editorial-art__route--two"></div>
+      <div className="editorial-art__mark"></div>
+    </div>
+  );
+}
+
+function SystemComponentBackdrop() {
+  return (
+    <div className="system-canvas" aria-hidden="true">
+      <div className="system-canvas__grid">
+        <span className="system-canvas__line system-canvas__line--v1"></span>
+        <span className="system-canvas__line system-canvas__line--v2"></span>
+        <span className="system-canvas__line system-canvas__line--h1"></span>
+        <span className="system-canvas__line system-canvas__line--h2"></span>
+      </div>
+
+      <div className="system-card system-card--tokens">
+        <span className="system-card__label">Tokens</span>
+        <div className="system-tokens">
+          <span className="system-token system-token--accent"></span>
+          <span className="system-token"></span>
+          <span className="system-token"></span>
+          <span className="system-token"></span>
+        </div>
+      </div>
+
+      <div className="system-card system-card--tabs">
+        <span className="system-card__label">Tabs</span>
+        <div className="system-tabs">
+          <span className="system-tabs__item system-tabs__item--active"></span>
+          <span className="system-tabs__item"></span>
+          <span className="system-tabs__item"></span>
+        </div>
+        <div className="system-lines">
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+
+      <div className="system-card system-card--toggle">
+        <span className="system-card__label">Controls</span>
+        <div className="system-toggleRow">
+          <span className="system-toggle system-toggle--on"></span>
+          <span className="system-toggleLabel"></span>
+        </div>
+        <div className="system-toggleRow">
+          <span className="system-check"></span>
+          <span className="system-toggleLabel system-toggleLabel--short"></span>
+        </div>
+      </div>
+
+      <div className="system-card system-card--pagination">
+        <span className="system-card__label">Navigation</span>
+        <div className="system-pagination">
+          <span></span>
+          <span></span>
+          <span className="system-pagination__active"></span>
+          <span></span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function AiPage() {
   useEffect(() => {
     const cleanup = initShowcase();
@@ -86,7 +286,7 @@ function AiPage() {
           <div className="progress-rail__fill" id="progressFill"></div>
         </div>
         <div className="progress-rail__points">
-          {["Intro", "Motion", "Intelligence", "Insights", "Edge", "Pulse", "Next"].map(
+          {["Intro", "Motion", "Intelligence", "Insights", "Edge", "Pulse"].map(
             (label, index) => (
               <button
                 key={label}
@@ -152,6 +352,9 @@ function AiPage() {
                     <use href="#icon-spark"></use>
                   </svg>
                 </div>
+                <p className="brand-lockup__subcopy">
+                  Access over 24 years of high school sports data
+                </p>
               </div>
             </div>
           </div>
@@ -170,6 +373,9 @@ function AiPage() {
                     <use href="#icon-network"></use>
                   </svg>
                 </div>
+                <p className="brand-lockup__subcopy">
+                  Make sense of the moments, metrics, and momentum
+                </p>
               </div>
             </div>
           </div>
@@ -188,6 +394,9 @@ function AiPage() {
                     <use href="#icon-edge"></use>
                   </svg>
                 </div>
+                <p className="brand-lockup__subcopy">
+                  Personalized experiences that adapt to your interests
+                </p>
               </div>
             </div>
           </div>
@@ -206,21 +415,8 @@ function AiPage() {
                     <use href="#icon-pulse"></use>
                   </svg>
                 </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="scene scene--outro" data-scene="outro" aria-label="Next scene placeholder">
-          <div className="scene__inner">
-            <div className="scene-layout scene-layout--manifesto">
-              <div className="shape-anchor shape-anchor--row" data-anchor="outro"></div>
-              <div className="scene-copy">
-                <p className="scene-label">Placeholder</p>
-                <h2>Future content wires in here.</h2>
-                <p>
-                  This end scene is ready for navigation, imagery, product storytelling, and the next
-                  layer of the MaxPreps AI site build.
+                <p className="brand-lockup__subcopy">
+                  Get the right context in the moment you need it
                 </p>
               </div>
             </div>
@@ -356,9 +552,21 @@ function HomePage() {
       </section>
 
       <section className="scene scene--home-story" aria-label="Home story">
-        <div className="scene__inner scene__inner--home">
+        <div className="scene__inner scene__inner--home scene__inner--art">
+          <EditorialBackdrop
+            variant="story"
+            number="2-1"
+            leftEyebrow="Storyline"
+            leftValue="Team Arc"
+            leftMeta="Archive"
+            rightEyebrow="Coverage"
+            rightValue="Season Thread"
+            rightMeta="Play-by-play"
+          />
           <div className="index-story-scene">
-            <h2>Every team has a story.</h2>
+            <h2>
+              Every team has a <span className="copy-accent">story</span>.
+            </h2>
             <div className="index-story-scene__frame">
               <img
                 className={`index-story-scene__image${storyMissing ? " is-hidden" : ""}`}
@@ -376,10 +584,20 @@ function HomePage() {
       </section>
 
       <section className="scene scene--home-next" aria-label="Home next placeholder">
-        <div className="scene__inner scene__inner--home">
+        <div className="scene__inner scene__inner--home scene__inner--art">
+          <EditorialBackdrop
+            variant="hype"
+            number="24-17"
+            leftEyebrow="Signals"
+            leftValue="Crowd Heat"
+            leftMeta="Live"
+            rightEyebrow="Momentum"
+            rightValue="Hype Index"
+            rightMeta="92%"
+          />
           <div className="index-hype-scene">
             <p className="index-hype-scene__copy index-hype-scene__copy--left">
-              We don&rsquo;t create the moments.
+              We don&rsquo;t create the <span className="copy-accent">moments</span>.
             </p>
             <div className="index-hype-scene__frame">
               <img
@@ -398,7 +616,17 @@ function HomePage() {
       </section>
 
       <section className="scene scene--home-athletes" aria-label="Every score matters">
-        <div className="scene__inner scene__inner--home">
+        <div className="scene__inner scene__inner--home scene__inner--art">
+          <EditorialBackdrop
+            variant="scale"
+            number="25-23"
+            leftEyebrow="Scale"
+            leftValue="Game Log"
+            leftMeta="National"
+            rightEyebrow="Network"
+            rightValue="Athlete Graph"
+            rightMeta="Realtime"
+          />
           <div className="index-athletes-scene">
             <div className="index-athletes-scene__layout">
               <div className="index-athletes-scene__imageWrap">
@@ -443,11 +671,294 @@ function HomePage() {
   );
 }
 
+function SystemPage() {
+  const baseUrl = import.meta.env.BASE_URL;
+  const railRef = useRef(null);
+  const [headerMissing, setHeaderMissing] = useState(false);
+  const [scoreboardMissing, setScoreboardMissing] = useState(false);
+  const [rosterMissing, setRosterMissing] = useState(false);
+  const [mobileMissing, setMobileMissing] = useState(false);
+  const [currentScene, setCurrentScene] = useState(0);
+  const [selectedTheme, setSelectedTheme] = useState(TEAM_THEMES[5]);
+
+  useEffect(() => {
+    const rail = railRef.current;
+    if (!rail) {
+      return undefined;
+    }
+
+    const handleScroll = () => {
+      const viewport = rail.clientHeight || window.innerHeight;
+      const nextScene = Math.max(0, Math.min(2, Math.round(rail.scrollTop / viewport)));
+      setCurrentScene(nextScene);
+    };
+
+    handleScroll();
+    rail.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleScroll);
+
+    return () => {
+      rail.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
+    };
+  }, []);
+
+  const systemThemeStyle = {
+    "--system-theme-primary": selectedTheme.primary,
+    "--system-theme-secondary": selectedTheme.secondary,
+    "--system-theme-dark": selectedTheme.dark,
+  };
+  const systemProgress = (currentScene / 2) * 100;
+
+  return (
+    <>
+      <aside className="progress-rail progress-rail--home progress-rail--system" aria-label="System page progress">
+        <div className="progress-rail__track">
+          <div
+            className="progress-rail__fill"
+            style={{ height: `${systemProgress}%` }}
+          ></div>
+        </div>
+        <div className="progress-rail__count" aria-live="polite">
+          <span>{String(currentScene + 1).padStart(2, "0")}</span>
+          <span>/</span>
+          <span>03</span>
+        </div>
+      </aside>
+
+      <main className="scene-rail scene-rail--home" ref={railRef}>
+        <section className="scene scene--system-hero is-active" aria-label="System hero">
+          <div className="scene__inner scene__inner--home scene__inner--art">
+            <SystemComponentBackdrop />
+            <div className="system-hero">
+              <div className="system-hero__copy">
+                <h1>MaxPreps Design System</h1>
+              </div>
+
+              <div className="system-hero__media">
+                <img
+                  className={`system-hero__image${headerMissing ? " is-hidden" : ""}`}
+                  src={`${baseUrl}headers.png`}
+                  alt="MaxPreps design system headers"
+                  onError={() => setHeaderMissing(true)}
+                />
+                <div className={`system-hero__fallback${headerMissing ? " is-visible" : ""}`}>
+                  <span>Add `public/headers.png`</span>
+                </div>
+              </div>
+
+              <p className="system-hero__subcopy">Built for every team, designed for every fan.</p>
+            </div>
+          </div>
+        </section>
+
+        <section className="scene scene--system-story" aria-label="System story">
+          <div className="scene__inner scene__inner--home">
+            <div className="system-story">
+              <div className="system-story__copy">
+                <h2>
+                  Built to support the complexity of high school sports, the design system helps us
+                  unify experiences across platforms, products, and moments in the fan journey.
+                </h2>
+                <p>
+                  It brings together the principles, patterns, components, and product thinking
+                  that help teams move faster while creating experiences that feel unmistakably
+                  MaxPreps.
+                </p>
+              </div>
+
+              <div className="system-story__media">
+                <div className="system-story__asset system-story__asset--scoreboard">
+                  <img
+                    className={scoreboardMissing ? "is-hidden" : ""}
+                    src={`${baseUrl}system-scene2-scoreboard.png`}
+                    alt="Live game scoreboard component"
+                    onError={() => setScoreboardMissing(true)}
+                  />
+                  <div className={`system-story__fallback${scoreboardMissing ? " is-visible" : ""}`}>
+                    <span>Add `public/system-scene2-scoreboard.png`</span>
+                  </div>
+                </div>
+
+                <div className="system-story__assetGrid">
+                  <div className="system-story__asset system-story__asset--roster">
+                    <img
+                      className={rosterMissing ? "is-hidden" : ""}
+                      src={`${baseUrl}system-scene2-roster.png`}
+                      alt="Roster and tabs component"
+                      onError={() => setRosterMissing(true)}
+                    />
+                    <div className={`system-story__fallback${rosterMissing ? " is-visible" : ""}`}>
+                      <span>Add `public/system-scene2-roster.png`</span>
+                    </div>
+                  </div>
+
+                  <div className="system-story__asset system-story__asset--mobile">
+                    <img
+                      className={mobileMissing ? "is-hidden" : ""}
+                      src={`${baseUrl}system-scene2-mobile.png`}
+                      alt="Mobile team experience component"
+                      onError={() => setMobileMissing(true)}
+                    />
+                    <div className={`system-story__fallback${mobileMissing ? " is-visible" : ""}`}>
+                      <span>Add `public/system-scene2-mobile.png`</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="scene scene--system-theme" aria-label="System theming playground">
+          <div className="scene__inner scene__inner--home">
+            <div className="system-theme" style={systemThemeStyle}>
+              <div className="system-theme__header">
+                <h2>Themed component sets for school and team experiences</h2>
+              </div>
+
+              <div className="system-theme__layout">
+                <div className="system-theme__selectors" aria-label="Team color selectors">
+                  <div className="team-palette">
+                    {TEAM_THEMES.map((theme) => (
+                      <button
+                        key={theme.name}
+                        type="button"
+                        className={`team-palette__swatch${theme.name === selectedTheme.name ? " is-active" : ""}`}
+                        onClick={() => setSelectedTheme(theme)}
+                        aria-pressed={theme.name === selectedTheme.name}
+                        aria-label={`Apply ${theme.name} theme`}
+                      >
+                        <span
+                          className="team-palette__chip"
+                          style={{ backgroundColor: theme.primary }}
+                        ></span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="system-theme__components">
+                  <div className="system-preview system-preview--buttons">
+                    <div className="system-button-group">
+                      <button className="system-button-group__item is-active" type="button">
+                        Latest Videos
+                      </button>
+                      <button className="system-button-group__item" type="button">
+                        Team Overview
+                      </button>
+                      <button className="system-button-group__item system-button-group__item--link" type="button">
+                        Contribute
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="system-preview system-preview--loader">
+                    <div className="system-loader">
+                      <span className="system-loader__track"></span>
+                      <span className="system-loader__fill"></span>
+                    </div>
+                  </div>
+
+                  <div className="system-preview system-preview--stats">
+                    <div className="system-stat-strip">
+                      {[
+                        ["YDS", "472"],
+                        ["AVG", "34.5"],
+                        ["Y/G", "50.2"],
+                        ["REC", "35"],
+                        ["TDS", "12"],
+                      ].map(([label, value]) => (
+                        <div key={label} className="system-stat-strip__item">
+                          <span className="system-stat-strip__label">{label}</span>
+                          <strong className="system-stat-strip__value">{value}</strong>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="system-preview system-preview--input">
+                    <label className="system-edge-input">
+                      <span className="system-edge-input__label">
+                        EDGE <sup>AI</sup>
+                      </span>
+                      <span className="system-edge-input__field">
+                        <span className="system-edge-input__placeholder">
+                          Any stat, score, or story across high school sports
+                        </span>
+                        <span className="system-edge-input__send">↑</span>
+                      </span>
+                    </label>
+                  </div>
+
+                  <div className="system-preview system-preview--tabs">
+                    <div className="system-tabs-bar">
+                      {["Thu Jun 30", "Fri Jul 1", "Today", "Sun Jul 3", "Mon Jul 4"].map((label, index) => (
+                        <button
+                          key={label}
+                          className={`system-tabs-bar__item${index === 2 ? " is-active" : ""}`}
+                          type="button"
+                        >
+                          {label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </>
+  );
+}
+
+function AboutPage() {
+  return (
+    <main className="scene-rail scene-rail--home">
+      <section className="scene scene--about-hero is-active" aria-label="About MaxPreps">
+        <div className="scene__inner scene__inner--home scene__inner--art">
+          <EditorialBackdrop
+            variant="about"
+            number="2002"
+            leftEyebrow="Archive"
+            leftValue="Founded"
+            leftMeta="California"
+            rightEyebrow="Coverage"
+            rightValue="High School Sports"
+            rightMeta="National"
+            hidePanel
+          />
+          <div className="about-hero">
+            <div className="about-hero__mark" aria-label="MaxPreps">
+              <MaxPrepsWordmark />
+            </div>
+            <p className="about-hero__subcopy">Established in 2002</p>
+          </div>
+        </div>
+      </section>
+    </main>
+  );
+}
+
 function PlaceholderPage({ title }) {
+  const variant = title.toLowerCase() === "brand" ? "brand" : "about";
+
   return (
     <main className="scene-rail scene-rail--home">
       <section className="scene is-active" aria-label={`${title} placeholder`}>
-        <div className="scene__inner scene__inner--home">
+        <div className="scene__inner scene__inner--home scene__inner--art">
+          <EditorialBackdrop
+            variant={variant}
+            number={title.toLowerCase() === "brand" ? "BRND" : "NEXT"}
+            leftEyebrow={title.toLowerCase() === "brand" ? "Identity" : "Coming"}
+            leftValue={title.toLowerCase() === "brand" ? "Motion Language" : "Next Scene"}
+            leftMeta={title.toLowerCase() === "brand" ? "Logo / Color / Tone" : "In Progress"}
+            rightEyebrow={title.toLowerCase() === "brand" ? "Expression" : "Direction"}
+            rightValue={title.toLowerCase() === "brand" ? "Brand System" : title}
+            rightMeta={title.toLowerCase() === "brand" ? "Live Assets" : "Editorial Build"}
+          />
           <div className="home-story">
             <p className="scene-label">Placeholder</p>
             <h2>{title}</h2>
@@ -460,10 +971,30 @@ function PlaceholderPage({ title }) {
 }
 
 export default function App() {
-  const [currentPage, setCurrentPage] = useState("index");
+  const [currentPage, setCurrentPage] = useState(() => getPageFromHash());
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      setCurrentPage(getPageFromHash());
+    };
+
+    window.addEventListener("hashchange", handleHashChange);
+    return () => window.removeEventListener("hashchange", handleHashChange);
+  }, []);
+
+  useEffect(() => {
+    const nextHash = `#${currentPage.toLowerCase()}`;
+    if (window.location.hash !== nextHash) {
+      window.history.replaceState(null, "", nextHash);
+    }
+  }, [currentPage]);
 
   return (
     <>
+      <div className="site-brandmark" aria-label="MaxPreps">
+        <MaxPrepsWordmark />
+      </div>
+
       <header className="site-header" aria-label="Primary">
         <nav className="site-nav">
           {NAV_ITEMS.map((item) => (
@@ -472,7 +1003,10 @@ export default function App() {
               className={`site-nav__link${item === currentPage ? " is-active" : ""}`}
               type="button"
               aria-current={item === currentPage ? "page" : undefined}
-              onClick={() => setCurrentPage(item)}
+              onClick={() => {
+                setCurrentPage(item);
+                window.history.replaceState(null, "", `#${item.toLowerCase()}`);
+              }}
             >
               {item}
             </button>
@@ -542,9 +1076,9 @@ export default function App() {
 
       {currentPage === "AI" ? <AiPage /> : null}
       {currentPage === "index" ? <HomePage /> : null}
-      {currentPage === "system" ? <PlaceholderPage title="System" /> : null}
+      {currentPage === "system" ? <SystemPage /> : null}
       {currentPage === "brand" ? <PlaceholderPage title="Brand" /> : null}
-      {currentPage === "about" ? <PlaceholderPage title="About" /> : null}
+      {currentPage === "about" ? <AboutPage /> : null}
 
       {import.meta.env.DEV ? <Agentation /> : null}
     </>
