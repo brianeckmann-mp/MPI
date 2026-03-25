@@ -678,6 +678,7 @@ function SystemPage() {
   const [scoreboardMissing, setScoreboardMissing] = useState(false);
   const [rosterMissing, setRosterMissing] = useState(false);
   const [mobileMissing, setMobileMissing] = useState(false);
+  const [newsMissing, setNewsMissing] = useState(false);
   const [currentScene, setCurrentScene] = useState(0);
   const [selectedTheme, setSelectedTheme] = useState(TEAM_THEMES[5]);
 
@@ -757,8 +758,8 @@ function SystemPage() {
             <div className="system-story">
               <div className="system-story__copy">
                 <h2>
-                  Built to support the complexity of high school sports, the design system helps us
-                  unify experiences across platforms, products, and moments in the fan journey.
+                  Built for the complexity of high school sports and to unify experiences across
+                  platforms, products, and moments.
                 </h2>
                 <p>
                   It brings together the principles, patterns, components, and product thinking
@@ -793,16 +794,28 @@ function SystemPage() {
                     </div>
                   </div>
 
-                  <div className="system-story__asset system-story__asset--mobile">
+                  <div className="system-story__asset system-story__asset--app">
                     <img
                       className={mobileMissing ? "is-hidden" : ""}
-                      src={`${baseUrl}system-scene2-mobile.png`}
-                      alt="Mobile team experience component"
+                      src={`${baseUrl}system-scene2-app.png`}
+                      alt="App team experience component"
                       onError={() => setMobileMissing(true)}
                     />
                     <div className={`system-story__fallback${mobileMissing ? " is-visible" : ""}`}>
-                      <span>Add `public/system-scene2-mobile.png`</span>
+                      <span>Add `public/system-scene2-app.png`</span>
                     </div>
+                  </div>
+                </div>
+
+                <div className="system-story__asset system-story__asset--news">
+                  <img
+                    className={newsMissing ? "is-hidden" : ""}
+                    src={`${baseUrl}system-scene2-news.png`}
+                    alt="News and article component"
+                    onError={() => setNewsMissing(true)}
+                  />
+                  <div className={`system-story__fallback${newsMissing ? " is-visible" : ""}`}>
+                    <span>Add `public/system-scene2-news.png`</span>
                   </div>
                 </div>
               </div>

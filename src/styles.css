@@ -346,6 +346,10 @@ select {
   line-height: 1.45;
 }
 
+.scene[data-scene="edge"] .brand-lockup {
+  gap: 0.42rem;
+}
+
 .scroll-cue {
   position: absolute;
   left: 50%;
@@ -2137,34 +2141,32 @@ select {
 .system-story__media {
   display: grid;
   gap: 1.15rem;
-  width: min(100%, 41rem);
+  width: min(100%, 38rem);
   justify-self: center;
 }
 
 .system-story__assetGrid {
   display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(11rem, 14rem);
-  gap: 1rem;
+  grid-template-columns: minmax(0, 0.62fr) minmax(14rem, 18rem);
+  gap: 1.35rem;
   align-items: start;
 }
 
 .system-story__asset {
   position: relative;
-  overflow: hidden;
-  border-radius: 1.35rem;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(250, 250, 250, 0.86)),
-    rgba(255, 255, 255, 0.84);
-  box-shadow:
-    0 24px 50px rgba(17, 17, 17, 0.08),
-    0 0 0 1px rgba(17, 17, 17, 0.05) inset;
+  overflow: visible;
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
 }
 
 .system-story__asset img {
   width: 100%;
   height: 100%;
   display: block;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center;
 }
 
 .system-story__asset img.is-hidden {
@@ -2172,18 +2174,27 @@ select {
 }
 
 .system-story__asset--scoreboard {
-  aspect-ratio: 2048 / 252;
-  min-height: 6.45rem;
+  aspect-ratio: 1536 / 292;
+  max-width: 27.5rem;
+  justify-self: center;
 }
 
 .system-story__asset--roster {
   aspect-ratio: 750 / 788;
-  max-width: 27rem;
+  max-width: 14.5rem;
   justify-self: end;
 }
 
-.system-story__asset--mobile {
-  aspect-ratio: 785 / 1695;
+.system-story__asset--app {
+  aspect-ratio: 890 / 704;
+  max-width: 17.5rem;
+  justify-self: start;
+}
+
+.system-story__asset--news {
+  aspect-ratio: 747 / 404;
+  max-width: 22.5rem;
+  justify-self: center;
 }
 
 .system-story__fallback {
