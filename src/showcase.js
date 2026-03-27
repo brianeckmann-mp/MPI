@@ -10,6 +10,7 @@ export function initShowcase() {
   const globalDotsEl = document.querySelector("#globalDots");
   const progressFill = document.querySelector("#progressFill");
   const progressPoints = [...document.querySelectorAll(".progress-rail__point")];
+  const progressCurrent = document.querySelector("#aiProgressCurrent");
 
   if (!rail || !introScene || !scrollCue || !globalDotsEl || !progressFill) {
     return () => {};
@@ -268,6 +269,10 @@ export function initShowcase() {
 
     const progress = rail.scrollTop / Math.max(1, rail.scrollHeight - rail.clientHeight);
     progressFill.style.height = `${progress * 100}%`;
+    progressFill.style.width = `${progress * 100}%`;
+    if (progressCurrent) {
+      progressCurrent.textContent = String(currentSceneIndex + 1).padStart(2, "0");
+    }
   }
 
   function snapToScene(index) {

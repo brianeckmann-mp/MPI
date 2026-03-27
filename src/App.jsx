@@ -157,8 +157,44 @@ function MaxPrepsWordmark({ fill = "#E10500" }) {
   );
 }
 
-function IntroGate({ state, onDismiss }) {
+function IntroGate({ state, onDismiss, currentPage }) {
   const baseUrl = import.meta.env.BASE_URL;
+  const [logoRect, setLogoRect] = useState(null);
+
+  useEffect(() => {
+    if (currentPage !== "index") {
+      setLogoRect(null);
+      return undefined;
+    }
+
+    let frameId = 0;
+
+    const measure = () => {
+      const node = document.querySelector("[data-home-logo]");
+      if (!node) {
+        return;
+      }
+
+      const rect = node.getBoundingClientRect();
+      setLogoRect({
+        left: rect.left,
+        top: rect.top,
+        width: rect.width,
+      });
+    };
+
+    const scheduleMeasure = () => {
+      frameId = window.requestAnimationFrame(measure);
+    };
+
+    scheduleMeasure();
+    window.addEventListener("resize", scheduleMeasure);
+
+    return () => {
+      window.cancelAnimationFrame(frameId);
+      window.removeEventListener("resize", scheduleMeasure);
+    };
+  }, [currentPage]);
 
   return (
     <button
@@ -171,7 +207,19 @@ function IntroGate({ state, onDismiss }) {
         <div className="intro-gate__inner">
           <div className="intro-gate__hero">
             <div className="intro-gate__copy">
-              <div className="intro-gate__logo" aria-label="MaxPreps">
+              <div
+                className={`intro-gate__logo${logoRect ? " intro-gate__logo--measured" : ""}`}
+                aria-label="MaxPreps"
+                style={
+                  logoRect
+                    ? {
+                        left: `${logoRect.left}px`,
+                        top: `${logoRect.top}px`,
+                        width: `${logoRect.width}px`,
+                      }
+                    : undefined
+                }
+              >
                 <MaxPrepsLogo fill="#ffffff" />
               </div>
               <div className="intro-gate__spacer" aria-hidden="true">
@@ -316,7 +364,12 @@ function AiPage() {
     <>
       <div className="global-dots" id="globalDots" aria-hidden="true"></div>
 
-      <aside className="progress-rail" aria-label="Section progress">
+      <aside className="progress-rail progress-rail--ai" aria-label="Section progress">
+        <div className="progress-rail__count progress-rail__count--ai" aria-live="polite">
+          <span id="aiProgressCurrent">01</span>
+          <span>/</span>
+          <span>06</span>
+        </div>
         <div className="progress-rail__track">
           <div className="progress-rail__fill" id="progressFill"></div>
         </div>
@@ -512,7 +565,11 @@ function HomePage() {
         <div className="progress-rail__track">
           <div
             className="progress-rail__fill"
-            style={{ height: `${(currentScene / Math.max(1, homeScenes.length - 1)) * 100}%` }}
+            style={{
+              height: `${(currentScene / Math.max(1, homeScenes.length - 1)) * 100}%`,
+              width: `${(currentScene / Math.max(1, homeScenes.length - 1)) * 100}%`,
+              "--progress": `${(currentScene / Math.max(1, homeScenes.length - 1)) * 100}%`,
+            }}
           ></div>
         </div>
         <div className="progress-rail__count" aria-live="polite">
@@ -563,7 +620,7 @@ function HomePage() {
             </div>
 
             <div className="home-hero__copy">
-              <div className="home-logo" aria-label="MaxPreps">
+              <div className="home-logo" aria-label="MaxPreps" data-home-logo>
                 <MaxPrepsLogo />
               </div>
               <h1>The pulse of high school sports.</h1>
@@ -680,20 +737,24 @@ function HomePage() {
                 <h2>Every. Score. Matters.</h2>
                 <div className="index-athletes-scene__stats" aria-label="MaxPreps scale">
                   <div className="index-athletes-scene__stat">
-                    <strong>1.5+ Million</strong>
-                    <span>games &amp; athletes</span>
-                  </div>
-                  <div className="index-athletes-scene__stat">
-                    <strong>200,000+</strong>
+                    <strong>514,000+</strong>
                     <span>teams</span>
                   </div>
                   <div className="index-athletes-scene__stat">
-                    <strong>20,000+</strong>
+                    <strong>2.3 million</strong>
+                    <span>games</span>
+                  </div>
+                  <div className="index-athletes-scene__stat">
+                    <strong>3.5 million</strong>
+                    <span>athletes</span>
+                  </div>
+                  <div className="index-athletes-scene__stat">
+                    <strong>188,000</strong>
                     <span>coaches</span>
                   </div>
                   <div className="index-athletes-scene__stat">
-                    <strong>350,000+</strong>
-                    <span>coaches</span>
+                    <strong>11,500</strong>
+                    <span>ADs</span>
                   </div>
                 </div>
               </div>
@@ -753,7 +814,11 @@ function SystemPage() {
         <div className="progress-rail__track">
           <div
             className="progress-rail__fill"
-            style={{ height: `${systemProgress}%` }}
+            style={{
+              height: `${systemProgress}%`,
+              width: `${systemProgress}%`,
+              "--progress": `${systemProgress}%`,
+            }}
           ></div>
         </div>
         <div className="progress-rail__count" aria-live="polite">
@@ -896,21 +961,38 @@ function SystemPage() {
               <div className="system-theme__layout">
                 <div className="system-theme__selectors" aria-label="Team color selectors">
                   <div className="team-palette">
-                    {TEAM_THEMES.map((theme) => (
+                    {TEAM_THEMES.map((theme) => {
+                      const isActive = theme.name === selectedTheme.name;
+                      return (
                       <button
                         key={theme.name}
                         type="button"
-                        className={`team-palette__swatch${theme.name === selectedTheme.name ? " is-active" : ""}`}
+                        className={`team-palette__swatch${isActive ? " is-active" : ""}`}
                         onClick={() => setSelectedTheme(theme)}
-                        aria-pressed={theme.name === selectedTheme.name}
+                        aria-pressed={isActive}
                         aria-label={`Apply ${theme.name} theme`}
                       >
                         <span
                           className="team-palette__chip"
                           style={{ backgroundColor: theme.primary }}
-                        ></span>
+                        >
+                          {isActive ? (
+                            <svg
+                              className="team-palette__icon"
+                              viewBox="0 0 64 64"
+                              aria-hidden="true"
+                            >
+                              <circle cx="32" cy="32" r="28" fill="none" stroke="currentColor" strokeWidth="4" />
+                              <path d="M32 5V59" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" />
+                              <path d="M5 32H59" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" />
+                              <path d="M14 13C22 18 27 24 29 32C27 40 22 46 14 51" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
+                              <path d="M50 13C42 18 37 24 35 32C37 40 42 46 50 51" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
+                            </svg>
+                          ) : null}
+                        </span>
                       </button>
-                    ))}
+                      );
+                    })}
                   </div>
                 </div>
 
@@ -1083,6 +1165,7 @@ export default function App() {
       {introState !== "done" ? (
         <IntroGate
           state={introState}
+          currentPage={currentPage}
           onDismiss={() => {
             if (introState === "active") {
               setIntroState("opening");
@@ -1091,11 +1174,10 @@ export default function App() {
         />
       ) : null}
 
-      <div className="site-brandmark" aria-label="MaxPreps">
-        <MaxPrepsWordmark />
-      </div>
-
       <header className="site-header" aria-label="Primary">
+        <div className="site-brandmark" aria-label="MaxPreps">
+          <MaxPrepsWordmark />
+        </div>
         <nav className="site-nav">
           {NAV_ITEMS.map((item) => (
             <button
