@@ -2,7 +2,7 @@ import { useEffect, useId, useRef, useState } from "react";
 import { Agentation } from "agentation";
 import { initShowcase } from "./showcase";
 
-const NAV_ITEMS = ["index", "system", "brand", "AI", "about"];
+const NAV_ITEMS = ["index", "AI", "system", "brand", "about"];
 const TEAM_THEMES = [
   { name: "Red", primary: "#CC0022", secondary: "#8F0018", dark: "#52000E" },
   { name: "Pink", primary: "#CD0066", secondary: "#A30052", dark: "#5A002D" },
@@ -741,19 +741,19 @@ function HomePage() {
                     <span>teams</span>
                   </div>
                   <div className="index-athletes-scene__stat">
-                    <strong>2.3 million</strong>
+                    <strong>2.3 million+</strong>
                     <span>games</span>
                   </div>
                   <div className="index-athletes-scene__stat">
-                    <strong>3.5 million</strong>
+                    <strong>3.5 million+</strong>
                     <span>athletes</span>
                   </div>
                   <div className="index-athletes-scene__stat">
-                    <strong>188,000</strong>
+                    <strong>188,000+</strong>
                     <span>coaches</span>
                   </div>
                   <div className="index-athletes-scene__stat">
-                    <strong>11,500</strong>
+                    <strong>11,500+</strong>
                     <span>ADs</span>
                   </div>
                 </div>
