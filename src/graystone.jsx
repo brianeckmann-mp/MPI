@@ -1745,7 +1745,7 @@ function GraystoneMaxPrepsHomePage({ isAuthenticated, onRequestSearch, onRequest
   const showNews = contentPreferences.news;
   const showStats = contentPreferences.stats;
   const showLoggedOutEmptyState = !isAuthenticated && !isNationalMode;
-  const showEdgeAIBetaPrompt = showLoggedOutEmptyState;
+  const showEdgeAIBetaPrompt = false;
   const showNationalMarketingPanel = isNationalMode;
   const canShowHomepageContent = isAuthenticated || isNationalMode;
   const hasHeroFeed = !isNationalMode && showHighlights && isAuthenticated;
@@ -1961,35 +1961,81 @@ function GraystoneMaxPrepsHomePage({ isAuthenticated, onRequestSearch, onRequest
             </div>
 
             {!isNationalMode && (
-              <div className="graystone-maxpreps-context">
+              <div className={`graystone-maxpreps-context${showLoggedOutEmptyState ? " graystone-maxpreps-context--marketing" : ""}`}>
                 {showLoggedOutEmptyState ? (
                   <div className="graystone-maxpreps-context__logged-out">
-                    <p className="graystone-maxpreps-context__empty">
-                      Search for teams or players to follow
-                    </p>
-                    <div className="graystone-maxpreps-context__badges" aria-hidden="true">
-                      <span className="graystone-maxpreps-context__badge graystone-maxpreps-context__badge--team">
-                        <img src={`${baseUrl}mascot-1.svg`} alt="" />
-                      </span>
-                      <span className="graystone-maxpreps-context__badge graystone-maxpreps-context__badge--team">
-                        <img src={`${baseUrl}mascot-2.svg`} alt="" />
-                      </span>
-                      <span className="graystone-maxpreps-context__badge graystone-maxpreps-context__badge--player">
-                        <img src={`${baseUrl}person-2.png`} alt="" />
-                      </span>
-                      <span className="graystone-maxpreps-context__badge graystone-maxpreps-context__badge--player">
-                        <img src={`${baseUrl}person-3.png`} alt="" />
-                      </span>
-                    </div>
-                    <div className="graystone-maxpreps-context__empty-actions">
-                      <button
-                        type="button"
-                        className="graystone-maxpreps-context__empty-button"
-                        onClick={() => onRequestSearch("general")}
-                      >
-                        <GraystoneIconSearch />
-                        <span>Search</span>
-                      </button>
+                    <div className="graystone-maxpreps-context__marketing">
+                      <div className="graystone-maxpreps-context__marketing-options">
+                        <section className="graystone-maxpreps-context__marketing-card">
+                          <div className="graystone-maxpreps-context__badges" aria-hidden="true">
+                            <span className="graystone-maxpreps-context__badge graystone-maxpreps-context__badge--team">
+                              <img src={`${baseUrl}mascot-1.svg`} alt="" />
+                            </span>
+                            <span className="graystone-maxpreps-context__badge graystone-maxpreps-context__badge--team">
+                              <img src={`${baseUrl}mascot-2.svg`} alt="" />
+                            </span>
+                            <span className="graystone-maxpreps-context__badge graystone-maxpreps-context__badge--player">
+                              <img src={`${baseUrl}person-2.png`} alt="" />
+                            </span>
+                            <span className="graystone-maxpreps-context__badge graystone-maxpreps-context__badge--player">
+                              <img src={`${baseUrl}person-3.png`} alt="" />
+                            </span>
+                          </div>
+                          <div className="graystone-maxpreps-context__marketing-copy">
+                            <h3>Search for your favorite players, teams, and sports</h3>
+                            <p>
+                              Start with search and shape the homepage around the programs, athletes,
+                              and sports you care about most.
+                            </p>
+                          </div>
+                          <div className="graystone-maxpreps-context__empty-actions">
+                            <button
+                              type="button"
+                              className="graystone-maxpreps-context__empty-button"
+                              onClick={() => onRequestSearch("general")}
+                            >
+                              <GraystoneIconSearch />
+                              <span>Search</span>
+                            </button>
+                          </div>
+                        </section>
+
+                        <div className="graystone-maxpreps-context__marketing-divider" aria-hidden="true">
+                          <span>Or</span>
+                        </div>
+
+                        <section className="graystone-maxpreps-context__marketing-card graystone-maxpreps-context__marketing-card--ai">
+                          <div className="graystone-maxpreps-edge-ai">
+                            <div className="graystone-maxpreps-edge-ai__label-row">
+                              <span className="graystone-maxpreps-edge-ai__label">
+                                <span>EDGE</span>
+                                <sup>AI</sup>
+                              </span>
+                              <span className="graystone-maxpreps-edge-ai__beta">
+                                Beta
+                                <GraystoneIconInfo />
+                              </span>
+                            </div>
+                            <p className="graystone-maxpreps-edge-ai__copy">
+                              Converse with the AI to automatically build your homepage preferences.
+                            </p>
+                            <button type="button" className="graystone-maxpreps-edge-ai__field">
+                              <span className="graystone-maxpreps-edge-ai__placeholder">
+                                Type here to start chatting
+                              </span>
+                              <span className="graystone-maxpreps-edge-ai__send" aria-hidden="true">↑</span>
+                            </button>
+                          </div>
+                        </section>
+                      </div>
+
+                      <section className="graystone-maxpreps-context__save-note">
+                        <p>
+                          Sign up for a free MaxPreps account to save your preferences across
+                          browsers and devices. Without an account, your preferences still save
+                          locally in this browser.
+                        </p>
+                      </section>
                     </div>
                   </div>
                 ) : (

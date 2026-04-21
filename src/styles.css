@@ -2592,6 +2592,14 @@ select {
   background: transparent;
 }
 
+.graystone-maxpreps-context--marketing {
+  padding: 0;
+  justify-self: stretch;
+  inline-size: 100%;
+  max-inline-size: none;
+  border: 0;
+}
+
 .graystone-maxpreps-context .graystone-section__header--maxpreps {
   display: flex;
   align-items: flex-start;
@@ -2630,8 +2638,74 @@ select {
 
 .graystone-maxpreps-context__logged-out {
   display: grid;
+  gap: 1rem;
+  width: 100%;
+  min-width: 0;
+}
+
+.graystone-maxpreps-context__marketing {
+  display: grid;
   gap: 0.9rem;
-  min-width: min(100%, 23rem);
+}
+
+.graystone-maxpreps-context__marketing-options {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: 1rem;
+  align-items: stretch;
+}
+
+.graystone-maxpreps-context__marketing-card {
+  display: grid;
+  gap: 0.85rem;
+  align-content: start;
+  padding: 1rem 1rem 1.05rem;
+  border: 1px solid rgba(18, 19, 23, 0.08);
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.graystone-maxpreps-context__marketing-card--ai {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(247, 247, 249, 0.96));
+}
+
+.graystone-maxpreps-context__marketing-divider {
+  display: inline-grid;
+  place-items: center;
+  align-self: center;
+}
+
+.graystone-maxpreps-context__marketing-divider span {
+  color: rgba(18, 19, 23, 0.42);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.graystone-maxpreps-context__marketing-copy {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.graystone-maxpreps-context__marketing-copy h3 {
+  margin: 0;
+  font-size: 1.02rem;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  font-weight: 600;
+}
+
+.graystone-maxpreps-context__marketing-copy p,
+.graystone-maxpreps-context__save-note p {
+  margin: 0;
+  color: rgba(18, 19, 23, 0.66);
+  font-size: 0.88rem;
+  line-height: 1.55;
+}
+
+.graystone-maxpreps-context__save-note {
+  padding: 0.1rem 0 0;
 }
 
 .graystone-maxpreps-context__badges {
@@ -2867,7 +2941,6 @@ select {
     linear-gradient(#ffffff, #ffffff) padding-box,
     linear-gradient(135deg, #ff241f, #2f48ff) border-box;
   border: 1px solid transparent;
-  box-shadow: 0 18px 40px rgba(47, 72, 255, 0.12);
   text-align: left;
   cursor: default;
 }
@@ -5680,6 +5753,14 @@ select {
   .graystone-maxpreps-context {
     inline-size: 100%;
     max-inline-size: none;
+  }
+
+  .graystone-maxpreps-context__marketing-options {
+    grid-template-columns: 1fr;
+  }
+
+  .graystone-maxpreps-context__marketing-divider {
+    display: none;
   }
 
   .graystone-maxpreps-video__surface {
