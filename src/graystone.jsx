@@ -218,7 +218,7 @@ const MAXPREPS_FOLLOWED_PLAYERS = [
     name: "Pamela Mosciski",
     teamId: "campbell-hall",
     detail: "SF · 2026 · Studio City, CA",
-    avatar: "person-4.png",
+    avatar: "person-2.png",
   },
   {
     id: "iliolo",
@@ -232,7 +232,7 @@ const MAXPREPS_FOLLOWED_PLAYERS = [
     name: "Lincoln Frazier",
     teamId: "millwood",
     detail: "QB · 2027 · Oklahoma City, OK",
-    avatar: "person-2.png",
+    avatar: "person-4.png",
   },
   {
     id: "watts",
@@ -306,12 +306,14 @@ const MAXPREPS_CONTENT_PREFERENCE_DEFAULTS = Object.fromEntries(
 
 const MAXPREPS_SPORT_FILTER_OPTIONS = {
   sports: [
+    { id: "all", label: "All sports" },
     { id: "football", label: "Football" },
     { id: "basketball", label: "Basketball" },
     { id: "baseball", label: "Baseball" },
     { id: "flag-football", label: "Flag football" },
   ],
   genders: [
+    { id: "all", label: "All genders" },
     { id: "boys", label: "Boys" },
     { id: "girls", label: "Girls" },
     { id: "coed", label: "Coed" },
@@ -323,12 +325,11 @@ const MAXPREPS_SPORT_FILTER_OPTIONS = {
   ],
 };
 
-const MAXPREPS_SPORT_FILTER_DEFAULTS = Object.fromEntries(
-  Object.entries(MAXPREPS_SPORT_FILTER_OPTIONS).map(([group, options]) => [
-    group,
-    Object.fromEntries(options.map((option) => [option.id, true])),
-  ]),
-);
+const MAXPREPS_SPORT_FILTER_DEFAULTS = {
+  sports: "all",
+  genders: "all",
+  levels: "varsity",
+};
 
 function inferFacetSport(sourceText) {
   if (sourceText.includes("flag football")) return "flag-football";
@@ -376,11 +377,10 @@ function getItemFacets(item = {}) {
   return { sport, gender, level };
 }
 
-function matchesFilterGroup(value, groupState) {
-  const selections = Object.values(groupState);
-  if (selections.every(Boolean)) return true;
+function matchesFilterGroup(value, selectedValue) {
+  if (selectedValue === "all") return true;
   if (!value) return true;
-  return groupState[value] ?? false;
+  return value === selectedValue;
 }
 
 function matchesSportFilters(item, filters) {
@@ -1705,16 +1705,20 @@ function GraystoneMaxPrepsHomePage({ isAuthenticated, onRequestSearch, onRequest
     selectedPlayer === "all"
       ? "all"
       : followedPlayers.find((player) => player.id === selectedPlayer)?.teamId ?? "all";
-  const filteredPlaylist = (isNationalMode ? MAXPREPS_VIDEO_PLAYLIST_NATIONAL : MAXPREPS_VIDEO_PLAYLIST).filter(
+  const playlistSource = isNationalMode ? MAXPREPS_VIDEO_PLAYLIST_NATIONAL : MAXPREPS_VIDEO_PLAYLIST;
+  const filteredPlaylist = playlistSource.filter(
     (item) =>
       matchesSportFilters(item, sportFilters) &&
       (isNationalMode ||
         ((selectedTeam === "all" || item.teamId === selectedTeam) &&
           (selectedPlayer === "all" || selectedPlayerTeamId === item.teamId))),
   );
-  const featuredVideo = filteredPlaylist[0] ?? MAXPREPS_VIDEO_PLAYLIST[0];
+  const shelfVideos = [
+    ...filteredPlaylist,
+    ...playlistSource.filter((item) => !filteredPlaylist.some((filteredItem) => filteredItem.id === item.id)),
+  ].slice(0, 4);
+  const featuredVideo = filteredPlaylist[0] ?? playlistSource[0];
   const playlistItems = filteredPlaylist.slice(1);
-  const shelfVideos = filteredPlaylist.slice(0, 4);
   const filteredGames = (isNationalMode ? MAXPREPS_UPCOMING_GAMES_NATIONAL : MAXPREPS_UPCOMING_GAMES).filter(
     (item) =>
       matchesSportFilters(item, sportFilters) &&
@@ -1864,28 +1868,26 @@ function GraystoneMaxPrepsHomePage({ isAuthenticated, onRequestSearch, onRequest
                 {Object.entries(MAXPREPS_SPORT_FILTER_OPTIONS).map(([group, options]) => (
                   <section key={group} className="graystone-maxpreps-filter-group">
                     <span className="graystone-kicker graystone-kicker--dark">
-                      {group === "sports" ? "Sports" : group === "genders" ? "Roster type" : "Level"}
+                      {group === "sports" ? "Sports" : group === "genders" ? "Gender" : "Level"}
                     </span>
-                    <div className="graystone-maxpreps-preferences-modal__options graystone-maxpreps-preferences-modal__options--compact">
-                      {options.map((option) => (
-                        <label key={option.id} className="graystone-maxpreps-preferences-modal__option">
-                          <input
-                            type="checkbox"
-                            checked={sportFilters[group][option.id]}
-                            onChange={() =>
-                              setSportFilters((current) => ({
-                                ...current,
-                                [group]: {
-                                  ...current[group],
-                                  [option.id]: !current[group][option.id],
-                                },
-                              }))
-                            }
-                          />
-                          <span>{option.label}</span>
-                        </label>
-                      ))}
-                    </div>
+                    <label className="graystone-maxpreps-filter-group__select-wrap">
+                      <select
+                        className="graystone-maxpreps-filter-group__select"
+                        value={sportFilters[group]}
+                        onChange={(event) =>
+                          setSportFilters((current) => ({
+                            ...current,
+                            [group]: event.target.value,
+                          }))
+                        }
+                      >
+                        {options.map((option) => (
+                          <option key={option.id} value={option.id}>
+                            {option.label}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
                   </section>
                 ))}
               </div>
