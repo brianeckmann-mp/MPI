@@ -1,8 +1,11 @@
 import { useEffect, useId, useRef, useState } from "react";
 import { Agentation } from "agentation";
 import { initShowcase } from "./showcase";
+import { GraystoneExperience, GRAYSTONE_PAGES } from "./graystone";
 
-const NAV_ITEMS = ["index", "AI", "system", "brand", "about"];
+const NAV_ITEMS = ["index", "AI", "system", "brand", "projects", "about"];
+const STANDALONE_PAGES = [...GRAYSTONE_PAGES, "unified-playon-design"];
+const ALL_PAGES = [...NAV_ITEMS, ...STANDALONE_PAGES];
 const TEAM_THEMES = [
   { name: "Red", primary: "#CC0022", secondary: "#8F0018", dark: "#52000E" },
   { name: "Pink", primary: "#CD0066", secondary: "#A30052", dark: "#5A002D" },
@@ -18,7 +21,10 @@ const TEAM_THEMES = [
 function getPageFromHash() {
   const rawHash = window.location.hash.replace(/^#/, "");
   const normalized = rawHash.toLowerCase();
-  return NAV_ITEMS.find((item) => item.toLowerCase() === normalized) ?? "index";
+  if (normalized === "unified-playon-design") {
+    return "graystone-home";
+  }
+  return ALL_PAGES.find((item) => item.toLowerCase() === normalized) ?? "index";
 }
 
 function MaxPrepsLogo({ fill = "#E10500" }) {
@@ -1100,6 +1106,57 @@ function AboutPage() {
   );
 }
 
+function ProjectsPage({ onOpenProject }) {
+  const cards = [
+    {
+      title: "Unified PlayOn Design",
+      meta: "Project Graystone",
+      description: "A unified design vision and experience for the PlayOn product portfolio",
+      action: () => onOpenProject("graystone-home"),
+    },
+    {
+      title: "Project 02",
+      meta: "Project",
+      disabled: true,
+    },
+    {
+      title: "Project 03",
+      meta: "Project",
+      disabled: true,
+    },
+  ];
+
+  return (
+    <main className="scene-rail scene-rail--home">
+      <section className="scene scene--projects is-active" aria-label="Projects">
+        <div className="scene__inner scene__inner--home">
+          <div className="projects-page">
+            {cards.map((card) => {
+              const isInteractive = Boolean(card.action);
+              const Tag = isInteractive ? "button" : "div";
+
+              return (
+                <Tag
+                  key={card.title}
+                  className={`project-card${isInteractive ? " is-link" : ""}${card.disabled ? " is-disabled" : ""}`}
+                  type={isInteractive ? "button" : undefined}
+                  onClick={card.action}
+                >
+                  <p className="project-card__meta">{card.meta}</p>
+                  <h2>{card.title}</h2>
+                  {card.description ? (
+                    <p className="project-card__description">{card.description}</p>
+                  ) : null}
+                </Tag>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+    </main>
+  );
+}
+
 function PlaceholderPage({ title }) {
   const variant = title.toLowerCase() === "brand" ? "brand" : "about";
 
@@ -1131,6 +1188,7 @@ function PlaceholderPage({ title }) {
 export default function App() {
   const [currentPage, setCurrentPage] = useState(() => getPageFromHash());
   const [introState, setIntroState] = useState("active");
+  const isStandalonePage = STANDALONE_PAGES.includes(currentPage);
 
   useEffect(() => {
     const handleHashChange = () => {
@@ -1162,7 +1220,7 @@ export default function App() {
 
   return (
     <>
-      {introState !== "done" ? (
+      {introState !== "done" && currentPage === "index" ? (
         <IntroGate
           state={introState}
           currentPage={currentPage}
@@ -1174,27 +1232,29 @@ export default function App() {
         />
       ) : null}
 
-      <header className="site-header" aria-label="Primary">
-        <div className="site-brandmark" aria-label="MaxPreps">
-          <MaxPrepsWordmark />
-        </div>
-        <nav className="site-nav">
-          {NAV_ITEMS.map((item) => (
-            <button
-              key={item}
-              className={`site-nav__link${item === currentPage ? " is-active" : ""}`}
-              type="button"
-              aria-current={item === currentPage ? "page" : undefined}
-              onClick={() => {
-                setCurrentPage(item);
-                window.history.replaceState(null, "", `#${item.toLowerCase()}`);
-              }}
-            >
-              {item}
-            </button>
-          ))}
-        </nav>
-      </header>
+      {!isStandalonePage ? (
+        <header className="site-header" aria-label="Primary">
+          <div className="site-brandmark" aria-label="MaxPreps">
+            <MaxPrepsWordmark />
+          </div>
+          <nav className="site-nav">
+            {NAV_ITEMS.map((item) => (
+              <button
+                key={item}
+                className={`site-nav__link${item === currentPage ? " is-active" : ""}`}
+                type="button"
+                aria-current={item === currentPage ? "page" : undefined}
+                onClick={() => {
+                  setCurrentPage(item);
+                  window.history.replaceState(null, "", `#${item.toLowerCase()}`);
+                }}
+              >
+                {item}
+              </button>
+            ))}
+          </nav>
+        </header>
+      ) : null}
 
       <svg aria-hidden="true" className="sprite-sheet">
         <symbol id="maxpreps-mark" viewBox="0 0 152 200">
@@ -1258,9 +1318,30 @@ export default function App() {
 
       {currentPage === "AI" ? <AiPage /> : null}
       {currentPage === "index" ? <HomePage /> : null}
+      {currentPage === "projects" ? (
+        <ProjectsPage
+          onOpenProject={(page) => {
+            setCurrentPage(page);
+            window.history.replaceState(null, "", `#${page.toLowerCase()}`);
+          }}
+        />
+      ) : null}
       {currentPage === "system" ? <SystemPage /> : null}
       {currentPage === "brand" ? <PlaceholderPage title="Brand" /> : null}
       {currentPage === "about" ? <AboutPage /> : null}
+      {GRAYSTONE_PAGES.includes(currentPage) ? (
+        <GraystoneExperience
+          currentPage={currentPage}
+          onNavigate={(page) => {
+            setCurrentPage(page);
+            window.history.replaceState(null, "", `#${page.toLowerCase()}`);
+          }}
+          onExit={(page) => {
+            setCurrentPage(page);
+            window.history.replaceState(null, "", `#${page.toLowerCase()}`);
+          }}
+        />
+      ) : null}
 
       {import.meta.env.DEV ? <Agentation /> : null}
     </>
