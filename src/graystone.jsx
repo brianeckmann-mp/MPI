@@ -4,10 +4,17 @@ import {
   faBaseball,
   faBasketball,
   faBuildingColumns,
+  faEnvelope,
+  faEye,
   faFootball,
+  faKey,
+  faLock,
+  faMobileScreenButton,
   faPeopleGroup,
+  faShieldHalved,
   faVolleyball,
 } from "@fortawesome/free-solid-svg-icons";
+import { faApple, faGoogle, faMicrosoft } from "@fortawesome/free-brands-svg-icons";
 import {
   GraystoneIconChevron,
   GraystoneIconFacebook,
@@ -30,7 +37,9 @@ export const GRAYSTONE_PAGES = [
   "graystone-home",
   "graystone-cross-brand-animations",
   "graystone-data-imagery",
+  "graystone-login",
   "graystone-playon-home",
+  "graystone-playon-hq",
   "graystone-maxpreps-home",
   "graystone-maxpreps-videos",
   "graystone-watch",
@@ -1366,7 +1375,7 @@ function GraystonePlayOnHomePage() {
 
         <div className="graystone-playon-hero__visual" aria-hidden="true">
           <div className="graystone-playon-hero__image">
-            <img src={`${baseUrl}playon-hero-transparent.png`} alt="" />
+            <img src={`${baseUrl}playon-hero.png`} alt="" />
           </div>
         </div>
       </section>
@@ -1452,6 +1461,22 @@ function GraystonePlayOnHomePage() {
         </div>
       </section>
 
+      <GraystonePlayOnFooter />
+    </section>
+  );
+}
+
+function GraystonePlayOnHqPage() {
+  return (
+    <section className="graystone-page graystone-playon-hq" aria-label="PlayOn HQ placeholder">
+      <div className="graystone-playon-hq__panel">
+        <span className="graystone-playon-kicker">PlayOn HQ</span>
+        <h1>Operations workspace placeholder.</h1>
+        <p>
+          This authenticated destination will become the PlayOn HQ concept page next. For now it
+          verifies that global Graystone auth controls navigation and page access.
+        </p>
+      </div>
       <GraystonePlayOnFooter />
     </section>
   );
@@ -1669,10 +1694,146 @@ function GraystoneCrossBrandIcon({ id }) {
   );
 }
 
-function GraystoneShell({ currentPage, onNavigate, onExit }) {
+function GraystoneLoginPage({ onSignIn }) {
+  return (
+    <section className="graystone-login" aria-label="Graystone sign in">
+      <div className="graystone-login__decor graystone-login__decor--left" aria-hidden="true" />
+      <div className="graystone-login__decor graystone-login__decor--right" aria-hidden="true" />
+
+      <div className="graystone-login__welcome">
+        <div className="graystone-login__account-tag">
+          <span />
+          <strong>One account.</strong>
+          <strong>All experiences.</strong>
+        </div>
+
+        <div>
+          <h1>Welcome back.</h1>
+          <p>Sign in to access your account across the PlayOn ecosystem.</p>
+        </div>
+
+        <div className="graystone-login__brands" aria-label="PlayOn ecosystem brands">
+          <span className="graystone-login__brand graystone-login__brand--playon">
+            <GraystonePlayOnWordmark />
+          </span>
+          <span className="graystone-login__brand graystone-login__brand--maxpreps">
+            <GraystoneMaxPrepsWordmark />
+          </span>
+          <span className="graystone-login__brand graystone-login__brand--nfhs">
+            <GraystoneNfhsWordmark />
+          </span>
+          <span className="graystone-login__brand graystone-login__brand--gofan">
+            <GraystoneGofanWordmark />
+          </span>
+        </div>
+      </div>
+
+      <form
+        className="graystone-login__card"
+        noValidate
+        onSubmit={(event) => {
+          event.preventDefault();
+          onSignIn();
+        }}
+      >
+        <div className="graystone-login__form-header">
+          <h2>Sign in</h2>
+          <p>Enter your email and password to continue.</p>
+        </div>
+
+        <label className="graystone-login__field">
+          <span>Email address</span>
+          <div>
+            <FontAwesomeIcon icon={faEnvelope} />
+            <input type="email" placeholder="name@example.com" />
+          </div>
+        </label>
+
+        <label className="graystone-login__field">
+          <span>Password</span>
+          <div>
+            <FontAwesomeIcon icon={faLock} />
+            <input type="password" placeholder="Enter your password" />
+            <FontAwesomeIcon icon={faEye} />
+          </div>
+        </label>
+
+        <div className="graystone-login__meta">
+          <label>
+            <input type="checkbox" />
+            <span>Keep me signed in</span>
+          </label>
+          <button type="button">Forgot password?</button>
+        </div>
+
+        <button type="submit" className="graystone-login__submit">
+          Sign in
+        </button>
+
+        <div className="graystone-login__divider">
+          <span>Or continue with</span>
+        </div>
+
+        <div className="graystone-login__providers" aria-label="Alternative sign in options">
+          <button type="button" aria-label="Continue with Google">
+            <FontAwesomeIcon icon={faGoogle} />
+          </button>
+          <button type="button" aria-label="Continue with Apple">
+            <FontAwesomeIcon icon={faApple} />
+          </button>
+          <button type="button" aria-label="Continue with Microsoft">
+            <FontAwesomeIcon icon={faMicrosoft} />
+          </button>
+          <button type="button" aria-label="Continue with single sign-on">
+            <FontAwesomeIcon icon={faKey} />
+          </button>
+        </div>
+
+        <p className="graystone-login__signup">
+          Don&apos;t have an account? <button type="button">Sign up</button>
+        </p>
+      </form>
+
+      <div className="graystone-login__trust">
+        <article>
+          <FontAwesomeIcon icon={faShieldHalved} />
+          <div>
+            <strong>Secure & trusted</strong>
+            <p>Your data is protected with enterprise-grade security.</p>
+          </div>
+        </article>
+        <article>
+          <FontAwesomeIcon icon={faPeopleGroup} />
+          <div>
+            <strong>One account. All access.</strong>
+            <p>Use one account to access PlayOn and all partner products.</p>
+          </div>
+        </article>
+        <article>
+          <FontAwesomeIcon icon={faMobileScreenButton} />
+          <div>
+            <strong>Anywhere, anytime</strong>
+            <p>Manage your teams, tickets, and experiences on the go.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+  );
+}
+
+function GraystoneShell({
+  currentPage,
+  isAuthenticated,
+  loginReturnPage,
+  onAuthChange,
+  onLoginReturnPageChange,
+  onNavigate,
+  onExit,
+}) {
   const isMaxPrepsPage =
     currentPage === "graystone-maxpreps-home" || currentPage === "graystone-maxpreps-videos";
-  const isPlayOnPage = currentPage === "graystone-playon-home";
+  const isPlayOnPage = currentPage === "graystone-playon-home" || currentPage === "graystone-playon-hq";
+  const isLoginPage = currentPage === "graystone-login";
   const isBrandHeaderPage = isMaxPrepsPage || isPlayOnPage;
   const isMaxPrepsVideosPage = currentPage === "graystone-maxpreps-videos";
   const isConceptPage =
@@ -1681,7 +1842,6 @@ function GraystoneShell({ currentPage, onNavigate, onExit }) {
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [searchContext, setSearchContext] = useState("general");
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [expandedBrands, setExpandedBrands] = useState(() => ["maxpreps"]);
   const brandMenuRef = useRef(null);
   const accountMenuRef = useRef(null);
@@ -1784,14 +1944,28 @@ function GraystoneShell({ currentPage, onNavigate, onExit }) {
     page = <GraystoneCrossBrandAnimationsPage />;
   } else if (currentPage === "graystone-data-imagery") {
     page = <GraystoneDataImageryPage />;
+  } else if (currentPage === "graystone-login") {
+    page = (
+      <GraystoneLoginPage
+        onSignIn={() => {
+          onAuthChange(true);
+          onNavigate(loginReturnPage);
+        }}
+      />
+    );
   } else if (currentPage === "graystone-playon-home") {
     page = <GraystonePlayOnHomePage />;
+  } else if (currentPage === "graystone-playon-hq") {
+    page = <GraystonePlayOnHqPage />;
   } else if (currentPage === "graystone-maxpreps-home") {
     page = (
       <GraystoneMaxPrepsHomePage
         isAuthenticated={isAuthenticated}
         onRequestSearch={openSearchWithContext}
-        onRequestSignIn={() => setIsAuthenticated(true)}
+        onRequestSignIn={() => {
+          onLoginReturnPageChange("graystone-maxpreps-home");
+          onNavigate("graystone-login");
+        }}
         onNavigate={onNavigate}
       />
     );
@@ -1814,6 +1988,8 @@ function GraystoneShell({ currentPage, onNavigate, onExit }) {
           ? " graystone--light"
           : isConceptPage
             ? " graystone--light graystone--concept-art"
+          : isLoginPage
+            ? " graystone--login"
           : isPlayOnPage
             ? " graystone--playon-light"
           : isMaxPrepsVideosPage
@@ -1824,7 +2000,7 @@ function GraystoneShell({ currentPage, onNavigate, onExit }) {
       }`}
       aria-label="Project Graystone"
     >
-      {!isConceptPage && (
+      {!isConceptPage && !isLoginPage && (
         <header className="graystone-header">
           {currentPage === "graystone-home" ? (
             <div className="graystone-header__inner graystone-header__inner--landing">
@@ -2014,19 +2190,67 @@ function GraystoneShell({ currentPage, onNavigate, onExit }) {
             <div className="graystone-maxpreps-cluster graystone-maxpreps-cluster--account">
               {isPlayOnPage ? (
                 <>
+                  {!isAuthenticated ? (
+                    <button
+                      type="button"
+                      className="graystone-maxpreps-link graystone-maxpreps-link--icon graystone-playon-header-login"
+                      onClick={() => {
+                        setOpenMenu(null);
+                        onLoginReturnPageChange("graystone-playon-home");
+                        onNavigate("graystone-login");
+                      }}
+                    >
+                      <GraystoneIconUser />
+                      <span>HQ Login</span>
+                    </button>
+                  ) : (
+                    <div ref={accountMenuRef} className="graystone-maxpreps-account graystone-playon-account">
+                      <button
+                        type="button"
+                        className={`graystone-maxpreps-account__trigger${openMenu === "account" ? " is-open" : ""}`}
+                        onClick={() => {
+                          setSearchOpen(false);
+                          setOpenMenu((value) => (value === "account" ? null : "account"));
+                        }}
+                        aria-haspopup="menu"
+                        aria-expanded={openMenu === "account"}
+                      >
+                        <span className="graystone-maxpreps-account__avatar" aria-hidden="true">
+                          {GRAYSTONE_SIMULATED_USER.avatar}
+                        </span>
+                        <span className="graystone-maxpreps-account__name">{GRAYSTONE_SIMULATED_USER.firstName}</span>
+                      </button>
+
+                      <div className={`graystone-maxpreps-account__menu${openMenu === "account" ? " is-open" : ""}`} role="menu" aria-label="Account menu">
+                        {GRAYSTONE_ACCOUNT_MENU.map((item) => (
+                          <button key={item.id} type="button" className="graystone-maxpreps-account__item" role="menuitem">
+                            {item.label}
+                          </button>
+                        ))}
+                        <button
+                          type="button"
+                          className="graystone-maxpreps-account__item graystone-maxpreps-account__item--logout"
+                          role="menuitem"
+                          onClick={() => {
+                            onAuthChange(false);
+                            setOpenMenu(null);
+                            setSearchOpen(false);
+                          }}
+                        >
+                          Log out
+                        </button>
+                      </div>
+                    </div>
+                  )}
                   <button
                     type="button"
-                    className="graystone-maxpreps-link graystone-maxpreps-link--icon graystone-playon-header-login"
+                    className="graystone-playon-header-demo"
                     onClick={() => {
-                      setIsAuthenticated(true);
                       setOpenMenu(null);
+                      onNavigate(isAuthenticated ? "graystone-playon-hq" : "graystone-playon-home");
                     }}
                   >
-                    <GraystoneIconUser />
-                    <span>HQ Login</span>
-                  </button>
-                  <button type="button" className="graystone-playon-header-demo">
-                    Book a demo
+                    {isAuthenticated ? "PlayOn HQ" : "Book a demo"}
                   </button>
                 </>
               ) : !isAuthenticated ? (
@@ -2034,8 +2258,9 @@ function GraystoneShell({ currentPage, onNavigate, onExit }) {
                   type="button"
                   className="graystone-maxpreps-link graystone-maxpreps-link--icon"
                   onClick={() => {
-                    setIsAuthenticated(true);
                     setOpenMenu(null);
+                    onLoginReturnPageChange(currentPage);
+                    onNavigate("graystone-login");
                   }}
                 >
                   <GraystoneIconUser />
@@ -2070,7 +2295,7 @@ function GraystoneShell({ currentPage, onNavigate, onExit }) {
                       className="graystone-maxpreps-account__item graystone-maxpreps-account__item--logout"
                       role="menuitem"
                       onClick={() => {
-                        setIsAuthenticated(false);
+                        onAuthChange(false);
                         setOpenMenu(null);
                         setSearchOpen(false);
                       }}
@@ -2197,7 +2422,7 @@ function GraystoneShell({ currentPage, onNavigate, onExit }) {
         </div>
       </div>
 
-      {currentPage !== "graystone-home" && (
+      {currentPage !== "graystone-home" && !isLoginPage && (
         <button
           type="button"
           className="graystone-home-button"
@@ -3719,8 +3944,24 @@ function GraystoneStudioPage() {
   );
 }
 
-export function GraystoneExperience({ currentPage, onNavigate, onExit }) {
+export function GraystoneExperience({
+  currentPage,
+  isAuthenticated,
+  loginReturnPage,
+  onAuthChange,
+  onLoginReturnPageChange,
+  onNavigate,
+  onExit,
+}) {
   return (
-    <GraystoneShell currentPage={currentPage} onNavigate={onNavigate} onExit={onExit} />
+    <GraystoneShell
+      currentPage={currentPage}
+      isAuthenticated={isAuthenticated}
+      loginReturnPage={loginReturnPage}
+      onAuthChange={onAuthChange}
+      onLoginReturnPageChange={onLoginReturnPageChange}
+      onNavigate={onNavigate}
+      onExit={onExit}
+    />
   );
 }

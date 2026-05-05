@@ -1188,6 +1188,8 @@ function PlaceholderPage({ title }) {
 export default function App() {
   const [currentPage, setCurrentPage] = useState(() => getPageFromHash());
   const [introState, setIntroState] = useState("active");
+  const [graystoneAuthenticated, setGraystoneAuthenticated] = useState(false);
+  const [graystoneLoginReturnPage, setGraystoneLoginReturnPage] = useState("graystone-playon-home");
   const isStandalonePage = STANDALONE_PAGES.includes(currentPage);
 
   useEffect(() => {
@@ -1332,6 +1334,10 @@ export default function App() {
       {GRAYSTONE_PAGES.includes(currentPage) ? (
         <GraystoneExperience
           currentPage={currentPage}
+          isAuthenticated={graystoneAuthenticated}
+          loginReturnPage={graystoneLoginReturnPage}
+          onAuthChange={setGraystoneAuthenticated}
+          onLoginReturnPageChange={setGraystoneLoginReturnPage}
           onNavigate={(page) => {
             setCurrentPage(page);
             window.history.replaceState(null, "", `#${page.toLowerCase()}`);
