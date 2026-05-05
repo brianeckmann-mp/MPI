@@ -1,4 +1,13 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faBaseball,
+  faBasketball,
+  faBuildingColumns,
+  faFootball,
+  faPeopleGroup,
+  faVolleyball,
+} from "@fortawesome/free-solid-svg-icons";
 import {
   GraystoneIconChevron,
   GraystoneIconFacebook,
@@ -19,7 +28,11 @@ import {
 
 export const GRAYSTONE_PAGES = [
   "graystone-home",
+  "graystone-cross-brand-animations",
+  "graystone-data-imagery",
+  "graystone-playon-home",
   "graystone-maxpreps-home",
+  "graystone-maxpreps-videos",
   "graystone-watch",
   "graystone-scores",
   "graystone-programs",
@@ -46,7 +59,7 @@ const HEADER_MENUS = [
 
 const LOCAL_PAGES = [
   { id: "graystone-home", label: "Home" },
-  { id: "graystone-watch", label: "Watch" },
+  { id: "graystone-maxpreps-videos", label: "Watch" },
   { id: "graystone-scores", label: "Scores" },
   { id: "graystone-programs", label: "Programs" },
   { id: "graystone-studio", label: "Studio" },
@@ -57,6 +70,93 @@ const BRAND_TREE = [
   { id: "maxpreps", label: "MaxPreps", logo: "mp.svg", links: ["Home", "Login", "Account"] },
   { id: "nfhs-network", label: "NFHS Network", logo: "nfhs.svg", links: ["Home", "Login", "Account"] },
   { id: "gofan", label: "GoFan", logo: "gf.svg", links: ["Home", "Login", "Account"] },
+];
+
+const CONCEPT_LINKS = [
+  {
+    id: "graystone-cross-brand-animations",
+    title: "Cross brand animations",
+    description: "Shared motion patterns for brand transitions, global navigation, and product handoffs.",
+  },
+];
+
+const DATA_IMAGERY_TOKEN_SETS = {
+  Symbols: ["TD", "Q4", "4TH & 1", "QB1", "WR", "DB", "INT", "FG", "PAT", "OT", "1ST", "3RD"],
+  Stats: ["RUSH", "PASS", "TKL", "SACK", "YDS", "REC", "AST", "COMP", "RTG", "AVG", "LONG", "SOLO"],
+  Names: ["JAXON 7", "MILES 12", "CARTER 30", "ELI 3", "NOAH 21", "TYLER 11", "MASON 8", "CAM 2"],
+  Scores: ["28-21", "FINAL", "14-10", "35-28", "7-0", "21-17", "Q2", "Q3", "11/14", "8:00P"],
+  Ecosystem: ["MAXPREPS", "GOFAN", "NFHS", "PLAYON", "ROSTER", "RANKINGS", "STREAM", "TICKETS", "HIGHLIGHTS"],
+};
+
+DATA_IMAGERY_TOKEN_SETS.Mixed = [
+  ...DATA_IMAGERY_TOKEN_SETS.Symbols,
+  ...DATA_IMAGERY_TOKEN_SETS.Stats,
+  ...DATA_IMAGERY_TOKEN_SETS.Names,
+  ...DATA_IMAGERY_TOKEN_SETS.Scores,
+  ...DATA_IMAGERY_TOKEN_SETS.Ecosystem,
+  "PLAYER OF THE GAME",
+  "STATE TOP 25",
+  "LIVE NOW",
+  "BOX SCORE",
+];
+
+const CROSS_BRAND_SPHERES = [
+  {
+    id: "send",
+    brandId: "playon",
+    iconId: "send",
+    sportIconId: "football",
+    label: "PlayOn",
+    description: "the operational hub for schools",
+    revealText: "all your events for game day",
+    colorA: "#2cd6df",
+    colorB: "#1397aa",
+    colorC: "#b9fbff",
+    iconColor: "#18c8d2",
+    delay: "0s",
+  },
+  {
+    id: "maxpreps",
+    brandId: "maxpreps",
+    iconId: "maxpreps",
+    sportIconId: "basketball",
+    label: "MaxPreps",
+    description: "scores, stats, and stories",
+    revealText: "the source for teams and athletes",
+    colorA: "#ff463f",
+    colorB: "#a80000",
+    colorC: "#ffd0ce",
+    iconColor: "#e10500",
+    delay: "-1.8s",
+  },
+  {
+    id: "play",
+    brandId: "nfhs-network",
+    iconId: "play",
+    sportIconId: "volleyball",
+    label: "NFHS Network",
+    description: "streaming",
+    revealText: "live and on-demand streaming",
+    colorA: "#ffe353",
+    colorB: "#c69000",
+    colorC: "#fff5b8",
+    iconColor: "#d9a900",
+    delay: "-3.1s",
+  },
+  {
+    id: "ticket",
+    brandId: "gofan",
+    iconId: "ticket",
+    sportIconId: "softball",
+    label: "Ticket",
+    description: "ticketing",
+    revealText: "game and event ticketing",
+    colorA: "#6f7275",
+    colorB: "#242628",
+    colorC: "#f2f2f0",
+    iconColor: "#3f4143",
+    delay: "-4.4s",
+  },
 ];
 
 const MAXPREPS_HOME_LINKS = ["Photos", "Videos", "News", "Tickets", "Watch"];
@@ -77,6 +177,29 @@ const MAXPREPS_SPORTS_MENU = {
   girls: ["Basketball", "Softball", "Volleyball", "Soccer", "Lacrosse", "Flag Football"],
   coed: ["Track & Field", "Cross Country", "Swimming", "Tennis", "Golf", "Cheer"],
 };
+
+const PLAYON_AUDIENCE_MENUS = [
+  {
+    id: "playon-schools",
+    label: "Schools & Organizations",
+    header: "For schools and organizations",
+    action: "All school solutions",
+    groups: {
+      operations: ["PlayOn HQ", "Event setup", "Reporting", "Fundraising"],
+      gameday: ["Digital ticketing", "Streaming workflows", "Fan messaging", "Check-in tools"],
+    },
+  },
+  {
+    id: "playon-fans",
+    label: "Fans & Families",
+    header: "For fans and families",
+    action: "All fan experiences",
+    groups: {
+      access: ["Buy tickets", "Find events", "Season passes", "Mobile entry"],
+      moments: ["Watch live", "Highlights", "Scores", "Stories"],
+    },
+  },
+];
 
 const BRAND_SWITCHER_ITEMS = [
   { id: "playon", label: "PlayOn" },
@@ -163,6 +286,59 @@ const WATCH_RAILS = [
     ],
   },
 ];
+
+const WATCH_PAGE_FEATURED_VIDEO = {
+  title: "Millwood freshman watchlist: top plays and scouting notes",
+  description:
+    "A rebuilt watch surface for Graystone MaxPreps, centered on one primary viewing canvas with supporting context and an always-available next-up rail.",
+  channel: "Freshman All-America",
+  date: "Nov 14, 2025",
+  views: "214,203 views",
+  duration: "12:48",
+  badge: "Featured",
+  detail: "Football · Player spotlight",
+  thumbnail: "/MPI/thumbnail-1.png",
+};
+
+const WATCH_PAGE_PLAYLIST = [
+  {
+    id: "watch-1",
+    title: "Campbell Hall fourth-quarter run",
+    detail: "Boys Basketball · Replay",
+    duration: "6:12",
+    thumbnail: "/MPI/thumbnail-2.png",
+  },
+  {
+    id: "watch-2",
+    title: "Mater Dei red-zone drives",
+    detail: "Friday night recap",
+    duration: "8:04",
+    thumbnail: "/MPI/thumbnail-3.png",
+  },
+  {
+    id: "watch-3",
+    title: "Lincoln Frazier film study",
+    detail: "QB mechanics",
+    duration: "4:58",
+    thumbnail: "/MPI/thumbnail-8.png",
+  },
+  {
+    id: "watch-4",
+    title: "Friday night spotlight: instant-impact plays",
+    detail: "National watchlist",
+    duration: "7:24",
+    thumbnail: "/MPI/thumbnail-4.png",
+  },
+  {
+    id: "watch-5",
+    title: "Top performers across boys and girls hoops",
+    detail: "Weekend recap",
+    duration: "5:48",
+    thumbnail: "/MPI/thumbnail-5.png",
+  },
+];
+
+const WATCH_PAGE_CHANNELS = ["For you", "Highlights", "Shows", "Plays", "Rankings", "Playlists"];
 
 const SCORE_ROWS = [
   { time: "Final", matchup: "Millwood 24 · Carl Albert 17", tag: "Top game", tone: "accent" },
@@ -1051,32 +1227,264 @@ function GraystoneMaxPrepsFooter() {
   );
 }
 
-function GraystoneMaxPrepsWordmark() {
+function GraystonePlayOnFooter() {
+  const footerGroups = [
+    { title: "Products", links: ["PlayOn HQ", "GoFan", "NFHS Network", "MaxPreps"] },
+    { title: "Company", links: ["About", "Careers", "Newsroom", "Contact"] },
+    { title: "Customers", links: ["Schools", "Districts", "Athletic directors", "Fans"] },
+    { title: "Support", links: ["Help center", "Ticket support", "Streaming support", "Status"] },
+  ];
+
+  return (
+    <footer className="graystone-playon-footer" aria-label="PlayOn footer">
+      <div className="graystone-playon-footer__inner">
+        <div className="graystone-playon-footer__brand">
+          <GraystonePlayOnWordmark wordFill="#FBFAF8" />
+          <p>One connected platform for school events, fans, and communities.</p>
+        </div>
+
+        <div className="graystone-playon-footer__social" aria-label="Social links">
+          <button type="button" aria-label="Facebook">
+            <GraystoneIconFacebook />
+          </button>
+          <button type="button" aria-label="Instagram">
+            <GraystoneIconInstagram />
+          </button>
+          <button type="button" aria-label="TikTok">
+            <GraystoneIconTikTok />
+          </button>
+          <button type="button" aria-label="YouTube">
+            <GraystoneIconYoutube />
+          </button>
+          <button type="button" aria-label="X">
+            <GraystoneIconX />
+          </button>
+        </div>
+
+        <nav className="graystone-playon-footer__links" aria-label="Footer links">
+          {footerGroups.map((group) => (
+            <div key={group.title}>
+              <strong>{group.title}</strong>
+              {group.links.map((link) => (
+                <button key={link} type="button">
+                  {link}
+                </button>
+              ))}
+            </div>
+          ))}
+        </nav>
+
+        <div className="graystone-playon-footer__legal">
+          <p>© 2026 PlayOn Sports.</p>
+          <p>PlayOn powers game day across ticketing, streaming, scores, stats, and stories.</p>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+function GraystonePlayOnHomePage() {
+  const baseUrl = import.meta.env.BASE_URL;
+  const metrics = [
+    ["27K+", "schools and districts"],
+    ["2.5M+", "events powered yearly"],
+    ["18M+", "fans connected"],
+    ["4", "trusted ecosystem brands"],
+  ];
+  const ecosystem = [
+    {
+      brand: "GoFan",
+      logo: <GraystoneGofanWordmark />,
+      detail: "Digital ticketing and event access for schools and fans.",
+      stats: [
+        ["750K", "Events each year"],
+        ["7,500", "Schools ticketing"],
+        ["40", "Postseason partnerships"],
+      ],
+    },
+    {
+      brand: "NFHS Network",
+      logo: <GraystoneNfhsWordmark />,
+      detail: "Live and on-demand streaming for school communities.",
+      stats: [
+        ["600K", "Events each year"],
+        ["8,500", "Schools broadcasting"],
+        ["46", "Postseason partnerships"],
+      ],
+    },
+    {
+      brand: "MaxPreps",
+      logo: <GraystoneMaxPrepsWordmark />,
+      detail: "Scores, stats, rankings, rosters, stories, and athletes.",
+      stats: [
+        ["50M", "Visitors each year"],
+        ["525K", "Teams covered"],
+        ["2.5M", "Student athletes"],
+      ],
+    },
+  ];
+  const timeline = [
+    ["Before the game", "Publish events, manage tickets, promote matchups, and set streaming coverage."],
+    ["Game night", "Scan tickets, capture highlights, stream live, and keep fans connected."],
+    ["After the buzzer", "Surface scores, stats, stories, replays, and community moments."],
+  ];
+
+  return (
+    <section className="graystone-page graystone-playon-homepage" aria-label="PlayOn home page">
+      <section className="graystone-playon-hero">
+        <div className="graystone-playon-hero__copy">
+          <span className="graystone-playon-kicker">Connected. Seamless. Powerful.</span>
+          <h1>
+            One event.
+            <span>More impact.</span>
+          </h1>
+          <p>
+            PlayOn brings the full high school event ecosystem together, from school operations to ticketing,
+            streaming, scores, stories, and fan experiences.
+          </p>
+          <div className="graystone-playon-hero__actions">
+            <button type="button" className="graystone-playon-audience-cta graystone-playon-audience-cta--school">
+              <i aria-hidden="true">
+                <FontAwesomeIcon icon={faBuildingColumns} />
+              </i>
+              <span>
+                <strong>Schools & Organizations</strong>
+                <small>Manage ticketing, streaming, and stats for your programs</small>
+              </span>
+              <b>Grow your school</b>
+            </button>
+            <button type="button" className="graystone-playon-audience-cta graystone-playon-audience-cta--fan">
+              <i aria-hidden="true">
+                <FontAwesomeIcon icon={faPeopleGroup} />
+              </i>
+              <span>
+                <strong>Fans & Families</strong>
+                <small>Buy tickets, watch games, and follow your favorite teams</small>
+              </span>
+              <b>Find your school</b>
+            </button>
+          </div>
+        </div>
+
+        <div className="graystone-playon-hero__visual" aria-hidden="true">
+          <div className="graystone-playon-hero__image">
+            <img src={`${baseUrl}playon-hero-transparent.png`} alt="" />
+          </div>
+        </div>
+      </section>
+
+      <section className="graystone-playon-metrics" aria-label="PlayOn scale">
+        {metrics.map(([value, label]) => (
+          <div key={label}>
+            <strong>{value}</strong>
+            <span>{label}</span>
+          </div>
+        ))}
+      </section>
+
+      <section className="graystone-playon-story" aria-label="Every game has a story">
+        <div className="graystone-playon-story__media">
+          <img src={`${baseUrl}image-2.jpg`} alt="" />
+          <img src={`${baseUrl}image-4.jpg`} alt="" />
+          <img src={`${baseUrl}image-5.jpg`} alt="" />
+        </div>
+        <div className="graystone-playon-story__copy">
+          <span className="graystone-playon-kicker">Every game has a story.</span>
+          <h2>From the first ticket scanned to the final highlight shared.</h2>
+          <p>
+            The best school experiences do not live in one product. PlayOn connects the operational, fan,
+            media, and athlete layers so every game can become a larger community moment.
+          </p>
+        </div>
+      </section>
+
+      <section className="graystone-playon-ecosystem" aria-label="PlayOn ecosystem">
+        <div className="graystone-playon-section-heading">
+          <span className="graystone-playon-kicker">Trusted brands. Proven at scale.</span>
+          <h2>One connected ecosystem for the entire event lifecycle.</h2>
+        </div>
+        <div className="graystone-playon-ecosystem__grid">
+          {ecosystem.map((item) => (
+            <article key={item.brand} className={`graystone-playon-ecosystem__card graystone-playon-ecosystem__card--${item.brand.toLowerCase().replaceAll(" ", "-")}`}>
+              <div className="graystone-playon-ecosystem__intro">
+                <div className="graystone-playon-ecosystem__logo">{item.logo}</div>
+                <p>{item.detail}</p>
+              </div>
+              <div className="graystone-playon-ecosystem__stats">
+                {item.stats.map(([value, label]) => (
+                  <div key={label} className="graystone-playon-ecosystem__stat">
+                    <strong>{value}</strong>
+                    <span>{label}</span>
+                  </div>
+                ))}
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="graystone-playon-timeline" aria-label="Game day flow">
+        <div className="graystone-playon-timeline__layout">
+          <div className="graystone-playon-timeline__content">
+            <div className="graystone-playon-section-heading">
+              <span className="graystone-playon-kicker">One game. More impact.</span>
+              <h2>Connect the moments before, during, and after the event.</h2>
+            </div>
+            <div className="graystone-playon-timeline__grid">
+              {timeline.map(([title, body]) => (
+                <article key={title}>
+                  <h3>{title}</h3>
+                  <p>{body}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+          <figure className="graystone-playon-timeline__image">
+            <img src={`${baseUrl}image-6.jpg`} alt="" />
+          </figure>
+        </div>
+      </section>
+
+      <section className="graystone-playon-quote" aria-label="PlayOn quote">
+        <div>
+          <p>
+            "When every product is <em>connected</em>, game day becomes simpler for schools and more <em>meaningful</em> for fans."
+          </p>
+          <img src={`${baseUrl}image-7.png`} alt="" />
+        </div>
+      </section>
+
+      <GraystonePlayOnFooter />
+    </section>
+  );
+}
+
+function GraystoneMaxPrepsWordmark({ fill = "#E10500" }) {
   return (
     <svg width="88" height="25" viewBox="0 0 88 25" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <path fillRule="evenodd" clipRule="evenodd" d="M37.2423 0H32.4796L31.3496 3.94623C32.3062 4.24984 33.0013 5.16412 33.0013 6.24745C33.0013 7.57842 31.952 8.6564 30.6578 8.6564C29.3635 8.6564 28.3143 7.57698 28.3143 6.246C28.3143 5.15377 29.0211 4.23523 29.99 3.93944L28.8502 0H24.0732L27.8891 11.8578L23.6859 24.7059H28.5633L30.6721 17.989L32.7665 24.7059H37.6296L33.4552 11.8793L37.2423 0Z" fill="#E10500"/>
-      <path fillRule="evenodd" clipRule="evenodd" d="M28.9901 6.2933C28.9901 7.26982 29.746 8.06143 30.6783 8.06143C31.6107 8.06143 32.3665 7.26982 32.3665 6.2933C32.3665 5.31687 31.6107 4.52518 30.6783 4.52518C29.746 4.52518 28.9901 5.31687 28.9901 6.2933Z" fill="#E10500"/>
-      <path fillRule="evenodd" clipRule="evenodd" d="M87.3761 8.57489L87.9929 6.4057L86.2571 4.83929H80.519L77.9941 6.40578L76.7461 10.6372L81.8719 12.1493L81.4297 13.6689H80.4128L80.8075 12.3105H76.2727L75.5267 14.8773L77.3881 16.6404H82.8465L85.4968 14.9831L86.8453 10.3474L81.8071 8.87612L82.1256 7.81079H83.1441L82.9214 8.57489H87.3761Z" fill="#E10500"/>
-      <path fillRule="evenodd" clipRule="evenodd" d="M71.669 10.1031H70.62L71.3032 7.81079H72.3145L71.669 10.1031ZM77.21 6.43456L75.4562 4.83929H67.6774L64.256 16.6404H68.721L69.7754 12.9897H73.1323L75.7683 11.4213L77.21 6.43456Z" fill="#E10500"/>
-      <path fillRule="evenodd" clipRule="evenodd" d="M60.2585 13.0746L60.5767 11.9709H64.0011L64.9123 8.91449H61.4995L61.8124 7.81079H66.0313L66.8502 4.83929H58.1138L54.6816 16.6404H63.4072L64.4389 13.0746H60.2585Z" fill="#E10500"/>
-      <path fillRule="evenodd" clipRule="evenodd" d="M51.5073 9.42389H50.4306L50.8992 7.81079H51.974L51.5073 9.42389ZM54.0695 10.6001L55.9344 9.46558L56.7809 6.47642L55.0499 4.83929H47.2176L43.7946 16.6404H48.325L49.6881 11.9709H50.768L49.4109 16.6404H53.8436L55.2746 11.7072L54.0695 10.6001Z" fill="#E10500"/>
-      <path fillRule="evenodd" clipRule="evenodd" d="M40.4557 10.0803C40.4557 10.0803 39.3941 10.0973 39.3923 10.0973L40.0541 7.81079H41.1156L40.4557 10.0803ZM45.9572 6.44025L44.248 4.83929H36.6296L34.3707 11.8435L35.962 16.6404H37.4682L38.5549 12.9897H41.8472L44.5154 11.4482L45.9572 6.44025Z" fill="#E10500"/>
+      <path fillRule="evenodd" clipRule="evenodd" d="M37.2423 0H32.4796L31.3496 3.94623C32.3062 4.24984 33.0013 5.16412 33.0013 6.24745C33.0013 7.57842 31.952 8.6564 30.6578 8.6564C29.3635 8.6564 28.3143 7.57698 28.3143 6.246C28.3143 5.15377 29.0211 4.23523 29.99 3.93944L28.8502 0H24.0732L27.8891 11.8578L23.6859 24.7059H28.5633L30.6721 17.989L32.7665 24.7059H37.6296L33.4552 11.8793L37.2423 0Z" fill={fill}/>
+      <path fillRule="evenodd" clipRule="evenodd" d="M28.9901 6.2933C28.9901 7.26982 29.746 8.06143 30.6783 8.06143C31.6107 8.06143 32.3665 7.26982 32.3665 6.2933C32.3665 5.31687 31.6107 4.52518 30.6783 4.52518C29.746 4.52518 28.9901 5.31687 28.9901 6.2933Z" fill={fill}/>
+      <path fillRule="evenodd" clipRule="evenodd" d="M87.3761 8.57489L87.9929 6.4057L86.2571 4.83929H80.519L77.9941 6.40578L76.7461 10.6372L81.8719 12.1493L81.4297 13.6689H80.4128L80.8075 12.3105H76.2727L75.5267 14.8773L77.3881 16.6404H82.8465L85.4968 14.9831L86.8453 10.3474L81.8071 8.87612L82.1256 7.81079H83.1441L82.9214 8.57489H87.3761Z" fill={fill}/>
+      <path fillRule="evenodd" clipRule="evenodd" d="M71.669 10.1031H70.62L71.3032 7.81079H72.3145L71.669 10.1031ZM77.21 6.43456L75.4562 4.83929H67.6774L64.256 16.6404H68.721L69.7754 12.9897H73.1323L75.7683 11.4213L77.21 6.43456Z" fill={fill}/>
+      <path fillRule="evenodd" clipRule="evenodd" d="M60.2585 13.0746L60.5767 11.9709H64.0011L64.9123 8.91449H61.4995L61.8124 7.81079H66.0313L66.8502 4.83929H58.1138L54.6816 16.6404H63.4072L64.4389 13.0746H60.2585Z" fill={fill}/>
+      <path fillRule="evenodd" clipRule="evenodd" d="M51.5073 9.42389H50.4306L50.8992 7.81079H51.974L51.5073 9.42389ZM54.0695 10.6001L55.9344 9.46558L56.7809 6.47642L55.0499 4.83929H47.2176L43.7946 16.6404H48.325L49.6881 11.9709H50.768L49.4109 16.6404H53.8436L55.2746 11.7072L54.0695 10.6001Z" fill={fill}/>
+      <path fillRule="evenodd" clipRule="evenodd" d="M40.4557 10.0803C40.4557 10.0803 39.3941 10.0973 39.3923 10.0973L40.0541 7.81079H41.1156L40.4557 10.0803ZM45.9572 6.44025L44.248 4.83929H36.6296L34.3707 11.8435L35.962 16.6404H37.4682L38.5549 12.9897H41.8472L44.5154 11.4482L45.9572 6.44025Z" fill={fill}/>
       <mask id="graystone-maxpreps-wordmark-mask" style={{ maskType: "alpha" }} maskUnits="userSpaceOnUse" x="0" y="4" width="27" height="13">
         <path d="M0 4.83929H26.9243V16.6404H0V4.83929Z" fill="white"/>
       </mask>
       <g mask="url(#graystone-maxpreps-wordmark-mask)">
-        <path fillRule="evenodd" clipRule="evenodd" d="M20.9422 11.8873L22.7307 7.81079H23.0701L22.5883 11.8947L20.9422 11.8873ZM25.4179 16.6404L26.9242 11.8677L24.7285 4.83929H20.609L15.1 15.925L18.1682 4.83929H12.0824L8.82743 11.3845L9.34134 4.83929H3.27766L-0.000152588 16.6404H3.71681L5.75031 9.40691L5.56744 16.6404H9.30078L13.1526 9.40691L11.0868 16.6404H19.2077L20.0205 14.7346L22.2065 14.7378L21.9535 16.6404H25.4179Z" fill="#E10500"/>
+        <path fillRule="evenodd" clipRule="evenodd" d="M20.9422 11.8873L22.7307 7.81079H23.0701L22.5883 11.8947L20.9422 11.8873ZM25.4179 16.6404L26.9242 11.8677L24.7285 4.83929H20.609L15.1 15.925L18.1682 4.83929H12.0824L8.82743 11.3845L9.34134 4.83929H3.27766L-0.000152588 16.6404H3.71681L5.75031 9.40691L5.56744 16.6404H9.30078L13.1526 9.40691L11.0868 16.6404H19.2077L20.0205 14.7346L22.2065 14.7378L21.9535 16.6404H25.4179Z" fill={fill}/>
       </g>
     </svg>
   );
 }
 
-function GraystonePlayOnWordmark() {
+function GraystonePlayOnWordmark({ wordFill = "black", arrowFill = "#00C9D2" } = {}) {
   return (
     <svg width="346" height="103" viewBox="0 0 346 103" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <g clipPath="url(#graystone-playon-brandmark-clip)">
-        <path d="M330.8 26.2C324 26.2 318.1 29 312.8 34.6C313.1 31.4 312.9 29.3 312.9 27.8H293.6C293.6 31.9 293 35.6 291.8 42.9L290.8 48.8C290.6 36.3 280.8 26 265.4 26C257.5 26 249.9 28.9 244.1 33.8L247.6 27.8H228L213.6 55.9L209.1 27.8H177.8L173.9 31.6C171.9 28.8 166.8 26.3 161.5 26.3C148.1 26.3 138.5 34.6 134.7 46.3L142 0H121.9L114 49.6C115 37.4 108.3 26.3 95.5 26.3C88.9 26.2 84 28.3 79.9 33.6C79.9 31.2 79.8 29.3 79.5 27.7H61.7C61.7 31.8 61.4 35.2 60.2 42.5L49.4 102.6H69.5L74.7 73.7C78.2 75.9 83.4 76.9 85.9 76.9C99.9 76.9 109.9 67.8 113.2 55.2L109.6 75.4H129.7L133.3 55.3C133 66.8 139.7 76.9 151.9 76.9C158.6 76.9 163.5 74.8 167.7 69.5C167.7 71.9 167.8 73.8 168.1 75.4H185.8C185.8 71.3 186.1 67.9 187.3 60.6L191.6 36L200.7 75.4L184.4 102.6H204L235.1 49.3C235.1 49.5 235 49.6 235 49.8C232.5 64.3 242.8 77.2 260 77.2C272.5 77.2 284.8 69.8 289.2 57.9L286.1 75.3H306.2L310.1 53.5C311.5 45.4 316.1 42 319.7 42C322.8 42 325.3 44 324.4 48.4L319.7 75.2H339.9L345.1 44.9C347 33.2 340.5 26.2 330.8 26.2ZM93.7 51.6C92.4 58.7 88.7 63.2 83.8 63.2C78.9 63.2 76.5 58.7 77.9 51.6C79.3 44.3 82.9 40 87.8 40C92.7 40 94.9 44.3 93.7 51.6ZM169.6 51.6C168.2 58.9 164.6 63.2 159.7 63.2C154.8 63.2 152.6 58.9 153.8 51.6C155.1 44.5 158.8 40 163.7 40C168.6 40 171 44.5 169.6 51.6ZM270.5 51.9C268.8 61.4 264.5 63.5 261 63.5C256.8 63.5 253.2 60.7 254.9 51.2C256.6 41.7 260.8 39.6 264.4 39.6C268.5 39.6 272.2 42.5 270.5 51.9Z" fill="black"/>
-        <path d="M31.7 47.1L46.1 58.8L55.6 0.0999756L0 21.3L14.4 33L35.3 25L31.7 47.1Z" fill="#00C9D2"/>
+        <path d="M330.8 26.2C324 26.2 318.1 29 312.8 34.6C313.1 31.4 312.9 29.3 312.9 27.8H293.6C293.6 31.9 293 35.6 291.8 42.9L290.8 48.8C290.6 36.3 280.8 26 265.4 26C257.5 26 249.9 28.9 244.1 33.8L247.6 27.8H228L213.6 55.9L209.1 27.8H177.8L173.9 31.6C171.9 28.8 166.8 26.3 161.5 26.3C148.1 26.3 138.5 34.6 134.7 46.3L142 0H121.9L114 49.6C115 37.4 108.3 26.3 95.5 26.3C88.9 26.2 84 28.3 79.9 33.6C79.9 31.2 79.8 29.3 79.5 27.7H61.7C61.7 31.8 61.4 35.2 60.2 42.5L49.4 102.6H69.5L74.7 73.7C78.2 75.9 83.4 76.9 85.9 76.9C99.9 76.9 109.9 67.8 113.2 55.2L109.6 75.4H129.7L133.3 55.3C133 66.8 139.7 76.9 151.9 76.9C158.6 76.9 163.5 74.8 167.7 69.5C167.7 71.9 167.8 73.8 168.1 75.4H185.8C185.8 71.3 186.1 67.9 187.3 60.6L191.6 36L200.7 75.4L184.4 102.6H204L235.1 49.3C235.1 49.5 235 49.6 235 49.8C232.5 64.3 242.8 77.2 260 77.2C272.5 77.2 284.8 69.8 289.2 57.9L286.1 75.3H306.2L310.1 53.5C311.5 45.4 316.1 42 319.7 42C322.8 42 325.3 44 324.4 48.4L319.7 75.2H339.9L345.1 44.9C347 33.2 340.5 26.2 330.8 26.2ZM93.7 51.6C92.4 58.7 88.7 63.2 83.8 63.2C78.9 63.2 76.5 58.7 77.9 51.6C79.3 44.3 82.9 40 87.8 40C92.7 40 94.9 44.3 93.7 51.6ZM169.6 51.6C168.2 58.9 164.6 63.2 159.7 63.2C154.8 63.2 152.6 58.9 153.8 51.6C155.1 44.5 158.8 40 163.7 40C168.6 40 171 44.5 169.6 51.6ZM270.5 51.9C268.8 61.4 264.5 63.5 261 63.5C256.8 63.5 253.2 60.7 254.9 51.2C256.6 41.7 260.8 39.6 264.4 39.6C268.5 39.6 272.2 42.5 270.5 51.9Z" fill={wordFill}/>
+        <path d="M31.7 47.1L46.1 58.8L55.6 0.0999756L0 21.3L14.4 33L35.3 25L31.7 47.1Z" fill={arrowFill}/>
       </g>
       <defs>
         <clipPath id="graystone-playon-brandmark-clip">
@@ -1153,7 +1561,7 @@ function GraystoneBrandLogo({ brandId }) {
   return null;
 }
 
-function GraystoneBrandSwitcher({ onNavigate, onClose }) {
+function GraystoneBrandSwitcher({ activeBrandId = "maxpreps", onNavigate, onClose }) {
   return (
     <div className="graystone-brand-switcher" role="menu" aria-label="Brand switcher">
       {BRAND_SWITCHER_ITEMS.map((brand) => {
@@ -1161,10 +1569,12 @@ function GraystoneBrandSwitcher({ onNavigate, onClose }) {
           <button
             key={brand.id}
             type="button"
-            className={`graystone-brand-switcher__item${brand.id === "maxpreps" ? " is-active" : ""}`}
+            className={`graystone-brand-switcher__item${brand.id === activeBrandId ? " is-active" : ""}`}
             onClick={() => {
               if (brand.id === "maxpreps") {
                 onNavigate("graystone-maxpreps-home");
+              } else if (brand.id === "playon") {
+                onNavigate("graystone-playon-home");
               } else {
                 onNavigate("graystone-home");
               }
@@ -1181,7 +1591,94 @@ function GraystoneBrandSwitcher({ onNavigate, onClose }) {
   );
 }
 
+const GRAYSTONE_SPORT_ICON_MAP = {
+  football: faFootball,
+  basketball: faBasketball,
+  volleyball: faVolleyball,
+  softball: faBaseball,
+};
+
+function GraystoneSportIcon({ id }) {
+  return <FontAwesomeIcon icon={GRAYSTONE_SPORT_ICON_MAP[id] ?? faFootball} aria-hidden="true" />;
+}
+
+function GraystoneCrossBrandIcon({ id }) {
+  if (id === "football") {
+    return (
+      <svg viewBox="0 0 120 120" aria-hidden="true">
+        <path d="M20 72C26 47 50 27 78 24C96 22 103 29 100 45C96 70 70 91 43 94C26 96 16 88 20 72Z" fill="none" stroke="currentColor" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M39 81C55 70 72 54 90 33M53 55L67 69M58 50L72 64M64 44L78 58" fill="none" stroke="currentColor" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    );
+  }
+
+  if (id === "basketball") {
+    return (
+      <svg viewBox="0 0 120 120" aria-hidden="true">
+        <circle cx="60" cy="60" r="40" fill="none" stroke="currentColor" strokeWidth="6" />
+        <path d="M60 20C48 37 48 83 60 100M60 20C72 37 72 83 60 100M20 60H100M31 36C48 48 72 48 89 36M31 84C48 72 72 72 89 84" fill="none" stroke="currentColor" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    );
+  }
+
+  if (id === "volleyball") {
+    return (
+      <svg viewBox="0 0 120 120" aria-hidden="true">
+        <circle cx="60" cy="60" r="40" fill="none" stroke="currentColor" strokeWidth="6" />
+        <path d="M33 31C48 35 61 46 66 60M66 60C78 53 87 42 91 29M66 60C52 62 39 72 32 88M66 60C80 64 91 73 96 87M23 55C39 52 55 54 66 60" fill="none" stroke="currentColor" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    );
+  }
+
+  if (id === "softball") {
+    return (
+      <svg viewBox="0 0 120 120" aria-hidden="true">
+        <circle cx="60" cy="60" r="40" fill="none" stroke="currentColor" strokeWidth="6" />
+        <path d="M37 28C49 43 55 63 52 94M83 28C71 43 65 63 68 94" fill="none" stroke="currentColor" strokeWidth="6" strokeLinecap="round" />
+        <path d="M43 42L36 47M48 54L40 59M51 67L43 72M77 42L84 47M72 54L80 59M69 67L77 72" fill="none" stroke="currentColor" strokeWidth="5" strokeLinecap="round" />
+      </svg>
+    );
+  }
+
+  if (id === "play") {
+    return (
+      <svg viewBox="0 0 120 120" aria-hidden="true">
+        <path d="M31 21L96 60L31 99V21Z" fill="none" stroke="currentColor" strokeWidth="8" strokeLinejoin="miter" />
+      </svg>
+    );
+  }
+
+  if (id === "send") {
+    return (
+      <svg viewBox="0 0 120 120" aria-hidden="true">
+        <path d="M19 58L92 28L72 96L58 62L19 58Z" fill="none" stroke="currentColor" strokeWidth="8" strokeLinejoin="round" />
+      </svg>
+    );
+  }
+
+  if (id === "maxpreps") {
+    return (
+      <svg viewBox="0 0 120 120" aria-hidden="true">
+        <path d="M36 18H53L60 43L67 18H84L72 60L84 102H67L60 77L53 102H36L48 60L36 18Z" fill="none" stroke="currentColor" strokeWidth="7" strokeLinejoin="miter" />
+      </svg>
+    );
+  }
+
+  return (
+    <svg viewBox="0 0 120 120" aria-hidden="true">
+      <path d="M21 38H99V52C91 52 85 58 85 66C85 74 91 80 99 80V94H21V80C29 80 35 74 35 66C35 58 29 52 21 52V38Z" fill="none" stroke="currentColor" strokeWidth="7" strokeLinejoin="miter" />
+    </svg>
+  );
+}
+
 function GraystoneShell({ currentPage, onNavigate, onExit }) {
+  const isMaxPrepsPage =
+    currentPage === "graystone-maxpreps-home" || currentPage === "graystone-maxpreps-videos";
+  const isPlayOnPage = currentPage === "graystone-playon-home";
+  const isBrandHeaderPage = isMaxPrepsPage || isPlayOnPage;
+  const isMaxPrepsVideosPage = currentPage === "graystone-maxpreps-videos";
+  const isConceptPage =
+    currentPage === "graystone-cross-brand-animations" || currentPage === "graystone-data-imagery";
   const [openMenu, setOpenMenu] = useState(null);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
@@ -1263,6 +1760,12 @@ function GraystoneShell({ currentPage, onNavigate, onExit }) {
     setSearchOpen(true);
   };
 
+  const activeBrandId = isPlayOnPage ? "playon" : "maxpreps";
+  const brandHomePage = isPlayOnPage ? "graystone-playon-home" : "graystone-maxpreps-home";
+  const brandMenuLabel = "Sports";
+  const brandMenuHeader = "Popular sports";
+  const brandMenuHeaderLink = "All sports";
+
   let page = null;
 
   if (currentPage === "graystone-home") {
@@ -1279,14 +1782,23 @@ function GraystoneShell({ currentPage, onNavigate, onExit }) {
         }}
       />
     );
+  } else if (currentPage === "graystone-cross-brand-animations") {
+    page = <GraystoneCrossBrandAnimationsPage />;
+  } else if (currentPage === "graystone-data-imagery") {
+    page = <GraystoneDataImageryPage />;
+  } else if (currentPage === "graystone-playon-home") {
+    page = <GraystonePlayOnHomePage />;
   } else if (currentPage === "graystone-maxpreps-home") {
     page = (
       <GraystoneMaxPrepsHomePage
         isAuthenticated={isAuthenticated}
         onRequestSearch={openSearchWithContext}
         onRequestSignIn={() => setIsAuthenticated(true)}
+        onNavigate={onNavigate}
       />
     );
+  } else if (currentPage === "graystone-maxpreps-videos") {
+    page = <GraystoneWatchPage />;
   } else if (currentPage === "graystone-watch") {
     page = <GraystoneWatchPage />;
   } else if (currentPage === "graystone-scores") {
@@ -1302,80 +1814,145 @@ function GraystoneShell({ currentPage, onNavigate, onExit }) {
       className={`graystone${
         currentPage === "graystone-home"
           ? " graystone--light"
-          : currentPage === "graystone-maxpreps-home"
+          : isConceptPage
+            ? " graystone--light graystone--concept-art"
+          : isPlayOnPage
+            ? " graystone--playon-light"
+          : isMaxPrepsVideosPage
+            ? " graystone--maxpreps-dark"
+            : isMaxPrepsPage
             ? " graystone--maxpreps-light"
             : ""
       }`}
       aria-label="Project Graystone"
     >
-      <header className="graystone-header">
-        {currentPage === "graystone-home" ? (
-          <div className="graystone-header__inner graystone-header__inner--landing">
-            <div className="graystone-brand graystone-brand--landing">
-              <button className="graystone-brand__back" type="button" onClick={() => onExit("projects")}>
-                Back to Projects
-              </button>
-            </div>
-          </div>
-        ) : currentPage === "graystone-maxpreps-home" ? (
-          <div className="graystone-header__inner graystone-header__inner--maxpreps">
-            <div ref={brandMenuRef} className="graystone-maxpreps-cluster graystone-maxpreps-cluster--brand">
-              <button
-                type="button"
-                className="graystone-maxpreps-gridmenu"
-                aria-label="Open menu"
-                onClick={() => {
-                  setSearchOpen(false);
-                  setOpenMenu((value) => (value === "brands" ? null : "brands"));
-                }}
-              >
-                <GraystoneIconGridMenu />
-              </button>
-              <div className={`graystone-maxpreps-gridmenu-panel${openMenu === "brands" ? " is-open" : ""}`}>
-                <GraystoneBrandSwitcher onNavigate={onNavigate} onClose={() => setOpenMenu(null)} />
+      {!isConceptPage && (
+        <header className="graystone-header">
+          {currentPage === "graystone-home" ? (
+            <div className="graystone-header__inner graystone-header__inner--landing">
+              <div className="graystone-brand graystone-brand--landing">
+                <button className="graystone-brand__back" type="button" onClick={() => onExit("projects")}>
+                  Back to Projects
+                </button>
               </div>
-              <a className="graystone-maxpreps-logo" href="#graystone-maxpreps-home" onClick={(event) => event.preventDefault()}>
-                <GraystoneMaxPrepsWordmark />
-              </a>
+            </div>
+          ) : isBrandHeaderPage ? (
+            <div className="graystone-header__inner graystone-header__inner--maxpreps">
+              <div ref={brandMenuRef} className="graystone-maxpreps-cluster graystone-maxpreps-cluster--brand">
+                <button
+                  type="button"
+                  className="graystone-maxpreps-gridmenu"
+                  aria-label="Open menu"
+                  onClick={() => {
+                    setSearchOpen(false);
+                    setOpenMenu((value) => (value === "brands" ? null : "brands"));
+                  }}
+                >
+                  <GraystoneIconGridMenu />
+                </button>
+                <div className={`graystone-maxpreps-gridmenu-panel${openMenu === "brands" ? " is-open" : ""}`}>
+                  <GraystoneBrandSwitcher activeBrandId={activeBrandId} onNavigate={onNavigate} onClose={() => setOpenMenu(null)} />
+                </div>
+                <a
+                  className={`graystone-maxpreps-logo${isPlayOnPage ? " graystone-playon-logo" : ""}`}
+                  href={`#${brandHomePage}`}
+                  onClick={(event) => {
+                    event.preventDefault();
+                    onNavigate(brandHomePage);
+                  }}
+                >
+                  {isPlayOnPage ? (
+                    <GraystonePlayOnWordmark />
+                  ) : (
+                    <GraystoneMaxPrepsWordmark fill={isMaxPrepsVideosPage ? "#FF241F" : "#E10500"} />
+                  )}
+                </a>
 
-              <nav className="graystone-maxpreps-primary" aria-label="MaxPreps primary navigation">
-                <div className="graystone-maxpreps-nav">
-                  <button
-                    type="button"
-                    className={`graystone-maxpreps-nav__sports${openMenu === "sports" ? " is-open" : ""}`}
-                    onClick={() => {
-                      setSearchOpen(false);
-                      setOpenMenu((value) => (value === "sports" ? null : "sports"));
-                    }}
-                  >
-                    <span>Sports</span>
-                    <GraystoneIconChevron />
-                  </button>
-                  <div className={`graystone-maxpreps-sports${openMenu === "sports" ? " is-open" : ""}`}>
-                    <div className="graystone-maxpreps-sports__header">
-                      <strong>Popular sports</strong>
-                      <span>All sports</span>
-                    </div>
-                    <div className="graystone-maxpreps-sports__grid">
-                      {Object.entries(MAXPREPS_SPORTS_MENU).map(([group, items]) => (
-                        <div key={group} className="graystone-maxpreps-sports__column">
-                          <div className="graystone-maxpreps-sports__label">{group}</div>
-                          {items.map((item) => (
-                            <button key={item} type="button" className="graystone-maxpreps-sports__item">
-                              {item}
-                            </button>
+              <nav className="graystone-maxpreps-primary" aria-label={`${isPlayOnPage ? "PlayOn" : "MaxPreps"} primary navigation`}>
+                {isPlayOnPage ? (
+                  PLAYON_AUDIENCE_MENUS.map((menu) => (
+                    <div key={menu.id} className="graystone-maxpreps-nav">
+                      <button
+                        type="button"
+                        className={`graystone-maxpreps-nav__sports${openMenu === menu.id ? " is-open" : ""}`}
+                        onClick={() => {
+                          setSearchOpen(false);
+                          setOpenMenu((value) => (value === menu.id ? null : menu.id));
+                        }}
+                      >
+                        <span>{menu.label}</span>
+                        <GraystoneIconChevron />
+                      </button>
+                      <div className={`graystone-maxpreps-sports graystone-playon-audience-menu${openMenu === menu.id ? " is-open" : ""}`}>
+                        <div className="graystone-maxpreps-sports__header">
+                          <strong>{menu.header}</strong>
+                          <span>{menu.action}</span>
+                        </div>
+                        <div className="graystone-maxpreps-sports__grid">
+                          {Object.entries(menu.groups).map(([group, items]) => (
+                            <div key={group} className="graystone-maxpreps-sports__column">
+                              <div className="graystone-maxpreps-sports__label">{group}</div>
+                              {items.map((item) => (
+                                <button key={item} type="button" className="graystone-maxpreps-sports__item">
+                                  {item}
+                                </button>
+                              ))}
+                            </div>
                           ))}
                         </div>
-                      ))}
+                      </div>
                     </div>
-                  </div>
-                </div>
+                  ))
+                ) : (
+                  <>
+                    <div className="graystone-maxpreps-nav">
+                      <button
+                        type="button"
+                        className={`graystone-maxpreps-nav__sports${openMenu === "sports" ? " is-open" : ""}`}
+                        onClick={() => {
+                          setSearchOpen(false);
+                          setOpenMenu((value) => (value === "sports" ? null : "sports"));
+                        }}
+                      >
+                        <span>{brandMenuLabel}</span>
+                        <GraystoneIconChevron />
+                      </button>
+                      <div className={`graystone-maxpreps-sports${openMenu === "sports" ? " is-open" : ""}`}>
+                        <div className="graystone-maxpreps-sports__header">
+                          <strong>{brandMenuHeader}</strong>
+                          <span>{brandMenuHeaderLink}</span>
+                        </div>
+                        <div className="graystone-maxpreps-sports__grid">
+                          {Object.entries(MAXPREPS_SPORTS_MENU).map(([group, items]) => (
+                            <div key={group} className="graystone-maxpreps-sports__column">
+                              <div className="graystone-maxpreps-sports__label">{group}</div>
+                              {items.map((item) => (
+                                <button key={item} type="button" className="graystone-maxpreps-sports__item">
+                                  {item}
+                                </button>
+                              ))}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
 
-                {MAXPREPS_HOME_LINKS.map((item) => (
-                  <button key={item} type="button" className="graystone-maxpreps-link">
-                    {item}
-                  </button>
-                ))}
+                    {MAXPREPS_HOME_LINKS.map((item) => (
+                      <button
+                        key={item}
+                        type="button"
+                        className="graystone-maxpreps-link"
+                        onClick={() => {
+                          if (item === "Videos" || item === "Watch") {
+                            onNavigate("graystone-maxpreps-videos");
+                          }
+                        }}
+                      >
+                        {item}
+                      </button>
+                    ))}
+                  </>
+                )}
               </nav>
             </div>
 
@@ -1546,16 +2123,15 @@ function GraystoneShell({ currentPage, onNavigate, onExit }) {
             </div>
           </>
         )}
-      </header>
+        </header>
+      )}
 
       <div
-        className={`graystone-search-overlay${searchOpen ? " is-open" : ""}${
-          currentPage === "graystone-maxpreps-home" ? " graystone-search-overlay--maxpreps" : ""
-        }`}
+        className={`graystone-search-overlay${searchOpen ? " is-open" : ""}${isBrandHeaderPage ? " graystone-search-overlay--maxpreps" : ""}`}
         onClick={() => setSearchOpen(false)}
       >
         <div className="graystone-search-panel" onClick={(event) => event.stopPropagation()}>
-          {currentPage === "graystone-maxpreps-home" && searchContext !== "general" && (
+          {isMaxPrepsPage && searchContext !== "general" && (
             <div className="graystone-search-panel__context">
               <span className="graystone-kicker graystone-kicker--dark">
                 {searchContext === "team" ? "Add team to follow" : "Add player to follow"}
@@ -1641,6 +2217,9 @@ function GraystoneHomePage({ expandedBrands, onToggleBrand, onNavigate }) {
                       type="button"
                       className="graystone-tree-link"
                       onClick={() => {
+                        if (brand.id === "playon" && link === "Home") {
+                          onNavigate("graystone-playon-home");
+                        }
                         if (brand.id === "maxpreps" && link === "Home") {
                           onNavigate("graystone-maxpreps-home");
                         }
@@ -1655,11 +2234,450 @@ function GraystoneHomePage({ expandedBrands, onToggleBrand, onNavigate }) {
           );
         })}
       </div>
+      <section className="graystone-concept-links" aria-label="Concept links">
+        <div className="graystone-concept-links__header">
+          <span className="graystone-kicker">Concepts</span>
+          <h2>Concept art</h2>
+        </div>
+        <div className="graystone-concept-links__list">
+          {CONCEPT_LINKS.map((concept) => (
+            <button
+              key={concept.id}
+              type="button"
+              className="graystone-concept-link"
+              onClick={() => onNavigate(concept.id)}
+            >
+              <span>
+                <strong>{concept.title}</strong>
+                <small>{concept.description}</small>
+              </span>
+              <GraystoneIconChevron />
+            </button>
+          ))}
+        </div>
+      </section>
     </section>
   );
 }
 
-function GraystoneMaxPrepsHomePage({ isAuthenticated, onRequestSearch, onRequestSignIn }) {
+function GraystoneCrossBrandAnimationsPage() {
+  const [conceptScene, setConceptScene] = useState(0);
+  const railRef = useRef(null);
+  const conceptSceneRef = useRef(0);
+
+  useEffect(() => {
+    conceptSceneRef.current = conceptScene;
+  }, [conceptScene]);
+
+  useEffect(() => {
+    const rail = railRef.current;
+    if (!rail) {
+      return undefined;
+    }
+
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let wheelAccumulator = 0;
+    let touchStartY = 0;
+    let isSnapping = false;
+    let snapTimeoutId = 0;
+
+    const snapToScene = (index) => {
+      const nextScene = Math.max(0, Math.min(3, index));
+
+      isSnapping = true;
+      wheelAccumulator = 0;
+      conceptSceneRef.current = nextScene;
+      setConceptScene(nextScene);
+
+      window.clearTimeout(snapTimeoutId);
+      snapTimeoutId = window.setTimeout(() => {
+        isSnapping = false;
+      }, prefersReducedMotion ? 120 : 760);
+    };
+
+    const handleWheel = (event) => {
+      if (prefersReducedMotion || isSnapping) {
+        return;
+      }
+
+      event.preventDefault();
+      wheelAccumulator += event.deltaY;
+
+      if (Math.abs(wheelAccumulator) < 70) {
+        return;
+      }
+
+      const direction = wheelAccumulator > 0 ? 1 : -1;
+      snapToScene(conceptSceneRef.current + direction);
+    };
+
+    const handleKeydown = (event) => {
+      if (event.key === "ArrowDown" || event.key === "PageDown" || event.key === " ") {
+        event.preventDefault();
+        snapToScene(conceptSceneRef.current + 1);
+      }
+
+      if (event.key === "ArrowUp" || event.key === "PageUp") {
+        event.preventDefault();
+        snapToScene(conceptSceneRef.current - 1);
+      }
+    };
+
+    const handleTouchStart = (event) => {
+      touchStartY = event.changedTouches[0].clientY;
+    };
+
+    const handleTouchEnd = (event) => {
+      if (isSnapping) {
+        return;
+      }
+
+      const deltaY = touchStartY - event.changedTouches[0].clientY;
+      if (Math.abs(deltaY) < 44) {
+        return;
+      }
+
+      snapToScene(conceptSceneRef.current + (deltaY > 0 ? 1 : -1));
+    };
+
+    rail.addEventListener("wheel", handleWheel, { passive: false });
+    rail.addEventListener("touchstart", handleTouchStart, { passive: true });
+    rail.addEventListener("touchend", handleTouchEnd, { passive: true });
+    window.addEventListener("keydown", handleKeydown);
+
+    return () => {
+      window.clearTimeout(snapTimeoutId);
+      rail.removeEventListener("wheel", handleWheel);
+      rail.removeEventListener("touchstart", handleTouchStart);
+      rail.removeEventListener("touchend", handleTouchEnd);
+      window.removeEventListener("keydown", handleKeydown);
+    };
+  }, []);
+
+  return (
+    <section className="graystone-page graystone-page--concept-art" aria-label="Cross brand animations concept page">
+      <div
+        ref={railRef}
+        className={`graystone-concept-scroll${conceptScene >= 1 ? " is-transformed" : ""}${conceptScene >= 2 ? " is-sports" : ""}${conceptScene === 3 ? " is-reveal" : ""}`}
+        tabIndex={0}
+      >
+        <section className="graystone-concept-scene" aria-label="Brand logo and icon transformation">
+          <h1 className="graystone-concept-heading">The connected tissue of High School Sports</h1>
+          <h2 className="graystone-concept-heading graystone-concept-heading--transformed">
+            Making every game easier to find, follow, attend, watch, and celebrate for players, schools, families, and fans.
+          </h2>
+          <h2 className="graystone-concept-heading graystone-concept-heading--sports">
+            Making all high school sports moments relevant no matter the level.
+          </h2>
+          <h2 className="graystone-concept-heading graystone-concept-heading--reveal">
+            Connecting every step of the game day journey.
+          </h2>
+
+          <div className="graystone-concept-logo-row">
+            {CROSS_BRAND_SPHERES.map((sphere) => (
+              <div key={sphere.brandId} className={`graystone-concept-logo graystone-concept-logo--${sphere.brandId}`}>
+                <GraystoneBrandLogo brandId={sphere.brandId} />
+              </div>
+            ))}
+          </div>
+
+          <div className="graystone-concept-sphere-row graystone-concept-sphere-row--blank">
+            {CROSS_BRAND_SPHERES.map((sphere) => (
+              <div
+                key={sphere.id}
+                className={`graystone-concept-sphere graystone-concept-sphere--${sphere.id}`}
+                style={{
+                  "--sphere-a": sphere.colorA,
+                  "--sphere-b": sphere.colorB,
+                  "--sphere-c": sphere.colorC,
+                  "--icon-color": sphere.iconColor,
+                  "--sphere-delay": sphere.delay,
+                }}
+              >
+                <span className="graystone-concept-sphere__orb" />
+                <span className="graystone-concept-sphere__icon">
+                  <GraystoneCrossBrandIcon id={sphere.iconId} />
+                </span>
+                <span className="graystone-concept-sphere__sport-icon">
+                  <GraystoneSportIcon id={sphere.sportIconId} />
+                </span>
+                <span className="graystone-concept-sphere__caption">{sphere.description}</span>
+              </div>
+            ))}
+          </div>
+
+          <div className="graystone-concept-reveal-list" aria-hidden={conceptScene !== 3}>
+            {CROSS_BRAND_SPHERES.map((sphere, index) => (
+              <div
+                key={sphere.brandId}
+                className="graystone-concept-reveal-item"
+                style={{
+                  "--icon-color": sphere.iconColor,
+                  "--reveal-index": index,
+                  "--origin-x": `${(index - 1.5) * 14.8}rem`,
+                  "--origin-y": "0rem",
+                  "--stack-y": `${(index - 1.5) * 3.25}rem`,
+                  "--text-end": `${sphere.revealText.length + 1}ch`,
+                }}
+              >
+                <span className="graystone-concept-reveal-square" />
+                <span className="graystone-concept-reveal-text">{sphere.revealText}</span>
+              </div>
+            ))}
+          </div>
+
+          <button
+            type="button"
+            className="graystone-concept-scroll-cue"
+            onClick={() => {
+              const nextScene = conceptScene >= 3 ? 0 : conceptScene + 1;
+              conceptSceneRef.current = nextScene;
+              setConceptScene(nextScene);
+            }}
+            aria-label={conceptScene >= 3 ? "Return to brand logos" : "Advance brand animation"}
+          >
+            <span>Scroll</span>
+            <GraystoneIconChevron />
+          </button>
+        </section>
+      </div>
+    </section>
+  );
+}
+
+function graystoneClamp(value, min, max) {
+  return Math.min(max, Math.max(min, value));
+}
+
+function GraystoneDataPortraitCanvas({ imageSrc, settings, scrollProgress, recordingMode, canvasRef }) {
+  const wrapRef = useRef(null);
+  const pointerRef = useRef({ x: -9999, y: -9999, active: false });
+  const settingsRef = useRef(settings);
+  const progressRef = useRef(scrollProgress);
+
+  useEffect(() => {
+    settingsRef.current = settings;
+  }, [settings]);
+
+  useEffect(() => {
+    progressRef.current = scrollProgress;
+  }, [scrollProgress]);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const wrap = wrapRef.current;
+
+    if (!canvas || !wrap) {
+      return undefined;
+    }
+
+    const image = new Image();
+    image.crossOrigin = "anonymous";
+    image.src = imageSrc;
+
+    const sampleCanvas = document.createElement("canvas");
+    const sampleContext = sampleCanvas.getContext("2d", { willReadFrequently: true });
+    const context = canvas.getContext("2d");
+
+    let frameId = 0;
+    let resizeObserver = null;
+    let imageData = null;
+    let sampleWidth = 0;
+    let sampleHeight = 0;
+    let tokenIndex = 0;
+
+    const fitImage = (targetWidth, targetHeight) => {
+      const imageRatio = image.width / image.height;
+      const targetRatio = targetWidth / targetHeight;
+      let width = targetWidth;
+      let height = targetHeight;
+      let x = 0;
+      let y = 0;
+
+      if (imageRatio > targetRatio) {
+        height = targetHeight;
+        width = height * imageRatio;
+        x = (targetWidth - width) / 2;
+      } else {
+        width = targetWidth;
+        height = width / imageRatio;
+        y = (targetHeight - height) / 2;
+      }
+
+      return { x, y, width, height };
+    };
+
+    const prepareImageData = () => {
+      if (!image.complete || !image.naturalWidth || !sampleContext) {
+        return;
+      }
+
+      sampleWidth = Math.min(220, Math.max(120, Math.round(wrap.clientWidth / 4)));
+      sampleHeight = Math.max(160, Math.round(sampleWidth * (wrap.clientHeight / Math.max(1, wrap.clientWidth))));
+      sampleCanvas.width = sampleWidth;
+      sampleCanvas.height = sampleHeight;
+      sampleContext.clearRect(0, 0, sampleWidth, sampleHeight);
+      const fitted = fitImage(sampleWidth, sampleHeight);
+      sampleContext.drawImage(image, fitted.x, fitted.y, fitted.width, fitted.height);
+      imageData = sampleContext.getImageData(0, 0, sampleWidth, sampleHeight);
+    };
+
+    const getBrightness = (sampleX, sampleY) => {
+      if (!imageData) return 0;
+
+      const x = graystoneClamp(Math.round(sampleX), 0, sampleWidth - 1);
+      const y = graystoneClamp(Math.round(sampleY), 0, sampleHeight - 1);
+      const index = (y * sampleWidth + x) * 4;
+      const data = imageData.data;
+      return data[index] * 0.299 + data[index + 1] * 0.587 + data[index + 2] * 0.114;
+    };
+
+    const draw = (time = 0) => {
+      const rect = wrap.getBoundingClientRect();
+      const width = Math.max(1, Math.round(rect.width));
+      const height = Math.max(1, Math.round(rect.height));
+      const dpr = Math.min(2.5, window.devicePixelRatio || 1);
+
+      if (canvas.width !== Math.round(width * dpr) || canvas.height !== Math.round(height * dpr)) {
+        canvas.width = Math.round(width * dpr);
+        canvas.height = Math.round(height * dpr);
+        canvas.style.width = `${width}px`;
+        canvas.style.height = `${height}px`;
+        prepareImageData();
+      }
+
+      context.setTransform(dpr, 0, 0, dpr, 0, 0);
+      context.clearRect(0, 0, width, height);
+      context.fillStyle = "#0d0d0d";
+      context.fillRect(0, 0, width, height);
+
+      if (!imageData) {
+        frameId = window.requestAnimationFrame(draw);
+        return;
+      }
+
+      const activeSettings = settingsRef.current;
+      const tokenSet = DATA_IMAGERY_TOKEN_SETS[activeSettings.mode] ?? DATA_IMAGERY_TOKEN_SETS.Mixed;
+      const densityGap = graystoneClamp(24 - activeSettings.density * 2.3, 8, 19);
+      const fontSize = activeSettings.tokenSize;
+      const contrast = activeSettings.contrast / 50;
+      const dissolve = graystoneClamp(0.2 + progressRef.current * 0.9, 0, 1);
+      const motion = recordingMode ? 0 : activeSettings.motion / 100;
+      const pointer = pointerRef.current;
+
+      context.textAlign = "center";
+      context.textBaseline = "middle";
+      context.font = `600 ${fontSize}px "Chivo Mono", ui-monospace, monospace`;
+      context.shadowColor = "rgba(255, 255, 255, 0.08)";
+      context.shadowBlur = 5 * dissolve;
+      tokenIndex = 0;
+
+      for (let y = densityGap / 2; y < height; y += densityGap) {
+        for (let x = densityGap / 2; x < width; x += densityGap) {
+          const sampleX = (x / width) * sampleWidth;
+          const sampleY = (y / height) * sampleHeight;
+          const brightness = getBrightness(sampleX, sampleY);
+          const localContrast = Math.pow(brightness / 255, graystoneClamp(2.3 - contrast, 0.55, 2.5));
+          const edge =
+            Math.abs(getBrightness(sampleX + 1, sampleY) - getBrightness(sampleX - 1, sampleY)) +
+            Math.abs(getBrightness(sampleX, sampleY + 1) - getBrightness(sampleX, sampleY - 1));
+          const edgeBoost = graystoneClamp((edge / 255) * (activeSettings.edgeDetail / 36), 0, 0.55);
+          const alpha = graystoneClamp((localContrast + edgeBoost - 0.1) * dissolve, 0, 0.98);
+
+          const token = tokenSet[tokenIndex % tokenSet.length];
+          const wave = Math.sin(time * 0.0017 + x * 0.031 + y * 0.021) * motion * 5;
+          const pointerDistance = Math.hypot(pointer.x - x, pointer.y - y);
+          const pointerLift = pointer.active ? graystoneClamp(1 - pointerDistance / 170, 0, 1) * 9 : 0;
+          const isPortrait = alpha >= 0.18;
+
+          context.save();
+          context.translate(x + wave, y - pointerLift);
+          if (isPortrait) {
+            context.rotate((edgeBoost - 0.12) * 0.08 + Math.sin(time * 0.0007 + tokenIndex) * motion * 0.035);
+            context.globalAlpha = graystoneClamp(0.52 + alpha * 0.58, 0, 1);
+            context.fillStyle = "rgba(247, 247, 244, 0.96)";
+            context.fillText(token, 0, 0);
+          } else {
+            context.globalAlpha = 0.46;
+            context.fillStyle = "rgba(247, 247, 244, 0.78)";
+            context.fillText("·", 0, 0);
+          }
+          context.restore();
+          tokenIndex += 1;
+        }
+      }
+
+      frameId = window.requestAnimationFrame(draw);
+    };
+
+    const handlePointerMove = (event) => {
+      const rect = canvas.getBoundingClientRect();
+      pointerRef.current = {
+        x: event.clientX - rect.left,
+        y: event.clientY - rect.top,
+        active: true,
+      };
+    };
+
+    const handlePointerLeave = () => {
+      pointerRef.current.active = false;
+    };
+
+    const start = () => {
+      prepareImageData();
+      frameId = window.requestAnimationFrame(draw);
+    };
+
+    image.addEventListener("load", start);
+    canvas.addEventListener("pointermove", handlePointerMove);
+    canvas.addEventListener("pointerleave", handlePointerLeave);
+
+    resizeObserver = new ResizeObserver(() => prepareImageData());
+    resizeObserver.observe(wrap);
+
+    if (image.complete) {
+      start();
+    }
+
+    return () => {
+      image.removeEventListener("load", start);
+      canvas.removeEventListener("pointermove", handlePointerMove);
+      canvas.removeEventListener("pointerleave", handlePointerLeave);
+      resizeObserver?.disconnect();
+      window.cancelAnimationFrame(frameId);
+    };
+  }, [canvasRef, imageSrc, recordingMode]);
+
+  return (
+    <div ref={wrapRef} className="graystone-data-canvas-wrap">
+      <canvas ref={canvasRef} className="graystone-data-canvas" aria-label="Typographic sports data portrait" />
+    </div>
+  );
+}
+
+function GraystoneDataControl({ label, min, max, value, onChange }) {
+  return (
+    <label className="graystone-data-control">
+      <span>{label}</span>
+      <input
+        type="range"
+        min={min}
+        max={max}
+        value={value}
+        onChange={(event) => onChange(Number(event.target.value))}
+      />
+      <output>{value}</output>
+    </label>
+  );
+}
+
+function GraystoneDataImageryPage() {
+  return (
+    <section className="graystone-page graystone-page--data-imagery" aria-label="Data imagery concept disabled" />
+  );
+}
+
+function GraystoneMaxPrepsHomePage({ isAuthenticated, onRequestSearch, onRequestSignIn, onNavigate }) {
   const baseUrl = import.meta.env.BASE_URL;
   const [homepageMode, setHomepageMode] = useState("personalized");
   const [preferencesOpen, setPreferencesOpen] = useState(false);
@@ -2212,7 +3230,12 @@ function GraystoneMaxPrepsHomePage({ isAuthenticated, onRequestSearch, onRequest
             </div>
             <div className="graystone-maxpreps-video-shelf__grid">
               {shelfVideos.map((item) => (
-                <button key={item.id} type="button" className="graystone-maxpreps-video-shelf__item">
+                <button
+                  key={item.id}
+                  type="button"
+                  className="graystone-maxpreps-video-shelf__item"
+                  onClick={() => onNavigate("graystone-maxpreps-videos")}
+                >
                   <span
                     className="graystone-maxpreps-playlist__thumb graystone-maxpreps-video-shelf__thumb"
                     style={{ backgroundImage: `url(${item.thumbnail})` }}
@@ -2517,100 +3540,81 @@ function GraystoneMaxPrepsHomePage({ isAuthenticated, onRequestSearch, onRequest
 
 function GraystoneWatchPage() {
   return (
-    <section className="graystone-page graystone-page--watch" aria-label="Graystone watch page">
-      <div className="graystone-watch-hero">
-        <div className="graystone-watch-hero__copy">
-          <span className="graystone-kicker">Watch</span>
-          <h1>Live game discovery designed for depth, speed, and momentum.</h1>
-          <p>
-            A standalone viewing experience inspired by the MDS watch surface, rebuilt as a
-            prototype shell we can extend across livestreams, highlights, and media shelves.
-          </p>
+    <section className="graystone-page graystone-page--watch graystone-watch-page" aria-label="Graystone watch page">
+      <div className="graystone-watch-page__inner">
+        <aside className="graystone-watch-page__channels" aria-label="Video categories">
+          <h1>Video</h1>
+          <div className="graystone-watch-page__channel-list">
+            {WATCH_PAGE_CHANNELS.map((item, index) => (
+              <button
+                key={item}
+                type="button"
+                className={`graystone-watch-page__channel-button${index === 0 ? " is-active" : ""}`}
+              >
+                {item}
+              </button>
+            ))}
+          </div>
+        </aside>
+
+        <div className="graystone-watch-page__main">
+          <article className="graystone-watch-player-card">
+            <div className="graystone-watch-player-card__badges">
+              <span className="graystone-badge graystone-badge--live">{WATCH_PAGE_FEATURED_VIDEO.badge}</span>
+              <span className="graystone-badge graystone-badge--watch">{WATCH_PAGE_FEATURED_VIDEO.detail}</span>
+            </div>
+            <div
+              className="graystone-watch-player-card__surface"
+              style={{ backgroundImage: `linear-gradient(180deg, rgba(8, 9, 12, 0.04), rgba(8, 9, 12, 0.42)), url(${WATCH_PAGE_FEATURED_VIDEO.thumbnail})` }}
+            >
+              <span className="graystone-watch-player-card__duration">{WATCH_PAGE_FEATURED_VIDEO.duration}</span>
+              <button type="button" className="graystone-watch-player-card__play" aria-label="Play featured video">
+                <span className="graystone-watch-player-card__play-icon"></span>
+              </button>
+            </div>
+
+            <div className="graystone-watch-player-card__details">
+              <h2>{WATCH_PAGE_FEATURED_VIDEO.title}</h2>
+              <div className="graystone-watch-player-card__meta">
+                <span>{WATCH_PAGE_FEATURED_VIDEO.date}</span>
+                <span>{WATCH_PAGE_FEATURED_VIDEO.duration}</span>
+              </div>
+              <p>{WATCH_PAGE_FEATURED_VIDEO.description}</p>
+            </div>
+          </article>
         </div>
-      </div>
 
-      <div className="graystone-watch-layout">
-        <div className="graystone-watch-main">
-          <section className="graystone-stage">
-            <div className="graystone-stage__topbar">
-              <span className="graystone-badge graystone-badge--live">Live</span>
-              <span className="graystone-badge">Junior Varsity Girls Softball</span>
+        <aside className="graystone-watch-page__sidebar">
+          <div className="graystone-watch-page__playlist">
+            <div className="graystone-watch-page__playlist-header">
+              <h2>Watch next</h2>
+              <span>{WATCH_PAGE_PLAYLIST.length} videos</span>
             </div>
-
-            <div className="graystone-stage__surface">
-              <div className="graystone-stage__team graystone-stage__team--away">
-                <span className="graystone-stage__mark">SB</span>
-                <strong>Stone Bridge</strong>
-                <span>Softball · Junior Varsity</span>
-              </div>
-
-              <div className="graystone-stage__center">
-                <div className="graystone-stage__status">Apr 7, 2026 · 4:30 PM MDT</div>
-                <h2>Independence High School – Ashburn vs. Stone Bridge High School</h2>
-                <p>Ashburn, VA</p>
-              </div>
-
-              <div className="graystone-stage__team graystone-stage__team--home">
-                <span className="graystone-stage__mark">IND</span>
-                <strong>Independence</strong>
-                <span>Softball · Junior Varsity</span>
-              </div>
-            </div>
-
-            <div className="graystone-stage__actions">
-              <button type="button">Roster</button>
-              <button type="button">Watchlist</button>
-              <button type="button">Clip</button>
-              <button type="button">Share</button>
-            </div>
-          </section>
-
-          <section className="graystone-section">
-            <div className="graystone-section__header">
-              <h3>More live matchups</h3>
-              <button type="button">View all</button>
-            </div>
-            <div className="graystone-matchups">
-              {[
-                ["Today 2:30 PM", "Honaker at Lebanon Pioneers", "JV Girls Softball"],
-                ["Today 3:45 PM", "Chantilly at Yorktown", "JV Girls Lacrosse"],
-                ["Today 3:45 PM", "Lake Braddock at McLean", "JV Girls Soccer"],
-                ["Today 7:00 PM", "Millwood at Carl Albert", "Varsity Football"],
-              ].map(([time, game, detail]) => (
-                <article key={game} className="graystone-matchup-card">
-                  <span>{time}</span>
-                  <strong>{game}</strong>
-                  <p>{detail}</p>
-                </article>
+            <div className="graystone-watch-page__playlist-items">
+              {WATCH_PAGE_PLAYLIST.map((video, index) => (
+                <button
+                  key={video.id}
+                  type="button"
+                  className={`graystone-watch-page__playlist-item${index === 0 ? " is-active" : ""}`}
+                >
+                  <span
+                    className="graystone-watch-page__playlist-thumb"
+                    style={{ backgroundImage: `linear-gradient(180deg, rgba(8, 9, 12, 0.08), rgba(8, 9, 12, 0.42)), url(${video.thumbnail})` }}
+                  >
+                    <span className="graystone-watch-page__playlist-duration">{video.duration}</span>
+                    <span className="graystone-watch-page__playlist-play" aria-hidden="true"></span>
+                  </span>
+                  <span className="graystone-watch-page__playlist-copy">
+                    <strong>{video.title}</strong>
+                    <span>{video.detail}</span>
+                  </span>
+                </button>
               ))}
             </div>
-          </section>
-        </div>
-
-        <aside className="graystone-watch-sidebar">
-          {WATCH_RAILS.map((section) => (
-            <section key={section.title} className="graystone-rail">
-              <div className="graystone-section__header graystone-section__header--sidebar">
-                <h3>{section.title}</h3>
-              </div>
-              <div className="graystone-rail__items">
-                {section.items.map((item) => (
-                  <article
-                    key={item.title}
-                    className="graystone-rail-card"
-                    style={{ "--graystone-card-gradient": item.gradient }}
-                  >
-                    <span className="graystone-badge">{item.badge}</span>
-                    <strong>{item.title}</strong>
-                    <span>{item.detail}</span>
-                    <p>{item.meta}</p>
-                  </article>
-                ))}
-              </div>
-            </section>
-          ))}
+          </div>
         </aside>
       </div>
+      <GraystoneMaxPrepsFooter />
     </section>
   );
 }
