@@ -3828,10 +3828,6 @@ select {
   background: rgba(0, 201, 210, 0.12);
 }
 
-.graystone-playon-audience-menu {
-  width: min(42rem, calc(100vw - 3rem));
-}
-
 .graystone-playon-homepage {
   width: 100%;
   overflow: hidden;
@@ -4444,7 +4440,7 @@ select {
 
 .graystone-playon-quote > div {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(16rem, 0.42fr);
+  grid-template-columns: minmax(16rem, 0.42fr) minmax(0, 1fr);
   align-items: center;
   gap: clamp(2rem, 5vw, 5rem);
 }
@@ -4452,8 +4448,8 @@ select {
 .graystone-playon-quote p {
   margin: 0;
   color: #111315;
-  font-size: clamp(1.85rem, 3vw, 3.45rem);
-  line-height: 1.04;
+  font-size: clamp(1.55rem, 2.45vw, 2.85rem);
+  line-height: 1.08;
   letter-spacing: -0.06em;
 }
 
@@ -5643,6 +5639,38 @@ select {
   gap: 0.36rem;
 }
 
+.graystone-playon-header-login {
+  margin-right: 0.6rem;
+  border: 1px solid rgba(18, 19, 23, 0.18);
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.graystone-playon-header-demo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.4rem;
+  padding: 0 0.9rem;
+  border: 0;
+  border-radius: 4px;
+  background: #111315;
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.015em;
+  white-space: nowrap;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.graystone-playon-header-demo:hover,
+.graystone-playon-header-demo:focus-visible {
+  background: #062b27;
+  transform: translateY(-1px);
+}
+
 .graystone-maxpreps-account {
   position: relative;
 }
@@ -5800,8 +5828,10 @@ select {
   transition-delay: 0s;
 }
 
-.graystone-maxpreps-nav:hover .graystone-maxpreps-sports,
-.graystone-maxpreps-nav:focus-within .graystone-maxpreps-sports {
+.graystone--maxpreps-light .graystone-maxpreps-nav:hover .graystone-maxpreps-sports,
+.graystone--maxpreps-light .graystone-maxpreps-nav:focus-within .graystone-maxpreps-sports,
+.graystone--maxpreps-dark .graystone-maxpreps-nav:hover .graystone-maxpreps-sports,
+.graystone--maxpreps-dark .graystone-maxpreps-nav:focus-within .graystone-maxpreps-sports {
   visibility: visible;
   pointer-events: auto;
   transform: translateY(0);
@@ -5831,6 +5861,25 @@ select {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1rem;
+}
+
+.graystone-playon-audience-menu {
+  width: max-content;
+  min-width: 0;
+  max-width: min(30rem, calc(100vw - 3rem));
+}
+
+.graystone-playon-audience-menu .graystone-maxpreps-sports__grid {
+  grid-template-columns: repeat(2, max-content);
+  gap: 1.6rem;
+}
+
+.graystone-playon-audience-menu .graystone-maxpreps-sports__header {
+  justify-content: flex-start;
+}
+
+.graystone-playon-audience-menu .graystone-maxpreps-sports__item {
+  white-space: nowrap;
 }
 
 .graystone-maxpreps-sports__column {

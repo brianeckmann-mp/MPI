@@ -183,7 +183,6 @@ const PLAYON_AUDIENCE_MENUS = [
     id: "playon-schools",
     label: "Schools & Organizations",
     header: "For schools and organizations",
-    action: "All school solutions",
     groups: {
       operations: ["PlayOn HQ", "Event setup", "Reporting", "Fundraising"],
       gameday: ["Digital ticketing", "Streaming workflows", "Fan messaging", "Check-in tools"],
@@ -193,7 +192,6 @@ const PLAYON_AUDIENCE_MENUS = [
     id: "playon-fans",
     label: "Fans & Families",
     header: "For fans and families",
-    action: "All fan experiences",
     groups: {
       access: ["Buy tickets", "Find events", "Season passes", "Mobile entry"],
       moments: ["Watch live", "Highlights", "Scores", "Stories"],
@@ -1447,10 +1445,10 @@ function GraystonePlayOnHomePage() {
 
       <section className="graystone-playon-quote" aria-label="PlayOn quote">
         <div>
+          <img src={`${baseUrl}image-7.png`} alt="" />
           <p>
             "When every product is <em>connected</em>, game day becomes simpler for schools and more <em>meaningful</em> for fans."
           </p>
-          <img src={`${baseUrl}image-7.png`} alt="" />
         </div>
       </section>
 
@@ -1683,7 +1681,7 @@ function GraystoneShell({ currentPage, onNavigate, onExit }) {
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [searchContext, setSearchContext] = useState("general");
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [expandedBrands, setExpandedBrands] = useState(() => ["maxpreps"]);
   const brandMenuRef = useRef(null);
   const accountMenuRef = useRef(null);
@@ -1871,7 +1869,25 @@ function GraystoneShell({ currentPage, onNavigate, onExit }) {
               <nav className="graystone-maxpreps-primary" aria-label={`${isPlayOnPage ? "PlayOn" : "MaxPreps"} primary navigation`}>
                 {isPlayOnPage ? (
                   PLAYON_AUDIENCE_MENUS.map((menu) => (
-                    <div key={menu.id} className="graystone-maxpreps-nav">
+                    <div
+                      key={menu.id}
+                      className="graystone-maxpreps-nav"
+                      onPointerEnter={() => {
+                        setSearchOpen(false);
+                        setOpenMenu((value) => (value === menu.id ? value : menu.id));
+                      }}
+                      onPointerLeave={() => {
+                        setOpenMenu((value) => (value === menu.id ? null : value));
+                      }}
+                      onFocus={() => {
+                        setSearchOpen(false);
+                        setOpenMenu(menu.id);
+                      }}
+                      onBlur={(event) => {
+                        if (event.currentTarget.contains(event.relatedTarget)) return;
+                        setOpenMenu((value) => (value === menu.id ? null : value));
+                      }}
+                    >
                       <button
                         type="button"
                         className={`graystone-maxpreps-nav__sports${openMenu === menu.id ? " is-open" : ""}`}
@@ -1884,10 +1900,6 @@ function GraystoneShell({ currentPage, onNavigate, onExit }) {
                         <GraystoneIconChevron />
                       </button>
                       <div className={`graystone-maxpreps-sports graystone-playon-audience-menu${openMenu === menu.id ? " is-open" : ""}`}>
-                        <div className="graystone-maxpreps-sports__header">
-                          <strong>{menu.header}</strong>
-                          <span>{menu.action}</span>
-                        </div>
                         <div className="graystone-maxpreps-sports__grid">
                           {Object.entries(menu.groups).map(([group, items]) => (
                             <div key={group} className="graystone-maxpreps-sports__column">
@@ -2000,7 +2012,24 @@ function GraystoneShell({ currentPage, onNavigate, onExit }) {
             </div>
 
             <div className="graystone-maxpreps-cluster graystone-maxpreps-cluster--account">
-              {!isAuthenticated ? (
+              {isPlayOnPage ? (
+                <>
+                  <button
+                    type="button"
+                    className="graystone-maxpreps-link graystone-maxpreps-link--icon graystone-playon-header-login"
+                    onClick={() => {
+                      setIsAuthenticated(true);
+                      setOpenMenu(null);
+                    }}
+                  >
+                    <GraystoneIconUser />
+                    <span>HQ Login</span>
+                  </button>
+                  <button type="button" className="graystone-playon-header-demo">
+                    Book a demo
+                  </button>
+                </>
+              ) : !isAuthenticated ? (
                 <button
                   type="button"
                   className="graystone-maxpreps-link graystone-maxpreps-link--icon"
