@@ -1,0 +1,8 @@
+{
+  "name": "Friday Night Fever Dream Style Guide",
+  "id": "friday-night-fever-dream-style-guide",
+  "api": "1.0.0",
+  "main": "dist/code.js",
+  "editorType": ["figma"],
+  "documentAccess": "dynamic-page"
+}

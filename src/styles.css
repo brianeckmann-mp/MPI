@@ -1,5 +1,6 @@
 @import url("https://fonts.cdnfonts.com/css/siro");
 @import url("https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@300;400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Permanent+Marker&display=swap");
 
 :root {
   --neutral-light-white: #ffffff;
@@ -1785,6 +1786,1583 @@ select {
   line-height: 1.6;
 }
 
+.varsity-signal-project {
+  background:
+    radial-gradient(circle at 82% 0%, rgba(225, 5, 0, 0.12), transparent 24rem),
+    linear-gradient(180deg, #f4efe4, #ebe3d3);
+}
+
+.varsity-signal-project-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  align-items: center;
+  gap: 1rem;
+  min-height: 4.4rem;
+  padding: 0.8rem clamp(1rem, 3vw, 2rem);
+  border-bottom: 1px solid rgba(17, 19, 21, 0.12);
+  background: rgba(246, 242, 232, 0.92);
+  color: #111315;
+  backdrop-filter: blur(16px);
+}
+
+.varsity-signal-project-header button {
+  font: inherit;
+}
+
+.varsity-signal-project-header__back {
+  border: 1px solid rgba(17, 19, 21, 0.14);
+  border-radius: 999px;
+  background: #fffaf0;
+  color: rgba(17, 19, 21, 0.72);
+  cursor: pointer;
+  padding: 0.55rem 0.8rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.varsity-signal-project-header__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  border: 0;
+  background: transparent;
+  color: #111315;
+  cursor: pointer;
+  padding: 0;
+}
+
+.varsity-signal-project-header__brand svg {
+  width: 6rem;
+  height: auto;
+}
+
+.varsity-signal-project-header__brand span {
+  font-family: var(--font-champion-gothic);
+  font-size: 1.32rem;
+  line-height: 0.9;
+  text-transform: uppercase;
+}
+
+.varsity-signal-project-header__nav {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.35rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.varsity-signal-project-header__nav::-webkit-scrollbar {
+  display: none;
+}
+
+.varsity-signal-project-header__nav button {
+  flex: 0 0 auto;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: transparent;
+  color: rgba(17, 19, 21, 0.68);
+  cursor: pointer;
+  padding: 0.48rem 0.72rem;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.varsity-signal-project-header__nav button.is-active {
+  border-color: rgba(17, 19, 21, 0.16);
+  background: #111315;
+  color: #f6f2e8;
+}
+
+.varsity-signal-project-index {
+  min-height: calc(100svh - 4.4rem);
+  display: grid;
+  grid-template-columns: minmax(0, 0.88fr) minmax(24rem, 1.12fr);
+  align-items: stretch;
+  gap: clamp(1rem, 2vw, 1.6rem);
+  padding: clamp(1rem, 2.4vw, 2rem);
+}
+
+.varsity-signal-project-index__hero,
+.varsity-signal-project-card,
+.varsity-signal-project-placeholder__panel {
+  border: 1px solid rgba(17, 19, 21, 0.14);
+  background:
+    linear-gradient(135deg, rgba(255, 250, 240, 0.9), rgba(235, 227, 211, 0.78)),
+    radial-gradient(circle at 18% 22%, rgba(225, 5, 0, 0.08), transparent 18rem);
+  box-shadow: 0 22px 54px rgba(17, 19, 21, 0.08);
+}
+
+.varsity-signal-project-index__hero {
+  display: grid;
+  align-content: center;
+  gap: 1.2rem;
+  padding: clamp(1.4rem, 4vw, 4rem);
+  min-height: 34rem;
+}
+
+.varsity-signal-project-index__hero span,
+.varsity-signal-project-card span,
+.varsity-signal-project-placeholder__panel span {
+  width: fit-content;
+  color: #e10500;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.varsity-signal-project-index__hero h1 {
+  margin: 0;
+  color: #111315;
+  font-family: var(--font-champion-gothic);
+  font-size: clamp(4.2rem, 11vw, 10rem);
+  letter-spacing: 0;
+  line-height: 0.78;
+  text-transform: uppercase;
+}
+
+.varsity-signal-project-index__hero h1 em {
+  display: block;
+  color: #e10500;
+  font-style: normal;
+}
+
+.varsity-signal-project-index__hero p,
+.varsity-signal-project-card p,
+.varsity-signal-project-placeholder__panel p {
+  margin: 0;
+  color: rgba(17, 19, 21, 0.72);
+  font-family: var(--font-siro);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.varsity-signal-project-index__hero p {
+  max-width: 38rem;
+}
+
+.varsity-signal-project-index__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.varsity-signal-project-card {
+  position: relative;
+  display: grid;
+  align-content: end;
+  gap: 0.75rem;
+  min-height: 16rem;
+  overflow: hidden;
+  border-radius: 0;
+  cursor: pointer;
+  padding: 1.2rem;
+  text-align: left;
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease,
+    border-color 0.22s ease;
+}
+
+.varsity-signal-project-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.2;
+  background:
+    radial-gradient(circle, #111315 0 1px, transparent 1.4px),
+    linear-gradient(135deg, transparent 0 45%, rgba(225, 5, 0, 0.22) 45% 52%, transparent 52%);
+  background-size: 0.55rem 0.55rem, auto;
+}
+
+.varsity-signal-project-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.varsity-signal-project-card:hover {
+  transform: translateY(-0.2rem);
+  border-color: rgba(225, 5, 0, 0.34);
+  box-shadow: 0 26px 60px rgba(17, 19, 21, 0.12);
+}
+
+.varsity-signal-project-card strong,
+.varsity-signal-project-placeholder__panel h1 {
+  margin: 0;
+  color: #111315;
+  font-family: var(--font-champion-gothic);
+  font-size: clamp(2.4rem, 4.4vw, 4.4rem);
+  line-height: 0.82;
+  text-transform: uppercase;
+}
+
+.varsity-signal-project-placeholder {
+  min-height: calc(100svh - 4.4rem);
+  display: grid;
+  place-items: center;
+  padding: clamp(1rem, 3vw, 2rem);
+}
+
+.varsity-signal-project-placeholder__panel {
+  width: min(100%, 62rem);
+  display: grid;
+  gap: 1rem;
+  padding: clamp(1.5rem, 4vw, 4rem);
+}
+
+.varsity-signal-project-placeholder__modules {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr 1fr;
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+
+.varsity-signal-project-placeholder__modules span {
+  min-height: 9rem;
+  border: 1px solid rgba(17, 19, 21, 0.14);
+  background:
+    linear-gradient(135deg, rgba(17, 19, 21, 0.06), rgba(17, 19, 21, 0.01)),
+    linear-gradient(90deg, #111315 0 0.5rem, transparent 0.5rem);
+}
+
+.varsity-team-page {
+  min-height: calc(100svh - 4.4rem);
+  padding: clamp(1rem, 2.4vw, 2rem);
+  background:
+    linear-gradient(90deg, rgba(17, 19, 21, 0.035) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(17, 19, 21, 0.03) 1px, transparent 1px),
+    #ebe3d3;
+  background-size: 2rem 2rem;
+  color: #111315;
+}
+
+.varsity-team-page__hero {
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(24rem, 1.08fr);
+  min-height: 35rem;
+  overflow: hidden;
+  border: 1px solid rgba(17, 19, 21, 0.16);
+  background:
+    radial-gradient(circle at 72% 14%, color-mix(in srgb, var(--team-accent) 24%, transparent), transparent 18rem),
+    linear-gradient(135deg, #fffaf0, #f0e7d6 60%, color-mix(in srgb, var(--team-primary) 12%, #ebe3d3));
+}
+
+.varsity-team-page__hero-copy {
+  display: grid;
+  align-content: center;
+  gap: 1.2rem;
+  padding: clamp(1.4rem, 4vw, 4rem);
+}
+
+.varsity-team-page__identity {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.varsity-team-page__identity img {
+  width: clamp(4rem, 7vw, 6.4rem);
+  aspect-ratio: 1;
+  object-fit: contain;
+  padding: 0.35rem;
+  border: 1px solid rgba(17, 19, 21, 0.16);
+  background: #fff;
+}
+
+.varsity-team-page__identity span,
+.varsity-team-page__sport,
+.varsity-team-section-heading span,
+.varsity-team-card > span,
+.varsity-team-page__ticket span,
+.varsity-team-schedule-list article > span,
+.varsity-team-leader-grid article > span,
+.varsity-team-card--performers article > span {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.varsity-team-page__identity span,
+.varsity-team-section-heading span,
+.varsity-team-card > span,
+.varsity-team-leader-grid article > span,
+.varsity-team-card--performers article > span {
+  color: var(--team-primary, #022c66);
+}
+
+.varsity-team-page__identity h1 {
+  margin: 0.2rem 0 0;
+  color: #111315;
+  font-family: var(--font-champion-gothic);
+  font-size: clamp(3.6rem, 7.2vw, 7.2rem);
+  letter-spacing: 0;
+  line-height: 0.78;
+  text-transform: uppercase;
+}
+
+.varsity-team-page__sport {
+  width: fit-content;
+  margin: 0;
+  padding: 0.4rem 0.65rem;
+  background: var(--team-primary, #022c66);
+  color: #fff;
+}
+
+.varsity-team-page__record-strip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border: 1px solid rgba(17, 19, 21, 0.16);
+  background: rgba(255, 250, 240, 0.74);
+}
+
+.varsity-team-page__record-strip span {
+  display: grid;
+  gap: 0.2rem;
+  padding: 1rem;
+  color: rgba(17, 19, 21, 0.66);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.varsity-team-page__record-strip span + span {
+  border-left: 1px solid rgba(17, 19, 21, 0.12);
+}
+
+.varsity-team-page__record-strip strong {
+  color: var(--team-primary, #022c66);
+  font-family: var(--font-champion-gothic);
+  font-size: clamp(2.6rem, 4vw, 4.2rem);
+  line-height: 0.82;
+}
+
+.varsity-team-page__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.varsity-team-page__actions button,
+.varsity-team-page__team-nav button,
+.varsity-team-card--video figure button {
+  border: 1px solid rgba(17, 19, 21, 0.18);
+  background: #fffaf0;
+  color: #111315;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.varsity-team-page__actions button {
+  padding: 0.8rem 1rem;
+}
+
+.varsity-team-page__actions button:first-child {
+  background: var(--team-accent, #f2b820);
+}
+
+.varsity-team-page__hero-art {
+  position: relative;
+  min-height: 35rem;
+  overflow: hidden;
+  background: var(--team-primary, #022c66);
+}
+
+.varsity-team-page__hero-art::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  opacity: 0.22;
+  background:
+    radial-gradient(circle, #fff 0 1px, transparent 1.5px),
+    repeating-linear-gradient(0deg, transparent 0 0.34rem, rgba(255, 255, 255, 0.16) 0.34rem 0.38rem);
+  background-size: 0.5rem 0.5rem, auto;
+  mix-blend-mode: soft-light;
+}
+
+.varsity-team-page__hero-main,
+.varsity-team-page__hero-crowd {
+  position: absolute;
+  object-fit: cover;
+  filter: contrast(1.08) saturate(0.9);
+}
+
+.varsity-team-page__hero-main {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.varsity-team-page__hero-crowd {
+  right: 7%;
+  bottom: 7%;
+  z-index: 3;
+  width: 45%;
+  aspect-ratio: 4 / 3;
+  border: 0.45rem solid #fffaf0;
+  box-shadow: 0 1.2rem 2.8rem rgba(0, 0, 0, 0.34);
+  transform: rotate(2deg);
+}
+
+.varsity-team-page__ticket {
+  position: absolute;
+  left: 6%;
+  bottom: 8%;
+  z-index: 4;
+  display: grid;
+  gap: 0.2rem;
+  width: min(18rem, 50%);
+  padding: 1rem;
+  background:
+    radial-gradient(circle at 0 50%, transparent 0 0.55rem, #e7d8b8 0.6rem),
+    radial-gradient(circle at 100% 50%, transparent 0 0.55rem, #e7d8b8 0.6rem),
+    #e7d8b8;
+  color: #111315;
+  transform: rotate(-2deg);
+}
+
+.varsity-team-page__ticket strong {
+  font-family: var(--font-champion-gothic);
+  font-size: 2.2rem;
+  line-height: 0.82;
+  text-transform: uppercase;
+}
+
+.varsity-team-page__ticket small {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.varsity-team-page__team-nav {
+  position: sticky;
+  top: 4.4rem;
+  z-index: 30;
+  display: flex;
+  gap: 0.35rem;
+  margin: 1rem 0;
+  overflow-x: auto;
+  padding: 0.6rem;
+  border: 1px solid rgba(17, 19, 21, 0.12);
+  background: rgba(255, 250, 240, 0.9);
+  scrollbar-width: none;
+}
+
+.varsity-team-page__team-nav::-webkit-scrollbar {
+  display: none;
+}
+
+.varsity-team-page__team-nav button {
+  flex: 0 0 auto;
+  padding: 0.52rem 0.72rem;
+  background: transparent;
+}
+
+.varsity-team-page__team-nav button.is-active {
+  background: var(--team-primary, #022c66);
+  color: #fff;
+}
+
+.varsity-team-page__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(20rem, 0.36fr);
+  gap: 1rem;
+}
+
+.varsity-team-page__main,
+.varsity-team-page__rail {
+  display: grid;
+  align-content: start;
+  gap: 1rem;
+}
+
+.varsity-team-card {
+  border: 1px solid rgba(17, 19, 21, 0.14);
+  background: rgba(255, 250, 240, 0.92);
+  box-shadow: 0 18px 44px rgba(17, 19, 21, 0.06);
+}
+
+.varsity-team-section-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1rem 0;
+}
+
+.varsity-team-section-heading h2,
+.varsity-team-card--video h2,
+.varsity-team-card--profile h2 {
+  margin: 0;
+  color: #111315;
+  font-family: var(--font-champion-gothic);
+  font-size: clamp(2rem, 3vw, 3.4rem);
+  line-height: 0.82;
+  text-transform: uppercase;
+}
+
+.varsity-team-card--video {
+  display: grid;
+  grid-template-columns: minmax(0, 0.46fr) minmax(20rem, 0.54fr);
+  overflow: hidden;
+  background: #05090a;
+  color: #fffaf0;
+}
+
+.varsity-team-card--video > div {
+  display: grid;
+  align-content: center;
+  gap: 0.8rem;
+  padding: clamp(1rem, 3vw, 2rem);
+}
+
+.varsity-team-card--video span {
+  color: var(--team-accent, #f2b820);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.varsity-team-card--video h2 {
+  color: #fffaf0;
+}
+
+.varsity-team-card--video p,
+.varsity-team-card--moment p,
+.varsity-team-card--profile p,
+.varsity-team-leader-grid p,
+.varsity-team-leader-grid small,
+.varsity-team-card--performers small {
+  margin: 0;
+  font-family: var(--font-siro);
+  line-height: 1.5;
+}
+
+.varsity-team-card--video figure {
+  position: relative;
+  min-height: 20rem;
+  margin: 0;
+}
+
+.varsity-team-card--video figure::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 54%, rgba(5, 9, 10, 0.72));
+}
+
+.varsity-team-card--video img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.varsity-team-card--video figure button {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 2;
+  padding: 0.72rem 0.9rem;
+  background: var(--team-accent, #f2b820);
+}
+
+.varsity-team-schedule-list {
+  display: grid;
+  gap: 0.55rem;
+  padding: 1rem;
+}
+
+.varsity-team-schedule-list article {
+  display: grid;
+  grid-template-columns: 4.6rem minmax(0, 1fr) 2.7rem 5.5rem;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.85rem;
+  border: 1px solid rgba(17, 19, 21, 0.12);
+  background:
+    linear-gradient(90deg, var(--opponent) 0 0.38rem, transparent 0.38rem),
+    #fffaf0;
+}
+
+.varsity-team-schedule-list strong {
+  display: block;
+  font-family: var(--font-champion-gothic);
+  font-size: 1.7rem;
+  line-height: 0.9;
+  text-transform: uppercase;
+}
+
+.varsity-team-schedule-list small {
+  color: rgba(17, 19, 21, 0.58);
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.varsity-team-schedule-list b,
+.varsity-team-schedule-list em {
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-weight: 900;
+}
+
+.varsity-team-schedule-list b {
+  display: grid;
+  place-items: center;
+  width: 2.1rem;
+  aspect-ratio: 1;
+  background: var(--team-primary, #022c66);
+  color: #fff;
+}
+
+.varsity-team-schedule-list em {
+  justify-self: end;
+  font-size: 1.25rem;
+}
+
+.varsity-team-leader-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.75rem;
+  padding: 1rem;
+}
+
+.varsity-team-leader-grid article {
+  display: grid;
+  gap: 0.42rem;
+  padding: 1rem;
+  border: 1px solid rgba(17, 19, 21, 0.12);
+  background:
+    radial-gradient(circle, rgba(17, 19, 21, 0.11) 0 1px, transparent 1.3px),
+    #fffaf0;
+  background-size: 0.55rem 0.55rem;
+}
+
+.varsity-team-leader-grid strong {
+  color: var(--team-primary, #022c66);
+  font-family: var(--font-chivo-mono, var(--font-mono));
+  font-size: clamp(2rem, 3vw, 3.4rem);
+  line-height: 1;
+}
+
+.varsity-team-leader-grid h3 {
+  margin: 0;
+  font-family: var(--font-champion-gothic);
+  font-size: 1.6rem;
+  line-height: 0.9;
+  text-transform: uppercase;
+}
+
+.varsity-team-leader-grid p,
+.varsity-team-leader-grid small {
+  color: rgba(17, 19, 21, 0.64);
+  font-size: 0.8rem;
+}
+
+.varsity-team-card--profile {
+  display: grid;
+  gap: 0.75rem;
+  padding: 1rem;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--team-primary) 15%, #fffaf0), #fffaf0 58%),
+    #fffaf0;
+}
+
+.varsity-team-card--profile > img {
+  width: 5rem;
+  aspect-ratio: 1;
+  object-fit: contain;
+  padding: 0.35rem;
+  border: 1px solid rgba(17, 19, 21, 0.14);
+  background: #fff;
+}
+
+.varsity-team-card--profile dl {
+  display: grid;
+  gap: 0.55rem;
+  margin: 0.4rem 0 0;
+}
+
+.varsity-team-card--profile dl div {
+  display: grid;
+  grid-template-columns: 5rem 1fr;
+  gap: 0.6rem;
+  padding-top: 0.55rem;
+  border-top: 1px solid rgba(17, 19, 21, 0.1);
+}
+
+.varsity-team-card--profile dt,
+.varsity-team-card--profile dd {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.varsity-team-card--profile dt {
+  color: rgba(17, 19, 21, 0.5);
+}
+
+.varsity-team-card--performers {
+  display: grid;
+  gap: 0.6rem;
+  padding-bottom: 1rem;
+}
+
+.varsity-team-card--performers article {
+  display: grid;
+  grid-template-columns: 3rem 1fr;
+  gap: 0.8rem;
+  margin: 0 1rem;
+  padding: 0.85rem 0;
+  border-top: 1px solid rgba(17, 19, 21, 0.1);
+}
+
+.varsity-team-card--performers article > span {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  background: var(--team-primary, #022c66);
+  color: #fff;
+}
+
+.varsity-team-card--performers strong {
+  display: block;
+  color: var(--team-primary, #022c66);
+  font-family: var(--font-chivo-mono, var(--font-mono));
+  font-size: 1.9rem;
+  line-height: 1;
+}
+
+.varsity-team-card--performers p {
+  margin: 0.18rem 0;
+  font-family: var(--font-champion-gothic);
+  font-size: 1.35rem;
+  line-height: 0.9;
+  text-transform: uppercase;
+}
+
+.varsity-team-card--performers small {
+  color: rgba(17, 19, 21, 0.58);
+  font-size: 0.76rem;
+}
+
+.varsity-team-card--moment {
+  position: relative;
+  min-height: 17rem;
+  display: grid;
+  align-items: end;
+  overflow: hidden;
+  background: #05090a;
+  color: #fffaf0;
+}
+
+.varsity-team-card--moment > img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.72;
+}
+
+.varsity-team-card--moment::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle, rgba(255, 255, 255, 0.24) 0 1px, transparent 1.5px),
+    linear-gradient(180deg, transparent 20%, rgba(5, 9, 10, 0.86));
+  background-size: 0.45rem 0.45rem, auto;
+}
+
+.varsity-team-card--moment div {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 0.45rem;
+  padding: 1rem;
+}
+
+.varsity-team-card--moment span {
+  color: var(--team-accent, #f2b820);
+}
+
+.varsity-team-card--moment strong {
+  font-family: var(--font-champion-gothic);
+  font-size: 2.3rem;
+  line-height: 0.85;
+  text-transform: uppercase;
+}
+
+.varsity-team-card--moment p {
+  color: rgba(255, 250, 240, 0.78);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 1180px) {
+  .varsity-team-page__hero,
+  .varsity-team-page__layout,
+  .varsity-team-card--video {
+    grid-template-columns: 1fr;
+  }
+
+  .varsity-team-page__rail {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .varsity-team-card--performers {
+    grid-column: span 2;
+  }
+
+  .varsity-team-leader-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .varsity-team-page {
+    padding: 0.75rem;
+    overflow-x: hidden;
+  }
+
+  .varsity-team-page__identity {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .varsity-team-page__record-strip,
+  .varsity-team-page__rail,
+  .varsity-team-leader-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .varsity-team-card--performers {
+    grid-column: auto;
+  }
+
+  .varsity-team-schedule-list article {
+    grid-template-columns: 1fr auto;
+  }
+
+  .varsity-team-section-heading {
+    display: grid;
+    align-items: start;
+  }
+
+  .varsity-team-section-heading h2 {
+    font-size: 2.4rem;
+  }
+
+  .varsity-team-schedule-list strong {
+    font-size: 1.35rem;
+    overflow-wrap: anywhere;
+  }
+
+  .varsity-team-schedule-list article > span,
+  .varsity-team-schedule-list article > div {
+    grid-column: span 2;
+  }
+}
+
+.varsity-team-reference {
+  min-height: calc(100svh - 4.4rem);
+  padding: clamp(0.75rem, 2vw, 1.5rem);
+  background:
+    linear-gradient(90deg, rgba(17, 19, 21, 0.035) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(17, 19, 21, 0.03) 1px, transparent 1px),
+    #f4f0e8;
+  background-size: 2rem 2rem;
+  color: #17191b;
+}
+
+.varsity-team-reference__shell {
+  max-width: 82rem;
+  margin: 0 auto;
+}
+
+.varsity-team-reference button,
+.varsity-team-reference a {
+  font-family: var(--font-siro);
+}
+
+.varsity-team-reference__sitebar,
+.varsity-team-reference__header,
+.varsity-team-reference__nav,
+.varsity-team-reference-card,
+.varsity-team-reference__title-card,
+.varsity-team-reference__ad {
+  border: 1px solid rgba(23, 25, 27, 0.13);
+  background: rgba(255, 252, 245, 0.96);
+  box-shadow: 0 0.75rem 2rem rgba(23, 25, 27, 0.055);
+}
+
+.varsity-team-reference__sitebar {
+  display: grid;
+  grid-template-columns: auto minmax(16rem, 1fr) auto;
+  align-items: center;
+  gap: 1rem;
+  min-height: 4.4rem;
+  padding: 0.72rem 1rem;
+}
+
+.varsity-team-reference__search {
+  min-height: 2.65rem;
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+  border: 1px solid rgba(23, 25, 27, 0.13);
+  border-radius: 999px;
+  background: #f7f3ea;
+  color: rgba(23, 25, 27, 0.56);
+  font-family: var(--font-siro);
+  font-size: 0.88rem;
+}
+
+.varsity-team-reference__sitebar button,
+.varsity-team-reference__actions button,
+.varsity-team-reference__title-card button,
+.varsity-team-reference__filters button,
+.varsity-team-reference__updates button {
+  border: 1px solid rgba(23, 25, 27, 0.16);
+  background: #fffaf0;
+  color: #17191b;
+  cursor: pointer;
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.varsity-team-reference__sitebar button,
+.varsity-team-reference__actions button,
+.varsity-team-reference__title-card button,
+.varsity-team-reference__updates button {
+  padding: 0.68rem 0.9rem;
+}
+
+.varsity-team-reference__header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.75rem;
+  overflow: hidden;
+  padding: 1rem;
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--team-primary) 15%, #fffaf0), rgba(255, 250, 240, 0.96) 58%),
+    #fffaf0;
+}
+
+.varsity-team-reference__identity {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 1rem;
+}
+
+.varsity-team-reference__identity img {
+  width: clamp(4.6rem, 7vw, 6.2rem);
+  aspect-ratio: 1;
+  object-fit: contain;
+  padding: 0.4rem;
+  border: 1px solid rgba(23, 25, 27, 0.13);
+  background: #fff;
+}
+
+.varsity-team-reference__identity p,
+.varsity-team-reference__identity span,
+.varsity-team-reference__summary span,
+.varsity-team-reference-card__header span,
+.varsity-team-reference-card__header small,
+.varsity-team-reference__title-card span,
+.varsity-team-reference__schedule > article > span,
+.varsity-team-reference__schedule small,
+.varsity-team-reference__updates span,
+.varsity-team-reference__updated,
+.varsity-team-reference__feature span,
+.varsity-team-reference__ad {
+  font-family: var(--font-chivo-mono, var(--font-mono));
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.varsity-team-reference__identity p {
+  margin: 0 0 0.3rem;
+  color: color-mix(in srgb, var(--team-primary) 86%, #111315);
+}
+
+.varsity-team-reference__identity h1 {
+  margin: 0;
+  color: #17191b;
+  font-family: var(--font-champion-gothic);
+  font-size: clamp(3rem, 6vw, 5.8rem);
+  line-height: 0.8;
+  text-transform: uppercase;
+}
+
+.varsity-team-reference__identity span {
+  display: block;
+  margin-top: 0.35rem;
+  color: rgba(23, 25, 27, 0.64);
+}
+
+.varsity-team-reference__summary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(5.2rem, 1fr));
+  border: 1px solid rgba(23, 25, 27, 0.12);
+  background: rgba(255, 255, 255, 0.55);
+}
+
+.varsity-team-reference__summary span {
+  display: grid;
+  gap: 0.25rem;
+  padding: 0.7rem 0.85rem;
+  color: rgba(23, 25, 27, 0.62);
+}
+
+.varsity-team-reference__summary span + span {
+  border-left: 1px solid rgba(23, 25, 27, 0.1);
+}
+
+.varsity-team-reference__summary strong {
+  color: var(--team-primary);
+  font-family: var(--font-chivo-mono, var(--font-mono));
+  font-size: 1.65rem;
+  line-height: 1;
+}
+
+.varsity-team-reference__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: end;
+  gap: 0.5rem;
+}
+
+.varsity-team-reference__actions button:first-child,
+.varsity-team-reference__title-card button {
+  background: var(--team-primary);
+  color: #fff;
+}
+
+.varsity-team-reference__nav {
+  position: sticky;
+  top: 4.4rem;
+  z-index: 15;
+  display: flex;
+  gap: 0.25rem;
+  margin-top: 0.75rem;
+  overflow-x: auto;
+  padding: 0.45rem;
+  scrollbar-width: none;
+}
+
+.varsity-team-reference__nav::-webkit-scrollbar {
+  display: none;
+}
+
+.varsity-team-reference__nav button {
+  flex: 0 0 auto;
+  border: 0;
+  background: transparent;
+  color: rgba(23, 25, 27, 0.7);
+  cursor: pointer;
+  padding: 0.72rem 0.9rem;
+  font-size: 0.86rem;
+  font-weight: 800;
+}
+
+.varsity-team-reference__nav button.is-active {
+  background: var(--team-primary);
+  color: #fff;
+}
+
+.varsity-team-reference__ad {
+  display: grid;
+  place-items: center;
+  min-height: 5rem;
+  margin-top: 0.75rem;
+  color: rgba(23, 25, 27, 0.42);
+  background:
+    repeating-linear-gradient(135deg, transparent 0 0.7rem, rgba(23, 25, 27, 0.03) 0.7rem 1.4rem),
+    rgba(255, 252, 245, 0.86);
+}
+
+.varsity-team-reference__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(19rem, 23rem);
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.varsity-team-reference__main,
+.varsity-team-reference__rail {
+  display: grid;
+  align-content: start;
+  gap: 1rem;
+}
+
+.varsity-team-reference__title-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.varsity-team-reference__title-card h2,
+.varsity-team-reference-card h3,
+.varsity-team-reference-card--feature strong {
+  margin: 0;
+  color: #17191b;
+  font-family: var(--font-champion-gothic);
+  line-height: 0.88;
+  text-transform: uppercase;
+}
+
+.varsity-team-reference__title-card h2 {
+  margin-top: 0.2rem;
+  font-size: clamp(2.7rem, 5vw, 4.6rem);
+}
+
+.varsity-team-reference__title-card p,
+.varsity-team-reference-card p,
+.varsity-team-reference-card small,
+.varsity-team-reference__staff span,
+.varsity-team-reference__nearby a {
+  margin: 0;
+  color: rgba(23, 25, 27, 0.66);
+  font-family: var(--font-siro);
+  line-height: 1.45;
+}
+
+.varsity-team-reference-card {
+  overflow: hidden;
+}
+
+.varsity-team-reference-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.9rem 1rem;
+  border-bottom: 1px solid rgba(23, 25, 27, 0.1);
+}
+
+.varsity-team-reference-card__header span {
+  color: color-mix(in srgb, var(--team-primary) 86%, #111315);
+}
+
+.varsity-team-reference-card__header a {
+  color: rgba(23, 25, 27, 0.68);
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.varsity-team-reference__video-grid {
+  display: grid;
+  grid-template-columns: minmax(16rem, 0.52fr) minmax(0, 1fr);
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.varsity-team-reference__video-grid figure {
+  position: relative;
+  min-height: 16rem;
+  margin: 0;
+  overflow: hidden;
+  background: #06090b;
+}
+
+.varsity-team-reference__video-grid figure::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(0deg, transparent 0 0.32rem, rgba(255, 255, 255, 0.12) 0.32rem 0.36rem),
+    linear-gradient(180deg, transparent 54%, rgba(6, 9, 11, 0.76));
+  mix-blend-mode: soft-light;
+}
+
+.varsity-team-reference__video-grid img,
+.varsity-team-reference-card--meet > img,
+.varsity-team-reference-card--feature > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.varsity-team-reference__video-grid figure button {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 2;
+  width: 3rem;
+  aspect-ratio: 1;
+  border: 1px solid rgba(255, 255, 255, 0.52);
+  border-radius: 50%;
+  background: rgba(255, 250, 240, 0.94);
+  color: #17191b;
+  cursor: pointer;
+}
+
+.varsity-team-reference__video-grid > div {
+  display: grid;
+  align-content: center;
+  gap: 0.7rem;
+}
+
+.varsity-team-reference__video-grid h3 {
+  font-size: clamp(2rem, 3.5vw, 3.2rem);
+}
+
+.varsity-team-reference__filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  padding: 1rem 1rem 0;
+}
+
+.varsity-team-reference__filters button {
+  padding: 0.52rem 0.75rem;
+  border-radius: 999px;
+  background: #f4f0e8;
+}
+
+.varsity-team-reference__filters button.is-active {
+  background: var(--team-primary);
+  color: #fff;
+}
+
+.varsity-team-reference__updates {
+  display: grid;
+  gap: 0.75rem;
+  padding: 1rem;
+}
+
+.varsity-team-reference__updates article {
+  display: grid;
+  grid-template-columns: 2.6rem minmax(0, 1fr) minmax(7rem, 10rem);
+  gap: 0.9rem;
+  align-items: start;
+  padding: 0.9rem;
+  border: 1px solid rgba(23, 25, 27, 0.1);
+  background: #fffaf0;
+}
+
+.varsity-team-reference__updates article:not(:has(img)) {
+  grid-template-columns: 2.6rem minmax(0, 1fr);
+}
+
+.varsity-team-reference__updates img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  filter: contrast(1.05) saturate(0.85);
+}
+
+.varsity-team-reference__update-icon {
+  display: grid;
+  place-items: center;
+  width: 2.6rem;
+  aspect-ratio: 1;
+  background: var(--team-primary);
+  color: #fff;
+  font-family: var(--font-chivo-mono, var(--font-mono));
+  font-weight: 900;
+}
+
+.varsity-team-reference__updates h3 {
+  margin-top: 0.25rem;
+  font-family: var(--font-siro);
+  font-size: clamp(1.05rem, 1.35vw, 1.35rem);
+  line-height: 1.18;
+  text-transform: none;
+}
+
+.varsity-team-reference__updates button {
+  margin-top: 0.65rem;
+  padding: 0.5rem 0.72rem;
+}
+
+.varsity-team-reference__updated {
+  padding: 0 1rem 1rem;
+  color: rgba(23, 25, 27, 0.5);
+}
+
+.varsity-team-reference__schedule,
+.varsity-team-reference__leaders,
+.varsity-team-reference__performers,
+.varsity-team-reference__rankings,
+.varsity-team-reference__staff,
+.varsity-team-reference__nearby {
+  display: grid;
+  gap: 0.55rem;
+  padding: 1rem;
+}
+
+.varsity-team-reference__schedule article,
+.varsity-team-reference__leaders article,
+.varsity-team-reference__performers article,
+.varsity-team-reference__rankings article {
+  display: grid;
+  align-items: center;
+  gap: 0.7rem;
+  border: 1px solid rgba(23, 25, 27, 0.1);
+  background: #fffaf0;
+}
+
+.varsity-team-reference__schedule article {
+  grid-template-columns: 3.2rem 2.6rem minmax(0, 1fr) 2rem 3.8rem;
+  padding: 0.72rem;
+  background:
+    linear-gradient(90deg, var(--opponent) 0 0.28rem, transparent 0.28rem),
+    #fffaf0;
+}
+
+.varsity-team-reference__schedule img {
+  width: 2.4rem;
+  aspect-ratio: 1;
+  object-fit: contain;
+}
+
+.varsity-team-reference__schedule strong {
+  display: block;
+  font-family: var(--font-siro);
+  font-size: 0.92rem;
+  font-weight: 900;
+}
+
+.varsity-team-reference__schedule b,
+.varsity-team-reference__schedule em,
+.varsity-team-reference__leaders b,
+.varsity-team-reference__performers b,
+.varsity-team-reference__leaders strong,
+.varsity-team-reference__performers strong,
+.varsity-team-reference__rankings strong {
+  font-family: var(--font-chivo-mono, var(--font-mono));
+  font-style: normal;
+  font-weight: 900;
+}
+
+.varsity-team-reference__schedule b {
+  display: grid;
+  place-items: center;
+  width: 1.8rem;
+  aspect-ratio: 1;
+  background: var(--team-primary);
+  color: #fff;
+}
+
+.varsity-team-reference__schedule em {
+  justify-self: end;
+}
+
+.varsity-team-reference__rankings {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.varsity-team-reference__rankings article {
+  gap: 0.25rem;
+  padding: 0.8rem;
+}
+
+.varsity-team-reference__rankings article span,
+.varsity-team-reference__leaders span,
+.varsity-team-reference__performers span {
+  font-family: var(--font-siro);
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.varsity-team-reference__rankings strong {
+  color: var(--team-primary);
+  font-size: 1.4rem;
+}
+
+.varsity-team-reference__leaders article,
+.varsity-team-reference__performers article {
+  grid-template-columns: 3.3rem minmax(0, 1fr);
+  padding: 0.78rem;
+}
+
+.varsity-team-reference__leaders b,
+.varsity-team-reference__performers b {
+  display: grid;
+  place-items: center;
+  min-height: 3rem;
+  background: var(--team-primary);
+  color: #fff;
+  font-size: 0.72rem;
+}
+
+.varsity-team-reference__leaders strong,
+.varsity-team-reference__performers strong {
+  display: block;
+  color: var(--team-primary);
+  font-size: 1.55rem;
+  line-height: 1;
+}
+
+.varsity-team-reference-card--meet > img {
+  display: block;
+  aspect-ratio: 16 / 9;
+  background: #111315;
+  filter: contrast(1.05) saturate(0.9);
+}
+
+.varsity-team-reference__staff p {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 0.55rem;
+  border-top: 1px solid rgba(23, 25, 27, 0.09);
+}
+
+.varsity-team-reference__staff strong {
+  font-family: var(--font-siro);
+}
+
+.varsity-team-reference-card--feature {
+  position: relative;
+  min-height: 15rem;
+  display: grid;
+  align-items: end;
+  background: #070b0d;
+  color: #fffaf0;
+}
+
+.varsity-team-reference-card--feature > img {
+  position: absolute;
+  inset: 0;
+  opacity: 0.72;
+}
+
+.varsity-team-reference-card--feature::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle, rgba(255, 255, 255, 0.25) 0 1px, transparent 1.4px),
+    linear-gradient(180deg, transparent 26%, rgba(7, 11, 13, 0.9));
+  background-size: 0.5rem 0.5rem, auto;
+}
+
+.varsity-team-reference-card--feature div {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 0.4rem;
+  padding: 1rem;
+}
+
+.varsity-team-reference-card--feature span,
+.varsity-team-reference-card--feature p,
+.varsity-team-reference-card--feature strong {
+  color: #fffaf0;
+}
+
+.varsity-team-reference-card--feature strong {
+  font-size: 2rem;
+}
+
+.varsity-team-reference__nearby {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.varsity-team-reference__nearby a {
+  min-height: 2.25rem;
+  display: flex;
+  align-items: center;
+  padding: 0.45rem 0.55rem;
+  border: 1px solid rgba(23, 25, 27, 0.1);
+  color: #17191b;
+  font-size: 0.82rem;
+  text-decoration: none;
+}
+
+.varsity-team-reference__ad--rail {
+  min-height: 12rem;
+  margin: 0;
+}
+
+@media (max-width: 1100px) {
+  .varsity-team-reference__header,
+  .varsity-team-reference__layout,
+  .varsity-team-reference__video-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .varsity-team-reference__actions {
+    justify-content: start;
+  }
+
+  .varsity-team-reference__rail {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .varsity-team-reference {
+    padding: 0.5rem;
+  }
+
+  .varsity-team-reference__sitebar,
+  .varsity-team-reference__title-card,
+  .varsity-team-reference__identity {
+    align-items: start;
+    grid-template-columns: 1fr;
+    flex-direction: column;
+  }
+
+  .varsity-team-reference__summary,
+  .varsity-team-reference__rail,
+  .varsity-team-reference__rankings,
+  .varsity-team-reference__nearby {
+    grid-template-columns: 1fr;
+  }
+
+  .varsity-team-reference__summary span + span {
+    border-left: 0;
+    border-top: 1px solid rgba(23, 25, 27, 0.1);
+  }
+
+  .varsity-team-reference__schedule article,
+  .varsity-team-reference__updates article {
+    grid-template-columns: 1fr;
+  }
+
+  .varsity-team-reference__updates img {
+    display: none;
+  }
+}
+
 .graystone {
   min-height: 100svh;
   height: 100svh;
@@ -1974,6 +3552,157 @@ select {
 .graystone--maxpreps-dark .graystone-maxpreps-footer {
   background: linear-gradient(180deg, #111111 0%, #0a0a0c 100%);
   border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.graystone--nfhs-dark {
+  background: #101010;
+}
+
+.graystone--nfhs-dark .graystone-header {
+  background: #101010;
+  border-bottom-color: transparent;
+  backdrop-filter: none;
+}
+
+.graystone--nfhs-dark .graystone-nfhs-logo svg,
+.graystone--nfhs-dark .graystone-nfhs-logo svg path {
+  color: #ffffff;
+  fill: #ffffff;
+}
+
+.graystone-nfhs-logo svg {
+  width: 3rem;
+  height: auto;
+  display: block;
+}
+
+.graystone--nfhs-dark .graystone-header__inner--maxpreps {
+  min-height: 3rem;
+  grid-template-columns: minmax(0, 1fr) minmax(14rem, 0.34fr) auto;
+  column-gap: clamp(1.6rem, 4vw, 4.5rem);
+}
+
+.graystone--nfhs-dark .graystone-maxpreps-cluster--brand {
+  gap: 1.25rem;
+}
+
+.graystone--nfhs-dark .graystone-maxpreps-primary {
+  gap: 1.2rem;
+}
+
+.graystone--nfhs-dark .graystone-maxpreps-cluster--social {
+  display: none;
+}
+
+.graystone--nfhs-dark .graystone-maxpreps-cluster--utility {
+  justify-self: center;
+  justify-content: center;
+  gap: 0.9rem;
+}
+
+.graystone--nfhs-dark .graystone-maxpreps-cluster--account {
+  gap: 0.8rem;
+}
+
+.graystone--nfhs-dark .graystone-maxpreps-nav__sports,
+.graystone--nfhs-dark .graystone-maxpreps-link,
+.graystone--nfhs-dark .graystone-maxpreps-search,
+.graystone--nfhs-dark .graystone-maxpreps-account__trigger {
+  min-height: 2rem;
+  padding-inline: 0;
+  border-radius: 4px;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.graystone--nfhs-dark .graystone-maxpreps-nav__sports:hover,
+.graystone--nfhs-dark .graystone-maxpreps-nav__sports.is-open,
+.graystone--nfhs-dark .graystone-maxpreps-link:not(.graystone-nfhs-live-count):hover,
+.graystone--nfhs-dark .graystone-maxpreps-search:hover,
+.graystone--nfhs-dark .graystone-maxpreps-search.is-open,
+.graystone--nfhs-dark .graystone-maxpreps-account__trigger:hover,
+.graystone--nfhs-dark .graystone-maxpreps-account__trigger.is-open {
+  background: transparent;
+  color: #ffffff;
+}
+
+.graystone-nfhs-live-count {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-height: 1.55rem;
+  padding: 0 0.58rem;
+  border-radius: 999px;
+  background: #e10500;
+  color: #ffffff;
+  font-size: 0.72rem;
+  font-weight: 800;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.graystone--nfhs-dark .graystone-nfhs-live-count:hover {
+  background: #e10500;
+  color: #ffffff;
+}
+
+.graystone--nfhs-dark .graystone-nfhs-live-count,
+.graystone--nfhs-dark .graystone-nfhs-live-count:hover,
+.graystone--nfhs-dark .graystone-nfhs-live-count:focus-visible {
+  background: #e10500;
+  color: #ffffff;
+}
+
+.graystone-nfhs-live-count__dot {
+  width: 0.38rem;
+  height: 0.38rem;
+  border-radius: 999px;
+  background: #ffffff;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.18);
+}
+
+.graystone-nfhs-subscribe {
+  min-height: 2rem;
+  padding: 0 0.85rem;
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  border-radius: 4px;
+  background: #f8f5ef;
+  color: #101010;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 700;
+  line-height: 1;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.graystone-nfhs-subscribe:hover,
+.graystone-nfhs-subscribe:focus-visible {
+  background: #ffffff;
+  border-color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.graystone-nfhs-nav-divider {
+  width: 1px;
+  height: 1.45rem;
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.graystone-nfhs-ticket-link::after {
+  content: "↗";
+  margin-left: 0.24rem;
+  color: rgba(255, 255, 255, 0.54);
+  font-size: 0.66rem;
+  line-height: 1;
+}
+
+.graystone--nfhs-dark .graystone-search-overlay--maxpreps {
+  background: rgba(0, 0, 0, 0.72);
 }
 
 .graystone--light .graystone-brand__back,
@@ -3003,7 +4732,7 @@ select {
   padding: 0.72rem 1rem;
   appearance: none;
   border: 1px solid rgba(18, 19, 23, 0.12);
-  border-radius: 999px;
+  border-radius: 4px;
   background: #ffffff;
   color: rgba(18, 19, 23, 0.84);
   font: inherit;
@@ -3444,6 +5173,309 @@ select {
 .graystone-maxpreps-homepage__media {
   grid-template-columns: minmax(0, 1.35fr) minmax(18rem, 0.88fr);
   align-items: start;
+}
+
+.graystone-maxpreps-network-live {
+  display: grid;
+  gap: 1.15rem;
+  padding: 1.25rem;
+  border-radius: 8px;
+  background:
+    radial-gradient(circle at 22% 0%, rgba(255, 36, 31, 0.13), transparent 30%),
+    linear-gradient(135deg, #151515 0%, #0f0f10 54%, #171717 100%);
+  color: #ffffff;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.graystone-maxpreps-network-live__header {
+  color: #ffffff;
+}
+
+.graystone-maxpreps-network-live__header h3,
+.graystone-maxpreps-network-live__rail-header h4,
+.graystone-maxpreps-network-live__rail h4,
+.graystone-maxpreps-network-live__details h4 {
+  color: #ffffff;
+}
+
+.graystone-maxpreps-network-live__title {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  min-width: 0;
+}
+
+.graystone-maxpreps-network-live__title svg {
+  width: 2.5rem;
+  height: auto;
+  flex: 0 0 auto;
+  filter: invert(1);
+}
+
+.graystone-maxpreps-network-live__header button {
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: -0.01em;
+  text-transform: none;
+}
+
+.graystone-maxpreps-network-live__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(20rem, 0.36fr);
+  gap: 1.2rem;
+  align-items: stretch;
+}
+
+.graystone-maxpreps-network-live__player {
+  display: grid;
+  gap: 1rem;
+  min-width: 0;
+}
+
+.graystone-maxpreps-network-live__video {
+  position: relative;
+  min-height: clamp(22rem, 34vw, 33rem);
+  border-radius: 8px;
+  overflow: hidden;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: grid;
+  place-items: center;
+  box-shadow: inset 0 -7rem 6rem rgba(0, 0, 0, 0.34);
+}
+
+.graystone-maxpreps-network-live__watermark {
+  position: absolute;
+  top: 1.1rem;
+  right: 1.1rem;
+  color: rgba(255, 255, 255, 0.34);
+  font-size: 1.1rem;
+  line-height: 0.86;
+  font-weight: 900;
+  letter-spacing: -0.06em;
+  text-align: right;
+  text-transform: uppercase;
+}
+
+.graystone-maxpreps-network-live__live-badge,
+.graystone-maxpreps-network-live__matchup-status {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  border-radius: 999px;
+  background: #e10500;
+  color: #ffffff;
+  font-family: var(--graystone-font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.graystone-maxpreps-network-live__live-badge {
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+  padding: 0.35rem 0.55rem;
+}
+
+.graystone-maxpreps-network-live__details {
+  display: grid;
+  gap: 0.75rem;
+  max-width: 58rem;
+}
+
+.graystone-maxpreps-network-live__sport,
+.graystone-maxpreps-network-live__matchup-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  width: fit-content;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.graystone-maxpreps-network-live__sport {
+  padding: 0.3rem 0.55rem;
+}
+
+.graystone-maxpreps-network-live__details h4 {
+  margin: 0;
+  max-width: 54rem;
+  font-size: clamp(1.18rem, 1.8vw, 1.55rem);
+  line-height: 1.1;
+  letter-spacing: -0.06em;
+}
+
+.graystone-maxpreps-network-live__details p {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.55rem;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 0.86rem;
+}
+
+.graystone-maxpreps-network-live__details strong {
+  color: #ffffff;
+  font-size: 0.86rem;
+  font-weight: 600;
+}
+
+.graystone-maxpreps-network-live__details p > span:last-child {
+  font-size: 0.82rem;
+}
+
+.graystone-maxpreps-network-live__rail-wrap {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.graystone-maxpreps-network-live__rail {
+  min-width: 0;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.graystone-maxpreps-network-live__rail-header {
+  display: grid;
+  gap: 0.8rem;
+  padding: 0;
+  border-bottom: 0;
+}
+
+.graystone-maxpreps-network-live__rail-header h4,
+.graystone-maxpreps-network-live__rail h4 {
+  margin: 0;
+  font-size: 1.2rem;
+  line-height: 1.05;
+  letter-spacing: -0.05em;
+}
+
+.graystone-maxpreps-network-live__search {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  min-height: 2.7rem;
+  padding: 0 0.8rem;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.54);
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+.graystone-maxpreps-network-live__search svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.graystone-maxpreps-network-live__matchups {
+  display: grid;
+}
+
+.graystone-maxpreps-network-live__matchup {
+  display: grid;
+  gap: 0.56rem;
+  padding: 1rem;
+  border: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.graystone-maxpreps-network-live__matchup:last-child {
+  border-bottom: 0;
+}
+
+.graystone-maxpreps-network-live__matchup:hover,
+.graystone-maxpreps-network-live__matchup:focus-visible {
+  background: rgba(255, 255, 255, 0.055);
+}
+
+.graystone-maxpreps-network-live__matchup-status {
+  padding: 0.22rem 0.45rem;
+  font-size: 0.6rem;
+}
+
+.graystone-maxpreps-network-live__matchup-status--muted {
+  background: rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.graystone-maxpreps-network-live__matchup-tag {
+  justify-self: start;
+  padding: 0.24rem 0.5rem;
+  font-size: 0.64rem;
+}
+
+.graystone-maxpreps-network-live__matchup-teams {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-width: 0;
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.graystone-maxpreps-network-live__matchup-teams strong {
+  min-width: 0;
+  color: #ffffff;
+  font-size: 0.98rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.graystone-maxpreps-network-live__matchup .graystone-team-mark {
+  flex: 0 0 auto;
+  border-color: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.graystone-maxpreps-network-live__matchup-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgba(255, 255, 255, 0.64);
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.graystone-maxpreps-network-live__matchup-meta--time {
+  justify-content: space-between;
+  gap: 0.7rem;
+}
+
+.graystone-maxpreps-network-live__matchup-meta--time > span:first-child {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.graystone-maxpreps-network-live__matchup-meta svg {
+  width: 0.9rem;
+  color: rgba(255, 255, 255, 0.46);
+}
+
+@media (max-width: 980px) {
+  .graystone-maxpreps-network-live__layout {
+    grid-template-columns: 1fr;
+  }
+
+  .graystone-maxpreps-network-live__video {
+    min-height: 18rem;
+  }
 }
 
 .graystone-maxpreps-video-shelf {
@@ -4481,36 +6513,922 @@ select {
 }
 
 .graystone-playon-hq {
-  min-height: calc(100vh - 6rem);
-  display: grid;
-  align-content: center;
+  width: 100%;
+  overflow: hidden;
   background:
-    radial-gradient(circle at 78% 16%, rgba(0, 201, 210, 0.11), transparent 24rem),
+    radial-gradient(circle at 0% 100%, rgba(0, 201, 210, 0.12), transparent 25rem),
     #fafafd;
 }
 
-.graystone-playon-hq__panel {
-  width: min(100%, 58rem);
+.graystone-playon-hq__shell {
+  width: min(100% - clamp(2rem, 5vw, 5rem), 86rem);
+  margin: 0 auto;
+  padding: clamp(1.1rem, 2vw, 1.85rem) 0 clamp(4rem, 7vw, 6rem);
   display: grid;
-  gap: 1.2rem;
-  padding-block: clamp(5rem, 10vw, 9rem);
+  grid-template-columns: 14rem minmax(0, 1fr);
+  gap: clamp(1rem, 2.4vw, 2rem);
+  align-items: start;
 }
 
-.graystone-playon-hq__panel h1 {
+.graystone-playon-hq__rail {
+  position: sticky;
+  top: clamp(1.1rem, 2vw, 1.85rem);
+}
+
+.graystone-playon-hq__rail nav {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.graystone-playon-hq__rail nav button,
+.graystone-playon-hq__filter-stack button,
+.graystone-playon-hq__ghost,
+.graystone-playon-hq__event-card footer button,
+.graystone-playon-hq__ticket-event button,
+.graystone-playon-hq__mini-list button,
+.graystone-playon-hq__concession-layout aside button,
+.graystone-playon-hq__report-layout label button,
+.graystone-playon-hq__report-layout label select {
+  border: 1px solid rgba(18, 19, 23, 0.12);
+  cursor: pointer;
+  font: inherit;
+}
+
+.graystone-playon-hq__rail nav button {
+  min-height: 3.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0 0.85rem;
+  border-radius: 4px;
+  border-color: transparent;
+  background: transparent;
+  color: rgba(18, 19, 23, 0.76);
+  text-align: left;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.graystone-playon-hq__rail nav button svg {
+  width: 0.95rem;
+  color: rgba(18, 19, 23, 0.5);
+  transition: color 0.2s ease;
+}
+
+.graystone-playon-hq__rail nav button:hover,
+.graystone-playon-hq__rail nav button.is-active {
+  border-color: rgba(0, 169, 181, 0.3);
+  background: rgba(0, 201, 210, 0.08);
+  color: #062522;
+}
+
+.graystone-playon-hq__rail nav button:hover svg,
+.graystone-playon-hq__rail nav button.is-active svg {
+  color: #00aeb8;
+}
+
+.graystone-playon-hq__main {
+  display: grid;
+  gap: clamp(1rem, 2vw, 1.45rem);
+  min-width: 0;
+}
+
+.graystone-playon-hq__date-heading,
+.graystone-playon-hq__events-title {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.graystone-playon-hq__school-mark {
+  width: 3.15rem;
+  height: 3.15rem;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: #062522;
+  font-family: var(--font-mono);
+  font-weight: 700;
+}
+
+.graystone-playon-hq__school-mark img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.graystone-playon-hq__date-heading h1,
+.graystone-playon-hq__events-title h1 {
   margin: 0;
-  max-width: 48rem;
   color: #111315;
-  font-size: clamp(3rem, 7vw, 6rem);
-  line-height: 0.92;
-  letter-spacing: -0.075em;
+  font-size: clamp(1.75rem, 3vw, 2.6rem);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.04em;
 }
 
-.graystone-playon-hq__panel p {
+.graystone-playon-hq__events,
+.graystone-playon-hq__panel {
+  border: 1px solid rgba(18, 19, 23, 0.11);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.graystone-playon-hq__events {
+  display: grid;
+  gap: 1rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.graystone-playon-hq__events-toolbar,
+.graystone-playon-hq__panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.graystone-playon-hq__events-toolbar {
+  align-items: flex-end;
+}
+
+.graystone-playon-hq__events-summary {
+  display: grid;
+  gap: 0.85rem;
+  min-width: 0;
+}
+
+.graystone-playon-hq__events-toolbar h2,
+.graystone-playon-hq__panel h2 {
   margin: 0;
-  max-width: 38rem;
+  color: #111315;
+  font-size: clamp(1.2rem, 1.6vw, 1.55rem);
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+}
+
+.graystone-playon-hq__label {
+  color: #129dab;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.graystone-playon-hq__events-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.68rem;
+}
+
+.graystone-playon-hq__events-meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.36rem;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: rgba(18, 19, 23, 0.64);
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.graystone-playon-hq__events-meta svg {
+  width: 0.86rem;
+  color: #129dab;
+}
+
+.graystone-playon-hq__events-count {
+  padding-right: 0.75rem !important;
+  border-right: 1px solid rgba(18, 19, 23, 0.16) !important;
+  color: #06312f;
+  font-size: 0.9rem !important;
+}
+
+.graystone-playon-hq__filter-stack {
+  min-width: min(34rem, 100%);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.7rem;
+}
+
+.graystone-playon-hq__filter-stack button,
+.graystone-playon-hq__ghost {
+  min-height: 2.35rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0 0.9rem;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.78);
+  color: rgba(18, 19, 23, 0.72);
+  font-size: 0.84rem;
+  font-weight: 500;
+  transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+}
+
+.graystone-playon-hq__filter-stack button:hover,
+.graystone-playon-hq__filter-stack button:focus-visible {
+  border-color: rgba(18, 19, 23, 0.18);
+  background: rgba(255, 255, 255, 0.96);
+  color: #111315;
+}
+
+.graystone-playon-hq__filter-stack button svg {
+  width: 0.86rem;
+  color: rgba(18, 19, 23, 0.54);
+}
+
+.graystone-playon-hq__filter-stack .graystone-playon-hq__icon-button {
+  width: 1.9rem;
+  min-width: 1.9rem;
+  min-height: 1.9rem !important;
+  justify-content: center;
+  border-color: transparent !important;
+  background: transparent !important;
+  padding: 0 !important;
+  color: rgba(18, 19, 23, 0.72) !important;
+}
+
+.graystone-playon-hq__filter-stack .graystone-playon-hq__icon-button:hover,
+.graystone-playon-hq__filter-stack .graystone-playon-hq__icon-button:focus-visible {
+  background: rgba(18, 19, 23, 0.06) !important;
+  color: #111315 !important;
+}
+
+.graystone-playon-hq__filter-stack .graystone-playon-hq__icon-button svg {
+  width: 1rem !important;
+  height: 1rem !important;
+  color: currentColor !important;
+  fill: currentColor !important;
+  display: block;
+}
+
+.graystone-playon-hq__filter-stack .graystone-playon-hq__icon-button svg path {
+  fill: currentColor !important;
+}
+
+.graystone-playon-hq__date-select {
+  white-space: nowrap;
+}
+
+.graystone-playon-hq__search {
+  width: min(16rem, 100%);
+  min-height: 2.35rem;
+  display: flex;
+  align-items: center;
+  gap: 0.62rem;
+  padding: 0 0.85rem;
+  border: 1px solid rgba(18, 19, 23, 0.11);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.82);
+  color: rgba(18, 19, 23, 0.48);
+  cursor: text;
+}
+
+.graystone-playon-hq__search svg {
+  width: 0.95rem;
+  height: 0.95rem;
+  flex: 0 0 auto;
+  color: rgba(18, 19, 23, 0.48);
+}
+
+.graystone-playon-hq__search input {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #111315;
+  font: inherit;
+  font-size: 0.875rem;
+}
+
+.graystone-playon-hq__event-grid {
+  display: flex;
+  gap: 0.85rem;
+  overflow-x: auto;
+  padding-bottom: 0.15rem;
+  scrollbar-width: thin;
+}
+
+.graystone-playon-hq__event-card {
+  width: 19.25rem;
+  min-width: 19.25rem;
+  overflow: hidden;
+  border: 1px solid rgba(18, 19, 23, 0.11);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.86);
+}
+
+.graystone-playon-hq__event-card header {
+  min-height: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0 0.75rem;
+  border-bottom: 1px solid rgba(18, 19, 23, 0.1);
+  background: transparent;
+  color: #222326;
+}
+
+.graystone-playon-hq__event-card header svg {
+  width: 0.82rem;
+  color: rgba(18, 19, 23, 0.58);
+}
+
+.graystone-playon-hq__event-card header strong {
+  color: #222326;
+  font-size: 0.8rem;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.graystone-playon-hq__stream-badge {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.34rem;
+  padding: 0.18rem 0.42rem;
+  border-radius: 999px;
+  background: rgba(18, 19, 23, 0.055);
+}
+
+.graystone-playon-hq__stream-badge svg {
+  width: 0.72rem;
   color: rgba(18, 19, 23, 0.62);
-  font-size: 1.15rem;
-  line-height: 1.55;
+}
+
+.graystone-playon-hq__stream-badge > svg {
+  flex: 0 0 auto;
+}
+
+.graystone-playon-hq__stream-badge > svg:last-child {
+  width: 1.5rem;
+  height: auto;
+  display: block;
+}
+
+.graystone-playon-hq__stream-badge i {
+  width: 0.38rem;
+  height: 0.38rem;
+  border-radius: 50%;
+  background: #e10500;
+}
+
+.graystone-playon-hq__event-body {
+  display: grid;
+  grid-template-columns: 3.65rem minmax(0, 1fr);
+  gap: 0.75rem;
+  padding: 0.9rem 0.75rem 0.65rem;
+}
+
+.graystone-playon-hq__team-tile {
+  --event-accent: #00aeb8;
+  width: 3.5rem;
+  height: 3.5rem;
+  display: grid;
+  place-items: center;
+  border-radius: 4px;
+  background:
+    linear-gradient(135deg, var(--event-accent) 0 48%, #20304f 49% 100%);
+  color: #ffffff;
+  font-family: var(--font-mono);
+  font-size: 0.86rem;
+  font-weight: 700;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+}
+
+.graystone-playon-hq__event-card h3 {
+  margin: 0 0 0.24rem;
+  color: #222326;
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.graystone-playon-hq__event-card small,
+.graystone-playon-hq__ticket-event p,
+.graystone-playon-hq__ticket-event small,
+.graystone-playon-hq__concession-layout aside p,
+.graystone-playon-hq__concession-layout aside small {
+  margin: 0;
+  color: rgba(18, 19, 23, 0.58);
+  font-size: 0.78rem;
+  line-height: 1.35;
+}
+
+.graystone-playon-hq__event-card p {
+  margin: 0 0 0.16rem;
+  color: #222326;
+  font-size: 0.8rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.graystone-playon-hq__event-card small {
+  display: flex;
+  align-items: center;
+  gap: 0.34rem;
+}
+
+.graystone-playon-hq__event-card small svg {
+  width: 0.72rem;
+  color: rgba(18, 19, 23, 0.42);
+}
+
+.graystone-playon-hq__metric-pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.65rem;
+  padding: 0 0.75rem 0.75rem;
+}
+
+.graystone-playon-hq__metric-pair span {
+  display: grid;
+  align-content: center;
+  gap: 0.08rem;
+  min-height: 3.05rem;
+  padding: 0.58rem 0.65rem;
+  border-radius: 4px;
+  background: rgba(18, 19, 23, 0.04);
+}
+
+.graystone-playon-hq__metric-pair small {
+  color: rgba(18, 19, 23, 0.62);
+  font-size: 0.72rem;
+  line-height: 1.15;
+}
+
+.graystone-playon-hq__metric-pair strong {
+  color: #222326;
+  font-family: var(--font-mono);
+  font-size: 1.02rem;
+  font-weight: 600;
+}
+
+.graystone-playon-hq__event-card footer {
+  display: flex;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  margin-top: 0.2rem;
+  padding: 0.25rem 0.75rem 0.75rem;
+}
+
+.graystone-playon-hq__event-card footer button,
+.graystone-playon-hq__ticket-event button,
+.graystone-playon-hq__concession-layout aside button {
+  min-height: 2rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.42rem;
+  padding: 0 0.85rem;
+  border-radius: 4px;
+  background: #ffffff;
+  color: rgba(18, 19, 23, 0.78);
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.graystone-playon-hq__event-card footer button svg {
+  width: 0.78rem;
+}
+
+.graystone-playon-hq__event-card footer button:last-child {
+  border-color: #062522;
+  background: #062522;
+  color: #ffffff;
+}
+
+.graystone-playon-hq__event-card footer button:last-child,
+.graystone-playon-hq__ticket-event button,
+.graystone-playon-hq__concession-layout aside button {
+  border-color: rgba(18, 19, 23, 0.18);
+  background: #ffffff;
+  color: rgba(18, 19, 23, 0.78);
+}
+
+.graystone-playon-hq__panel {
+  display: grid;
+  gap: 1rem;
+  padding: clamp(1rem, 1.6vw, 1.25rem);
+}
+
+.graystone-playon-hq__panel-header > div {
+  display: grid;
+  gap: 0.28rem;
+}
+
+.graystone-playon-hq__panel-header p {
+  margin: 0;
+  color: rgba(18, 19, 23, 0.62);
+  font-size: 0.82rem;
+  line-height: 1.35;
+}
+
+.graystone-playon-hq__ticket-layout {
+  display: grid;
+  grid-template-columns: minmax(18rem, 0.36fr) minmax(0, 1fr);
+  gap: 1.25rem;
+}
+
+.graystone-playon-hq__ticket-event {
+  display: grid;
+  grid-template-columns: 4.4rem minmax(0, 1fr);
+  align-items: start;
+  gap: 0.8rem;
+  padding-right: 1.25rem;
+  border-right: 1px solid rgba(18, 19, 23, 0.12);
+}
+
+.graystone-playon-hq__ticket-event > .graystone-playon-hq__team-tile {
+  width: 4.2rem;
+  height: 4.2rem;
+}
+
+.graystone-playon-hq__ticket-event > div {
+  display: grid;
+  align-content: start;
+  gap: 0.25rem;
+}
+
+.graystone-playon-hq__ticket-event strong,
+.graystone-playon-hq__concession-layout aside strong {
+  color: #222326;
+  font-size: 0.98rem;
+  line-height: 1.2;
+}
+
+.graystone-playon-hq__tickets h2 {
+  font-size: clamp(1.05rem, 1.3vw, 1.25rem);
+}
+
+.graystone-playon-hq__ticket-event p {
+  color: #222326;
+  font-weight: 600;
+}
+
+.graystone-playon-hq__ticket-event button {
+  justify-self: start;
+  margin-top: 0.7rem;
+}
+
+.graystone-playon-hq__ticket-event small {
+  display: flex;
+  align-items: center;
+  gap: 0.34rem;
+  color: rgba(18, 19, 23, 0.72);
+}
+
+.graystone-playon-hq__ticket-event small svg {
+  width: 0.72rem;
+  color: rgba(18, 19, 23, 0.42);
+}
+
+.graystone-playon-hq__ticket-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.65rem;
+}
+
+.graystone-playon-hq__ticket-row,
+.graystone-playon-hq__concession-list div {
+  display: grid;
+  grid-template-columns: minmax(7rem, 1fr) max-content max-content;
+  align-items: center;
+  gap: 1.25rem;
+  min-height: 3.8rem;
+  padding: 0.75rem 0.9rem;
+  border-radius: 4px;
+  background: rgba(18, 19, 23, 0.04);
+}
+
+.graystone-playon-hq__concession-list div {
+  box-shadow: none;
+}
+
+.graystone-playon-hq__ticket-row > span:not(.graystone-playon-hq__toggle),
+.graystone-playon-hq__concession-list div > span:not(.graystone-playon-hq__toggle) {
+  display: grid;
+  gap: 0.18rem;
+  position: relative;
+  padding-left: 0.78rem;
+}
+
+.graystone-playon-hq__ticket-row > span:not(.graystone-playon-hq__toggle)::before,
+.graystone-playon-hq__concession-list div > span:not(.graystone-playon-hq__toggle)::before {
+  content: "";
+  position: absolute;
+  top: 0.32rem;
+  left: 0;
+  width: 0.42rem;
+  height: 0.42rem;
+  border-radius: 50%;
+  background: var(--ticket-accent, #00aeb8);
+}
+
+.graystone-playon-hq__ticket-row strong,
+.graystone-playon-hq__concession-list strong {
+  color: #222326;
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+
+.graystone-playon-hq__ticket-row em,
+.graystone-playon-hq__concession-list em {
+  color: rgba(18, 19, 23, 0.62);
+  font-style: normal;
+  font-size: 0.8rem;
+}
+
+.graystone-playon-hq__toggle {
+  display: grid;
+  gap: 0.28rem;
+  color: rgba(18, 19, 23, 0.68);
+  justify-self: start;
+  min-width: max-content;
+}
+
+.graystone-playon-hq__toggle-label {
+  color: rgba(18, 19, 23, 0.68);
+  font-size: 0.68rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.graystone-playon-hq__toggle-control {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.42rem;
+}
+
+.graystone-playon-hq__toggle i {
+  position: relative;
+  width: 2rem;
+  height: 1.15rem;
+  border-radius: 999px;
+  background: #111315;
+}
+
+.graystone-playon-hq__toggle i::after {
+  content: "";
+  position: absolute;
+  top: 0.18rem;
+  right: 0.2rem;
+  width: 0.78rem;
+  height: 0.78rem;
+  border-radius: 50%;
+  background: #ffffff;
+}
+
+.graystone-playon-hq__toggle em {
+  display: inline;
+  color: rgba(18, 19, 23, 0.68);
+  font-style: normal;
+  font-size: 0.7rem;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+.graystone-playon-hq__ops-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.38fr) minmax(0, 0.62fr);
+  gap: clamp(1rem, 2vw, 1.45rem);
+}
+
+.graystone-playon-hq__mini-list,
+.graystone-playon-hq__concession-list {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.graystone-playon-hq__mini-list button {
+  min-height: 4.35rem;
+  display: grid;
+  grid-template-columns: minmax(8rem, 1fr) auto auto auto;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.75rem;
+  border-radius: 4px;
+  background: rgba(18, 19, 23, 0.04);
+  text-align: left;
+}
+
+.graystone-playon-hq__partner-logo {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  color: #111315;
+  font-size: 1.2rem;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+}
+
+.graystone-playon-hq__partner-logo img {
+  width: auto;
+  max-width: 6.45rem;
+  max-height: 1.48rem;
+  object-fit: contain;
+  filter: contrast(1.04);
+  image-rendering: auto;
+}
+
+.graystone-playon-hq__mini-list small {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.38rem;
+  color: rgba(18, 19, 23, 0.55);
+  font-size: 0.75rem;
+}
+
+.graystone-playon-hq__mini-list small::before {
+  content: "";
+  width: 0.42rem;
+  height: 0.42rem;
+  border-radius: 50%;
+  background: #00aeb8;
+}
+
+.graystone-playon-hq__mini-list strong {
+  color: #222326;
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.graystone-playon-hq__mini-list em {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.42rem;
+  padding: 0.48rem 0.72rem;
+  border: 1px solid rgba(18, 19, 23, 0.18);
+  border-radius: 4px;
+  color: rgba(18, 19, 23, 0.76);
+  font-style: normal;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.graystone-playon-hq__mini-list em svg {
+  width: 0.68rem;
+  height: 0.68rem;
+}
+
+.graystone-playon-hq__concession-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(12rem, 0.32fr);
+  gap: 1rem;
+}
+
+.graystone-playon-hq__concession-layout aside {
+  display: grid;
+  align-content: center;
+  gap: 0.32rem;
+  padding-left: 0;
+  border-left: 0;
+}
+
+.graystone-playon-hq__concession-layout aside button {
+  justify-self: start;
+  margin-top: 0.6rem;
+}
+
+.graystone-playon-hq__concession-layout aside p {
+  color: #222326;
+  font-weight: 600;
+}
+
+.graystone-playon-hq__concession-layout aside small {
+  color: rgba(18, 19, 23, 0.7);
+}
+
+.graystone-playon-hq__concession-layout aside button svg {
+  width: 0.78rem;
+}
+
+.graystone-playon-hq__report-layout {
+  display: grid;
+  grid-template-columns: minmax(18rem, 0.32fr) minmax(15.5rem, 0.28fr) minmax(0, 1fr);
+  gap: 1rem;
+  align-items: end;
+}
+
+.graystone-playon-hq__report-layout label {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.graystone-playon-hq__report-layout label > span {
+  color: rgba(18, 19, 23, 0.58);
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+.graystone-playon-hq__report-layout label select {
+  appearance: none;
+  width: 100%;
+  min-height: 3rem;
+  padding: 0 2.2rem 0 0.9rem;
+  border: 1px solid rgba(18, 19, 23, 0.12);
+  border-radius: 4px;
+  background:
+    linear-gradient(45deg, transparent 50%, rgba(18, 19, 23, 0.58) 50%) calc(100% - 1.1rem) 50% / 0.38rem 0.38rem no-repeat,
+    linear-gradient(135deg, rgba(18, 19, 23, 0.58) 50%, transparent 50%) calc(100% - 0.86rem) 50% / 0.38rem 0.38rem no-repeat,
+    rgba(18, 19, 23, 0.04);
+  color: rgba(18, 19, 23, 0.78);
+  font: inherit;
+  font-size: 0.875rem;
+  white-space: nowrap;
+}
+
+.graystone-playon-hq__report-metrics,
+.graystone-playon-hq__activity-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+.graystone-playon-hq__report-metrics article,
+.graystone-playon-hq__activity-stats article {
+  display: grid;
+  gap: 0.15rem;
+  align-content: center;
+  min-height: 5.2rem;
+  padding: 0.9rem;
+  border-radius: 4px;
+  background: rgba(18, 19, 23, 0.04);
+}
+
+.graystone-playon-hq__report-metrics span,
+.graystone-playon-hq__activity-stats span {
+  color: rgba(18, 19, 23, 0.58);
+  font-size: 0.76rem;
+}
+
+.graystone-playon-hq__report-metrics strong,
+.graystone-playon-hq__activity-stats strong {
+  color: #222326;
+  font-family: var(--font-mono);
+  font-size: clamp(1.3rem, 2vw, 1.8rem);
+  font-weight: 500;
+}
+
+.graystone-playon-hq__activity-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(10rem, 0.22fr);
+  gap: 1.6rem;
+  align-items: center;
+}
+
+.graystone-playon-hq__activity-stats {
+  grid-template-columns: 1fr;
+}
+
+.graystone-playon-hq__chart {
+  display: grid;
+  gap: 0.78rem;
+}
+
+.graystone-playon-hq__chart > div {
+  display: grid;
+  grid-template-columns: 6.5rem minmax(0, 1fr) 2rem;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.graystone-playon-hq__chart span {
+  color: rgba(18, 19, 23, 0.62);
+  font-size: 0.78rem;
+  text-align: right;
+}
+
+.graystone-playon-hq__chart div div {
+  height: 1.05rem;
+  border-radius: 4px;
+  background: rgba(18, 19, 23, 0.06);
+  overflow: hidden;
+}
+
+.graystone-playon-hq__chart i {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+}
+
+.graystone-playon-hq__chart strong {
+  color: rgba(18, 19, 23, 0.66);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
 }
 
 .graystone-login {
@@ -5218,15 +8136,28 @@ select {
 }
 
 .graystone-maxpreps-game-card__featured-message {
+  display: flex;
+  align-items: center;
+  gap: 0.16em;
+  margin: 0 0 0.35rem;
+  color: #ffffff !important;
+  font-size: clamp(1.58rem, 3.2vw, 2.85rem);
+  font-weight: 950;
+  letter-spacing: -0.085em;
+  line-height: 0.82;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.graystone-maxpreps-game-card__featured-message span {
   display: inline-block;
-  margin: 0 0 0.3rem;
-  font-size: 1.04rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  background: linear-gradient(90deg, #2563eb 0%, #1f8f6d 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
+  color: #ffffff;
+}
+
+.graystone-maxpreps-game-card__featured-message span:nth-child(2) {
   color: transparent;
+  -webkit-text-stroke: 0.045em #ffffff;
+  text-stroke: 0.045em #ffffff;
 }
 
 .graystone-maxpreps-card-thumb {
@@ -5617,16 +8548,16 @@ select {
 
 .graystone-maxpreps-cta--stream:hover,
 .graystone-maxpreps-cta--stream:focus-visible {
-  background: rgba(200, 0, 0, 0.06);
-  border-color: #c80000;
-  color: #c80000;
+  background: #a90000;
+  border-color: #a90000;
+  color: #ffffff;
 }
 
 .graystone-maxpreps-game-card__actions .graystone-maxpreps-cta--stream:hover,
 .graystone-maxpreps-game-card__actions .graystone-maxpreps-cta--stream:focus-visible {
-  background: rgba(200, 0, 0, 0.06);
-  border-color: #c80000;
-  color: #c80000;
+  background: #a90000;
+  border-color: #a90000;
+  color: #ffffff;
 }
 
 .graystone-maxpreps-cta--subtle {
@@ -5705,8 +8636,8 @@ select {
 
 .graystone-maxpreps-game-card--featured .graystone-maxpreps-cta--stream:hover,
 .graystone-maxpreps-game-card--featured .graystone-maxpreps-cta--stream:focus-visible {
-  background: #eb1e19;
-  border-color: #eb1e19;
+  background: #c80000;
+  border-color: #c80000;
 }
 
 .graystone-maxpreps-game-card--featured .graystone-maxpreps-cta--subtle {
@@ -5994,6 +8925,24 @@ select {
   width: 5.5rem;
   height: auto;
   display: block;
+}
+
+.graystone--nfhs-dark .graystone-maxpreps-logo.graystone-nfhs-logo svg {
+  width: 3rem;
+}
+
+.graystone--nfhs-dark .graystone-maxpreps-link.graystone-nfhs-live-count {
+  min-height: 1.35rem;
+  padding: 0 0.48rem;
+  border-radius: 999px;
+  background: #e10500;
+  color: #ffffff;
+}
+
+.graystone--nfhs-dark .graystone-maxpreps-link.graystone-nfhs-live-count:hover,
+.graystone--nfhs-dark .graystone-maxpreps-link.graystone-nfhs-live-count:focus-visible {
+  background: #e10500;
+  color: #ffffff;
 }
 
 .graystone-maxpreps-primary {
@@ -6304,6 +9253,10 @@ select {
   white-space: nowrap;
 }
 
+.graystone-nfhs-sports-menu {
+  width: min(42rem, calc(100vw - 2rem));
+}
+
 .graystone-maxpreps-sports__column {
   display: grid;
   gap: 0.35rem;
@@ -6338,6 +9291,829 @@ select {
   padding-top: 5.4rem;
   background: rgba(251, 250, 248, 0.72);
   backdrop-filter: blur(10px);
+}
+
+.graystone-nfhs-homepage {
+  width: 100%;
+  max-width: none;
+  min-height: 100vh;
+  padding: 0;
+  background:
+    radial-gradient(circle at 82% 6%, rgba(255, 255, 255, 0.1), transparent 28rem),
+    radial-gradient(circle at 4% 30%, rgba(255, 255, 255, 0.06), transparent 24rem),
+    linear-gradient(180deg, #101010 0%, #151515 52%, #0c0c0d 100%);
+  color: #ffffff;
+}
+
+.graystone-nfhs-hero,
+.graystone-nfhs-section,
+.graystone-nfhs-footer__inner {
+  width: min(100% - clamp(2rem, 5vw, 5rem), 86rem);
+  margin-inline: auto;
+}
+
+.graystone-nfhs-hero {
+  display: grid;
+  grid-template-columns: minmax(21rem, 0.72fr) minmax(34rem, 1.28fr);
+  align-items: center;
+  gap: clamp(2rem, 5vw, 5rem);
+  padding: clamp(3.5rem, 7vw, 6rem) 0 clamp(3rem, 6vw, 5rem);
+}
+
+.graystone-nfhs-footer__brand svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.graystone-nfhs-footer__brand svg path {
+  fill: currentColor;
+}
+
+.graystone-nfhs-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.graystone-nfhs-kicker::before {
+  content: "";
+  width: 2rem;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.34);
+}
+
+.graystone-nfhs-hero h1 {
+  max-width: 12ch;
+  margin: 1.4rem 0 0;
+  color: #ffffff;
+  font-size: clamp(2.35rem, 3.8vw, 4rem);
+  line-height: 1;
+  letter-spacing: -0.075em;
+}
+
+.graystone-nfhs-hero p {
+  max-width: 38rem;
+  margin: 1.6rem 0 0;
+  color: rgba(255, 255, 255, 0.68);
+  font-size: clamp(0.92rem, 1.1vw, 1.08rem);
+  line-height: 1.5;
+}
+
+.graystone-nfhs-search {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 0.9rem;
+  max-width: 44rem;
+  margin-top: 2rem;
+  min-height: 4rem;
+  padding: 0.9rem 1.1rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.graystone-nfhs-search svg {
+  width: 1.05rem;
+  color: rgba(255, 255, 255, 0.68);
+}
+
+.graystone-nfhs-search input {
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #ffffff;
+  font: inherit;
+  font-size: 0.96rem;
+}
+
+.graystone-nfhs-search input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.graystone-nfhs-hero__actions button,
+.graystone-nfhs-section__header > button {
+  border: 0;
+  border-radius: 4px;
+  background: #ffffff;
+  color: #101010;
+  cursor: pointer;
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+
+.graystone-nfhs-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+
+.graystone-nfhs-hero__actions button {
+  padding: 0.8rem 1.1rem;
+}
+
+.graystone-nfhs-hero__actions button + button {
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: transparent;
+  color: #ffffff;
+}
+
+.graystone-nfhs-hero__media {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  min-height: 0;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 4px;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.02)),
+    #050505;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    0 0 7rem rgba(238, 190, 58, 0.24),
+    0 36px 100px rgba(0, 0, 0, 0.45);
+}
+
+.graystone-nfhs-hero__media img {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+  object-fit: cover;
+  filter: saturate(0.95) contrast(1.05);
+}
+
+.graystone-nfhs-hero__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0.08) 0%, rgba(0, 0, 0, 0.36) 100%),
+    radial-gradient(circle at 80% 18%, rgba(255, 255, 255, 0.2), transparent 18rem);
+  pointer-events: none;
+}
+
+.graystone-nfhs-player__controls {
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.78rem 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 4px;
+  background: rgba(12, 12, 12, 0.48);
+  color: rgba(255, 255, 255, 0.82);
+  box-shadow: 0 1.2rem 3rem rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(18px);
+}
+
+.graystone-nfhs-player__time {
+  font-family: var(--graystone-font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.graystone-nfhs-player__track {
+  height: 0.22rem;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.graystone-nfhs-player__track i {
+  display: block;
+  width: 34%;
+  height: 100%;
+  border-radius: inherit;
+  background: #ffffff;
+}
+
+.graystone-nfhs-section {
+  padding: 0;
+}
+
+.graystone-nfhs-section + .graystone-nfhs-section {
+  margin-top: clamp(4rem, 8vw, 7rem);
+}
+
+.graystone-nfhs-section__header {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: 1.4rem;
+}
+
+.graystone-nfhs-section__header .graystone-nfhs-kicker {
+  margin-top: 0;
+}
+
+.graystone-nfhs-section h2 {
+  margin: 0.8rem 0 0;
+  color: #ffffff;
+  font-size: clamp(1.55rem, 2.4vw, 2.5rem);
+  line-height: 1.04;
+  letter-spacing: -0.06em;
+}
+
+.graystone-nfhs-section__header > button {
+  padding: 0.78rem 1rem;
+}
+
+.graystone-nfhs-live__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.graystone-nfhs-network__rows {
+  display: grid;
+  gap: 2.2rem;
+}
+
+.graystone-nfhs-network-row {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.graystone-nfhs-network-row__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.graystone-nfhs-network-row__header h3 {
+  margin: 0;
+  color: #ffffff;
+  font-size: clamp(1.3rem, 2vw, 1.8rem);
+  line-height: 1;
+  letter-spacing: -0.045em;
+}
+
+.graystone-nfhs-network-row__header button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border: 0;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.62);
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.graystone-nfhs-network-row__header button:hover {
+  color: #ffffff;
+}
+
+.graystone-nfhs-network-row__header svg {
+  width: 0.65rem;
+}
+
+.graystone-nfhs-feature-card,
+.graystone-nfhs-browse__grid button,
+.graystone-nfhs-states {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.055);
+}
+
+.graystone-nfhs-event-card {
+  display: grid;
+  gap: 0.85rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.graystone-nfhs-event-card__thumb {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 4px;
+  background: transparent;
+}
+
+.graystone-nfhs-event-card__thumb img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  filter: saturate(0.92) contrast(1.04);
+  transition: transform 180ms ease;
+}
+
+.graystone-nfhs-event-card:hover .graystone-nfhs-event-card__thumb img {
+  transform: scale(1.035);
+}
+
+.graystone-nfhs-event-card__thumb::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0) 42%, rgba(0, 0, 0, 0.62) 100%),
+    radial-gradient(circle at 82% 12%, rgba(255, 255, 255, 0.16), transparent 8rem);
+}
+
+.graystone-nfhs-event-card__sport-banner {
+  position: absolute;
+  left: 0.62rem;
+  top: 0.62rem;
+  z-index: 1;
+  display: inline-flex;
+  width: fit-content;
+  max-width: calc(100% - 1.24rem);
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.42rem 0.58rem;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(18, 18, 18, 0.86), rgba(18, 18, 18, 0.52));
+  color: #ffffff;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.graystone-nfhs-event-card__sport-banner svg {
+  width: 0.78rem;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.graystone-nfhs-event-card__thumb-footer {
+  position: absolute;
+  left: 0.66rem;
+  right: 0.66rem;
+  bottom: 0.66rem;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.graystone-nfhs-event-card__thumb-footer:has(.graystone-nfhs-event-card__duration:only-child) {
+  justify-content: flex-end;
+}
+
+.graystone-nfhs-event-card__tag,
+.graystone-nfhs-event-card__duration {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  background: rgba(12, 12, 12, 0.64);
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 0.64rem;
+  font-weight: 800;
+  backdrop-filter: blur(12px);
+}
+
+.graystone-nfhs-event-card__tag {
+  gap: 0.34rem;
+  padding: 0.34rem 0.52rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.graystone-nfhs-event-card__duration {
+  padding: 0.3rem 0.46rem;
+  font-family: var(--graystone-font-mono);
+  letter-spacing: 0.02em;
+}
+
+.graystone-nfhs-event-card__tag::before {
+  content: "";
+  width: 0.38rem;
+  height: 0.38rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.34);
+}
+
+.graystone-nfhs-event-card__tag.is-live {
+  color: #ffffff;
+}
+
+.graystone-nfhs-event-card__tag.is-live::before {
+  background: #ff2e2e;
+  box-shadow: 0 0 0 0.22rem rgba(255, 46, 46, 0.18);
+}
+
+.graystone-nfhs-event-card__body {
+  display: grid;
+  gap: 0.7rem;
+  padding: 0;
+}
+
+.graystone-nfhs-event-card__matchup,
+.graystone-nfhs-event-card p {
+  display: flex;
+  align-items: center;
+}
+
+.graystone-nfhs-event-card__matchup {
+  gap: 0;
+}
+
+.graystone-nfhs-event-card__matchup strong {
+  margin-left: 0;
+  color: #ffffff;
+  font-size: 1rem;
+  letter-spacing: -0.03em;
+}
+
+.graystone-nfhs-event-card p {
+  gap: 0.55rem;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 0.86rem;
+}
+
+.graystone-nfhs-event-card p svg {
+  width: 0.85rem;
+}
+
+.graystone-nfhs-feature-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.graystone-nfhs-feature-card {
+  padding: 1.25rem;
+}
+
+.graystone-nfhs-feature-card span {
+  display: block;
+  color: #ffffff;
+  font-size: 1.2rem;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+}
+
+.graystone-nfhs-feature-card p {
+  margin: 0.65rem 0 0;
+  color: rgba(255, 255, 255, 0.62);
+  line-height: 1.5;
+}
+
+.graystone-nfhs-browse__grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+.graystone-nfhs-browse__grid button {
+  min-height: 8rem;
+  display: grid;
+  place-items: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.graystone-nfhs-browse__grid button:hover,
+.graystone-nfhs-states__list button:hover {
+  background: rgba(255, 255, 255, 0.09);
+}
+
+.graystone-nfhs-browse__grid svg {
+  width: 1.7rem;
+  height: 1.7rem;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.graystone-nfhs-browse__grid span {
+  font-weight: 800;
+}
+
+.graystone-nfhs-states {
+  display: grid;
+  grid-template-columns: minmax(18rem, 0.9fr) minmax(24rem, 1.1fr);
+  gap: 2rem;
+  padding: clamp(1.5rem, 3vw, 2rem);
+}
+
+.graystone-nfhs-states p {
+  max-width: 34rem;
+  color: rgba(255, 255, 255, 0.64);
+  line-height: 1.55;
+}
+
+.graystone-nfhs-states__list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.6rem;
+}
+
+.graystone-nfhs-states__list button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 0;
+  border-radius: 4px;
+  padding: 0.85rem 0.95rem;
+  background: rgba(255, 255, 255, 0.06);
+  color: #ffffff;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.graystone-nfhs-footer {
+  width: min(100% - clamp(2rem, 5vw, 5rem), 86rem);
+  margin: clamp(5rem, 8vw, 7rem) auto 0;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at 42% 0%, rgba(255, 255, 255, 0.08), transparent 24rem),
+    #161616;
+  color: #ffffff;
+}
+
+.graystone-nfhs-footer__inner {
+  width: 100%;
+  display: grid;
+  gap: clamp(1.75rem, 3vw, 2.5rem);
+  padding: clamp(2.4rem, 5vw, 3.75rem);
+  text-align: left;
+}
+
+.graystone-nfhs-footer__top {
+  display: grid;
+  grid-template-columns: 9rem minmax(0, 1fr);
+  align-items: start;
+  gap: clamp(2rem, 6vw, 5rem);
+}
+
+.graystone-nfhs-footer__brand {
+  width: auto;
+  display: grid;
+  justify-items: start;
+  gap: 1.25rem;
+  color: #ffffff;
+}
+
+.graystone-nfhs-footer__brand svg {
+  width: 5.8rem;
+  height: auto;
+}
+
+.graystone-nfhs-footer__brand svg path,
+.graystone-nfhs-footer__products svg path {
+  fill: #ffffff;
+}
+
+.graystone-nfhs-footer__social {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+.graystone-nfhs-footer__social button {
+  border: 0;
+  border-radius: 999px;
+  width: 1.55rem;
+  height: 1.55rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  color: #161616;
+  cursor: pointer;
+  transition: opacity 160ms ease, transform 160ms ease;
+}
+
+.graystone-nfhs-footer__social button:hover {
+  opacity: 0.82;
+  transform: translateY(-1px);
+}
+
+.graystone-nfhs-footer__social svg {
+  width: 0.82rem;
+  height: 0.82rem;
+}
+
+.graystone-nfhs-footer__social svg path {
+  fill: currentColor;
+}
+
+.graystone-nfhs-footer__columns {
+  justify-self: end;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(2rem, 5vw, 5rem);
+  width: min(100%, 46rem);
+}
+
+.graystone-nfhs-footer__columns div,
+.graystone-nfhs-footer__sports div {
+  display: grid;
+  align-content: start;
+  gap: 0.8rem;
+}
+
+.graystone-nfhs-footer__columns strong {
+  color: #ffffff;
+  font-size: 0.84rem;
+  font-weight: 800;
+}
+
+.graystone-nfhs-footer button {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.62);
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+}
+
+.graystone-nfhs-footer button:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+.graystone-nfhs-footer__columns button,
+.graystone-nfhs-footer__sports button {
+  font-size: 0.78rem;
+  line-height: 1.25;
+}
+
+.graystone-nfhs-footer__popular {
+  display: grid;
+  grid-template-columns: 15rem minmax(0, 1fr);
+  gap: clamp(2rem, 6vw, 5rem);
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  padding-top: clamp(1.3rem, 3vw, 2rem);
+}
+
+.graystone-nfhs-footer__popular-tabs {
+  display: grid;
+  align-content: start;
+  gap: 0.82rem;
+}
+
+.graystone-nfhs-footer__popular-tabs button {
+  color: #ffffff;
+  font-size: 0.84rem;
+  font-weight: 800;
+}
+
+.graystone-nfhs-footer__popular-tabs button:first-child {
+  text-decoration: underline;
+  text-underline-offset: 0.24em;
+}
+
+.graystone-nfhs-footer__popular-tabs button:not(:first-child) {
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.graystone-nfhs-footer__sports {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(2rem, 5vw, 5rem);
+  width: min(100%, 38rem);
+}
+
+.graystone-nfhs-footer__legal {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.9rem 1.7rem;
+  margin: 0;
+  color: #ffffff;
+  font-size: 0.72rem;
+}
+
+.graystone-nfhs-footer__legal p {
+  margin: 0;
+}
+
+.graystone-nfhs-footer__legal nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem 1.6rem;
+}
+
+.graystone-nfhs-footer__legal button {
+  color: #ffffff;
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.graystone-nfhs-footer__bottom {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  padding-top: 0.25rem;
+}
+
+.graystone-nfhs-footer__products {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.65rem;
+  color: #ffffff;
+  font-size: 0.72rem;
+  white-space: nowrap;
+}
+
+.graystone-nfhs-footer__products > div {
+  display: flex;
+  align-items: center;
+  gap: 0.68rem;
+  border-left: 1px solid rgba(255, 255, 255, 0.48);
+  padding-left: 0.78rem;
+}
+
+.graystone-nfhs-footer__products svg {
+  width: auto;
+  height: 0.95rem;
+  display: block;
+}
+
+.graystone-nfhs-footer__products svg:first-child {
+  width: 3.9rem;
+  height: auto;
+}
+
+.graystone-nfhs-footer__products svg:nth-child(2) {
+  width: 3.5rem;
+  height: auto;
+}
+
+.graystone-nfhs-footer__products svg:nth-child(3) {
+  width: 3.9rem;
+  height: auto;
+}
+
+@media (max-width: 980px) {
+  .graystone-nfhs-hero,
+  .graystone-nfhs-states,
+  .graystone-nfhs-footer__inner {
+    grid-template-columns: 1fr;
+  }
+
+  .graystone-nfhs-live__grid,
+  .graystone-nfhs-feature-row {
+    grid-template-columns: 1fr;
+  }
+
+  .graystone-nfhs-browse__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .graystone-nfhs-footer__top,
+  .graystone-nfhs-footer__popular {
+    grid-template-columns: 1fr;
+  }
+
+  .graystone-nfhs-footer__columns,
+  .graystone-nfhs-footer__sports {
+    justify-self: stretch;
+    grid-template-columns: 1fr;
+    width: 100%;
+  }
+
+  .graystone-nfhs-footer__bottom {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .graystone-nfhs-footer__products {
+    white-space: normal;
+  }
+}
+
+@media (max-width: 640px) {
+  .graystone-nfhs-search {
+    grid-template-columns: auto 1fr;
+  }
+
+  .graystone-nfhs-browse__grid,
+  .graystone-nfhs-states__list {
+    grid-template-columns: 1fr;
+  }
 }
 
 .graystone-home-hero {
@@ -10012,6 +13788,49 @@ select {
     font-size: 0.88rem;
   }
 
+  .varsity-signal-project-header {
+    grid-template-columns: auto 1fr;
+    align-items: start;
+  }
+
+  .varsity-signal-project-header__brand {
+    justify-self: end;
+  }
+
+  .varsity-signal-project-header__brand span {
+    display: none;
+  }
+
+  .varsity-signal-project-header__brand svg {
+    width: 5rem;
+  }
+
+  .varsity-signal-project-header__nav {
+    grid-column: 1 / -1;
+    justify-content: flex-start;
+    width: 100%;
+  }
+
+  .varsity-signal-project-index {
+    grid-template-columns: 1fr;
+  }
+
+  .varsity-signal-project-index__hero {
+    min-height: 24rem;
+  }
+
+  .varsity-signal-project-index__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .varsity-signal-project-card {
+    min-height: 12rem;
+  }
+
+  .varsity-signal-project-placeholder__modules {
+    grid-template-columns: 1fr;
+  }
+
   .project-detail-page {
     padding: 1.5rem;
   }
@@ -10540,6 +14359,29 @@ select {
     grid-row: auto;
     grid-column: 1 / -1;
   }
+
+  .graystone-playon-hq__shell {
+    grid-template-columns: 1fr;
+  }
+
+  .graystone-playon-hq__rail {
+    position: static;
+  }
+
+  .graystone-playon-hq__rail nav {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .graystone-playon-hq__hero,
+  .graystone-playon-hq__ticket-layout,
+  .graystone-playon-hq__ops-grid,
+  .graystone-playon-hq__report-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .graystone-playon-hq__event-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 640px) {
@@ -10604,6 +14446,1972 @@ select {
 
   .graystone-playon-footer__legal {
     display: grid;
+  }
+
+  .graystone-playon-hq__shell {
+    width: min(100% - 1.5rem, 86rem);
+  }
+
+  .graystone-playon-hq__rail nav,
+  .graystone-playon-hq__summary,
+  .graystone-playon-hq__event-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .graystone-playon-hq__panel-header,
+  .graystone-playon-hq__events-toolbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .graystone-playon-hq__filter-stack,
+  .graystone-playon-hq__search {
+    width: 100%;
+  }
+
+  .graystone-playon-hq__filter-stack {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .graystone-playon-hq__search {
+    flex: 1 1 100%;
+  }
+
+  .graystone-playon-hq__chart > div {
+    grid-template-columns: 1fr;
+    gap: 0.4rem;
+  }
+
+  .graystone-playon-hq__chart strong {
+    text-align: left;
+  }
+}
+
+.graystone :where(
+  [class*="-card"],
+  [class*="__card"],
+  [class*="-panel"],
+  [class*="__panel"]
+) {
+  border-radius: 4px;
+}
+
+.graystone--varsity-signal {
+  background:
+    radial-gradient(circle at 18% 4%, rgba(111, 118, 111, 0.14), transparent 22rem),
+    radial-gradient(circle at 82% 18%, rgba(0, 109, 255, 0.08), transparent 24rem),
+    linear-gradient(180deg, #f4efe4 0%, #ebe3d3 54%, #f7f3ea 100%);
+  color: #111315;
+}
+
+.graystone--varsity-signal .graystone-header {
+  background: rgba(244, 239, 228, 0.96);
+  border-bottom-color: rgba(17, 19, 21, 0.12);
+  backdrop-filter: blur(18px);
+}
+
+.graystone--varsity-signal .graystone-maxpreps-gridmenu,
+.graystone--varsity-signal .graystone-maxpreps-nav__sports,
+.graystone--varsity-signal .graystone-maxpreps-search,
+.graystone--varsity-signal .graystone-maxpreps-link,
+.graystone--varsity-signal .graystone-maxpreps-social__button,
+.graystone--varsity-signal .graystone-maxpreps-account__trigger {
+  color: rgba(17, 19, 21, 0.84);
+}
+
+.graystone--varsity-signal .graystone-maxpreps-gridmenu:hover,
+.graystone--varsity-signal .graystone-maxpreps-nav__sports:hover,
+.graystone--varsity-signal .graystone-maxpreps-search:hover,
+.graystone--varsity-signal .graystone-maxpreps-link:hover,
+.graystone--varsity-signal .graystone-maxpreps-account__trigger:hover {
+  background: rgba(17, 19, 21, 0.07);
+  color: #111315;
+}
+
+.graystone--varsity-signal .graystone-page-shell {
+  width: 100%;
+  max-width: none;
+  padding: 0;
+}
+
+.graystone--varsity-signal .graystone-maxpreps-link.is-active {
+  background: rgba(111, 118, 111, 0.16);
+  color: #384039;
+}
+
+.graystone-page--varsity-signal {
+  min-height: calc(100vh - 4rem);
+  padding: 0;
+}
+
+.varsity-signal {
+  --signal-black: #05090a;
+  --signal-page: #f4efe4;
+  --signal-paper: #ebe3d3;
+  --signal-ink: #111315;
+  --signal-muted: rgba(17, 19, 21, 0.64);
+  --signal-line: rgba(17, 19, 21, 0.16);
+  --signal-accent: #6f766f;
+  --signal-red: #e10500;
+  --signal-blue: #006dff;
+  --signal-gold: #f2b820;
+  --signal-tan: #e7d8b8;
+  --font-druk-condensed: "Druk Cond Trial", "Druk Cond", "DrukCondTrial-Super", "DrukCond-Super", "Bebas Neue", "Anton", Impact, sans-serif;
+  --font-siro-condensed: "Siro SemiBold", "Siro-SemiBold", "Siro", "Avenir Next Condensed", "Arial Narrow", sans-serif;
+  --font-marker-sport: "Marker Sport", "Permanent Marker", "Marker Felt", "Comic Sans MS", cursive;
+  --font-champion-gothic: "Champion Gothic", "Bebas Neue", "Anton", Impact, "Arial Narrow", sans-serif;
+  position: relative;
+  display: grid;
+  gap: clamp(1rem, 2.4vw, 1.5rem);
+  width: min(100% - clamp(1rem, 3vw, 3rem), 118rem);
+  margin: 0 auto;
+  padding: clamp(1.25rem, 2.5vw, 2rem) 0 clamp(2.25rem, 5vw, 4rem);
+  isolation: isolate;
+}
+
+.varsity-signal::before,
+.varsity-signal::after {
+  content: "";
+  position: fixed;
+  inset: 4rem 0 0;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.varsity-signal::before {
+  background-image:
+    linear-gradient(rgba(17, 19, 21, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(17, 19, 21, 0.045) 1px, transparent 1px);
+  background-size: 4rem 4rem;
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.85), transparent);
+}
+
+.varsity-signal::after {
+  background:
+    radial-gradient(circle, rgba(17, 19, 21, 0.11) 0 1px, transparent 1.4px),
+    repeating-linear-gradient(180deg, rgba(17, 19, 21, 0.025) 0 1px, transparent 1px 5px);
+  background-size: 0.42rem 0.42rem, 100% 0.6rem;
+  opacity: 0.24;
+  mix-blend-mode: multiply;
+}
+
+.varsity-signal-hero,
+.varsity-signal-panel {
+  position: relative;
+  border: 1px solid var(--signal-line);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.6), rgba(235, 227, 211, 0.5)),
+    rgba(244, 239, 228, 0.9);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.5), 0 28px 80px rgba(17, 19, 21, 0.1);
+  overflow: hidden;
+}
+
+.varsity-signal-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 0.94fr) minmax(32rem, 1.06fr);
+  gap: clamp(1.5rem, 4vw, 4rem);
+  min-height: clamp(42rem, 72vh, 55rem);
+  padding: clamp(1.2rem, 2.6vw, 2rem);
+}
+
+.varsity-signal-hero::before,
+.varsity-signal-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(17, 19, 21, 0.13) 0 1px, transparent 1.3px);
+  background-size: 0.42rem 0.42rem;
+  opacity: 0.12;
+  pointer-events: none;
+}
+
+.varsity-signal-hero__copy {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  align-content: space-between;
+  gap: 2rem;
+  min-width: 0;
+}
+
+.varsity-signal-hero__masthead {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.varsity-signal-hero__masthead svg {
+  width: clamp(5.4rem, 8vw, 8rem);
+}
+
+.varsity-signal-hero__masthead span,
+.varsity-signal-section-heading span,
+.varsity-signal-swatch small,
+.varsity-signal-texture strong,
+.varsity-signal-application span,
+.varsity-signal-application small {
+  font-family: var(--font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.varsity-signal-hero__masthead span {
+  max-width: 8rem;
+  color: var(--signal-muted);
+  font-size: 0.68rem;
+  text-align: right;
+}
+
+.varsity-signal-hero h1 {
+  margin: 0;
+  max-width: 12ch;
+  color: var(--signal-ink);
+  font-family: var(--font-champion-gothic);
+  font-size: clamp(5.7rem, 13vw, 14rem);
+  font-stretch: condensed;
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: 0.72;
+  text-transform: uppercase;
+  text-shadow: none;
+}
+
+.varsity-signal-hero h1 span {
+  display: block;
+  color: var(--signal-red);
+  transform: skew(-8deg);
+}
+
+.varsity-signal-hero__tag {
+  width: fit-content;
+  margin: -0.6rem 0 0 clamp(1rem, 5vw, 6rem);
+  padding: 0.22rem 1rem 0.32rem;
+  background: var(--signal-tan);
+  color: #12100b;
+  font-family: var(--font-marker-sport);
+  font-size: clamp(1rem, 1.5vw, 1.55rem);
+  line-height: 1;
+  transform: rotate(-4deg);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.24);
+}
+
+.varsity-signal-hero__body {
+  margin: 0;
+  max-width: 34rem;
+  color: var(--signal-muted);
+  font-family: var(--font-siro-condensed);
+  font-size: clamp(0.78rem, 0.9vw, 0.94rem);
+  line-height: 1.55;
+}
+
+.varsity-signal-hero__chips,
+.varsity-signal-badge-row,
+.varsity-signal-motif-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.varsity-signal-hero__chips span,
+.varsity-signal-badge-row span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2rem;
+  padding: 0.38rem 0.72rem;
+  border: 1px solid rgba(17, 19, 21, 0.18);
+  background: rgba(255, 255, 255, 0.46);
+  color: var(--signal-ink);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.varsity-signal-hero__collage {
+  position: relative;
+  min-height: 34rem;
+}
+
+.varsity-signal-photo {
+  position: absolute;
+  overflow: hidden;
+  border: 1px solid rgba(17, 19, 21, 0.2);
+  background: #111;
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.36);
+}
+
+.varsity-signal-photo img,
+.varsity-signal-photo-cut img,
+.varsity-signal-athlete-card__media img,
+.varsity-signal-application > img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  filter: grayscale(0.12) contrast(1.18) saturate(0.92);
+}
+
+.varsity-signal-photo--one img {
+  object-position: center 42%;
+}
+
+.varsity-signal-photo--two img,
+.varsity-signal-athlete-card__media img {
+  object-position: center 26%;
+}
+
+.varsity-signal-photo--three img {
+  object-position: center 18%;
+}
+
+.varsity-signal-photo::after,
+.varsity-signal-photo-cut::after,
+.varsity-signal-application::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 12%, rgba(255, 255, 255, 0.44), transparent 17%),
+    radial-gradient(circle, rgba(246, 242, 232, 0.16) 0 1px, transparent 1.4px);
+  background-size: auto, 0.38rem 0.38rem;
+  mix-blend-mode: screen;
+  opacity: 0.3;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.varsity-signal-photo--one {
+  left: 4%;
+  top: 8%;
+  width: 48%;
+  height: 52%;
+  transform: rotate(-3deg);
+  background:
+    linear-gradient(135deg, transparent 0 52%, rgba(225, 5, 0, 0.88) 53% 62%, transparent 63%),
+    radial-gradient(circle at 38% 28%, #f6f2e8 0 7%, transparent 7.4%),
+    radial-gradient(circle at 48% 37%, #102345 0 22%, transparent 22.5%),
+    linear-gradient(110deg, #222 0 23%, #d9d2c6 24% 46%, #111 47% 100%);
+}
+
+.varsity-signal-photo--two {
+  right: 2%;
+  top: 3%;
+  width: 42%;
+  height: 44%;
+  transform: rotate(4deg);
+  background:
+    linear-gradient(180deg, rgba(0, 109, 255, 0.78) 0 7%, transparent 7%),
+    radial-gradient(circle at 45% 62%, rgba(255, 255, 255, 0.92) 0 1.6%, transparent 1.8%),
+    radial-gradient(circle at 52% 64%, rgba(255, 255, 255, 0.78) 0 1.4%, transparent 1.6%),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.16) 0 1px, transparent 1px 9px),
+    linear-gradient(150deg, #141414 0%, #7f1d1d 56%, #0c0c0c 100%);
+}
+
+.varsity-signal-photo--three {
+  left: 24%;
+  bottom: 2%;
+  width: 58%;
+  height: 42%;
+  transform: rotate(1.5deg);
+  background:
+    radial-gradient(circle at 64% 24%, #d4b58c 0 7%, transparent 7.4%),
+    linear-gradient(110deg, transparent 0 42%, #1d4ed8 43% 55%, transparent 56%),
+    radial-gradient(ellipse at 35% 80%, #1e40af 0 16%, transparent 16.4%),
+    linear-gradient(140deg, #93c5fd, #f59e0b 70%);
+}
+
+.varsity-signal-hero__score {
+  position: absolute;
+  right: 10%;
+  bottom: 29%;
+  padding: 0.32rem 0.7rem;
+  border: 1px solid rgba(242, 184, 32, 0.42);
+  background: #090b0c;
+  color: var(--signal-gold);
+  font-family: "Chivo Mono", monospace;
+  font-size: clamp(2.5rem, 4.3vw, 5.4rem);
+  line-height: 0.92;
+  letter-spacing: 0.02em;
+  text-shadow: 0 0 18px rgba(242, 184, 32, 0.6);
+}
+
+.varsity-signal-hero__sticker {
+  position: absolute;
+  right: 5%;
+  top: 52%;
+  min-width: 8.4rem;
+  padding: 0.72rem 0.9rem;
+  background: var(--signal-accent);
+  color: #ffffff;
+  clip-path: polygon(7% 0, 16% 12%, 29% 4%, 43% 13%, 58% 0, 68% 14%, 83% 6%, 100% 18%, 91% 43%, 100% 61%, 84% 73%, 92% 100%, 67% 91%, 54% 100%, 39% 87%, 18% 97%, 12% 77%, 0 68%, 9% 50%, 0 31%);
+  font-family: var(--font-marker-sport);
+  font-size: 1.55rem;
+  font-weight: 900;
+  line-height: 1;
+  text-align: center;
+  text-transform: uppercase;
+  transform: rotate(-11deg);
+}
+
+.varsity-signal-panel {
+  display: grid;
+  gap: 1.25rem;
+  padding: clamp(1rem, 2vw, 1.45rem);
+}
+
+.varsity-signal-section-heading {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.15rem 0.7rem;
+  align-items: baseline;
+  border-bottom: 1px solid var(--signal-line);
+  padding-bottom: 0.8rem;
+}
+
+.varsity-signal-section-heading span {
+  color: var(--signal-accent);
+  font-size: 0.7rem;
+}
+
+.varsity-signal-section-heading h2 {
+  margin: 0;
+  color: #384039;
+  font-size: clamp(1.2rem, 1.9vw, 2rem);
+  font-weight: 800;
+  letter-spacing: 0;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.varsity-signal-section-heading p {
+  grid-column: 2;
+  margin: 0;
+  max-width: 52rem;
+  color: var(--signal-muted);
+  font-family: var(--font-siro-condensed);
+  font-size: 0.78rem;
+  line-height: 1.55;
+}
+
+.varsity-signal-palette-grid,
+.varsity-signal-texture-grid,
+.varsity-signal-application-grid,
+.varsity-signal-motion-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 0.85rem;
+}
+
+.varsity-signal-palette-grid {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.varsity-signal-swatch {
+  display: grid;
+  gap: 0.45rem;
+  min-width: 0;
+}
+
+.varsity-signal-swatch span {
+  height: clamp(3.4rem, 6vw, 5.3rem);
+  border: 1px solid rgba(17, 19, 21, 0.2);
+}
+
+.varsity-signal-swatch strong {
+  font-size: 0.82rem;
+  line-height: 1.15;
+}
+
+.varsity-signal-swatch small {
+  color: var(--signal-muted);
+  font-size: 0.56rem;
+  line-height: 1.35;
+}
+
+.varsity-signal-team-stripes {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  gap: 0.35rem;
+  width: min(100%, 32rem);
+  margin-top: 0.2rem;
+  transform: skew(-12deg);
+}
+
+.varsity-signal-team-stripes span {
+  flex: 1 1 0;
+  height: 2rem;
+  border: 1px solid rgba(17, 19, 21, 0.16);
+}
+
+.varsity-signal-theme-grid,
+.varsity-signal-team-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 1rem;
+}
+
+.varsity-signal-theme-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.varsity-signal-theme-card {
+  display: grid;
+  gap: 0.9rem;
+  min-height: 18rem;
+  padding: 1.1rem;
+  border: 1px solid var(--signal-line);
+  overflow: hidden;
+}
+
+.varsity-signal-theme-card > span,
+.varsity-signal-theme-card small,
+.varsity-signal-team-card small,
+.varsity-signal-team-card__poster span {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.varsity-signal-theme-card > strong {
+  font-family: var(--font-champion-gothic);
+  font-size: clamp(2.6rem, 5vw, 5.2rem);
+  line-height: 0.84;
+  text-transform: uppercase;
+}
+
+.varsity-signal-theme-card p {
+  margin: 0;
+  max-width: 31rem;
+  font-family: var(--font-siro-condensed);
+  font-size: 0.78rem;
+  line-height: 1.55;
+}
+
+.varsity-signal-theme-card div {
+  align-self: end;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 0.5rem;
+  align-items: center;
+  padding: 0.8rem;
+}
+
+.varsity-signal-theme-card--light {
+  background:
+    radial-gradient(circle at 88% 10%, rgba(111, 118, 111, 0.16), transparent 12rem),
+    #f8f3ea;
+  color: #111315;
+}
+
+.varsity-signal-theme-card--light div {
+  border: 1px solid rgba(17, 19, 21, 0.14);
+  background: #ebe3d3;
+}
+
+.varsity-signal-theme-card--dark {
+  background:
+    radial-gradient(circle at 90% 10%, rgba(0, 109, 255, 0.2), transparent 12rem),
+    #05090a;
+  color: #f6f2e8;
+}
+
+.varsity-signal-theme-card--dark p {
+  color: rgba(246, 242, 232, 0.72);
+}
+
+.varsity-signal-theme-card--dark div {
+  border: 1px solid rgba(246, 242, 232, 0.18);
+  background: rgba(246, 242, 232, 0.06);
+}
+
+.varsity-signal-theme-card__state {
+  padding: 0.24rem 0.42rem;
+}
+
+.varsity-signal-theme-card__state--live {
+  background: var(--signal-red);
+  color: #fff;
+}
+
+.varsity-signal-theme-card__state--final {
+  border: 1px solid currentColor;
+  background: transparent;
+  color: inherit;
+}
+
+.varsity-signal-team-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.varsity-signal-team-card {
+  display: grid;
+  gap: 1rem;
+  min-height: 21rem;
+  padding: 1rem;
+  border: 1px solid rgba(17, 19, 21, 0.14);
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--team-primary) 94%, black), color-mix(in srgb, var(--team-primary) 62%, white)),
+    var(--team-primary);
+  color: #ffffff;
+  overflow: hidden;
+}
+
+.varsity-signal-team-card__mast {
+  display: grid;
+  grid-template-columns: 4rem minmax(0, 1fr);
+  gap: 0.8rem;
+  align-items: center;
+}
+
+.varsity-signal-team-card__mast > span {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  border: 2px solid color-mix(in srgb, var(--team-accent) 82%, white);
+  background: color-mix(in srgb, var(--team-secondary) 92%, white);
+  color: var(--team-accent);
+  font-family: var(--font-champion-gothic);
+  font-size: 1.65rem;
+}
+
+.varsity-signal-team-card__mast img {
+  width: 82%;
+  height: 82%;
+  object-fit: contain;
+}
+
+.varsity-signal-team-card__mast strong {
+  display: block;
+  font-family: var(--font-champion-gothic);
+  font-size: clamp(1.7rem, 2.6vw, 2.9rem);
+  line-height: 0.9;
+  text-transform: uppercase;
+}
+
+.varsity-signal-team-card small {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.varsity-signal-team-card__poster {
+  display: grid;
+  align-content: end;
+  justify-items: start;
+  min-height: 9rem;
+  padding: 1rem;
+  background:
+    radial-gradient(circle, rgba(255, 255, 255, 0.16) 0 1px, transparent 1.4px),
+    color-mix(in srgb, var(--team-secondary) 84%, transparent);
+  background-size: 0.42rem 0.42rem, auto;
+  border-top: 0.5rem solid var(--team-accent);
+}
+
+.varsity-signal-team-card__poster b {
+  color: var(--team-accent);
+  font-family: var(--font-champion-gothic);
+  font-size: 4.5rem;
+  line-height: 0.82;
+}
+
+.varsity-signal-team-card__poster span {
+  width: fit-content;
+  margin-top: 0.35rem;
+  padding: 0.18rem 0.42rem;
+  background: rgba(5, 9, 10, 0.82);
+  color: #ffffff;
+}
+
+.varsity-signal-team-card__tokens {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.4rem;
+}
+
+.varsity-signal-team-card__tokens span {
+  height: 1.4rem;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.varsity-signal-panel--type {
+  border-color: rgba(246, 242, 232, 0.2);
+  background:
+    radial-gradient(circle at 52% 42%, rgba(0, 109, 255, 0.12), transparent 20rem),
+    radial-gradient(circle, rgba(246, 242, 232, 0.08) 0 1px, transparent 1.4px),
+    #05090a;
+  background-size: auto, 0.42rem 0.42rem, auto;
+  color: #f6f2e8;
+}
+
+.varsity-signal-panel--type .varsity-signal-section-heading {
+  border-bottom-color: rgba(246, 242, 232, 0.28);
+}
+
+.varsity-signal-panel--type .varsity-signal-section-heading span,
+.varsity-signal-panel--type .varsity-signal-section-heading h2 {
+  color: var(--signal-gold);
+}
+
+.varsity-signal-panel--type .varsity-signal-section-heading p {
+  color: rgba(246, 242, 232, 0.72);
+}
+
+.varsity-signal-type-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+}
+
+.varsity-signal-type-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(12rem, 0.28fr);
+  gap: 0.9rem 2rem;
+  padding: 1.2rem 0 1.35rem;
+  border-bottom: 1px dashed rgba(246, 242, 232, 0.24);
+  background: transparent;
+}
+
+.varsity-signal-type-card span {
+  grid-column: 1 / -1;
+  color: var(--signal-gold);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.varsity-signal-type-card strong {
+  color: #f6f2e8;
+  font-size: clamp(2.8rem, 7vw, 8.6rem);
+  letter-spacing: 0;
+  line-height: 0.82;
+  text-transform: uppercase;
+}
+
+.varsity-signal-type-card small {
+  grid-column: 1;
+  color: rgba(246, 242, 232, 0.88);
+  font-size: clamp(1rem, 1.7vw, 1.65rem);
+  line-height: 1.2;
+  letter-spacing: 0.08em;
+}
+
+.varsity-signal-type-card--champion strong,
+.varsity-signal-type-card--champion small {
+  font-family: var(--font-champion-gothic);
+  font-stretch: condensed;
+  letter-spacing: 0.02em;
+}
+
+.varsity-signal-type-card--siro strong {
+  font-family: var(--font-siro-condensed);
+  font-size: clamp(1.75rem, 3.5vw, 4rem);
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  line-height: 1;
+}
+
+.varsity-signal-type-card--siro small {
+  font-family: var(--font-siro-condensed);
+  font-size: clamp(0.9rem, 1.25vw, 1.25rem);
+  letter-spacing: 0.08em;
+}
+
+.varsity-signal-type-card p {
+  grid-column: 2;
+  grid-row: 2 / span 2;
+  margin: 0;
+  padding-left: 1.5rem;
+  border-left: 1px dotted rgba(246, 242, 232, 0.34);
+  color: rgba(246, 242, 232, 0.82);
+  font-family: var(--font-siro-condensed);
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+.varsity-signal-type-card--accent {
+  grid-template-columns: 1fr;
+  border-bottom: 0;
+}
+
+.varsity-signal-type-accent-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.4rem;
+}
+
+.varsity-signal-type-accent {
+  display: grid;
+  gap: 0.5rem;
+  min-width: 0;
+  padding-left: 1.2rem;
+  border-left: 1px dotted rgba(246, 242, 232, 0.34);
+}
+
+.varsity-signal-type-accent:first-child {
+  padding-left: 0;
+  border-left: 0;
+}
+
+.varsity-signal-type-accent strong {
+  font-size: clamp(1.25rem, 2.4vw, 2.5rem);
+  line-height: 0.95;
+}
+
+.varsity-signal-type-accent small {
+  color: rgba(246, 242, 232, 0.82);
+  font-size: 0.72rem;
+  line-height: 1.35;
+  letter-spacing: 0.06em;
+}
+
+.varsity-signal-type-accent--pixel strong,
+.varsity-signal-type-accent--pixel small {
+  font-family: var(--font-mono);
+  letter-spacing: 0.14em;
+}
+
+.varsity-signal-type-accent--druk strong,
+.varsity-signal-type-accent--druk small {
+  font-family: var(--font-druk-condensed);
+  letter-spacing: 0.015em;
+}
+
+.varsity-signal-type-accent--marker strong,
+.varsity-signal-type-accent--marker small {
+  font-family: var(--font-marker-sport);
+  letter-spacing: 0;
+  transform: rotate(-2deg);
+}
+
+.varsity-signal-texture-grid {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+.varsity-signal-texture {
+  display: grid;
+  gap: 0.5rem;
+  text-align: center;
+}
+
+.varsity-signal-texture__sample {
+  min-height: 7rem;
+  border: 1px solid rgba(17, 19, 21, 0.16);
+  background: rgba(255, 255, 255, 0.34);
+}
+
+.varsity-signal-texture__sample--halftone {
+  background-image: radial-gradient(circle, #111315 0 2px, transparent 2.3px);
+  background-size: 0.7rem 0.7rem;
+}
+
+.varsity-signal-texture__sample--tape {
+  background:
+    linear-gradient(0deg, transparent 47%, rgba(17, 19, 21, 0.42) 48% 52%, transparent 53%),
+    repeating-linear-gradient(90deg, rgba(17, 19, 21, 0.18) 0 1px, transparent 1px 3rem),
+    linear-gradient(135deg, #c9bea9, #e7d8b8);
+}
+
+.varsity-signal-texture__sample--turf {
+  background:
+    linear-gradient(104deg, transparent 45%, rgba(246, 242, 232, 0.95) 46% 52%, transparent 53%),
+    linear-gradient(90deg, transparent 0 49%, rgba(246, 242, 232, 0.28) 50%, transparent 51%),
+    radial-gradient(ellipse at 44% 20%, rgba(255, 255, 255, 0.18), transparent 36%),
+    repeating-linear-gradient(88deg, rgba(255, 255, 255, 0.1) 0 1px, transparent 1px 7px),
+    repeating-linear-gradient(92deg, #0a4e24 0 0.22rem, #137331 0.22rem 0.48rem, #198a3d 0.48rem 0.76rem);
+}
+
+.varsity-signal-texture__sample--ticket {
+  background:
+    radial-gradient(circle at 0 50%, #05090a 0 0.65rem, transparent 0.68rem),
+    radial-gradient(circle at 100% 50%, #05090a 0 0.65rem, transparent 0.68rem),
+    linear-gradient(90deg, rgba(18, 16, 11, 0.18) 1px, transparent 1px),
+    var(--signal-tan);
+  background-size: auto, auto, 1.4rem 100%, auto;
+}
+
+.varsity-signal-texture__sample--floor {
+  background:
+    repeating-linear-gradient(90deg, rgba(80, 48, 10, 0.2) 0 1px, transparent 1px 3rem),
+    repeating-linear-gradient(8deg, rgba(255, 255, 255, 0.22) 0 1px, transparent 1px 5rem),
+    linear-gradient(135deg, #d58a2d, #f3bf6c);
+}
+
+.varsity-signal-texture__sample--chain {
+  background:
+    linear-gradient(45deg, transparent 42%, rgba(246, 242, 232, 0.7) 43% 47%, transparent 48%),
+    linear-gradient(-45deg, transparent 42%, rgba(246, 242, 232, 0.7) 43% 47%, transparent 48%);
+  background-size: 2rem 2rem;
+}
+
+.varsity-signal-texture__sample--mesh {
+  background:
+    radial-gradient(ellipse, transparent 0 36%, rgba(17, 19, 21, 0.78) 37% 51%, transparent 52%),
+    #e8e1d5;
+  background-size: 1.2rem 0.8rem;
+}
+
+.varsity-signal-texture strong {
+  color: var(--signal-ink);
+  font-size: 0.58rem;
+}
+
+.varsity-signal-motif-row {
+  position: relative;
+  z-index: 1;
+  gap: 1rem;
+}
+
+.varsity-signal-motif {
+  display: inline-grid;
+  place-items: center;
+  min-height: 3.1rem;
+  color: var(--signal-ink);
+}
+
+.varsity-signal-motif--score {
+  min-width: 8.5rem;
+  border: 1px solid rgba(242, 184, 32, 0.34);
+  background: #090b0c;
+  color: var(--signal-gold);
+  font-family: var(--font-mono);
+  font-size: 2rem;
+  text-shadow: 0 0 12px rgba(242, 184, 32, 0.62);
+}
+
+.varsity-signal-motif--marker {
+  color: var(--signal-red);
+  border: 0.16rem solid currentColor;
+  border-radius: 50%;
+  padding: 0.2rem 1.1rem;
+  font-family: var(--font-marker-sport);
+  font-size: 1.4rem;
+  transform: rotate(-11deg);
+}
+
+.varsity-signal-motif--barcode {
+  width: 8rem;
+  background: repeating-linear-gradient(90deg, var(--signal-ink) 0 0.16rem, transparent 0.16rem 0.38rem);
+}
+
+.varsity-signal-motif--tape {
+  padding: 0.3rem 1.8rem;
+  background: var(--signal-tan);
+  color: #13110d;
+  font-family: var(--font-marker-sport);
+  font-size: 1.2rem;
+  transform: rotate(-2deg);
+}
+
+.varsity-signal-motif--chrome {
+  width: 4.4rem;
+  height: 3.2rem;
+  border-radius: 50%;
+  border: 2px solid rgba(246, 242, 232, 0.72);
+  background:
+    linear-gradient(135deg, #ffffff, #777 35%, #e8eef0 48%, #333 70%, #ffffff),
+    #cfd8dc;
+  color: #121317;
+  font-weight: 900;
+  font-size: 1.6rem;
+  box-shadow: inset 0 0 0 3px rgba(5, 9, 10, 0.5);
+}
+
+.varsity-signal-photo-strip {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.6rem;
+}
+
+.varsity-signal-photo-cut {
+  position: relative;
+  min-height: clamp(12rem, 19vw, 21rem);
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid rgba(17, 19, 21, 0.16);
+  background: #111315;
+}
+
+.varsity-signal-photo-cut img {
+  object-position: center 30%;
+}
+
+.varsity-signal-effects-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  border: 1px solid rgba(246, 242, 232, 0.18);
+  background: rgba(5, 9, 10, 0.82);
+}
+
+.varsity-signal-effect-card {
+  position: relative;
+  display: grid;
+  grid-template-rows: minmax(14rem, 1fr) auto;
+  min-height: 25rem;
+  background: #05090a;
+  color: #f6f2e8;
+  overflow: hidden;
+}
+
+.varsity-signal-effect-card__media {
+  position: relative;
+  margin: 0;
+  min-height: 14rem;
+  overflow: hidden;
+  background: #05090a;
+}
+
+.varsity-signal-effect-card__media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.varsity-signal-effect-card__media::before,
+.varsity-signal-effect-card__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.varsity-signal-effect-card__copy {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  gap: 0.45rem;
+  min-height: 6.5rem;
+  padding: 0.75rem;
+  border-top: 1px solid rgba(246, 242, 232, 0.16);
+}
+
+.varsity-signal-effect-card__copy strong {
+  color: #f6f2e8;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  line-height: 1.25;
+  text-transform: uppercase;
+}
+
+.varsity-signal-effect-card__copy strong span {
+  color: var(--signal-red);
+}
+
+.varsity-signal-effect-card__copy p {
+  margin: 0;
+  color: rgba(246, 242, 232, 0.76);
+  font-family: var(--font-siro-condensed);
+  font-size: 0.62rem;
+  line-height: 1.45;
+}
+
+.varsity-signal-effect-card--contrast img {
+  filter: contrast(1.42) saturate(0.92) brightness(0.92);
+}
+
+.varsity-signal-effect-card--contrast .varsity-signal-effect-card__media::after {
+  background:
+    radial-gradient(circle at 72% 18%, rgba(246, 242, 232, 0.24), transparent 9rem),
+    linear-gradient(180deg, transparent 52%, rgba(0, 0, 0, 0.58));
+  mix-blend-mode: screen;
+}
+
+.varsity-signal-effect-card--halftone img {
+  filter: grayscale(1) contrast(1.3) brightness(0.9);
+}
+
+.varsity-signal-effect-card--halftone .varsity-signal-effect-card__media::before {
+  background-image: radial-gradient(circle, rgba(246, 242, 232, 0.82) 0 1px, transparent 1.5px);
+  background-size: 0.38rem 0.38rem;
+  mix-blend-mode: overlay;
+  opacity: 0.72;
+}
+
+.varsity-signal-effect-card--halftone .varsity-signal-effect-card__media::after {
+  background: rgba(5, 9, 10, 0.2);
+}
+
+.varsity-signal-effect-card--flash img {
+  filter: contrast(1.22) saturate(0.88) brightness(0.96);
+}
+
+.varsity-signal-effect-card--flash .varsity-signal-effect-card__media::before {
+  background:
+    radial-gradient(circle at 30% 18%, rgba(255, 255, 255, 0.9), transparent 4.6rem),
+    radial-gradient(circle at 52% 36%, rgba(255, 255, 255, 0.24), transparent 9rem);
+  mix-blend-mode: screen;
+}
+
+.varsity-signal-effect-card--flash .varsity-signal-effect-card__media::after {
+  background: radial-gradient(ellipse at center, transparent 46%, rgba(0, 0, 0, 0.68));
+}
+
+.varsity-signal-effect-card--grain img {
+  filter: grayscale(0.74) contrast(1.28) brightness(0.82);
+}
+
+.varsity-signal-effect-card--grain .varsity-signal-effect-card__media::before {
+  background:
+    radial-gradient(circle, rgba(246, 242, 232, 0.24) 0 1px, transparent 1.3px),
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.08) 0 1px, transparent 1px 3px);
+  background-size: 0.22rem 0.22rem, auto;
+  mix-blend-mode: overlay;
+  opacity: 0.78;
+}
+
+.varsity-signal-effect-card--grain .varsity-signal-effect-card__media::after {
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.22), rgba(0, 0, 0, 0.54));
+}
+
+.varsity-signal-effect-card--vhs img {
+  filter: contrast(1.2) saturate(1.35) hue-rotate(-8deg);
+  transform: scale(1.04);
+}
+
+.varsity-signal-effect-card--vhs .varsity-signal-effect-card__media::before {
+  background:
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.2) 0 1px, transparent 1px 5px),
+    linear-gradient(90deg, rgba(255, 0, 0, 0.24), transparent 8%, transparent 92%, rgba(0, 109, 255, 0.3));
+  mix-blend-mode: screen;
+}
+
+.varsity-signal-effect-card--vhs .varsity-signal-effect-card__media::after {
+  content: "PLAY  00:00:12";
+  display: block;
+  inset: 0;
+  padding: 0.75rem;
+  color: #f6f2e8;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  line-height: 1;
+  text-shadow: -2px 0 rgba(225, 5, 0, 0.7), 2px 0 rgba(0, 109, 255, 0.7);
+}
+
+.varsity-signal-effect-card--chromatic img {
+  filter: contrast(1.18) saturate(1.08) brightness(0.9);
+  transform: scale(1.03);
+}
+
+.varsity-signal-effect-card--chromatic .varsity-signal-effect-card__media::before {
+  background:
+    linear-gradient(90deg, rgba(225, 5, 0, 0.22), transparent 34%),
+    linear-gradient(270deg, rgba(0, 109, 255, 0.28), transparent 38%);
+  mix-blend-mode: screen;
+}
+
+.varsity-signal-effect-card--chromatic .varsity-signal-effect-card__media::after {
+  background:
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.08) 0 1px, transparent 1px 4px),
+    radial-gradient(ellipse at center, transparent 50%, rgba(0, 0, 0, 0.58));
+}
+
+.varsity-signal-effect-card--torn .varsity-signal-effect-card__media {
+  margin: 1rem;
+  min-height: 13rem;
+  background: #e7d8b8;
+  clip-path: polygon(0 8%, 7% 3%, 14% 8%, 23% 2%, 31% 7%, 42% 0, 52% 6%, 65% 3%, 74% 7%, 86% 2%, 100% 8%, 96% 21%, 100% 36%, 95% 51%, 100% 66%, 96% 83%, 100% 94%, 89% 100%, 77% 95%, 66% 100%, 53% 94%, 43% 99%, 31% 94%, 19% 100%, 9% 95%, 0 100%, 5% 82%, 0 67%, 4% 50%, 0 34%, 5% 19%);
+}
+
+.varsity-signal-effect-card--torn img {
+  filter: grayscale(0.1) contrast(1.18) sepia(0.2) saturate(0.86);
+}
+
+.varsity-signal-effect-card--torn .varsity-signal-effect-card__media::after {
+  background:
+    radial-gradient(circle, rgba(17, 19, 21, 0.2) 0 1px, transparent 1.3px),
+    linear-gradient(180deg, rgba(231, 216, 184, 0.16), rgba(231, 216, 184, 0.36));
+  background-size: 0.34rem 0.34rem, auto;
+  mix-blend-mode: multiply;
+}
+
+.varsity-signal-photo-cut--helmet {
+  background:
+    radial-gradient(circle at 46% 28%, #f7f3ea 0 9%, transparent 9.4%),
+    radial-gradient(ellipse at 50% 42%, #1f2937 0 28%, transparent 28.5%),
+    linear-gradient(160deg, #08090a, #747b74 48%, #111315);
+}
+
+.varsity-signal-photo-cut--students {
+  background:
+    radial-gradient(circle at 28% 42%, #f7f3ea 0 3%, transparent 3.4%),
+    radial-gradient(circle at 44% 36%, #f7f3ea 0 3.2%, transparent 3.6%),
+    radial-gradient(circle at 66% 47%, #f7f3ea 0 3%, transparent 3.5%),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.12) 0 2px, transparent 2px 14px),
+    linear-gradient(140deg, #111315, #e10500 54%, #111315);
+}
+
+.varsity-signal-photo-cut--basketball {
+  background:
+    radial-gradient(circle at 54% 30%, #f7f3ea 0 5%, transparent 5.4%),
+    linear-gradient(100deg, transparent 0 42%, #f6f2e8 43% 49%, transparent 50%),
+    linear-gradient(145deg, #111315, #6f766f 42%, #ebe3d3);
+}
+
+.varsity-signal-photo-cut--trophy {
+  background:
+    radial-gradient(circle at 57% 18%, #f2b820 0 8%, transparent 8.6%),
+    linear-gradient(90deg, transparent 0 42%, #f2b820 43% 56%, transparent 57%),
+    linear-gradient(145deg, #e10500, #111315 58%);
+}
+
+.varsity-signal-photo-cut--volleyball {
+  background:
+    radial-gradient(circle at 62% 26%, #f7f3ea 0 5%, transparent 5.4%),
+    linear-gradient(110deg, transparent 0 35%, #f7f3ea 36% 43%, transparent 44%),
+    linear-gradient(145deg, #111315, #6f766f 56%, #05090a);
+}
+
+.varsity-signal-components-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(16rem, 0.82fr) minmax(18rem, 1fr) minmax(13rem, 0.56fr);
+  gap: 1rem;
+  align-items: stretch;
+}
+
+.varsity-signal-scorebug,
+.varsity-signal-athlete-card,
+.varsity-signal-ticket {
+  border: 1px solid rgba(17, 19, 21, 0.22);
+  background: #090b0c;
+}
+
+.varsity-signal-scorebug {
+  display: grid;
+  align-content: start;
+  gap: 0.65rem;
+  padding: 0.72rem;
+  color: #f6f2e8;
+}
+
+.varsity-signal-scorebug__status,
+.varsity-signal-scorebug__team,
+.varsity-signal-scorebug__actions {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.varsity-signal-scorebug__status span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.22rem 0.42rem;
+  background: transparent;
+  color: var(--signal-red);
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.varsity-signal-scorebug__status span::before {
+  content: "";
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 999px;
+  background: var(--signal-red);
+}
+
+.varsity-signal-scorebug__status strong {
+  grid-column: 2 / -1;
+  color: rgba(246, 242, 232, 0.74);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 400;
+  text-align: right;
+}
+
+.varsity-signal-scorebug__team {
+  grid-template-columns: 2rem 1fr auto;
+  min-height: 2.8rem;
+  padding: 0.42rem 0.52rem;
+  border-bottom: 1px solid rgba(246, 242, 232, 0.12);
+  background: rgba(246, 242, 232, 0.03);
+}
+
+.varsity-signal-scorebug__team strong {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.varsity-signal-scorebug__team > span:last-child {
+  font-family: var(--font-mono);
+  font-size: 1.9rem;
+  font-weight: 600;
+}
+
+.varsity-signal-scorebug__mark {
+  display: inline-grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border: 1px solid rgba(246, 242, 232, 0.24);
+  background: rgba(246, 242, 232, 0.94);
+  overflow: hidden;
+}
+
+.varsity-signal-scorebug__mark img {
+  width: 90%;
+  height: 90%;
+  object-fit: contain;
+}
+
+.varsity-signal-scorebug__actions {
+  grid-template-columns: 1fr;
+  margin-top: 0.25rem;
+}
+
+.varsity-signal-scorebug__actions button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  min-height: 2.6rem;
+  border: 1px solid rgba(246, 242, 232, 0.2);
+  background: transparent;
+  color: #f6f2e8;
+  cursor: pointer;
+  font: inherit;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.varsity-signal-scorebug__actions button:first-child {
+  border-color: var(--signal-red);
+  background: var(--signal-red);
+  color: #ffffff;
+}
+
+.varsity-signal-athlete-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(9rem, 0.9fr) minmax(0, 1fr);
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 28% 18%, rgba(0, 109, 255, 0.32), transparent 12rem),
+    linear-gradient(135deg, #12161c 0%, #07090c 58%);
+  color: #f6f2e8;
+}
+
+.varsity-signal-athlete-card__media {
+  position: relative;
+  min-height: 18rem;
+  background:
+    radial-gradient(circle at 50% 20%, #d6b995 0 8%, transparent 8.4%),
+    linear-gradient(90deg, transparent 0 38%, #1d4ed8 39% 61%, transparent 62%),
+    radial-gradient(ellipse at 55% 80%, #2b2f34 0 34%, transparent 34.5%),
+    linear-gradient(160deg, #29313f, #07090c);
+  overflow: hidden;
+}
+
+.varsity-signal-athlete-card__media img {
+  filter: grayscale(0.28) contrast(1.24) saturate(0.86);
+}
+
+.varsity-signal-athlete-card__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle, rgba(246, 242, 232, 0.18) 0 1px, transparent 1.4px),
+    linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.48));
+  background-size: 0.38rem 0.38rem, auto;
+}
+
+.varsity-signal-athlete-card__body em {
+  position: absolute;
+  right: 1rem;
+  top: 0.7rem;
+  color: #1248ff;
+  font-family: var(--font-champion-gothic);
+  font-size: clamp(3rem, 5vw, 5.6rem);
+  font-style: normal;
+  line-height: 0.8;
+  text-shadow: 0.04em 0.04em 0 #05090a;
+}
+
+.varsity-signal-athlete-card__body {
+  align-self: end;
+  display: grid;
+  gap: 0.2rem;
+  padding: 5rem 1rem 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+.varsity-signal-athlete-card__body span {
+  color: #f6f2e8;
+  font-family: var(--font-champion-gothic);
+  font-size: 1.35rem;
+  line-height: 0.95;
+  text-transform: uppercase;
+}
+
+.varsity-signal-athlete-card__body strong,
+.varsity-signal-athlete-card__body small {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+}
+
+.varsity-signal-athlete-card__body strong {
+  color: #f6f2e8;
+  font-size: 0.78rem;
+}
+
+.varsity-signal-athlete-card__body small {
+  color: var(--signal-muted);
+  font-size: 0.58rem;
+}
+
+.varsity-signal-athlete-card__stats {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-top: 2px solid var(--signal-red);
+  background: #111315;
+}
+
+.varsity-signal-athlete-card__stats span {
+  display: grid;
+  gap: 0.15rem;
+  padding: 0.68rem;
+  border-right: 1px solid rgba(246, 242, 232, 0.18);
+  color: rgba(255, 255, 255, 0.78);
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  text-transform: uppercase;
+}
+
+.varsity-signal-athlete-card__stats span:last-child {
+  border-right: 0;
+}
+
+.varsity-signal-athlete-card__stats strong {
+  color: #fff;
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.varsity-signal-ticket {
+  display: grid;
+  align-content: start;
+  gap: 0.9rem;
+  min-height: 100%;
+  padding: 1rem;
+  background:
+    radial-gradient(circle at 0 50%, #f4efe4 0 0.7rem, transparent 0.73rem),
+    radial-gradient(circle at 100% 50%, #f4efe4 0 0.7rem, transparent 0.73rem),
+    radial-gradient(circle, rgba(17, 19, 21, 0.14) 0 1px, transparent 1.3px),
+    var(--signal-tan);
+  background-size: auto, auto, 0.38rem 0.38rem, auto;
+  color: #15110a;
+  box-shadow: inset 0 0 0 2px rgba(21, 17, 10, 0.12);
+}
+
+.varsity-signal-ticket__eyebrow,
+.varsity-signal-ticket__presented,
+.varsity-signal-ticket__meta {
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.varsity-signal-ticket strong {
+  font-family: var(--font-champion-gothic);
+  font-size: 3rem;
+  line-height: 0.85;
+  text-transform: uppercase;
+}
+
+.varsity-signal-ticket__meta {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-block: 1px dashed rgba(21, 17, 10, 0.38);
+  padding-block: 0.7rem;
+}
+
+.varsity-signal-ticket__barcode {
+  height: 3rem;
+  background: repeating-linear-gradient(90deg, #15110a 0 0.14rem, transparent 0.14rem 0.34rem);
+}
+
+.varsity-signal-badge-row {
+  position: relative;
+  z-index: 1;
+  align-items: stretch;
+}
+
+.varsity-signal-component-chip {
+  justify-content: center;
+  min-width: 6rem;
+}
+
+.varsity-signal-component-chip--live {
+  border-color: var(--signal-red);
+  background: var(--signal-red);
+  color: #fff;
+}
+
+.varsity-signal-component-chip--final,
+.varsity-signal-component-chip--ot {
+  background: #05090a;
+  color: #f6f2e8;
+}
+
+.varsity-signal-component-chip--upset {
+  border-color: rgba(242, 184, 32, 0.72);
+  background: var(--signal-gold);
+  color: #111315;
+}
+
+.varsity-signal-component-chip--rivalry {
+  border-color: rgba(0, 109, 255, 0.48);
+  background: rgba(0, 109, 255, 0.14);
+  color: #0b3d8e;
+}
+
+.varsity-signal-component-chip--barcode {
+  min-width: 8rem;
+  color: transparent;
+  background:
+    repeating-linear-gradient(90deg, #111315 0 0.13rem, transparent 0.13rem 0.35rem),
+    #f6f2e8;
+}
+
+.varsity-signal-component-chip--tape {
+  border-color: rgba(17, 19, 21, 0.08);
+  background: var(--signal-tan);
+  color: #15110a;
+  font-family: var(--font-marker-sport);
+  letter-spacing: 0;
+  transform: rotate(-2deg);
+}
+
+.varsity-signal-component-chip--chrome {
+  border-color: rgba(17, 19, 21, 0.24);
+  background: linear-gradient(135deg, #ffffff, #777 35%, #e8eef0 48%, #333 70%, #ffffff);
+  color: #111315;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.65);
+}
+
+.varsity-signal-application-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.varsity-signal-application {
+  position: relative;
+  min-height: 20rem;
+  display: grid;
+  align-items: end;
+  overflow: hidden;
+  border: 1px solid rgba(246, 242, 232, 0.18);
+  background: #111;
+}
+
+.varsity-signal-application > img {
+  z-index: 0;
+}
+
+.varsity-signal-application:nth-child(1) > img {
+  object-position: center 26%;
+}
+
+.varsity-signal-application:nth-child(2) > img {
+  object-position: center 18%;
+}
+
+.varsity-signal-application:nth-child(3) > img {
+  object-position: center 30%;
+}
+
+.varsity-signal-application:nth-child(4) > img {
+  object-position: center 24%;
+}
+
+.varsity-signal-application::before {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 70%;
+  background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.88));
+  z-index: 1;
+}
+
+.varsity-signal-application div {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  gap: 0.28rem;
+  padding: 1rem;
+  border-top: 0.42rem solid var(--signal-card-accent);
+}
+
+.varsity-signal-application:nth-child(1) {
+  background:
+    radial-gradient(circle at 24% 34%, transparent 0 7%, #f2b820 7.2% 8.4%, transparent 8.7%),
+    radial-gradient(circle at 74% 34%, transparent 0 7%, #e10500 7.2% 8.4%, transparent 8.7%),
+    linear-gradient(90deg, transparent 0 42%, rgba(246, 242, 232, 0.86) 43% 48%, transparent 49%),
+    linear-gradient(135deg, #05090a, #7f1d1d);
+}
+
+.varsity-signal-application:nth-child(2) {
+  background:
+    radial-gradient(circle at 58% 28%, #d6b995 0 8%, transparent 8.4%),
+    linear-gradient(110deg, transparent 0 38%, #111315 39% 56%, transparent 57%),
+    radial-gradient(ellipse at 55% 74%, #6f766f 0 25%, transparent 25.5%),
+    linear-gradient(135deg, #05090a, #ebe3d3);
+}
+
+.varsity-signal-application:nth-child(3) {
+  background:
+    radial-gradient(circle at 74% 70%, rgba(246, 242, 232, 0.8) 0 1rem, transparent 1.1rem),
+    linear-gradient(90deg, transparent 0 40%, rgba(0, 109, 255, 0.72) 41% 51%, transparent 52%),
+    linear-gradient(135deg, #111315, #0f172a 62%);
+}
+
+.varsity-signal-application:nth-child(4) {
+  background:
+    radial-gradient(circle at 70% 22%, #cfd8dc 0 10%, transparent 10.4%),
+    linear-gradient(90deg, transparent 0 48%, #e10500 49% 58%, transparent 59%),
+    linear-gradient(135deg, #006dff, #05090a 72%);
+}
+
+.varsity-signal-application span,
+.varsity-signal-application small {
+  font-size: 0.58rem;
+}
+
+.varsity-signal-application span {
+  width: fit-content;
+  padding: 0.18rem 0.4rem;
+  background: rgba(246, 242, 232, 0.92);
+  color: #111315;
+}
+
+.varsity-signal-application small {
+  color: rgba(246, 242, 232, 0.78);
+}
+
+.varsity-signal-application strong {
+  color: #fff;
+  font-family: var(--font-champion-gothic);
+  font-size: clamp(1.9rem, 3vw, 3rem);
+  letter-spacing: 0;
+  line-height: 0.86;
+  text-transform: uppercase;
+}
+
+.varsity-signal-marketing-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(14rem, 0.62fr) minmax(14rem, 0.62fr) minmax(26rem, 1.18fr);
+  grid-auto-rows: minmax(12.5rem, auto);
+  gap: 0.9rem;
+}
+
+.varsity-signal-marketing-card {
+  position: relative;
+  display: grid;
+  align-items: end;
+  min-height: 24rem;
+  overflow: hidden;
+  border: 1px solid rgba(17, 19, 21, 0.16);
+  background: #05090a;
+  color: #f6f2e8;
+}
+
+.varsity-signal-marketing-card img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: contrast(1.16) saturate(0.88);
+}
+
+.varsity-signal-marketing-card--story {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  aspect-ratio: 9 / 16;
+  min-height: 26rem;
+}
+
+.varsity-signal-marketing-card--square {
+  grid-column: 2;
+  grid-row: 1;
+  min-height: 12.5rem;
+  aspect-ratio: auto;
+}
+
+.varsity-signal-marketing-card--thumb {
+  grid-column: 2;
+  grid-row: 2;
+  min-height: 12.5rem;
+  aspect-ratio: auto;
+}
+
+.varsity-signal-marketing-card--email {
+  grid-column: 3;
+  min-height: 12.5rem;
+  aspect-ratio: auto;
+}
+
+.varsity-signal-marketing-card--email img {
+  object-position: center 32%;
+}
+
+.varsity-signal-marketing-card--thumb img {
+  object-position: center 35%;
+}
+
+.varsity-signal-marketing-card--email:nth-child(5) img {
+  object-position: center 24%;
+}
+
+.varsity-signal-marketing-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    radial-gradient(circle, rgba(246, 242, 232, 0.16) 0 1px, transparent 1.4px),
+    linear-gradient(180deg, transparent 24%, rgba(0, 0, 0, 0.84));
+  background-size: 0.38rem 0.38rem, auto;
+}
+
+.varsity-signal-marketing-card div {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  gap: 0.28rem;
+  padding: 1rem;
+  border-top: 0.42rem solid var(--signal-red);
+}
+
+.varsity-signal-marketing-card span,
+.varsity-signal-marketing-card small {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.varsity-signal-marketing-card span {
+  width: fit-content;
+  padding: 0.16rem 0.4rem;
+  background: rgba(246, 242, 232, 0.92);
+  color: #111315;
+}
+
+.varsity-signal-marketing-card small {
+  color: rgba(246, 242, 232, 0.78);
+}
+
+.varsity-signal-marketing-card strong {
+  font-family: var(--font-champion-gothic);
+  font-size: clamp(1.8rem, 2.7vw, 3rem);
+  line-height: 0.88;
+  text-transform: uppercase;
+}
+
+.varsity-signal-motion-grid {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+.varsity-signal-motion-grid article {
+  display: grid;
+  place-items: center;
+  gap: 0.65rem;
+  min-height: 8.5rem;
+  border: 1px solid rgba(246, 242, 232, 0.16);
+  background: rgba(246, 242, 232, 0.04);
+  text-align: center;
+}
+
+.varsity-signal-motion-grid svg {
+  color: var(--signal-accent);
+  font-size: 1.8rem;
+  filter: drop-shadow(0 0 12px rgba(111, 118, 111, 0.34));
+}
+
+.varsity-signal-motion-grid strong {
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 1180px) {
+  .varsity-signal-hero,
+  .varsity-signal-type-grid,
+  .varsity-signal-components-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .varsity-signal-hero__collage {
+    min-height: 31rem;
+  }
+
+  .varsity-signal-palette-grid,
+  .varsity-signal-texture-grid,
+  .varsity-signal-effects-grid,
+  .varsity-signal-application-grid,
+  .varsity-signal-marketing-grid,
+  .varsity-signal-motion-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .varsity-signal-marketing-card--story,
+  .varsity-signal-marketing-card--square,
+  .varsity-signal-marketing-card--thumb,
+  .varsity-signal-marketing-card--email {
+    grid-column: auto;
+    grid-row: auto;
+    min-height: 20rem;
+  }
+
+}
+
+@media (max-width: 720px) {
+  .graystone--varsity-signal .graystone-header__inner--maxpreps {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    min-height: 4.8rem;
+    overflow-x: auto;
+    padding-inline: 0.75rem;
+    scrollbar-width: none;
+  }
+
+  .graystone--varsity-signal .graystone-header__inner--maxpreps::-webkit-scrollbar {
+    display: none;
+  }
+
+  .graystone--varsity-signal .graystone-maxpreps-cluster--brand {
+    flex: 0 0 auto;
+    gap: 0.65rem;
+  }
+
+  .graystone--varsity-signal .graystone-maxpreps-gridmenu {
+    width: 2.35rem;
+    min-width: 2.35rem;
+  }
+
+  .graystone--varsity-signal .graystone-maxpreps-logo {
+    width: 5.6rem;
+    min-width: 5.6rem;
+  }
+
+  .graystone--varsity-signal .graystone-maxpreps-primary {
+    flex: 0 0 auto;
+    gap: 0.25rem;
+  }
+
+  .graystone--varsity-signal .graystone-maxpreps-link,
+  .graystone--varsity-signal .graystone-maxpreps-nav__sports {
+    min-height: 2.25rem;
+    padding-inline: 0.58rem;
+    font-size: 0.78rem;
+    white-space: nowrap;
+  }
+
+  .graystone--varsity-signal .graystone-maxpreps-cluster--utility,
+  .graystone--varsity-signal .graystone-maxpreps-cluster--social,
+  .graystone--varsity-signal .graystone-maxpreps-cluster--account {
+    display: none;
+  }
+
+  .varsity-signal {
+    width: min(100% - 1rem, 118rem);
+  }
+
+  .varsity-signal-hero {
+    min-height: auto;
+  }
+
+  .varsity-signal-hero__masthead,
+  .varsity-signal-section-heading {
+    grid-template-columns: 1fr;
+  }
+
+  .varsity-signal-hero__masthead {
+    display: grid;
+  }
+
+  .varsity-signal-hero__masthead span {
+    max-width: none;
+    text-align: left;
+  }
+
+  .varsity-signal-hero h1 {
+    font-size: clamp(4.3rem, 22vw, 7rem);
+  }
+
+  .varsity-signal-hero__tag {
+    margin-left: 0.5rem;
+  }
+
+  .varsity-signal-hero__collage {
+    min-height: 24rem;
+  }
+
+  .varsity-signal-section-heading p {
+    grid-column: auto;
+  }
+
+  .varsity-signal-palette-grid,
+  .varsity-signal-texture-grid,
+  .varsity-signal-photo-strip,
+  .varsity-signal-effects-grid,
+  .varsity-signal-application-grid,
+  .varsity-signal-marketing-grid,
+  .varsity-signal-motion-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .varsity-signal-athlete-card {
+    grid-template-columns: 1fr;
+  }
+
+  .varsity-signal-athlete-card img {
+    min-height: 18rem;
   }
 }
 

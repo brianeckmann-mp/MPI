@@ -4,17 +4,31 @@ import {
   faBaseball,
   faBasketball,
   faBuildingColumns,
+  faCalendarCheck,
+  faCalendarDay,
+  faCalendarPlus,
+  faChartLine,
+  faChevronRight,
+  faCircleDollarToSlot,
+  faCircleUser,
   faEnvelope,
   faEye,
   faFootball,
   faKey,
+  faLocationDot,
   faLock,
   faMobileScreenButton,
   faPeopleGroup,
+  faPen,
   faShieldHalved,
+  faSliders,
+  faTableCellsLarge,
+  faTicketSimple,
+  faVideo,
   faVolleyball,
 } from "@fortawesome/free-solid-svg-icons";
 import { faApple, faGoogle, faMicrosoft } from "@fortawesome/free-brands-svg-icons";
+import { VARSITY_SIGNAL_IMAGES } from "./varsity-signal-assets";
 import {
   GraystoneIconChevron,
   GraystoneIconFacebook,
@@ -40,6 +54,7 @@ export const GRAYSTONE_PAGES = [
   "graystone-login",
   "graystone-playon-home",
   "graystone-playon-hq",
+  "graystone-nfhs-home",
   "graystone-maxpreps-home",
   "graystone-maxpreps-videos",
   "graystone-watch",
@@ -80,6 +95,14 @@ const BRAND_TREE = [
   { id: "nfhs-network", label: "NFHS Network", logo: "nfhs.svg", links: ["Home", "Login", "Account"] },
   { id: "gofan", label: "GoFan", logo: "gf.svg", links: ["Home", "Login", "Account"] },
 ];
+
+const NFHS_SPORTS_MENU = {
+  "Fall sports": ["Football", "Volleyball", "Boys Soccer", "Girls Soccer", "Cross Country"],
+  "Winter sports": ["Basketball", "Wrestling", "Ice Hockey", "Swimming", "Competitive Cheer"],
+  "Spring sports": ["Baseball", "Softball", "Track & Field", "Lacrosse", "Tennis"],
+};
+
+const NFHS_PRIMARY_LINKS = ["Schools", "States & Associations"];
 
 const CONCEPT_LINKS = [
   {
@@ -486,6 +509,190 @@ const MAXPREPS_CONTENT_PREFERENCES = [
 const MAXPREPS_CONTENT_PREFERENCE_DEFAULTS = Object.fromEntries(
   MAXPREPS_CONTENT_PREFERENCES.map(({ id }) => [id, true]),
 );
+
+const VARSITY_SIGNAL_PALETTE = [
+  { name: "Night Field Black", value: "#05090a", note: "base" },
+  { name: "Scoreboard White", value: "#f6f2e8", note: "surface" },
+  { name: "Newsprint Bone", value: "#ebe3d3", note: "page" },
+  { name: "Press Box Pewter", value: "#6f766f", note: "neutral accent" },
+  { name: "Turf Green", value: "#16a34a", note: "system" },
+  { name: "Gym Floor Gold", value: "#f2b820", note: "warmth" },
+  { name: "MaxPreps Red", value: "#e10500", note: "live" },
+  { name: "Electric Blue", value: "#006dff", note: "action" },
+  { name: "Chrome Silver", value: "#cfd8dc", note: "badge" },
+  { name: "Ticket Tan", value: "#e7d8b8", note: "paper" },
+];
+
+const VARSITY_SIGNAL_TEXTURES = [
+  { name: "Halftone", className: "halftone" },
+  { name: "Tape", className: "tape" },
+  { name: "Turf", className: "turf" },
+  { name: "Ticket Stub", className: "ticket" },
+  { name: "Chain Link", className: "chain" },
+  { name: "Jersey Mesh", className: "mesh" },
+];
+
+const VARSITY_SIGNAL_COMPONENTS = [
+  { label: "LIVE", className: "live" },
+  { label: "FINAL", className: "final" },
+  { label: "OT", className: "ot" },
+  { label: "UPSET ALERT", className: "upset" },
+  { label: "RIVALRY WEEK", className: "rivalry" },
+  { label: "PLAYER ID", className: "barcode" },
+  { label: "GAME DAY", className: "tape" },
+  { label: "CHROME BADGE", className: "chrome" },
+];
+
+const VARSITY_SIGNAL_APPLICATIONS = [
+  {
+    label: "Game day poster",
+    title: "Rivalry Week",
+    meta: "Northside vs. Riverview",
+    accent: "#e10500",
+  },
+  {
+    label: "Instagram post",
+    title: "Player of the Game",
+    meta: "32 PTS · 8 REB · 5 AST",
+    accent: "#6f766f",
+  },
+  {
+    label: "Highlight thumbnail",
+    title: "Top 5 Plays",
+    meta: "Week 7",
+    accent: "#006dff",
+  },
+  {
+    label: "Athlete profile",
+    title: "#10 Elijah Thompson",
+    meta: "812 REC YDS · 11 TDS",
+    accent: "#7447ff",
+  },
+];
+
+const VARSITY_SIGNAL_MARKETING_ASSETS = [
+  {
+    label: "Instagram Story",
+    title: "Final: 32-28",
+    meta: "1080 x 1920",
+    imageId: "scoreboard-huddle",
+    className: "story",
+  },
+  {
+    label: "Square Social",
+    title: "Player of the Game",
+    meta: "1080 x 1080",
+    imageId: "profile-athlete",
+    className: "square",
+  },
+  {
+    label: "Video Thumbnail",
+    title: "Top 5 Plays",
+    meta: "16:9 social/video",
+    imageId: "court-final",
+    className: "thumb",
+  },
+  {
+    label: "Email Header",
+    title: "Watch Live Tonight",
+    meta: "1200 x 480",
+    imageId: "game-poster",
+    className: "email",
+  },
+  {
+    label: "Email Header",
+    title: "Weekly Highlights",
+    meta: "1200 x 480",
+    imageId: "volleyball-final",
+    className: "email",
+  },
+];
+
+const VARSITY_SIGNAL_VISUAL_EFFECTS = [
+  {
+    number: "1",
+    name: "High Contrast Sports Grade",
+    description: "Punchy contrast, controlled color, and deep blacks focused on the athlete.",
+    imageId: "profile-athlete",
+    className: "contrast",
+  },
+  {
+    number: "2",
+    name: "Flash Photo Treatment",
+    description: "On-camera flash energy with a crisp subject and a darker, richer background.",
+    imageId: "championship-net",
+    className: "flash",
+  },
+  {
+    number: "3",
+    name: "Sideline Grain",
+    description: "Film grain and rough texture that keeps the image real, local, and imperfect.",
+    imageId: "student-energy",
+    className: "grain",
+  },
+  {
+    number: "4",
+    name: "VHS Scanlines",
+    description: "Subtle scanlines, timecode, and color distortion for broadcast energy.",
+    imageId: "game-poster",
+    className: "vhs",
+  },
+  {
+    number: "5",
+    name: "Torn Paper Edge",
+    description: "Ripped-paper framing for headlines, photo cards, modules, and recap panels.",
+    imageId: "track-state",
+    className: "torn",
+  },
+  {
+    number: "6",
+    name: "Chromatic Offset",
+    description: "A slight broadcast RGB split for motion, tension, and game-night energy.",
+    imageId: "volleyball-final",
+    className: "chromatic",
+  },
+];
+
+const getVarsitySignalImage = (id) => VARSITY_SIGNAL_IMAGES.find((image) => image.id === id);
+
+const getVarsitySignalSrc = (baseUrl, image) => `${baseUrl}${image.src}`;
+
+const getVarsitySignalSrcSet = (baseUrl, image) => (
+  image.variants.map((variant) => `${baseUrl}${variant.src} ${variant.width}w`).join(", ")
+);
+
+const VARSITY_SIGNAL_TEAM_THEMES = [
+  {
+    school: "Northside Knights",
+    mascot: "N",
+    logo: "mascot-4.svg",
+    sport: "Varsity Football",
+    primary: "#172554",
+    secondary: "#f8fafc",
+    accent: "#d4af37",
+    record: "8-1",
+  },
+  {
+    school: "Riverview Rams",
+    mascot: "R",
+    logo: "mascot-9.svg",
+    sport: "Girls Basketball",
+    primary: "#7f1d1d",
+    secondary: "#111827",
+    accent: "#f2b820",
+    record: "12-3",
+  },
+  {
+    school: "East Valley Tigers",
+    mascot: "EV",
+    logo: "mascot-3.svg",
+    sport: "Baseball",
+    primary: "#14532d",
+    secondary: "#f97316",
+    accent: "#ebe3d3",
+    record: "10-4",
+  },
+];
 
 const MAXPREPS_SPORT_FILTER_OPTIONS = {
   sports: [
@@ -965,6 +1172,53 @@ const MAXPREPS_VIDEO_PLAYLIST = [
   },
 ];
 
+const MAXPREPS_NETWORK_MATCHUPS = [
+  {
+    id: "eldorado-rio-grande-morning",
+    status: "Live",
+    sport: "Varsity Boys Baseball",
+    teams: [
+      { name: "Eldorado", short: "ELD", accent: "#d97706", logo: "mascot-18.svg" },
+      { name: "Rio Grande", short: "RG", accent: "#c80000", logo: "mascot-19.svg" },
+    ],
+    time: "May 9, 2026 | 10:00 AM MDT",
+    location: "Albuquerque, NM",
+  },
+  {
+    id: "eldorado-rio-grande-afternoon",
+    status: "Upcoming",
+    sport: "Varsity Boys Baseball",
+    teams: [
+      { name: "Eldorado", short: "ELD", accent: "#d97706", logo: "mascot-18.svg" },
+      { name: "Rio Grande", short: "RG", accent: "#c80000", logo: "mascot-19.svg" },
+    ],
+    time: "May 9, 2026 | 1:00 PM MDT",
+    location: "Albuquerque, NM",
+  },
+  {
+    id: "atrisco-rio-rancho-evening",
+    status: "Upcoming",
+    sport: "Varsity Boys Baseball",
+    teams: [
+      { name: "Atrisco", short: "AT", accent: "#facc15", logo: "mascot-11.svg" },
+      { name: "Rio Rancho", short: "RR", accent: "#15803d", logo: "mascot-12.svg" },
+    ],
+    time: "May 8, 2026 | 4:00 PM MDT",
+    location: "Albuquerque, NM",
+  },
+  {
+    id: "atrisco-rio-rancho-morning",
+    status: "Upcoming",
+    sport: "Varsity Boys Baseball",
+    teams: [
+      { name: "Atrisco", short: "AT", accent: "#facc15", logo: "mascot-11.svg" },
+      { name: "Rio Rancho", short: "RR", accent: "#15803d", logo: "mascot-12.svg" },
+    ],
+    time: "May 9, 2026 | 10:00 AM MDT",
+    location: "Albuquerque, NM",
+  },
+];
+
 const MAXPREPS_UPCOMING_GAMES = [
   {
     id: "game-1",
@@ -1290,6 +1544,365 @@ function GraystonePlayOnFooter() {
   );
 }
 
+function GraystoneNfhsFooter() {
+  const footerGroups = [
+    {
+      title: "About Us",
+      links: ["PlayOn! Sports", "NFHS.org", "High School Support Program", "Help & Customer Support"],
+    },
+    {
+      title: "Browse",
+      links: ["Ways to Watch", "Find Your School", "Search Sport, State, or Association", "Buy Tickets to Live Events", "Buy Digital Copies of Events"],
+    },
+    {
+      title: "Join the Network",
+      links: ["Become a Network School", "Automated Production", "VidSwap Coaching Tools", "Media Partners"],
+    },
+  ];
+  const popularSports = [
+    ["Basketball", "Football", "Wrestling"],
+    ["Volleyball", "Soccer", "Cheerleading & Dance"],
+    ["Ice Hockey", "Baseball"],
+  ];
+  const legalLinks = ["California Privacy Rights", "Privacy Policy", "Terms of Use"];
+
+  return (
+    <footer className="graystone-nfhs-footer" aria-label="NFHS Network footer">
+      <div className="graystone-nfhs-footer__inner">
+        <div className="graystone-nfhs-footer__top">
+          <div className="graystone-nfhs-footer__brand">
+            <GraystoneNfhsWordmark />
+
+            <div className="graystone-nfhs-footer__social" aria-label="Social links">
+              <button type="button" aria-label="Facebook">
+                <GraystoneIconFacebook />
+              </button>
+              <button type="button" aria-label="Instagram">
+                <GraystoneIconInstagram />
+              </button>
+              <button type="button" aria-label="X">
+                <GraystoneIconX />
+              </button>
+              <button type="button" aria-label="YouTube">
+                <GraystoneIconYoutube />
+              </button>
+            </div>
+          </div>
+
+          <nav className="graystone-nfhs-footer__columns" aria-label="NFHS footer links">
+            {footerGroups.map((group) => (
+              <div key={group.title}>
+                <strong>{group.title}</strong>
+                {group.links.map((link) => (
+                  <button key={link} type="button">
+                    {link}
+                  </button>
+                ))}
+              </div>
+            ))}
+          </nav>
+        </div>
+
+        <div className="graystone-nfhs-footer__popular">
+          <nav className="graystone-nfhs-footer__popular-tabs" aria-label="Popular browse groups">
+            {["Popular Sports", "Popular States", "Popular Associations"].map((label) => (
+              <button key={label} type="button">
+                {label}
+              </button>
+            ))}
+          </nav>
+          <div className="graystone-nfhs-footer__sports">
+            {popularSports.map((column) => (
+              <div key={column.join("-")}>
+                {column.map((sport) => (
+                  <button key={sport} type="button">
+                    {sport}
+                  </button>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="graystone-nfhs-footer__bottom">
+          <div className="graystone-nfhs-footer__legal">
+            <p>© 2026 NFHS Network LLC</p>
+            <nav aria-label="Legal links">
+              {legalLinks.map((link) => (
+                <button key={link} type="button">
+                  {link}
+                </button>
+              ))}
+            </nav>
+          </div>
+
+          <div className="graystone-nfhs-footer__products">
+            <span>A Product of</span>
+            <div>
+              <GraystonePlayOnWordmark wordFill="#ffffff" />
+              <GraystoneMaxPrepsWordmark fill="#ffffff" />
+              <GraystoneGofanWordmark />
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+function GraystoneNfhsHomePage() {
+  const baseUrl = import.meta.env.BASE_URL;
+  const networkRows = [
+    {
+      title: "Games near you",
+      events: [
+        {
+          sport: "Varsity Boys Baseball",
+          matchup: "Eldorado vs Rio Grande",
+          time: "Today · 10:00 AM MDT",
+          location: "Albuquerque, NM",
+          status: "Live",
+          duration: "Live",
+          image: "nfhs-event-1.png",
+          teams: ["EL", "RG"],
+          icon: faBaseball,
+        },
+        {
+          sport: "Girls Soccer",
+          matchup: "Acalanes vs Las Lomas",
+          time: "Today · 4:30 PM PDT",
+          location: "Walnut Creek, CA",
+          status: "Upcoming",
+          duration: "4:30 PM",
+          image: "nfhs-event-2.png",
+          teams: ["AC", "LL"],
+          icon: faFootball,
+        },
+        {
+          sport: "Track & Field",
+          matchup: "NMAA Outdoor Championship",
+          time: "Tomorrow · 8:00 AM MDT",
+          location: "Albuquerque, NM",
+          status: "Upcoming",
+          duration: "8:00 AM",
+          image: "nfhs-event-3.png",
+          teams: ["NM", "TF"],
+          icon: faChartLine,
+        },
+      ],
+    },
+    {
+      title: "Top matchups",
+      events: [
+        {
+          sport: "Varsity Football",
+          matchup: "Mater Dei vs St. John Bosco",
+          time: "Friday · 8:00 PM PDT",
+          location: "Santa Ana, CA",
+          status: "Upcoming",
+          duration: "8:00 PM",
+          image: "nfhs-event-4.png",
+          teams: ["MD", "SJB"],
+          icon: faFootball,
+        },
+        {
+          sport: "Boys Basketball",
+          matchup: "Campbell Hall vs Sierra Canyon",
+          time: "Saturday · 6:00 PM PDT",
+          location: "Studio City, CA",
+          status: "Upcoming",
+          duration: "6:00 PM",
+          image: "nfhs-event-5.png",
+          teams: ["CH", "SC"],
+          icon: faBasketball,
+        },
+        {
+          sport: "Softball",
+          matchup: "Aledo vs Barbers Hill",
+          time: "Today · 7:00 PM CDT",
+          location: "Austin, TX",
+          status: "Live",
+          duration: "Live",
+          image: "nfhs-event-6.png",
+          teams: ["AL", "BH"],
+          icon: faBaseball,
+        },
+      ],
+    },
+    {
+      title: "Live and upcoming",
+      events: [
+        {
+          sport: "Track & Field",
+          matchup: "2026 NMAA Outdoor Championship",
+          time: "Live now",
+          location: "Albuquerque, NM",
+          status: "Live",
+          duration: "Live",
+          image: "nfhs-event-3.png",
+          teams: ["NM", "TF"],
+          icon: faChartLine,
+        },
+        {
+          sport: "Varsity Boys Volleyball",
+          matchup: "Mira Costa vs Loyola",
+          time: "Today · 5:30 PM PDT",
+          location: "Manhattan Beach, CA",
+          status: "Upcoming",
+          duration: "5:30 PM",
+          image: "nfhs-event-1.png",
+          teams: ["MC", "LY"],
+          icon: faVolleyball,
+        },
+        {
+          sport: "Girls Lacrosse",
+          matchup: "Valor Christian vs Cherry Creek",
+          time: "Tomorrow · 6:00 PM MDT",
+          location: "Highlands Ranch, CO",
+          status: "Upcoming",
+          duration: "6:00 PM",
+          image: "nfhs-event-2.png",
+          teams: ["VC", "CC"],
+          icon: faChartLine,
+        },
+      ],
+    },
+  ];
+  const browseSports = [
+    ["Football", faFootball],
+    ["Basketball", faBasketball],
+    ["Baseball", faBaseball],
+    ["Softball", faBaseball],
+    ["Volleyball", faVolleyball],
+    ["Track & Field", faChartLine],
+    ["Soccer", faFootball],
+    ["Lacrosse", faChartLine],
+    ["Wrestling", faPeopleGroup],
+    ["Swimming", faChartLine],
+    ["Cheer", faPeopleGroup],
+    ["More events", faCalendarDay],
+  ];
+  const states = ["California", "Texas", "Florida", "Georgia", "New York", "Ohio", "Colorado", "Arizona"];
+
+  return (
+    <section className="graystone-page graystone-nfhs-homepage" aria-label="NFHS Network homepage">
+      <section className="graystone-nfhs-hero">
+        <div className="graystone-nfhs-hero__copy">
+          <span className="graystone-nfhs-kicker">Live and on demand high school sports</span>
+          <h1>Your front row seat on game day</h1>
+          <p>Unlimited streaming and on-demand high school sports for the players and teams that matter the most.</p>
+
+          <div className="graystone-nfhs-search" role="search">
+            <GraystoneIconSearch />
+            <input type="search" placeholder="Search by school, team, or event" />
+          </div>
+
+          <div className="graystone-nfhs-hero__actions">
+            <button type="button">Subscribe to watch</button>
+            <button type="button">Browse schools</button>
+          </div>
+        </div>
+
+        <div className="graystone-nfhs-hero__media">
+          <img src={`${baseUrl}thumbnail-7.png`} alt="NFHS Network livestream preview" />
+          <div className="graystone-nfhs-player__controls" aria-hidden="true">
+            <span className="graystone-nfhs-player__time">00:00</span>
+            <span className="graystone-nfhs-player__track">
+              <i />
+            </span>
+            <span className="graystone-nfhs-player__time">Live</span>
+          </div>
+        </div>
+      </section>
+
+      <section className="graystone-nfhs-section graystone-nfhs-network">
+        <div className="graystone-nfhs-network__rows">
+          {networkRows.map((row) => (
+            <div key={row.title} className="graystone-nfhs-network-row">
+              <div className="graystone-nfhs-network-row__header">
+                <h3>{row.title}</h3>
+                <button type="button">
+                  View all
+                  <FontAwesomeIcon icon={faChevronRight} />
+                </button>
+              </div>
+              <div className="graystone-nfhs-live__grid">
+                {row.events.map((event) => (
+                  <article key={`${row.title}-${event.matchup}`} className="graystone-nfhs-event-card">
+                    <div className="graystone-nfhs-event-card__thumb">
+                      <img src={`${baseUrl}${event.image}`} alt="" />
+                      <div className="graystone-nfhs-event-card__sport-banner">
+                        <FontAwesomeIcon icon={event.icon} />
+                        <span>{event.sport}</span>
+                      </div>
+                      <div className="graystone-nfhs-event-card__thumb-footer">
+                        {event.status !== "Live" ? (
+                          <span className="graystone-nfhs-event-card__tag">{event.status}</span>
+                        ) : null}
+                        <span className="graystone-nfhs-event-card__duration">{event.duration}</span>
+                      </div>
+                    </div>
+                    <div className="graystone-nfhs-event-card__body">
+                      <div className="graystone-nfhs-event-card__matchup">
+                        <strong>{event.matchup}</strong>
+                      </div>
+                      <p>
+                        <FontAwesomeIcon icon={faCalendarDay} />
+                        {event.time}
+                      </p>
+                      <p>
+                        <FontAwesomeIcon icon={faLocationDot} />
+                        {event.location}
+                      </p>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="graystone-nfhs-section graystone-nfhs-browse">
+        <div className="graystone-nfhs-section__header">
+          <div>
+            <span className="graystone-nfhs-kicker">Browse</span>
+            <h2>Find games by sport</h2>
+          </div>
+        </div>
+        <div className="graystone-nfhs-browse__grid">
+          {browseSports.map(([sport, icon]) => (
+            <button key={sport} type="button">
+              <FontAwesomeIcon icon={icon} />
+              <span>{sport}</span>
+            </button>
+          ))}
+        </div>
+      </section>
+
+      <section className="graystone-nfhs-section graystone-nfhs-states">
+        <div>
+          <span className="graystone-nfhs-kicker">State associations</span>
+          <h2>Every postseason run has a home.</h2>
+          <p>
+            Follow championship coverage, live schedules, and replay libraries from partner state associations.
+          </p>
+        </div>
+        <div className="graystone-nfhs-states__list">
+          {states.map((state) => (
+            <button key={state} type="button">
+              {state}
+              <FontAwesomeIcon icon={faChevronRight} />
+            </button>
+          ))}
+        </div>
+      </section>
+
+      <GraystoneNfhsFooter />
+    </section>
+  );
+}
+
 function GraystonePlayOnHomePage() {
   const baseUrl = import.meta.env.BASE_URL;
   const metrics = [
@@ -1467,15 +2080,368 @@ function GraystonePlayOnHomePage() {
 }
 
 function GraystonePlayOnHqPage() {
+  const baseUrl = import.meta.env.BASE_URL;
+  const hqNavItems = [
+    { label: "Today", icon: faCalendarDay },
+    { label: "Events", icon: faCalendarCheck },
+    { label: "Seasons", icon: faFootball },
+    { label: "Fan Zone", icon: faPeopleGroup },
+    { label: "Financial Hub", icon: faCircleDollarToSlot },
+    { label: "Account", icon: faCircleUser },
+    { label: "Create", icon: faCalendarPlus },
+  ];
+  const hqEvents = [
+    {
+      sport: "Boys Baseball",
+      title: "Centennial vs Eastview",
+      level: "V / JV / FR",
+      location: "Johns Creek, GA",
+      datetime: "Mon 12-18-2025 5:00 PM",
+      mark: "CE",
+      accent: "#b20016",
+      icon: faBaseball,
+      metrics: [
+        ["Tickets sold", "120"],
+        ["Ticket sales", "$513"],
+      ],
+    },
+    {
+      sport: "Boys Basketball",
+      title: "Centennial vs Spartans",
+      level: "V / JV / FR",
+      location: "Johns Creek, GA",
+      datetime: "Mon 12-18-2025 5:00 PM",
+      mark: "CS",
+      accent: "#ae001a",
+      icon: faBasketball,
+      metrics: [
+        ["Tickets sold", "234"],
+        ["Ticket sales", "$678"],
+      ],
+    },
+    {
+      sport: "Girls Swimming",
+      title: "Centennial vs Eastview",
+      level: "V / JV / FR",
+      location: "Johns Creek, GA",
+      datetime: "Mon 12-18-2025 5:00 PM",
+      mark: "CE",
+      accent: "#c60024",
+      icon: faMobileScreenButton,
+      stream: true,
+      metrics: [
+        ["Live Views", "3,239"],
+        ["VOD Views", "1,249"],
+      ],
+    },
+    {
+      sport: "Girls Volleyball",
+      title: "Centennial vs Milton",
+      level: "V / JV / FR",
+      location: "Johns Creek, GA",
+      datetime: "Mon 12-18-2025 7:00 PM",
+      mark: "CM",
+      accent: "#b20016",
+      icon: faVolleyball,
+      metrics: [
+        ["Tickets sold", "92"],
+        ["Ticket sales", "$426"],
+      ],
+    },
+  ];
+  const ticketTypes = [
+    ["Adult", "$10.00", "#00aeb8"],
+    ["Senior", "$2.00", "#5b7fd6"],
+    ["Child", "$5.00", "#7d63d8"],
+    ["Student", "$2.00", "#d9704f"],
+  ];
+  const integrations = [
+    ["VNN", "17", "vnn.png"],
+    ["Rank One", "12", "rankone.png"],
+  ];
+  const concessions = [
+    ["Sandwich", "$5.00", "#3f6ed8"],
+    ["Soda", "$2.00", "#8790aa"],
+  ];
+  const salesBars = [
+    ["Basketball", 94, "#343f73", "20"],
+    ["Baseball", 78, "#6792bd", "16"],
+    ["Football", 63, "#8790aa", "13"],
+    ["Softball", 48, "#9daf9f", "9"],
+    ["Wrestling", 25, "#d66a42", "4"],
+  ];
+  const renderToggle = (label, status = "On") => (
+    <span className="graystone-playon-hq__toggle">
+      <span className="graystone-playon-hq__toggle-label">{label}</span>
+      <span className="graystone-playon-hq__toggle-control">
+        <i aria-hidden="true" />
+        <em>{status}</em>
+      </span>
+    </span>
+  );
+
   return (
-    <section className="graystone-page graystone-playon-hq" aria-label="PlayOn HQ placeholder">
-      <div className="graystone-playon-hq__panel">
-        <span className="graystone-playon-kicker">PlayOn HQ</span>
-        <h1>Operations workspace placeholder.</h1>
-        <p>
-          This authenticated destination will become the PlayOn HQ concept page next. For now it
-          verifies that global Graystone auth controls navigation and page access.
-        </p>
+    <section className="graystone-page graystone-playon-hq" aria-label="PlayOn HQ product page">
+      <div className="graystone-playon-hq__shell">
+        <aside className="graystone-playon-hq__rail" aria-label="HQ sections">
+          <nav>
+            {hqNavItems.map((item, index) => (
+              <button key={item.label} type="button" className={index === 0 ? "is-active" : ""}>
+                <FontAwesomeIcon icon={item.icon} aria-hidden="true" />
+                {item.label}
+              </button>
+            ))}
+          </nav>
+        </aside>
+
+        <div className="graystone-playon-hq__main">
+          <section className="graystone-playon-hq__events" aria-label="Events today">
+            <div className="graystone-playon-hq__events-toolbar">
+              <div className="graystone-playon-hq__events-summary">
+                <div className="graystone-playon-hq__events-title">
+                  <span className="graystone-playon-hq__school-mark">
+                    <img src={`${baseUrl}mascot-6.svg`} alt="Centennial" />
+                  </span>
+                  <div>
+                    <h1>Dec-18-2025</h1>
+                  </div>
+                </div>
+                <div className="graystone-playon-hq__events-meta" aria-label="Event totals">
+                  <span className="graystone-playon-hq__events-count">7 Events Today</span>
+                  <span><FontAwesomeIcon icon={faTicketSimple} aria-hidden="true" />5 Ticketed Events</span>
+                  <span><FontAwesomeIcon icon={faVideo} aria-hidden="true" />2 Streaming Events</span>
+                </div>
+              </div>
+              <div className="graystone-playon-hq__filter-stack" aria-label="Event filters">
+                <button type="button" className="graystone-playon-hq__icon-button" aria-label="Filter events">
+                  <FontAwesomeIcon icon={faSliders} aria-hidden="true" />
+                </button>
+                <button type="button" className="graystone-playon-hq__icon-button" aria-label="View options">
+                  <FontAwesomeIcon icon={faTableCellsLarge} aria-hidden="true" />
+                </button>
+                <button type="button" className="graystone-playon-hq__date-select">
+                  Today <GraystoneIconChevron aria-hidden="true" />
+                </button>
+                <label className="graystone-playon-hq__search">
+                  <GraystoneIconSearch aria-hidden="true" />
+                  <input type="search" placeholder="Search team, sport or date" />
+                </label>
+              </div>
+            </div>
+            <div className="graystone-playon-hq__event-grid">
+              {hqEvents.map((event) => (
+                <article key={event.title} className="graystone-playon-hq__event-card">
+                  <header>
+                    <FontAwesomeIcon icon={event.icon} />
+                    <strong>{event.sport}</strong>
+                    {event.stream ? (
+                      <span className="graystone-playon-hq__stream-badge" aria-label="NFHS Network stream">
+                        <i aria-hidden="true" />
+                        <FontAwesomeIcon icon={faVideo} aria-hidden="true" />
+                        <GraystoneNfhsWordmark />
+                      </span>
+                    ) : null}
+                  </header>
+                  <div className="graystone-playon-hq__event-body">
+                    <span className="graystone-playon-hq__team-tile" style={{ "--event-accent": event.accent }}>
+                      {event.mark}
+                    </span>
+                    <div>
+                      <h3>{event.title}</h3>
+                      <p>{event.level}</p>
+                      <small><FontAwesomeIcon icon={faLocationDot} aria-hidden="true" />{event.location}</small>
+                      <small><FontAwesomeIcon icon={faCalendarDay} aria-hidden="true" />{event.datetime}</small>
+                    </div>
+                  </div>
+                  <div className="graystone-playon-hq__metric-pair">
+                    {event.metrics.map(([label, value]) => (
+                      <span key={label}>
+                        <small>{label}</small>
+                        <strong>{value}</strong>
+                      </span>
+                    ))}
+                  </div>
+                  <footer>
+                    <button type="button">
+                      <FontAwesomeIcon icon={faChartLine} aria-hidden="true" />
+                      View
+                    </button>
+                    <button type="button">
+                      <FontAwesomeIcon icon={faPen} aria-hidden="true" />
+                      Edit
+                    </button>
+                  </footer>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <section className="graystone-playon-hq__panel graystone-playon-hq__tickets" aria-label="Ticket setup">
+            <div className="graystone-playon-hq__panel-header">
+              <div>
+                <span className="graystone-playon-hq__label">Tickets</span>
+                <h2>Today’s Event Tickets</h2>
+              </div>
+            </div>
+            <div className="graystone-playon-hq__ticket-layout">
+              <div className="graystone-playon-hq__ticket-event">
+                <span className="graystone-playon-hq__team-tile" style={{ "--event-accent": "#b20016" }}>
+                  CE
+                </span>
+                <div>
+                  <strong>Centennial vs Eastview</strong>
+                  <p>Boys Baseball</p>
+                  <p>V / JV / FR</p>
+                  <small><FontAwesomeIcon icon={faLocationDot} aria-hidden="true" />Johns Creek, GA</small>
+                  <small><FontAwesomeIcon icon={faCalendarDay} aria-hidden="true" />Mon 12-18-2025 5:00 PM</small>
+                  <button type="button">
+                    <FontAwesomeIcon icon={faPen} aria-hidden="true" />
+                    Edit Tickets
+                  </button>
+                </div>
+              </div>
+              <div className="graystone-playon-hq__ticket-list">
+                {ticketTypes.map(([type, price, color]) => (
+                  <div key={type} className="graystone-playon-hq__ticket-row">
+                    <span style={{ "--ticket-accent": color }}>
+                      <strong>{type}</strong>
+                      <em>{price}</em>
+                    </span>
+                    {renderToggle("On Sale", "On Sale")}
+                    {renderToggle("Box Office")}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          <div className="graystone-playon-hq__ops-grid">
+            <section className="graystone-playon-hq__panel graystone-playon-hq__integrations" aria-label="Event integrations">
+              <div className="graystone-playon-hq__panel-header">
+                <div>
+                  <span className="graystone-playon-hq__label">Event integrations</span>
+                  <h2>Event Integrations</h2>
+                  <p>Publish events from partners with one click.</p>
+                </div>
+              </div>
+              <div className="graystone-playon-hq__mini-list">
+                {integrations.map(([name, value, logo]) => (
+                  <button key={name} type="button">
+                    <span className="graystone-playon-hq__partner-logo">
+                      <img src={`${baseUrl}${logo}`} alt={name} />
+                    </span>
+                    <small>New</small>
+                    <strong>{value}</strong>
+                    <em>Publish <FontAwesomeIcon icon={faChevronRight} aria-hidden="true" /></em>
+                  </button>
+                ))}
+              </div>
+            </section>
+
+            <section className="graystone-playon-hq__panel graystone-playon-hq__concessions" aria-label="Concessions">
+              <div className="graystone-playon-hq__panel-header">
+                <div>
+                  <span className="graystone-playon-hq__label">Concessions</span>
+                  <h2>Concessions</h2>
+                  <p>Get ready for your concession tonight.</p>
+                </div>
+              </div>
+              <div className="graystone-playon-hq__concession-layout">
+                <div className="graystone-playon-hq__concession-list">
+                  {concessions.map(([item, price, color]) => (
+                    <div key={item}>
+                      <span style={{ "--ticket-accent": color }}>
+                        <strong>{item}</strong>
+                        <em>{price}</em>
+                      </span>
+                      {renderToggle("On Sale", "On Sale")}
+                      {renderToggle("Box Office")}
+                    </div>
+                  ))}
+                </div>
+                <aside>
+                  <strong>Varsity Boys Concession</strong>
+                  <p>V / JV / FR</p>
+                  <small>Johns Creek, GA</small>
+                  <small>Thur 11-09-2024 5:00 PM</small>
+                  <button type="button">
+                    <FontAwesomeIcon icon={faPen} aria-hidden="true" />
+                    Edit concession
+                  </button>
+                </aside>
+              </div>
+            </section>
+          </div>
+
+          <section className="graystone-playon-hq__panel graystone-playon-hq__reports" aria-label="Sales reports">
+            <div className="graystone-playon-hq__panel-header">
+              <div>
+                <span className="graystone-playon-hq__label">Sales reports</span>
+                <h2>Generated Sales Reports</h2>
+              </div>
+            </div>
+            <div className="graystone-playon-hq__report-layout">
+              <label>
+                <span>Report type</span>
+                <select defaultValue="Weekly Payment Statement">
+                  <option>Weekly Payment Statement</option>
+                  <option>Daily Sales Summary</option>
+                  <option>Event Payout Report</option>
+                </select>
+              </label>
+              <label>
+                <span>Transaction period end date</span>
+                <select defaultValue="Mon-Sep-1-2023">
+                  <option>Mon-Sep-1-2023</option>
+                  <option>Tue-Sep-5-2023</option>
+                  <option>Fri-Sep-8-2023</option>
+                </select>
+              </label>
+              <div className="graystone-playon-hq__report-metrics">
+                <article>
+                  <strong>$5,620.00</strong>
+                  <span>For this selected period</span>
+                </article>
+                <article>
+                  <strong>7</strong>
+                  <span>Events Paid Out</span>
+                </article>
+              </div>
+            </div>
+          </section>
+
+          <section className="graystone-playon-hq__panel graystone-playon-hq__activity" aria-label="Ticket sales by activity">
+            <div className="graystone-playon-hq__panel-header">
+              <div>
+                <span className="graystone-playon-hq__label">Sales activity</span>
+                <h2>Ticket Sales By Activity</h2>
+              </div>
+            </div>
+            <div className="graystone-playon-hq__activity-layout">
+              <div className="graystone-playon-hq__chart" aria-label="Ticket sales chart">
+                {salesBars.map(([label, value, color, total]) => (
+                  <div key={label}>
+                    <span>{label}</span>
+                    <div>
+                      <i style={{ width: `${value}%`, background: color }} />
+                    </div>
+                    <strong>{total}</strong>
+                  </div>
+                ))}
+              </div>
+              <div className="graystone-playon-hq__activity-stats">
+                <article>
+                  <span>Tickets Sold</span>
+                  <strong>123</strong>
+                </article>
+                <article>
+                  <span>Ticket sales</span>
+                  <strong>$782</strong>
+                </article>
+              </div>
+            </div>
+          </section>
+        </div>
       </div>
       <GraystonePlayOnFooter />
     </section>
@@ -1598,6 +2564,8 @@ function GraystoneBrandSwitcher({ activeBrandId = "maxpreps", onNavigate, onClos
                 onNavigate("graystone-maxpreps-home");
               } else if (brand.id === "playon") {
                 onNavigate("graystone-playon-home");
+              } else if (brand.id === "nfhs-network") {
+                onNavigate("graystone-nfhs-home");
               } else {
                 onNavigate("graystone-home");
               }
@@ -1831,10 +2799,12 @@ function GraystoneShell({
   onExit,
 }) {
   const isMaxPrepsPage =
-    currentPage === "graystone-maxpreps-home" || currentPage === "graystone-maxpreps-videos";
+    currentPage === "graystone-maxpreps-home" ||
+    currentPage === "graystone-maxpreps-videos";
   const isPlayOnPage = currentPage === "graystone-playon-home" || currentPage === "graystone-playon-hq";
+  const isNfhsPage = currentPage === "graystone-nfhs-home";
   const isLoginPage = currentPage === "graystone-login";
-  const isBrandHeaderPage = isMaxPrepsPage || isPlayOnPage;
+  const isBrandHeaderPage = isMaxPrepsPage || isPlayOnPage || isNfhsPage;
   const isMaxPrepsVideosPage = currentPage === "graystone-maxpreps-videos";
   const isConceptPage =
     currentPage === "graystone-cross-brand-animations" || currentPage === "graystone-data-imagery";
@@ -1918,8 +2888,13 @@ function GraystoneShell({
     setSearchOpen(true);
   };
 
-  const activeBrandId = isPlayOnPage ? "playon" : "maxpreps";
-  const brandHomePage = isPlayOnPage ? "graystone-playon-home" : "graystone-maxpreps-home";
+  const activeBrandId = isPlayOnPage ? "playon" : isNfhsPage ? "nfhs-network" : "maxpreps";
+  const brandHomePage = isPlayOnPage
+    ? "graystone-playon-home"
+    : isNfhsPage
+      ? "graystone-nfhs-home"
+      : "graystone-maxpreps-home";
+  const brandNavLabel = isPlayOnPage ? "PlayOn" : isNfhsPage ? "NFHS Network" : "MaxPreps";
   const brandMenuLabel = "Sports";
   const brandMenuHeader = "Popular sports";
   const brandMenuHeaderLink = "All sports";
@@ -1957,6 +2932,8 @@ function GraystoneShell({
     page = <GraystonePlayOnHomePage />;
   } else if (currentPage === "graystone-playon-hq") {
     page = <GraystonePlayOnHqPage />;
+  } else if (currentPage === "graystone-nfhs-home") {
+    page = <GraystoneNfhsHomePage />;
   } else if (currentPage === "graystone-maxpreps-home") {
     page = (
       <GraystoneMaxPrepsHomePage
@@ -1992,6 +2969,8 @@ function GraystoneShell({
             ? " graystone--login"
           : isPlayOnPage
             ? " graystone--playon-light"
+          : isNfhsPage
+            ? " graystone--maxpreps-dark graystone--nfhs-dark"
           : isMaxPrepsVideosPage
             ? " graystone--maxpreps-dark"
             : isMaxPrepsPage
@@ -2013,22 +2992,26 @@ function GraystoneShell({
           ) : isBrandHeaderPage ? (
             <div className="graystone-header__inner graystone-header__inner--maxpreps">
               <div ref={brandMenuRef} className="graystone-maxpreps-cluster graystone-maxpreps-cluster--brand">
-                <button
-                  type="button"
-                  className="graystone-maxpreps-gridmenu"
-                  aria-label="Open menu"
-                  onClick={() => {
-                    setSearchOpen(false);
-                    setOpenMenu((value) => (value === "brands" ? null : "brands"));
-                  }}
-                >
-                  <GraystoneIconGridMenu />
-                </button>
-                <div className={`graystone-maxpreps-gridmenu-panel${openMenu === "brands" ? " is-open" : ""}`}>
-                  <GraystoneBrandSwitcher activeBrandId={activeBrandId} onNavigate={onNavigate} onClose={() => setOpenMenu(null)} />
-                </div>
+                {!isNfhsPage && (
+                  <>
+                    <button
+                      type="button"
+                      className="graystone-maxpreps-gridmenu"
+                      aria-label="Open menu"
+                      onClick={() => {
+                        setSearchOpen(false);
+                        setOpenMenu((value) => (value === "brands" ? null : "brands"));
+                      }}
+                    >
+                      <GraystoneIconGridMenu />
+                    </button>
+                    <div className={`graystone-maxpreps-gridmenu-panel${openMenu === "brands" ? " is-open" : ""}`}>
+                      <GraystoneBrandSwitcher activeBrandId={activeBrandId} onNavigate={onNavigate} onClose={() => setOpenMenu(null)} />
+                    </div>
+                  </>
+                )}
                 <a
-                  className={`graystone-maxpreps-logo${isPlayOnPage ? " graystone-playon-logo" : ""}`}
+                  className={`graystone-maxpreps-logo${isPlayOnPage ? " graystone-playon-logo" : ""}${isNfhsPage ? " graystone-nfhs-logo" : ""}`}
                   href={`#${brandHomePage}`}
                   onClick={(event) => {
                     event.preventDefault();
@@ -2037,12 +3020,14 @@ function GraystoneShell({
                 >
                   {isPlayOnPage ? (
                     <GraystonePlayOnWordmark />
+                  ) : isNfhsPage ? (
+                    <GraystoneNfhsWordmark />
                   ) : (
                     <GraystoneMaxPrepsWordmark fill={isMaxPrepsVideosPage ? "#FF241F" : "#E10500"} />
                   )}
                 </a>
 
-              <nav className="graystone-maxpreps-primary" aria-label={`${isPlayOnPage ? "PlayOn" : "MaxPreps"} primary navigation`}>
+              <nav className="graystone-maxpreps-primary" aria-label={`${brandNavLabel} primary navigation`}>
                 {isPlayOnPage ? (
                   PLAYON_AUDIENCE_MENUS.map((menu) => (
                     <div
@@ -2091,6 +3076,59 @@ function GraystoneShell({
                       </div>
                     </div>
                   ))
+                ) : isNfhsPage ? (
+                  <>
+                    <button type="button" className="graystone-maxpreps-link graystone-nfhs-live-count">
+                      <span className="graystone-nfhs-live-count__dot" aria-hidden="true" />
+                      <span>21 Live</span>
+                    </button>
+                    <div
+                      className="graystone-maxpreps-nav"
+                      onPointerEnter={() => {
+                        setSearchOpen(false);
+                        setOpenMenu("sports");
+                      }}
+                      onPointerLeave={() => {
+                        setOpenMenu((value) => (value === "sports" ? null : value));
+                      }}
+                    >
+                      <button
+                        type="button"
+                        className={`graystone-maxpreps-nav__sports${openMenu === "sports" ? " is-open" : ""}`}
+                        onClick={() => {
+                          setSearchOpen(false);
+                          setOpenMenu((value) => (value === "sports" ? null : "sports"));
+                        }}
+                      >
+                        <span>Sports</span>
+                        <GraystoneIconChevron />
+                      </button>
+                      <div className={`graystone-maxpreps-sports graystone-nfhs-sports-menu${openMenu === "sports" ? " is-open" : ""}`}>
+                        <div className="graystone-maxpreps-sports__grid">
+                          {Object.entries(NFHS_SPORTS_MENU).map(([group, items]) => (
+                            <div key={group} className="graystone-maxpreps-sports__column">
+                              <div className="graystone-maxpreps-sports__label">{group}</div>
+                              {items.map((item) => (
+                                <button key={item} type="button" className="graystone-maxpreps-sports__item">
+                                  {item}
+                                </button>
+                              ))}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+
+                    {NFHS_PRIMARY_LINKS.map((item) => (
+                      <button key={item} type="button" className="graystone-maxpreps-link">
+                        {item}
+                      </button>
+                    ))}
+                    <span className="graystone-nfhs-nav-divider" aria-hidden="true" />
+                    <button type="button" className="graystone-maxpreps-link graystone-nfhs-ticket-link">
+                      Tickets
+                    </button>
+                  </>
                 ) : (
                   <>
                     <div className="graystone-maxpreps-nav">
@@ -2304,6 +3342,11 @@ function GraystoneShell({
                     </button>
                   </div>
                 </div>
+              )}
+              {isNfhsPage && (
+                <button type="button" className="graystone-nfhs-subscribe">
+                  Subscribe
+                </button>
               )}
             </div>
           </div>
@@ -2931,6 +3974,427 @@ function GraystoneDataImageryPage() {
   );
 }
 
+function VarsitySignalScorebug() {
+  const baseUrl = import.meta.env.BASE_URL;
+
+  return (
+    <div className="varsity-signal-scorebug" aria-label="Scoreboard component example">
+      <div className="varsity-signal-scorebug__status">
+        <span>Live</span>
+        <strong>Q3 07:24</strong>
+      </div>
+      {[
+        { name: "Northside", score: 32, logo: "mascot-4.svg" },
+        { name: "Riverview", score: 28, logo: "mascot-9.svg" },
+      ].map((team) => (
+        <div key={team.name} className="varsity-signal-scorebug__team">
+          <span className="varsity-signal-scorebug__mark">
+            <img src={`${baseUrl}${team.logo}`} alt="" />
+          </span>
+          <strong>{team.name}</strong>
+          <span>{team.score}</span>
+        </div>
+      ))}
+      <div className="varsity-signal-scorebug__actions">
+        <button type="button">
+          <FontAwesomeIcon icon={faVideo} />
+          Watch live
+        </button>
+        <button type="button">Game details</button>
+      </div>
+    </div>
+  );
+}
+
+function VarsitySignalAthleteCard({ baseUrl, image }) {
+  return (
+    <article className="varsity-signal-athlete-card" aria-label="Athlete card component example">
+      <div className="varsity-signal-athlete-card__media" aria-hidden="true">
+        {image && (
+          <img
+            src={getVarsitySignalSrc(baseUrl, image)}
+            srcSet={getVarsitySignalSrcSet(baseUrl, image)}
+            sizes="(max-width: 760px) 100vw, 22rem"
+            alt=""
+            loading="lazy"
+          />
+        )}
+      </div>
+      <div className="varsity-signal-athlete-card__body">
+        <em>#24</em>
+        <span>Jayden Williams</span>
+        <strong>Northside High</strong>
+        <small>SR · QB · 6'2" · 195 lbs</small>
+      </div>
+      <div className="varsity-signal-athlete-card__stats">
+        <span><strong>48</strong> Rec</span>
+        <span><strong>812</strong> Yds</span>
+        <span><strong>11</strong> TD</span>
+        <span><strong>16.9</strong> Avg</span>
+      </div>
+    </article>
+  );
+}
+
+function VarsitySignalTicket() {
+  return (
+    <article className="varsity-signal-ticket" aria-label="Ticket module component example">
+      <span className="varsity-signal-ticket__eyebrow">Admit one</span>
+      <strong>Playoffs</strong>
+      <div className="varsity-signal-ticket__meta">
+        <span>Sec B</span>
+        <span>Row 12</span>
+        <span>Seat 7</span>
+      </div>
+      <div className="varsity-signal-ticket__barcode" aria-hidden="true" />
+      <span className="varsity-signal-ticket__presented">Presented by PlayOn Sports</span>
+    </article>
+  );
+}
+
+export function VarsitySignalStyleGuidePage() {
+  const baseUrl = import.meta.env.BASE_URL;
+  const heroImages = [
+    getVarsitySignalImage("rivalry-hero"),
+    getVarsitySignalImage("scoreboard-huddle"),
+    getVarsitySignalImage("basketball-gym"),
+  ].filter(Boolean);
+  const visualEffects = VARSITY_SIGNAL_VISUAL_EFFECTS.map((effect) => ({
+    ...effect,
+    image: getVarsitySignalImage(effect.imageId),
+  })).filter((effect) => effect.image);
+  const applicationImages = [
+    getVarsitySignalImage("game-poster"),
+    getVarsitySignalImage("profile-athlete"),
+    getVarsitySignalImage("court-final"),
+    getVarsitySignalImage("scoreboard-huddle"),
+  ].filter(Boolean);
+  const marketingAssets = VARSITY_SIGNAL_MARKETING_ASSETS.map((asset) => ({
+    ...asset,
+    image: getVarsitySignalImage(asset.imageId),
+  })).filter((asset) => asset.image);
+  const athleteImage = getVarsitySignalImage("profile-athlete");
+
+  return (
+    <section className="graystone-page graystone-page--varsity-signal" aria-label="Varsity Signal style guide">
+      <div className="varsity-signal">
+        <section className="varsity-signal-hero">
+          <div className="varsity-signal-hero__copy">
+            <div className="varsity-signal-hero__masthead">
+              <GraystoneMaxPrepsWordmark fill="#E10500" />
+              <span>Style guide · version 1.0</span>
+            </div>
+            <h1>
+              Varsity
+              <span>Signal</span>
+            </h1>
+            <p className="varsity-signal-hero__tag">Friday night. Every night.</p>
+            <p className="varsity-signal-hero__body">
+              Local legends, broadcast energy, scrapbook soul. A louder MaxPreps visual language for real high school sports moments: sweaty gyms, scoreboard glow, booster banners, blurry phone photos, student sections, and every kid having the biggest night of their life.
+            </p>
+            <div className="varsity-signal-hero__chips" aria-label="Style attributes">
+              {["Fast", "Loud", "Local", "Imperfect", "Proud", "Shareable"].map((item) => (
+                <span key={item}>{item}</span>
+              ))}
+            </div>
+          </div>
+
+          <div className="varsity-signal-hero__collage" aria-hidden="true">
+            {heroImages.map((image, index) => (
+              <div key={image.id} className={`varsity-signal-photo varsity-signal-photo--${["one", "two", "three"][index]}`}>
+                <img
+                  src={getVarsitySignalSrc(baseUrl, image)}
+                  srcSet={getVarsitySignalSrcSet(baseUrl, image)}
+                  sizes="(max-width: 760px) 76vw, 34vw"
+                  alt=""
+                  loading={index === 0 ? "eager" : "lazy"}
+                />
+              </div>
+            ))}
+            <div className="varsity-signal-hero__score">12:00</div>
+            <div className="varsity-signal-hero__sticker">Clutch</div>
+          </div>
+        </section>
+
+        <section className="varsity-signal-panel varsity-signal-panel--palette" aria-labelledby="varsity-signal-palette">
+          <div className="varsity-signal-section-heading">
+            <span>01</span>
+            <h2 id="varsity-signal-palette">Color Palette</h2>
+            <p>PlayOn provides the frame. School colors provide the electricity.</p>
+          </div>
+          <div className="varsity-signal-palette-grid">
+            {VARSITY_SIGNAL_PALETTE.map((color) => (
+              <article key={color.name} className="varsity-signal-swatch">
+                <span style={{ background: color.value }} />
+                <strong>{color.name}</strong>
+                <small>{color.value} · {color.note}</small>
+              </article>
+            ))}
+          </div>
+          <div className="varsity-signal-team-stripes" aria-label="Team color flexibility">
+            {["#6f766f", "#e10500", "#f2b820", "#006dff", "#16213e", "#16a34a", "#f6f2e8"].map((color) => (
+              <span key={color} style={{ background: color }} />
+            ))}
+          </div>
+        </section>
+
+        <section className="varsity-signal-panel varsity-signal-panel--theme-system" aria-labelledby="varsity-signal-theme-system">
+          <div className="varsity-signal-section-heading">
+            <span>02</span>
+            <h2 id="varsity-signal-theme-system">Theme System</h2>
+            <p>Light is the default product theme. Dark remains available for broadcast, video, live game, and social-forward moments.</p>
+          </div>
+          <div className="varsity-signal-theme-grid">
+            <article className="varsity-signal-theme-card varsity-signal-theme-card--light">
+              <span>Default</span>
+              <strong>Light theme</strong>
+              <p>Newsprint surfaces, dark type, restrained neutral accent, and school-color modules layered in where local identity matters.</p>
+              <div>
+                <small className="varsity-signal-theme-card__state varsity-signal-theme-card__state--live">Live</small>
+                <b>Northside 32</b>
+                <b>Riverview 28</b>
+              </div>
+            </article>
+            <article className="varsity-signal-theme-card varsity-signal-theme-card--dark">
+              <span>Variant</span>
+              <strong>Dark theme</strong>
+              <p>Night-field surfaces for watch pages, game heroes, scoreboards, highlight reels, and high-energy campaign placements.</p>
+              <div>
+                <small className="varsity-signal-theme-card__state varsity-signal-theme-card__state--final">Final</small>
+                <b>Clutch drive</b>
+                <b>Watch replay</b>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section className="varsity-signal-panel varsity-signal-panel--team-page" aria-labelledby="varsity-signal-team-page">
+          <div className="varsity-signal-section-heading">
+            <span>03</span>
+            <h2 id="varsity-signal-team-page">Team Color Page</h2>
+            <p>Team pages should feel locally owned without breaking the PlayOn frame: school color drives posters, chips, badges, rails, and hero panels.</p>
+          </div>
+          <div className="varsity-signal-team-grid">
+            {VARSITY_SIGNAL_TEAM_THEMES.map((team) => (
+              <article
+                key={team.school}
+                className="varsity-signal-team-card"
+                style={{
+                  "--team-primary": team.primary,
+                  "--team-secondary": team.secondary,
+                  "--team-accent": team.accent,
+                }}
+              >
+                <div className="varsity-signal-team-card__mast">
+                  <span>
+                    <img src={`${baseUrl}${team.logo}`} alt="" />
+                  </span>
+                  <div>
+                    <strong>{team.school}</strong>
+                    <small>{team.sport}</small>
+                  </div>
+                </div>
+                <div className="varsity-signal-team-card__poster">
+                  <b>{team.record}</b>
+                  <span>Rivalry week</span>
+                </div>
+                <div className="varsity-signal-team-card__tokens">
+                  <span style={{ background: team.primary }} />
+                  <span style={{ background: team.secondary }} />
+                  <span style={{ background: team.accent }} />
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="varsity-signal-panel varsity-signal-panel--type" aria-labelledby="varsity-signal-type">
+          <div className="varsity-signal-section-heading">
+            <span>04</span>
+            <h2 id="varsity-signal-type">Typography</h2>
+            <p>Broadcast headlines, squared UI labels, and sticker accents in one system.</p>
+          </div>
+          <div className="varsity-signal-type-grid">
+            <article className="varsity-signal-type-card varsity-signal-type-card--champion">
+              <span>Hero / Headlines</span>
+              <strong>Champion Gothic</strong>
+              <small>ABCDEFGHIJKLMNOPQRSTUVWXYZ<br />0123456789</small>
+              <p>Loud. Bold. Built for big moments. Use for scores, names, rankings, and game titles.</p>
+            </article>
+            <article className="varsity-signal-type-card varsity-signal-type-card--siro">
+              <span>Secondary / UI</span>
+              <strong>Siro Semi Condensed</strong>
+              <small>ABCDEFGHIJKLMNOPQRSTUVWXYZ<br />abcdefghijklmnopqrstuvwxyz&nbsp;&nbsp;0123456789</small>
+              <p>Clean. Strong. Great for stats, navigation, and body copy. Chivo Mono carries scores, stat rows, tables, timestamps, and metadata.</p>
+            </article>
+            <article className="varsity-signal-type-card varsity-signal-type-card--accent">
+              <span>Accent / Decorative</span>
+              <div className="varsity-signal-type-accent-grid">
+                <div className="varsity-signal-type-accent varsity-signal-type-accent--pixel">
+                  <strong>Varsity Pixel</strong>
+                  <small>ABCDEFGHJKLMNPQRSTUVWXYZ<br />0123456789</small>
+                </div>
+                <div className="varsity-signal-type-accent varsity-signal-type-accent--druk">
+                  <strong>Druk Condensed</strong>
+                  <small>ABCDEFGHJKLMNPQRSTUVWXYZ<br />0123456789</small>
+                </div>
+                <div className="varsity-signal-type-accent varsity-signal-type-accent--marker">
+                  <strong>Marker Script</strong>
+                  <small>ABCDEFGHJKLMNPQRSTUVWXYZ<br />0123456789</small>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section className="varsity-signal-panel varsity-signal-panel--textures" aria-labelledby="varsity-signal-textures">
+          <div className="varsity-signal-section-heading">
+            <span>05</span>
+            <h2 id="varsity-signal-textures">Textures + Motifs</h2>
+            <p>Analog broadcast collage built from local sports artifacts.</p>
+          </div>
+          <div className="varsity-signal-texture-grid">
+            {VARSITY_SIGNAL_TEXTURES.map((texture) => (
+              <article key={texture.name} className="varsity-signal-texture">
+                <span className={`varsity-signal-texture__sample varsity-signal-texture__sample--${texture.className}`} />
+                <strong>{texture.name}</strong>
+              </article>
+            ))}
+          </div>
+          <div className="varsity-signal-motif-row">
+            <span className="varsity-signal-motif varsity-signal-motif--score">12:00</span>
+            <span className="varsity-signal-motif varsity-signal-motif--marker">Senior</span>
+            <span className="varsity-signal-motif varsity-signal-motif--barcode" />
+            <span className="varsity-signal-motif varsity-signal-motif--tape">Game day</span>
+            <span className="varsity-signal-motif varsity-signal-motif--chrome">P</span>
+          </div>
+        </section>
+
+        <section className="varsity-signal-panel varsity-signal-panel--photo" aria-labelledby="varsity-signal-photo">
+          <div className="varsity-signal-section-heading">
+            <span>06</span>
+            <h2 id="varsity-signal-photo">Photography Treatment</h2>
+            <p>Requested visual effects applied as reusable image treatments: contrast, flash, grain, VHS, torn paper, and chromatic offset.</p>
+          </div>
+          <div className="varsity-signal-effects-grid">
+            {visualEffects.map((effect) => (
+              <article key={effect.number} className={`varsity-signal-effect-card varsity-signal-effect-card--${effect.className}`}>
+                <figure className="varsity-signal-effect-card__media">
+                  <img
+                    src={getVarsitySignalSrc(baseUrl, effect.image)}
+                    srcSet={getVarsitySignalSrcSet(baseUrl, effect.image)}
+                    sizes="(max-width: 760px) 100vw, 28vw"
+                    alt={effect.image.alt}
+                    loading="lazy"
+                  />
+                </figure>
+                <div className="varsity-signal-effect-card__copy">
+                  <strong><span>{effect.number}.</span> {effect.name}</strong>
+                  <p>{effect.description}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="varsity-signal-panel varsity-signal-panel--components" aria-labelledby="varsity-signal-components">
+          <div className="varsity-signal-section-heading">
+            <span>07</span>
+            <h2 id="varsity-signal-components">UI Components</h2>
+            <p>Scoreboard language, recognition cards, ticket modules, and social-ready badges.</p>
+          </div>
+          <div className="varsity-signal-components-grid">
+            <VarsitySignalScorebug />
+            <VarsitySignalAthleteCard baseUrl={baseUrl} image={athleteImage} />
+            <VarsitySignalTicket />
+          </div>
+          <div className="varsity-signal-badge-row">
+            {VARSITY_SIGNAL_COMPONENTS.map((item) => (
+              <span key={item.label} className={`varsity-signal-component-chip varsity-signal-component-chip--${item.className}`}>
+                {item.label}
+              </span>
+            ))}
+          </div>
+        </section>
+
+        <section className="varsity-signal-panel varsity-signal-panel--applications" aria-labelledby="varsity-signal-applications">
+          <div className="varsity-signal-section-heading">
+            <span>08</span>
+            <h2 id="varsity-signal-applications">Application Examples</h2>
+            <p>Game pages, athlete profiles, team hubs, sponsorship patches, and social formats.</p>
+          </div>
+          <div className="varsity-signal-application-grid">
+            {VARSITY_SIGNAL_APPLICATIONS.map((item, index) => {
+              const image = applicationImages[index];
+
+              return (
+                <article key={item.label} className="varsity-signal-application" style={{ "--signal-card-accent": item.accent }}>
+                  {image && (
+                    <img
+                      src={getVarsitySignalSrc(baseUrl, image)}
+                      srcSet={getVarsitySignalSrcSet(baseUrl, image)}
+                      sizes="(max-width: 760px) 100vw, 24vw"
+                      alt={image.alt}
+                      loading="lazy"
+                    />
+                  )}
+                  <div>
+                    <span>{item.label}</span>
+                    <strong>{item.title}</strong>
+                    <small>{item.meta}</small>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        </section>
+
+        <section className="varsity-signal-panel varsity-signal-panel--marketing" aria-labelledby="varsity-signal-marketing">
+          <div className="varsity-signal-section-heading">
+            <span>09</span>
+            <h2 id="varsity-signal-marketing">Social + Email Assets</h2>
+            <p>Reusable campaign surfaces for social posts, story templates, video thumbnails, and email headers.</p>
+          </div>
+          <div className="varsity-signal-marketing-grid">
+            {marketingAssets.map((asset) => (
+              <article key={`${asset.label}-${asset.title}`} className={`varsity-signal-marketing-card varsity-signal-marketing-card--${asset.className}`}>
+                <img
+                  src={getVarsitySignalSrc(baseUrl, asset.image)}
+                  srcSet={getVarsitySignalSrcSet(baseUrl, asset.image)}
+                  sizes="(max-width: 760px) 100vw, 30vw"
+                  alt={asset.image.alt}
+                  loading="lazy"
+                />
+                <div>
+                  <span>{asset.label}</span>
+                  <strong>{asset.title}</strong>
+                  <small>{asset.meta}</small>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="varsity-signal-panel varsity-signal-panel--motion" aria-labelledby="varsity-signal-motion">
+          <div className="varsity-signal-section-heading">
+            <span>10</span>
+            <h2 id="varsity-signal-motion">Motion Language</h2>
+            <p>Sports broadcast, not software demo: snap zooms, scoreboard flips, sticker pops, flash cuts, VHS glitches, ticker crawls, and kinetic type slams.</p>
+          </div>
+          <div className="varsity-signal-motion-grid">
+            <article><FontAwesomeIcon icon={faChartLine} /><strong>Score flip</strong></article>
+            <article><FontAwesomeIcon icon={faPen} /><strong>Sticker pop</strong></article>
+            <article><FontAwesomeIcon icon={faVideo} /><strong>VHS glitch</strong></article>
+            <article><FontAwesomeIcon icon={faFootball} /><strong>Type slam</strong></article>
+            <article><FontAwesomeIcon icon={faTicketSimple} /><strong>Ticket wipe</strong></article>
+            <article><FontAwesomeIcon icon={faBasketball} /><strong>Camera flash</strong></article>
+          </div>
+        </section>
+      </div>
+    </section>
+  );
+}
+
 function GraystoneMaxPrepsHomePage({ isAuthenticated, onRequestSearch, onRequestSignIn, onNavigate }) {
   const baseUrl = import.meta.env.BASE_URL;
   const [homepageMode, setHomepageMode] = useState("personalized");
@@ -3018,7 +4482,7 @@ function GraystoneMaxPrepsHomePage({ isAuthenticated, onRequestSearch, onRequest
   const showStats = contentPreferences.stats;
   const showLoggedOutEmptyState = !isAuthenticated && !isNationalMode;
   const showEdgeAIBetaPrompt = false;
-  const showNationalMarketingPanel = isNationalMode;
+  const showNationalMarketingPanel = isNationalMode && !isAuthenticated;
   const canShowHomepageContent = isAuthenticated || isNationalMode;
   const hasHeroFeed = !isNationalMode && showHighlights && isAuthenticated;
   const hasRightHeroPanel = hasHeroFeed || showEdgeAIBetaPrompt || showNationalMarketingPanel;
@@ -3428,8 +4892,7 @@ function GraystoneMaxPrepsHomePage({ isAuthenticated, onRequestSearch, onRequest
           {showNationalMarketingPanel && (
             <aside className="graystone-maxpreps-homepage__feed graystone-maxpreps-homepage__feed--promo">
               <div className="graystone-maxpreps-promo">
-                <span className="graystone-kicker graystone-kicker--dark">Personalized beta</span>
-                <h3>Use the personalized tab to shape the homepage automatically.</h3>
+                <h3>Personalize your homepage</h3>
                 <p>
                   Start with teams and players you already care about, or use Edge AI to build a
                   custom homepage view for you. You do not need to sign up before trying it.
@@ -3475,6 +4938,86 @@ function GraystoneMaxPrepsHomePage({ isAuthenticated, onRequestSearch, onRequest
             </aside>
           )}
         </section>
+
+        {showVideoShelf && (
+          <section className="graystone-maxpreps-network-live" aria-label="Live now on the network">
+            <div className="graystone-section__header graystone-section__header--maxpreps graystone-maxpreps-network-live__header">
+              <div className="graystone-maxpreps-network-live__title">
+                <GraystoneNfhsWordmark />
+                <h3>Live now on the network</h3>
+              </div>
+              <button type="button">View all live and on-demand events</button>
+            </div>
+            <div className="graystone-maxpreps-network-live__layout">
+              <article className="graystone-maxpreps-network-live__player">
+                <div
+                  className="graystone-maxpreps-network-live__video"
+                  style={{ backgroundImage: `linear-gradient(180deg, rgba(18, 19, 23, 0.04), rgba(18, 19, 23, 0.28)), url(${baseUrl}track.png)` }}
+                >
+                  <span className="graystone-maxpreps-network-live__watermark" aria-hidden="true">
+                    NFHS<br />Network
+                  </span>
+                  <span className="graystone-maxpreps-network-live__live-badge">Live</span>
+                </div>
+                <div className="graystone-maxpreps-network-live__details">
+                  <span className="graystone-maxpreps-network-live__sport">
+                    <FontAwesomeIcon icon={faVideo} />
+                    Varsity Boys and Girls Track and Field
+                  </span>
+                  <h4>2026 NMAA 1A-3A Outdoor Track &amp; Field Championship Day 1 Pole Vault</h4>
+                  <p>
+                    <strong>May 8, 2026</strong>
+                    <span>|</span>
+                    <strong>8:00 AM MDT</strong>
+                    <span>|</span>
+                    <span>Albuquerque, NM</span>
+                  </p>
+                </div>
+              </article>
+
+              <aside className="graystone-maxpreps-network-live__rail-wrap">
+                <div className="graystone-maxpreps-network-live__rail-header">
+                  <h4>More matchups</h4>
+                  <label className="graystone-maxpreps-network-live__search">
+                    <GraystoneIconSearch />
+                    <span>Search games...</span>
+                  </label>
+                </div>
+                <div className="graystone-maxpreps-network-live__rail">
+                  <div className="graystone-maxpreps-network-live__matchups">
+                    {MAXPREPS_NETWORK_MATCHUPS.map((matchup) => (
+                      <button key={matchup.id} type="button" className="graystone-maxpreps-network-live__matchup">
+                        <span className="graystone-maxpreps-network-live__matchup-tag">
+                          <FontAwesomeIcon icon={faBaseball} />
+                          {matchup.sport}
+                        </span>
+                        <span className="graystone-maxpreps-network-live__matchup-teams">
+                          <GraystoneTeamMark team={matchup.teams[0]} size="sm" />
+                          <span aria-hidden="true">/</span>
+                          <GraystoneTeamMark team={matchup.teams[1]} size="sm" />
+                          <strong>{matchup.teams[0].name} vs {matchup.teams[1].name}</strong>
+                        </span>
+                        <span className="graystone-maxpreps-network-live__matchup-meta graystone-maxpreps-network-live__matchup-meta--time">
+                          <span>
+                            <FontAwesomeIcon icon={faCalendarDay} />
+                            {matchup.time}
+                          </span>
+                          <span className={`graystone-maxpreps-network-live__matchup-status${matchup.status !== "Live" ? " graystone-maxpreps-network-live__matchup-status--muted" : ""}`}>
+                            {matchup.status}
+                          </span>
+                        </span>
+                        <span className="graystone-maxpreps-network-live__matchup-meta">
+                          <FontAwesomeIcon icon={faLocationDot} />
+                          {matchup.location}
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </aside>
+            </div>
+          </section>
+        )}
 
         {showVideoShelf && (
           <section className="graystone-maxpreps-video-shelf">
@@ -3542,7 +5085,14 @@ function GraystoneMaxPrepsHomePage({ isAuthenticated, onRequestSearch, onRequest
                           <div className="graystone-maxpreps-card-layout__top">
                             <div className="graystone-maxpreps-card-layout__body">
                               {index === 0 && (
-                                <p className="graystone-maxpreps-game-card__featured-message">Game of the Week</p>
+                                <p
+                                  className="graystone-maxpreps-game-card__featured-message"
+                                  aria-label="Game of the Week"
+                                >
+                                  <span>Game</span>
+                                  <span>of the</span>
+                                  <span>Week</span>
+                                </p>
                               )}
                               <p className="graystone-maxpreps-game-card__eyebrow">
                                 <span>Varsity</span>
@@ -3566,7 +5116,7 @@ function GraystoneMaxPrepsHomePage({ isAuthenticated, onRequestSearch, onRequest
                                 <div className="graystone-maxpreps-matchup__meta">
                                   <span>{game.status}</span>
                                   <button type="button" className="graystone-maxpreps-matchup__ghost-action">
-                                    {game.context}
+                                    Preview game
                                     <span aria-hidden="true">›</span>
                                   </button>
                                 </div>

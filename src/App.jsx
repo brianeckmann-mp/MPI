@@ -1,10 +1,18 @@
 import { useEffect, useId, useRef, useState } from "react";
 import { Agentation } from "agentation";
 import { initShowcase } from "./showcase";
-import { GraystoneExperience, GRAYSTONE_PAGES } from "./graystone";
+import { GraystoneExperience, GRAYSTONE_PAGES, VarsitySignalStyleGuidePage } from "./graystone";
+import { VARSITY_SIGNAL_IMAGES } from "./varsity-signal-assets";
 
 const NAV_ITEMS = ["index", "AI", "system", "brand", "projects", "about"];
-const STANDALONE_PAGES = [...GRAYSTONE_PAGES, "unified-playon-design"];
+const VARSITY_SIGNAL_PAGES = [
+  "varsity-signal",
+  "varsity-signal-style-guide",
+  "varsity-signal-team-page",
+  "varsity-signal-home-page",
+  "varsity-signal-about-page",
+];
+const STANDALONE_PAGES = [...GRAYSTONE_PAGES, ...VARSITY_SIGNAL_PAGES, "unified-playon-design"];
 const ALL_PAGES = [...NAV_ITEMS, ...STANDALONE_PAGES];
 const TEAM_THEMES = [
   { name: "Red", primary: "#CC0022", secondary: "#8F0018", dark: "#52000E" },
@@ -18,11 +26,108 @@ const TEAM_THEMES = [
   { name: "Turquoise", primary: "#108073", secondary: "#0C665B", dark: "#07342F" },
 ];
 
+const getVarsitySignalImageAsset = (id) => VARSITY_SIGNAL_IMAGES.find((image) => image.id === id);
+
+const getVarsitySignalImageSrc = (baseUrl, id, width = 1600) => {
+  const image = getVarsitySignalImageAsset(id);
+  if (!image) return "";
+  const variant = image.variants.find((item) => item.width === width) ?? image.variants.at(-1);
+  return `${baseUrl}${variant?.src ?? image.src}`;
+};
+
+const ACALANES_TEAM_PAGE = {
+  school: "Acalanes",
+  mascot: "Dons",
+  sport: "Varsity Boys Football",
+  season: "Fall 25-26",
+  location: "Lafayette, CA",
+  coach: "Joel Isaac",
+  league: "Diablo - Foothill",
+  section: "North Coast Section",
+  division: "Division 5",
+  divisionCode: "D5",
+  record: "10-3",
+  leagueRecord: "5-0",
+  followers: "606",
+  lastUpdated: "Jan 20, 2026",
+  address: "1200 Pleasant Hill Rd, Lafayette, CA",
+  phone: "(925) 280-3970",
+  primary: "#022C66",
+  secondary: "#ffffff",
+  accent: "#f2b820",
+  mascotPath: "mascot-4.svg",
+  teamPhoto: "https://image-development.maxpreps.io/team-photo/d3f943a6-448f-4f26-8754-84299a3d7201/e/6/0/d3f943a6-448f-4f26-8754-84299a3d7201_e6042da9-e5ce-4f18-a841-ae5e6cf48015.jpg?version=639044554471450390",
+  video: {
+    title: "11/21 Highlights @ Cardinal Newman",
+    description: "Boys varsity football highlights @ Cardinal Newman on November 21, 2025",
+    meta: "PlayOn · Sat, Nov 22 2025 · 3:28 · 5 views",
+    thumbnail: "https://delivery.vod.nfhsnetwork.com/postprocessor_v2/69216e74555d0f2ece05be6d/ppv2_20251122152433551477.jpg",
+  },
+  schedule: [
+    { date: "Nov 7", opponent: "Las Lomas", location: "@", context: "Final", result: "W", score: "40-28", accent: "#8F0018", mascot: "mascot-1.svg" },
+    { date: "Nov 14", opponent: "Marin Catholic", location: "vs", context: "NCS D1/Open", result: "W", score: "51-21", accent: "#022C66", mascot: "mascot-8.svg" },
+    { date: "Nov 21", opponent: "Cardinal Newman", location: "@", context: "NCS D1/Open", result: "L", score: "17-52", accent: "#CC0022", mascot: "mascot-10.svg" },
+  ],
+  leaders: [
+    { name: "Finley Rivera", role: "WR, FS · Jr.", label: "Receiving Yards Per Game", header: "Y/G", value: "86.2" },
+    { name: "Josh Elerts", role: "RB, DE · Sr.", label: "Rushing Yards Per Game", header: "Y/G", value: "100.8" },
+    { name: "Josh Elerts", role: "RB, DE · Sr.", label: "Total TDs", header: "Tot", value: "15" },
+    { name: "Finley Rivera", role: "WR, FS · Jr.", label: "Tackles Per Game", header: "Tckl/G", value: "5.2" },
+    { name: "Bryce Birdsong", role: "DE · Sr.", label: "Sacks", header: "Sak", value: "11.0" },
+    { name: "Grant Ricker", role: "WR, SS · Sr.", label: "Interceptions", header: "Int", value: "7" },
+    { name: "Tyler Winkles", role: "QB · Jr.", label: "Passing TDs", header: "TD Passes", value: "28" },
+    { name: "Finley Rivera", role: "WR, FS · Jr.", label: "Receiving TDs", header: "Rec", value: "14" },
+  ],
+  performers: [
+    { stat: "Rushing Yards", value: "1,210", header: "Yds", athlete: "Josh Elerts", rank: "#12 in North Coast Section" },
+    { stat: "Receiving Yards", value: "1,034", header: "Yds", athlete: "Finley Rivera", rank: "#5 in North Coast Section" },
+    { stat: "Sacks", value: "11.0", header: "Sak", athlete: "Bryce Birdsong", rank: "#5 in North Coast Section" },
+  ],
+  rankings: [
+    { label: "California", value: "98", movement: "+4" },
+    { label: "North Coast Section", value: "12", movement: "+2" },
+    { label: "Division 5", value: "3", movement: "Hold" },
+  ],
+  staff: [
+    { name: "Joel Isaac", role: "Head Coach" },
+    { name: "Jeff", role: "Assistant Coach" },
+    { name: "Roman", role: "Assistant Coach" },
+    { name: "Andres", role: "Statistician" },
+  ],
+  nearbyTeams: [
+    "Castlemont",
+    "Elite",
+    "Encinal",
+    "Menlo-Atherton",
+    "Oakland",
+    "Oakland Tech",
+    "Skyline",
+    "Saint Ignatius College Prep",
+  ],
+  updates: [
+    { type: "News", date: "Dec 5, 2025", title: "Football Recap: Acalanes Falls Short of Cardinal Newman in the Playoffs + How To Watch", source: "Team Reports", action: "Read Article" },
+    { type: "News", date: "Nov 26, 2025", title: "Northern California high school football rankings, notes: De La Salle headed to Open final; Pitt, Cardinal Newman battle in NCS D1 final", source: "Staff Report", action: "Read Article" },
+    { type: "Stats", date: "Nov 21, 2025", title: "Stats have been entered for the Acalanes vs. Cardinal Newman on Friday, Nov. 21, 2025.", source: "Game Stats · Season Stats", action: "View Stats" },
+    { type: "Scores", date: "Nov 21, 2025", title: "Acalanes lost their at Cardinal Newman HS game against Cardinal Newman High School by a score of 17-52.", source: "Final", action: "Box Score" },
+    { type: "News", date: "Nov 17, 2025", title: "Football Game Preview: Acalanes Dons vs. Cardinal Newman Cardinals + Official Tickets", source: "Team Reports", action: "Read Article" },
+    { type: "Photos", date: "Nov 17, 2025", title: "Photographer Bill Bill has posted a new gallery Marin Catholic @ Acalanes (NCS D1 Semifinal) containing 69 photos.", source: "Pro Photos", action: "All Photos" },
+    { type: "Photos", date: "Nov 16, 2025", title: "Photographer Sam Sam has posted a new gallery Acalanes @ Las Lomas (Senior Night) containing 232 photos.", source: "Pro Photos", action: "All Photos" },
+    { type: "News", date: "Nov 15, 2025", title: "Football Recap: Acalanes Skates Past Marin Catholic with Ease", source: "Team Reports", action: "Read Article" },
+    { type: "Stats", date: "Nov 14, 2025", title: "Stats have been entered for the Acalanes vs. Marin Catholic on Friday, Nov. 14, 2025.", source: "Game Stats · Season Stats", action: "View Stats" },
+    { type: "Scores", date: "Nov 14, 2025", title: "Acalanes won their at Acalanes HS game against Marin Catholic High School by a score of 51-21.", source: "Final", action: "Box Score" },
+    { type: "News", date: "Nov 13, 2025", title: "Northern California high school football rankings, notes: De La Salle looks to be Open Division representative", source: "Staff Report", action: "Read Article" },
+    { type: "News", date: "Nov 12, 2025", title: "Football Game Preview: Acalanes Dons vs. Marin Catholic Wildcats + Official Tickets", source: "Team Reports", action: "Read Article" },
+  ],
+};
+
 function getPageFromHash() {
   const rawHash = window.location.hash.replace(/^#/, "");
   const normalized = rawHash.toLowerCase();
   if (normalized === "unified-playon-design") {
     return "graystone-home";
+  }
+  if (normalized === "graystone-varsity-signal") {
+    return "varsity-signal-style-guide";
   }
   return ALL_PAGES.find((item) => item.toLowerCase() === normalized) ?? "index";
 }
@@ -1115,6 +1220,12 @@ function ProjectsPage({ onOpenProject }) {
       action: () => onOpenProject("graystone-home"),
     },
     {
+      title: "Varsity Signal",
+      meta: "Standalone project",
+      description: "A dedicated MaxPreps design system workspace for the style guide, team page, home page, and about page.",
+      action: () => onOpenProject("varsity-signal"),
+    },
+    {
       title: "Project 02",
       meta: "Project",
       disabled: true,
@@ -1153,6 +1264,365 @@ function ProjectsPage({ onOpenProject }) {
           </div>
         </div>
       </section>
+    </main>
+  );
+}
+
+const VARSITY_SIGNAL_PROJECT_NAV = [
+  {
+    id: "varsity-signal-style-guide",
+    title: "Style Guide",
+    eyebrow: "Current system",
+    description: "The working Varsity Signal foundations page: palette, type, image treatment, UI components, applications, social, and email assets.",
+  },
+  {
+    id: "varsity-signal-team-page",
+    title: "Team Page",
+    eyebrow: "Next page",
+    description: "A team-specific branding surface for school colors, mascot expression, game modules, top performers, and season story blocks.",
+  },
+  {
+    id: "varsity-signal-home-page",
+    title: "Home Page",
+    eyebrow: "Next page",
+    description: "The Varsity Signal consumer-facing home concept: live games, trending moments, athlete recognition, and local discovery.",
+  },
+  {
+    id: "varsity-signal-about-page",
+    title: "About Page",
+    eyebrow: "Next page",
+    description: "A clear story page for what Varsity Signal is, why it exists, and how it should show up across MaxPreps surfaces.",
+  },
+];
+
+function VarsitySignalProjectIndex({ onNavigate }) {
+  return (
+    <section className="varsity-signal-project-index" aria-labelledby="varsity-signal-project-title">
+      <div className="varsity-signal-project-index__hero">
+        <span>Standalone project</span>
+        <h1 id="varsity-signal-project-title">
+          Varsity
+          <em>Signal</em>
+        </h1>
+        <p>
+          A dedicated workspace for the new MaxPreps style system, separated from Project Graystone so the language can grow into product pages, marketing surfaces, and school-specific branding.
+        </p>
+      </div>
+      <div className="varsity-signal-project-index__grid">
+        {VARSITY_SIGNAL_PROJECT_NAV.map((item) => (
+          <button key={item.id} type="button" className="varsity-signal-project-card" onClick={() => onNavigate(item.id)}>
+            <span>{item.eyebrow}</span>
+            <strong>{item.title}</strong>
+            <p>{item.description}</p>
+          </button>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function VarsitySignalProjectPlaceholder({ page }) {
+  return (
+    <section className="graystone-page varsity-signal-project-placeholder" aria-labelledby={`${page.id}-title`}>
+      <div className="varsity-signal-project-placeholder__panel">
+        <span>{page.eyebrow}</span>
+        <h1 id={`${page.id}-title`}>{page.title}</h1>
+        <p>{page.description}</p>
+        <div className="varsity-signal-project-placeholder__modules" aria-hidden="true">
+          <span />
+          <span />
+          <span />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function VarsitySignalTeamPage() {
+  const baseUrl = import.meta.env.BASE_URL;
+  const [activeFeedFilter, setActiveFeedFilter] = useState("All");
+  const teamPhotoFallback = getVarsitySignalImageSrc(baseUrl, "scoreboard-huddle", 960);
+  const feedPhoto = getVarsitySignalImageSrc(baseUrl, "student-energy", 960);
+  const featurePhoto = getVarsitySignalImageSrc(baseUrl, "rivalry-hero", 960);
+  const team = ACALANES_TEAM_PAGE;
+  const mascotSrc = `${baseUrl}${team.mascotPath}`;
+  const filteredUpdates = activeFeedFilter === "All"
+    ? team.updates
+    : team.updates.filter((update) => update.type === activeFeedFilter);
+  const feedFilters = ["All", "News", "Stats", "Photos", "Scores"];
+
+  return (
+    <section className="varsity-team-reference" aria-label="Acalanes Dons football team page">
+      <div className="varsity-team-reference__shell" style={{ "--team-primary": team.primary, "--team-accent": team.accent }}>
+        <div className="varsity-team-reference__sitebar" aria-label="MaxPreps team page frame">
+          <MaxPrepsLogo fill="#E10500" />
+          <div className="varsity-team-reference__search">Search teams, athletes, schools...</div>
+          <button type="button">Log In</button>
+        </div>
+
+        <header className="varsity-team-reference__header">
+          <div className="varsity-team-reference__identity">
+            <img src={mascotSrc} alt="Acalanes Dons mascot" />
+            <div>
+              <p>{team.location}</p>
+              <h1>{team.school} {team.mascot}</h1>
+              <span>{team.sport} · {team.season}</span>
+            </div>
+          </div>
+          <div className="varsity-team-reference__summary" aria-label="Team summary">
+            <span><strong>{team.record}</strong> Overall</span>
+            <span><strong>{team.leagueRecord}</strong> League</span>
+            <span><strong>{team.followers}</strong> Followers</span>
+          </div>
+          <div className="varsity-team-reference__actions">
+            <button type="button">Follow</button>
+            <button type="button">Manage Team</button>
+          </div>
+        </header>
+
+        <nav className="varsity-team-reference__nav" aria-label="Acalanes team sections">
+          {["Home", "Schedule", "Roster", "Videos", "Stats", "Standings", "Rankings", "Photos", "News", "More"].map((item) => (
+            <button key={item} type="button" className={item === "Home" ? "is-active" : ""}>{item}</button>
+          ))}
+        </nav>
+
+        <div className="varsity-team-reference__ad">Advertisement</div>
+
+        <div className="varsity-team-reference__layout">
+          <main className="varsity-team-reference__main">
+            <section className="varsity-team-reference__title-card">
+              <div>
+                <span>Team Home</span>
+                <h2>Acalanes Football</h2>
+                <p>{team.school} High School · {team.location} · {team.section}</p>
+              </div>
+              <button type="button">Contribute to the Team</button>
+            </section>
+
+            <section className="varsity-team-reference-card varsity-team-reference-card--video">
+              <div className="varsity-team-reference-card__header">
+                <span>Latest Video</span>
+                <a href="#varsity-signal-team-page">View all videos</a>
+              </div>
+              <div className="varsity-team-reference__video-grid">
+                <figure>
+                  <img src={team.video.thumbnail} alt="Acalanes football highlight thumbnail" />
+                  <button type="button" aria-label="Play latest highlight">Play</button>
+                </figure>
+                <div>
+                  <h3>{team.video.title}</h3>
+                  <p>{team.video.description}</p>
+                  <small>{team.video.meta}</small>
+                </div>
+              </div>
+            </section>
+
+            <section className="varsity-team-reference-card varsity-team-reference-card--feed">
+              <div className="varsity-team-reference-card__header">
+                <span>Acalanes Football Updates</span>
+                <small>Latest team activity</small>
+              </div>
+              <div className="varsity-team-reference__filters" role="tablist" aria-label="Filter team updates">
+                {feedFilters.map((filter) => (
+                  <button
+                    key={filter}
+                    type="button"
+                    role="tab"
+                    aria-selected={activeFeedFilter === filter}
+                    className={activeFeedFilter === filter ? "is-active" : ""}
+                    onClick={() => setActiveFeedFilter(filter)}
+                  >
+                    {filter}
+                  </button>
+                ))}
+              </div>
+              <div className="varsity-team-reference__updates">
+                {filteredUpdates.map((update, index) => (
+                  <article key={`${update.date}-${update.title}`}>
+                    <div className="varsity-team-reference__update-icon" aria-hidden="true">{update.type.slice(0, 1)}</div>
+                    <div>
+                      <span>{update.type} · {update.date}</span>
+                      <h3>{update.title}</h3>
+                      <p>{update.source}</p>
+                      <button type="button">{update.action}</button>
+                    </div>
+                    {index === 5 && <img src={feedPhoto} alt="" />}
+                  </article>
+                ))}
+              </div>
+              <p className="varsity-team-reference__updated">Team and page updated {team.lastUpdated}</p>
+            </section>
+          </main>
+
+          <aside className="varsity-team-reference__rail">
+            <section className="varsity-team-reference-card varsity-team-reference-card--schedule">
+              <div className="varsity-team-reference-card__header">
+                <span>Schedule at a Glance</span>
+                <a href="#varsity-signal-team-page">View schedule</a>
+              </div>
+              <div className="varsity-team-reference__schedule">
+                {team.schedule.map((game) => (
+                  <article key={`${game.date}-${game.opponent}`} style={{ "--opponent": game.accent }}>
+                    <span>{game.date}</span>
+                    <img src={`${baseUrl}${game.mascot}`} alt="" />
+                    <div>
+                      <strong>{game.location} {game.opponent}</strong>
+                      <small>{game.context}</small>
+                    </div>
+                    <b>{game.result}</b>
+                    <em>{game.score}</em>
+                  </article>
+                ))}
+              </div>
+            </section>
+
+            <section className="varsity-team-reference-card">
+              <div className="varsity-team-reference-card__header">
+                <span>Rankings</span>
+                <a href="#varsity-signal-team-page">Full rankings</a>
+              </div>
+              <div className="varsity-team-reference__rankings">
+                {team.rankings.map((ranking) => (
+                  <article key={ranking.label}>
+                    <span>{ranking.label}</span>
+                    <strong>#{ranking.value}</strong>
+                    <small>{ranking.movement}</small>
+                  </article>
+                ))}
+              </div>
+            </section>
+
+            <section className="varsity-team-reference-card">
+              <div className="varsity-team-reference-card__header">
+                <span>Team Leaders</span>
+                <a href="#varsity-signal-team-page">View all stats</a>
+              </div>
+              <div className="varsity-team-reference__leaders">
+                {team.leaders.slice(0, 6).map((leader) => (
+                  <article key={`${leader.name}-${leader.label}`}>
+                    <b>{leader.header}</b>
+                    <div>
+                      <strong>{leader.value}</strong>
+                      <span>{leader.label}</span>
+                      <p>{leader.name} · {leader.role}</p>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </section>
+
+            <section className="varsity-team-reference-card varsity-team-reference-card--meet">
+              <div className="varsity-team-reference-card__header">
+                <span>Meet the Team</span>
+                <a href="#varsity-signal-team-page">Full roster</a>
+              </div>
+              <img
+                src={team.teamPhoto}
+                alt="Acalanes football team"
+                onError={(event) => {
+                  event.currentTarget.src = teamPhotoFallback;
+                }}
+              />
+              <div className="varsity-team-reference__staff">
+                {team.staff.map((member) => (
+                  <p key={`${member.name}-${member.role}`}><strong>{member.name}</strong><span>{member.role}</span></p>
+                ))}
+              </div>
+            </section>
+
+            <section className="varsity-team-reference-card">
+              <div className="varsity-team-reference-card__header">
+                <span>Top Performers</span>
+                <a href="#varsity-signal-team-page">More leaders</a>
+              </div>
+              <div className="varsity-team-reference__performers">
+                {team.performers.map((performer) => (
+                  <article key={performer.stat}>
+                    <b>{performer.header}</b>
+                    <div>
+                      <strong>{performer.value}</strong>
+                      <span>{performer.stat}</span>
+                      <p>{performer.athlete} · {performer.rank}</p>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </section>
+
+            <section className="varsity-team-reference-card varsity-team-reference-card--feature">
+              <img src={featurePhoto} alt="" />
+              <div>
+                <span>{team.division}</span>
+                <strong>{team.league}</strong>
+                <p>{team.address} · {team.phone}</p>
+              </div>
+            </section>
+
+            <section className="varsity-team-reference-card">
+              <div className="varsity-team-reference-card__header">
+                <span>Nearby Football Teams</span>
+              </div>
+              <div className="varsity-team-reference__nearby">
+                {team.nearbyTeams.map((nearbyTeam) => (
+                  <a key={nearbyTeam} href="#varsity-signal-team-page">{nearbyTeam}</a>
+                ))}
+              </div>
+            </section>
+
+            <div className="varsity-team-reference__ad varsity-team-reference__ad--rail">Advertisement</div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function VarsitySignalProjectShell({ currentPage, onNavigate, onExit }) {
+  const activePage = VARSITY_SIGNAL_PROJECT_NAV.find((item) => item.id === currentPage);
+  const activeId = currentPage === "varsity-signal" ? "varsity-signal" : activePage?.id;
+  const content = currentPage === "varsity-signal"
+    ? <VarsitySignalProjectIndex onNavigate={onNavigate} />
+    : currentPage === "varsity-signal-style-guide"
+      ? <VarsitySignalStyleGuidePage />
+      : currentPage === "varsity-signal-team-page"
+        ? <VarsitySignalTeamPage />
+      : activePage
+        ? <VarsitySignalProjectPlaceholder page={activePage} />
+        : <VarsitySignalProjectIndex onNavigate={onNavigate} />;
+
+  return (
+    <main className="graystone graystone--maxpreps-dark graystone--varsity-signal varsity-signal-project" aria-label="Varsity Signal project">
+      <header className="varsity-signal-project-header">
+        <button type="button" className="varsity-signal-project-header__back" onClick={() => onExit("projects")}>
+          Projects
+        </button>
+        <button type="button" className="varsity-signal-project-header__brand" onClick={() => onNavigate("varsity-signal")}>
+          <MaxPrepsWordmark fill="#E10500" />
+          <span>Varsity Signal</span>
+        </button>
+        <nav className="varsity-signal-project-header__nav" aria-label="Varsity Signal pages">
+          <button
+            type="button"
+            className={activeId === "varsity-signal" ? "is-active" : ""}
+            aria-current={activeId === "varsity-signal" ? "page" : undefined}
+            onClick={() => onNavigate("varsity-signal")}
+          >
+            Index
+          </button>
+          {VARSITY_SIGNAL_PROJECT_NAV.map((item) => (
+            <button
+              key={item.id}
+              type="button"
+              className={activeId === item.id ? "is-active" : ""}
+              aria-current={activeId === item.id ? "page" : undefined}
+              onClick={() => onNavigate(item.id)}
+            >
+              {item.title}
+            </button>
+          ))}
+        </nav>
+      </header>
+      {content}
     </main>
   );
 }
@@ -1331,6 +1801,19 @@ export default function App() {
       {currentPage === "system" ? <SystemPage /> : null}
       {currentPage === "brand" ? <PlaceholderPage title="Brand" /> : null}
       {currentPage === "about" ? <AboutPage /> : null}
+      {VARSITY_SIGNAL_PAGES.includes(currentPage) ? (
+        <VarsitySignalProjectShell
+          currentPage={currentPage}
+          onNavigate={(page) => {
+            setCurrentPage(page);
+            window.history.replaceState(null, "", `#${page.toLowerCase()}`);
+          }}
+          onExit={(page) => {
+            setCurrentPage(page);
+            window.history.replaceState(null, "", `#${page.toLowerCase()}`);
+          }}
+        />
+      ) : null}
       {GRAYSTONE_PAGES.includes(currentPage) ? (
         <GraystoneExperience
           currentPage={currentPage}

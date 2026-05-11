@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "build:varsity-signal-assets": "node scripts/build-varsity-signal-assets.mjs",
     "build": "vite build",
     "preview": "vite preview"
   },
