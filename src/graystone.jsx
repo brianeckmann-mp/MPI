@@ -653,6 +653,45 @@ const VARSITY_SIGNAL_VISUAL_EFFECTS = [
   },
 ];
 
+const VARSITY_SIGNAL_MOTION_REFERENCES = [
+  {
+    label: "Score Flip",
+    note: "180-240ms hard flip. Digits change like a real board, then settle cleanly.",
+    className: "score-flip",
+    meta: "Q4 07:24",
+  },
+  {
+    label: "Sticker Pop",
+    note: "Fast overshoot and snap-back. Use for clutch, senior night, and award callouts.",
+    className: "sticker-pop",
+    meta: "140ms pop",
+  },
+  {
+    label: "VHS Glitch",
+    note: "Two-frame tracking tear with RGB offset. Best for video, recaps, and throwbacks.",
+    className: "vhs-glitch",
+    meta: "2 frame hit",
+  },
+  {
+    label: "Type Slam",
+    note: "Condensed headline enters with a punch, red rule follows a beat later.",
+    className: "type-slam",
+    meta: "impact beat",
+  },
+  {
+    label: "Ticket Wipe",
+    note: "A ticket-stub edge wipes between promos, GoFan modules, and game details.",
+    className: "ticket-wipe",
+    meta: "left to right",
+  },
+  {
+    label: "Camera Flash",
+    note: "One bright flash over a real photo. Use as a transition into the moment.",
+    className: "camera-flash",
+    meta: "1 flash",
+  },
+];
+
 const getVarsitySignalImage = (id) => VARSITY_SIGNAL_IMAGES.find((image) => image.id === id);
 
 const getVarsitySignalSrc = (baseUrl, image) => `${baseUrl}${image.src}`;
@@ -4382,12 +4421,20 @@ export function VarsitySignalStyleGuidePage() {
             <p>Sports broadcast, not software demo: snap zooms, scoreboard flips, sticker pops, flash cuts, VHS glitches, ticker crawls, and kinetic type slams.</p>
           </div>
           <div className="varsity-signal-motion-grid">
-            <article><FontAwesomeIcon icon={faChartLine} /><strong>Score flip</strong></article>
-            <article><FontAwesomeIcon icon={faPen} /><strong>Sticker pop</strong></article>
-            <article><FontAwesomeIcon icon={faVideo} /><strong>VHS glitch</strong></article>
-            <article><FontAwesomeIcon icon={faFootball} /><strong>Type slam</strong></article>
-            <article><FontAwesomeIcon icon={faTicketSimple} /><strong>Ticket wipe</strong></article>
-            <article><FontAwesomeIcon icon={faBasketball} /><strong>Camera flash</strong></article>
+            {VARSITY_SIGNAL_MOTION_REFERENCES.map((item) => (
+              <article key={item.label} className={`varsity-signal-motion-card varsity-signal-motion-card--${item.className}`}>
+                <div className="varsity-signal-motion-card__stage" aria-hidden="true">
+                  <span className="varsity-signal-motion-card__frame varsity-signal-motion-card__frame--before" />
+                  <span className="varsity-signal-motion-card__arrow">→</span>
+                  <span className="varsity-signal-motion-card__frame varsity-signal-motion-card__frame--after" />
+                </div>
+                <div className="varsity-signal-motion-card__copy">
+                  <small>{item.meta}</small>
+                  <strong>{item.label}</strong>
+                  <p>{item.note}</p>
+                </div>
+              </article>
+            ))}
           </div>
         </section>
       </div>

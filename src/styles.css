@@ -16252,30 +16252,287 @@ select {
 }
 
 .varsity-signal-motion-grid {
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
-.varsity-signal-motion-grid article {
+.varsity-signal-motion-card {
+  position: relative;
+  display: grid;
+  gap: 0.8rem;
+  min-height: 17rem;
+  overflow: hidden;
+  border: 1px solid rgba(17, 19, 21, 0.14);
+  background:
+    linear-gradient(135deg, rgba(5, 9, 10, 0.05), rgba(245, 241, 232, 0.2)),
+    var(--signal-paper);
+  box-shadow: 0 0.9rem 1.8rem rgba(17, 19, 21, 0.08);
+}
+
+.varsity-signal-motion-card::before {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  content: "";
+  background-image: radial-gradient(rgba(17, 19, 21, 0.12) 0.75px, transparent 0.75px);
+  background-size: 8px 8px;
+  opacity: 0.28;
+}
+
+.varsity-signal-motion-card__stage {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 0.65rem;
+  align-items: center;
+  min-height: 9.4rem;
+  padding: 0.9rem;
+  background: #05090a;
+  color: #f6f2e8;
+}
+
+.varsity-signal-motion-card__frame {
+  position: relative;
+  display: block;
+  height: 7.5rem;
+  overflow: hidden;
+  border: 1px solid rgba(246, 242, 232, 0.22);
+  background: #111315;
+  box-shadow: inset 0 0 0 1px rgba(5, 9, 10, 0.72);
+}
+
+.varsity-signal-motion-card__arrow {
+  position: relative;
+  z-index: 2;
+  color: var(--signal-red);
+  font-family: var(--font-marker-sport);
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.varsity-signal-motion-card__copy {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 0.38rem;
+  padding: 0 1rem 1rem;
+}
+
+.varsity-signal-motion-card small,
+.varsity-signal-motion-card strong {
+  font-family: var(--font-mono);
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.varsity-signal-motion-card small {
+  width: fit-content;
+  padding: 0.18rem 0.4rem;
+  background: #111315;
+  color: #f6f2e8;
+  font-size: 0.58rem;
+}
+
+.varsity-signal-motion-card strong {
+  color: #111315;
+  font-size: 0.78rem;
+}
+
+.varsity-signal-motion-card p {
+  margin: 0;
+  color: var(--signal-muted);
+  font-family: var(--font-siro-condensed);
+  font-size: 0.82rem;
+  line-height: 1.35;
+}
+
+.varsity-signal-motion-card--score-flip .varsity-signal-motion-card__frame {
   display: grid;
   place-items: center;
-  gap: 0.65rem;
-  min-height: 8.5rem;
-  border: 1px solid rgba(246, 242, 232, 0.16);
-  background: rgba(246, 242, 232, 0.04);
-  text-align: center;
+  background:
+    radial-gradient(circle at 50% 35%, rgba(225, 5, 0, 0.18), transparent 54%),
+    #05090a;
 }
 
-.varsity-signal-motion-grid svg {
-  color: var(--signal-accent);
-  font-size: 1.8rem;
-  filter: drop-shadow(0 0 12px rgba(111, 118, 111, 0.34));
-}
-
-.varsity-signal-motion-grid strong {
+.varsity-signal-motion-card--score-flip .varsity-signal-motion-card__frame::before {
+  color: #e10500;
   font-family: var(--font-mono);
-  font-size: 0.64rem;
-  letter-spacing: 0.08em;
+  font-size: 2rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-shadow: 0 0 14px rgba(225, 5, 0, 0.82);
+  content: "28";
+}
+
+.varsity-signal-motion-card--score-flip .varsity-signal-motion-card__frame--after::before {
+  content: "32";
+}
+
+.varsity-signal-motion-card--score-flip .varsity-signal-motion-card__frame::after {
+  position: absolute;
+  right: 0.65rem;
+  bottom: 0.5rem;
+  color: rgba(246, 242, 232, 0.68);
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  content: "Q4";
+}
+
+.varsity-signal-motion-card--sticker-pop .varsity-signal-motion-card__frame {
+  background:
+    linear-gradient(135deg, rgba(5, 9, 10, 0.28), rgba(5, 9, 10, 0.72)),
+    #222824;
+}
+
+.varsity-signal-motion-card--sticker-pop .varsity-signal-motion-card__frame::before {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 4.8rem;
+  height: 2.4rem;
+  background: #e7d8b8;
+  color: #111315;
+  clip-path: polygon(0 15%, 9% 0, 20% 14%, 33% 3%, 45% 13%, 57% 0, 70% 15%, 84% 4%, 100% 16%, 94% 50%, 100% 84%, 83% 96%, 68% 86%, 55% 100%, 42% 86%, 27% 97%, 14% 83%, 0 91%, 7% 51%);
+  content: "CLUTCH";
+  font-family: var(--font-marker-sport);
+  font-size: 1rem;
+  line-height: 2.4rem;
+  text-align: center;
+  transform: translate(-50%, -50%) rotate(-9deg) scale(0.68);
+}
+
+.varsity-signal-motion-card--sticker-pop .varsity-signal-motion-card__frame--after::before {
+  background: #f2b820;
+  transform: translate(-50%, -50%) rotate(-9deg) scale(1.08);
+  box-shadow: 0 0 0 4px rgba(225, 5, 0, 0.35);
+}
+
+.varsity-signal-motion-card--vhs-glitch .varsity-signal-motion-card__frame {
+  background:
+    repeating-linear-gradient(0deg, rgba(246, 242, 232, 0.12) 0 1px, transparent 1px 7px),
+    linear-gradient(90deg, rgba(0, 109, 255, 0.18), rgba(225, 5, 0, 0.16)),
+    #05090a;
+}
+
+.varsity-signal-motion-card--vhs-glitch .varsity-signal-motion-card__frame::before {
+  position: absolute;
+  left: 0.8rem;
+  top: 0.75rem;
+  color: #f6f2e8;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  content: "PLAY ▷";
+  text-shadow: -3px 0 #006dff, 3px 0 #e10500;
+}
+
+.varsity-signal-motion-card--vhs-glitch .varsity-signal-motion-card__frame::after {
+  position: absolute;
+  inset: 50% -10% auto;
+  height: 1.1rem;
+  background: rgba(246, 242, 232, 0.18);
+  content: "";
+  transform: skewX(-12deg);
+}
+
+.varsity-signal-motion-card--vhs-glitch .varsity-signal-motion-card__frame--after::before {
+  left: 1.4rem;
+  text-shadow: -5px 0 #006dff, 5px 0 #e10500;
+}
+
+.varsity-signal-motion-card--type-slam .varsity-signal-motion-card__frame {
+  display: grid;
+  align-items: end;
+  padding: 0.7rem;
+  background:
+    linear-gradient(145deg, rgba(225, 5, 0, 0.2), transparent 50%),
+    #05090a;
+}
+
+.varsity-signal-motion-card--type-slam .varsity-signal-motion-card__frame::before {
+  color: #f6f2e8;
+  font-family: var(--font-champion-gothic);
+  font-size: 2.15rem;
+  line-height: 0.8;
   text-transform: uppercase;
+  content: "FINAL";
+  transform: translateY(0.55rem);
+}
+
+.varsity-signal-motion-card--type-slam .varsity-signal-motion-card__frame--after::before {
+  color: var(--signal-red);
+  transform: translateY(0);
+}
+
+.varsity-signal-motion-card--type-slam .varsity-signal-motion-card__frame--after::after {
+  position: absolute;
+  left: 0.7rem;
+  right: 0.7rem;
+  bottom: 0.55rem;
+  height: 0.22rem;
+  background: var(--signal-red);
+  content: "";
+}
+
+.varsity-signal-motion-card--ticket-wipe .varsity-signal-motion-card__frame {
+  background:
+    linear-gradient(90deg, #e7d8b8 0 42%, #05090a 42%),
+    #05090a;
+}
+
+.varsity-signal-motion-card--ticket-wipe .varsity-signal-motion-card__frame::before {
+  position: absolute;
+  left: 0.75rem;
+  top: 0.8rem;
+  color: #111315;
+  font-family: var(--font-champion-gothic);
+  font-size: 1.25rem;
+  line-height: 0.85;
+  text-transform: uppercase;
+  content: "BUY TICKETS";
+}
+
+.varsity-signal-motion-card--ticket-wipe .varsity-signal-motion-card__frame--after {
+  background:
+    linear-gradient(90deg, #e7d8b8 0 82%, #05090a 82%),
+    #e7d8b8;
+}
+
+.varsity-signal-motion-card--ticket-wipe .varsity-signal-motion-card__frame--after::after {
+  position: absolute;
+  right: 0.7rem;
+  bottom: 0.75rem;
+  width: 4.5rem;
+  height: 1.25rem;
+  background: repeating-linear-gradient(90deg, #111315 0 2px, transparent 2px 5px);
+  content: "";
+}
+
+.varsity-signal-motion-card--camera-flash .varsity-signal-motion-card__frame {
+  background:
+    radial-gradient(circle at 62% 34%, rgba(246, 242, 232, 0.12), transparent 24%),
+    linear-gradient(135deg, rgba(0, 109, 255, 0.22), rgba(225, 5, 0, 0.12)),
+    #111315;
+}
+
+.varsity-signal-motion-card--camera-flash .varsity-signal-motion-card__frame::before {
+  position: absolute;
+  left: 1rem;
+  bottom: 0.8rem;
+  width: 4.6rem;
+  height: 4.6rem;
+  border-radius: 50%;
+  background: #6f766f;
+  content: "";
+}
+
+.varsity-signal-motion-card--camera-flash .varsity-signal-motion-card__frame--after {
+  background:
+    radial-gradient(circle at 52% 35%, rgba(246, 242, 232, 0.98), rgba(246, 242, 232, 0.18) 33%, transparent 62%),
+    #111315;
+}
+
+.varsity-signal-motion-card--camera-flash .varsity-signal-motion-card__frame--after::before {
+  background: #f6f2e8;
+  box-shadow: 0 0 48px rgba(246, 242, 232, 0.72);
 }
 
 @media (max-width: 1180px) {
