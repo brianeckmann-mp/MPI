@@ -1,7 +1,10 @@
 import { useEffect, useId, useRef, useState } from "react";
 import { Agentation } from "agentation";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 import { initShowcase } from "./showcase";
 import { GraystoneExperience, GRAYSTONE_PAGES, VarsitySignalStyleGuidePage } from "./graystone";
+import { GraystoneIconHome } from "./graystone-icons";
 import { VARSITY_SIGNAL_IMAGES } from "./varsity-signal-assets";
 
 const NAV_ITEMS = ["index", "AI", "system", "brand", "projects", "about"];
@@ -12,7 +15,21 @@ const VARSITY_SIGNAL_PAGES = [
   "varsity-signal-home-page",
   "varsity-signal-about-page",
 ];
-const STANDALONE_PAGES = [...GRAYSTONE_PAGES, ...VARSITY_SIGNAL_PAGES, "unified-playon-design"];
+const MDS_PAGES = [
+  "mds",
+  "mds-foundations",
+  "mds-foundations-brand",
+  "mds-foundations-colors",
+  "mds-foundations-type",
+  "mds-foundations-motifs",
+  "mds-foundations-photography",
+  "mds-foundations-motion",
+  "mds-foundations-spacing",
+  "mds-components",
+  "mds-patterns",
+  "mds-resources",
+];
+const STANDALONE_PAGES = [...GRAYSTONE_PAGES, ...VARSITY_SIGNAL_PAGES, ...MDS_PAGES, "unified-playon-design"];
 const ALL_PAGES = [...NAV_ITEMS, ...STANDALONE_PAGES];
 const TEAM_THEMES = [
   { name: "Red", primary: "#CC0022", secondary: "#8F0018", dark: "#52000E" },
@@ -128,6 +145,12 @@ function getPageFromHash() {
   }
   if (normalized === "graystone-varsity-signal") {
     return "varsity-signal-style-guide";
+  }
+  if (normalized === "maxpreps-design-system" || normalized === "mds") {
+    return "mds-foundations-brand";
+  }
+  if (normalized === "mds-foundations") {
+    return "mds-foundations-brand";
   }
   return ALL_PAGES.find((item) => item.toLowerCase() === normalized) ?? "index";
 }
@@ -1226,14 +1249,10 @@ function ProjectsPage({ onOpenProject }) {
       action: () => onOpenProject("varsity-signal"),
     },
     {
-      title: "Project 02",
-      meta: "Project",
-      disabled: true,
-    },
-    {
-      title: "Project 03",
-      meta: "Project",
-      disabled: true,
+      title: "MaxPreps Design System (MDS)",
+      meta: "Design system",
+      description: "A product design system hub for foundations, components, patterns, and resources across MaxPreps experiences.",
+      action: () => onOpenProject("mds-foundations-brand"),
     },
   ];
 
@@ -1627,6 +1646,1121 @@ function VarsitySignalProjectShell({ currentPage, onNavigate, onExit }) {
   );
 }
 
+const MDS_PROJECT_NAV = [
+  {
+    id: "mds-foundations-brand",
+    match: "mds-foundations",
+    title: "Foundations",
+    eyebrow: "Tokens",
+    description: "Color, type, spacing, elevation, iconography, and accessibility rules for every MaxPreps product surface.",
+  },
+  {
+    id: "mds-components",
+    title: "Components",
+    eyebrow: "Reusable UI",
+    description: "Core product components with states, anatomy, usage guidance, and code-ready behavior.",
+  },
+  {
+    id: "mds-patterns",
+    title: "Patterns",
+    comingSoon: true,
+    eyebrow: "Product flows",
+    description: "Repeatable page and workflow patterns for search, schedules, scoreboards, team pages, feeds, and monetization.",
+  },
+  {
+    id: "mds-resources",
+    title: "Resources",
+    comingSoon: true,
+    eyebrow: "Adoption",
+    description: "Libraries, governance, contribution paths, migration checklists, and implementation references.",
+  },
+];
+
+const MDS_FOUNDATION_NAV = [
+  { id: "mds-foundations-brand", title: "Brand", eyebrow: "Identity" },
+  { id: "mds-foundations-colors", title: "Colors", eyebrow: "Palette" },
+  { id: "mds-foundations-type", title: "Type", eyebrow: "Typography" },
+  { id: "mds-foundations-motifs", title: "Motifs + Textures", eyebrow: "Visual system" },
+  { id: "mds-foundations-photography", title: "Photography", eyebrow: "Image style" },
+  { id: "mds-foundations-motion", title: "Motion", eyebrow: "Behavior", comingSoon: true },
+  { id: "mds-foundations-spacing", title: "Spacing", eyebrow: "Layout", comingSoon: true },
+];
+
+const MDS_MAXPREPS_LOGOS = [
+  { title: "Primary Logo Red", file: "maxpreps-logo-red.svg", theme: "light", kind: "wordmark" },
+  { title: "Primary Logo Black", file: "maxpreps-logo-black.svg", theme: "light", kind: "wordmark" },
+  { title: "Primary Logo White", file: "maxpreps-logo-white.svg", theme: "dark", kind: "wordmark" },
+  { title: "Icon Red", file: "maxpreps-icon-red.svg", theme: "light", kind: "icon" },
+  { title: "Icon Black", file: "maxpreps-icon-black.svg", theme: "light", kind: "icon" },
+  { title: "Icon White", file: "maxpreps-icon-white.svg", theme: "dark", kind: "icon" },
+  { title: "Photographer Red", file: "maxpreps-photographer-red.svg", theme: "light", kind: "subbrand" },
+  { title: "Photographer Black", file: "maxpreps-photographer-black.svg", theme: "light", kind: "subbrand" },
+  { title: "Photographer White", file: "maxpreps-photographer-white.svg", theme: "dark", kind: "subbrand" },
+  { title: "Advantage Red + Gray", file: "maxpreps-advantage-red-gray.svg", theme: "light", kind: "subbrand" },
+  { title: "Advantage Red + White", file: "maxpreps-advantage-red-white.svg", theme: "dark", kind: "subbrand" },
+  { title: "Advantage White", file: "maxpreps-advantage-white.svg", theme: "dark", kind: "subbrand" },
+];
+
+const MDS_BRAND_COLORS = [
+  { name: "MaxPreps Red", hex: "#E10500", note: "Brand, live states, and primary action." },
+  { name: "White", hex: "#FFFFFF", note: "Logo reversal, product surfaces, and contrast." },
+  { name: "Black", hex: "#000000", note: "Core mark, text, and high-contrast UI." },
+];
+
+const MDS_UI_COLOR_STEPS = ["0", "5", "10", "20", "30", "40", "50", "60", "70", "80", "90", "95", "100"];
+
+const MDS_UI_PALETTES = [
+  {
+    id: "neutral",
+    label: "Neutral",
+    usage: "Default black, white, gray, text, and utility surface scale.",
+    values: {
+      0: "#FDFDFD", 5: "#FBFBFB", 10: "#FAFAFA", 20: "#F2F2F2", 30: "#EDEDED", 40: "#DADADA", 50: "#C2C2C2", 60: "#ACACAC", 70: "#8D8D8D", 80: "#6E6E6E", 90: "#3F3F3F", 95: "#2D2D2D", 100: "#1A1A1A",
+    },
+  },
+  {
+    id: "warm",
+    label: "Warm",
+    usage: "Default product canvas, text, borders, and quiet surfaces.",
+    values: {
+      0: "#FEFDFC", 5: "#FCFBF9", 10: "#FBFAF8", 20: "#F3F0ED", 30: "#EEE9E5", 40: "#DCD6D1", 50: "#C7C0B9", 60: "#B0A8A1", 70: "#928A84", 80: "#756C66", 90: "#4B443F", 95: "#342D29", 100: "#211B18",
+    },
+  },
+  {
+    id: "red",
+    label: "Red",
+    usage: "Brand thread, live urgency, and primary action.",
+    values: {
+      0: "#FFFBFB", 5: "#FFF9F9", 10: "#FFF7F7", 20: "#F9DEDD", 30: "#F4B7B4", 40: "#EE8882", 50: "#E95C53", 60: "#E53328", 70: "#E10500", 80: "#C80000", 90: "#A80000", 95: "#930000", 100: "#7D0000",
+    },
+  },
+  {
+    id: "blue",
+    label: "Blue",
+    usage: "Links, information states, and secondary product emphasis.",
+    values: {
+      0: "#FAFCFF", 5: "#F8FAFF", 10: "#F5F8FF", 20: "#D7E3FA", 30: "#AFC7F6", 40: "#7EA6F7", 50: "#4E84F7", 60: "#2A6BE8", 70: "#0D55D9", 80: "#004ACE", 90: "#0036B5", 95: "#002EAA", 100: "#00259E",
+    },
+  },
+  {
+    id: "green",
+    label: "Green",
+    usage: "Positive states, availability, and success confirmation.",
+    values: {
+      0: "#FBFFFC", 5: "#F9FFFB", 10: "#F7FFF9", 20: "#D7F3DE", 30: "#B2ECBF", 40: "#84E59D", 50: "#52DB7A", 60: "#1FCC66", 70: "#0DBD5A", 80: "#089F4B", 90: "#067F3C", 95: "#056F35", 100: "#045E2D",
+    },
+  },
+  {
+    id: "orange",
+    label: "Orange",
+    usage: "Warm emphasis, alerts adjacent to warnings, and sports-energy accents.",
+    values: {
+      0: "#FFFBF8", 5: "#FFF8F2", 10: "#FFF0E8", 20: "#FBD8C6", 30: "#F7B48E", 40: "#EF884E", 50: "#E65C22", 60: "#D5350B", 70: "#BF2F0A", 80: "#A92909", 90: "#841F07", 95: "#661806", 100: "#4A1104",
+    },
+  },
+  {
+    id: "yellow",
+    label: "Yellow",
+    usage: "Highlights, warnings, and achievement moments.",
+    values: {
+      0: "#F9F3DE", 5: "#F5EDCE", 10: "#F2E7BD", 20: "#F2DD8A", 30: "#F2CE3F", 40: "#F2BE2C", 50: "#EBAA17", 60: "#CC9618", 70: "#996C05", 80: "#805804", 90: "#593C00", 95: "#422C00", 100: "#2B1C00",
+    },
+  },
+];
+
+const MDS_TEAM_COLORS = [
+  { hex: "#1580A5", name: "Aqua", aliases: ["Light Blue", "Powder Blue", "Sky Blue"] },
+  { hex: "#222222", name: "Black", aliases: [] },
+  { hex: "#034CB2", name: "Cobalt", aliases: ["Blue", "Royal Blue"] },
+  { hex: "#4F311C", name: "Brown", aliases: [] },
+  { hex: "#C8880A", name: "Gold", aliases: ["Buff", "Cream", "Maize", "Old Gold", "Tan", "Vegas Gold"] },
+  { hex: "#52000E", name: "Burgundy", aliases: ["Garnet"] },
+  { hex: "#CC4E10", name: "Burnt Orange", aliases: ["Copper", "Texas Orange"] },
+  { hex: "#CC0022", name: "Red", aliases: ["Cardinal", "Sapphire", "Scarlet"] },
+  { hex: "#046DFF", name: "Columbia", aliases: ["Carolina Blue"] },
+  { hex: "#8F0018", name: "Crimson", aliases: ["Cherry", "Cranberry", "Maroon"] },
+  { hex: "#503604", name: "Chocolate", aliases: [] },
+  { hex: "#022C66", name: "Navy", aliases: ["Dark Blue", "Midnight Blue"] },
+  { hex: "#005B34", name: "Hunter Green", aliases: ["Dark Green"] },
+  { hex: "#00341E", name: "Forest Green", aliases: [] },
+  { hex: "#454444", name: "Gray", aliases: [] },
+  { hex: "#00824B", name: "Green", aliases: ["Kelly Green", "Olive"] },
+  { hex: "#CD0066", name: "Magenta", aliases: ["Old Rose", "Pink", "Salmon"] },
+  { hex: "#108073", name: "Teal", aliases: ["Marine Blue", "Turquoise"] },
+  { hex: "#D5350B", name: "Orange", aliases: [] },
+  { hex: "#737272", name: "Platinum", aliases: ["Silver"] },
+  { hex: "#754ACC", name: "Purple", aliases: [] },
+];
+
+const MDS_TYPE_ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const MDS_TYPE_LOWERCASE = "abcdefghijklmnopqrstuvwxyz";
+const MDS_TYPE_NUMBERS = "0123456789";
+
+const MDS_TYPE_SPECIMENS = [
+  {
+    id: "type-display",
+    role: "Page titles / display",
+    name: "Champion Gothic",
+    className: "mds-type-specimen--champion",
+    description: "Condensed sports authority for page titles, hero statements, rivalry weeks, playoff moments, rankings, and high-emphasis editorial surfaces.",
+    options: ["Bold"],
+    showLowercase: false,
+    examples: ["WHERE THE SEASON LIVES", "RIVALRY WEEK", "STATE PLAYOFFS"],
+  },
+  {
+    id: "type-subheads",
+    role: "Subheaders / UI emphasis",
+    name: "Siro SemiBold",
+    className: "mds-type-specimen--siro-semibold",
+    description: "Strong but readable UI type for section headers, module titles, tab labels, filters, and compact product hierarchy.",
+    examples: ["Season Stats", "Latest Headlines", "Team Leaders"],
+  },
+  {
+    id: "type-body",
+    role: "Paragraphs / product copy",
+    name: "Siro Regular",
+    className: "mds-type-specimen--siro-regular",
+    description: "The default reading voice for descriptions, summaries, helper text, news snippets, and product explanations across the light theme.",
+    examples: ["A practical color system where MaxPreps red anchors brand and action.", "Scores, schedules, rankings, and stories stay clear and scannable."],
+  },
+  {
+    id: "type-data",
+    role: "Scores / stats / labels",
+    name: "Chivo Mono",
+    className: "mds-type-specimen--chivo",
+    description: "Structured data type for scores, records, timestamps, tables, stat rows, rankings, abbreviations, and metadata.",
+    examples: ["Q4 07:24", "REC 48   YDS 812   TD 11   AVG 16.9", "FINAL 32-28"],
+  },
+  {
+    id: "type-accent",
+    role: "Accent / human energy",
+    name: "Marker Sport",
+    className: "mds-type-specimen--marker",
+    description: "Handwritten energy for stickers, tape labels, social callouts, senior night, clutch moments, and limited expressive annotations.",
+    examples: ["BUILT DIFFERENT", "SENIOR NIGHT", "CLUTCH"],
+  },
+];
+
+const MDS_MOTIF_TEXTURES = [
+  { name: "Halftone", className: "halftone", description: "Local newspaper dot texture for rankings, recaps, archives, and editorial shadows." },
+  { name: "Tape", className: "tape", description: "Locker-room tape for labels, player names, matchup notes, and quick annotations." },
+  { name: "Turf / Field", className: "turf", description: "Field marks and grass texture for football, soccer, lacrosse, and outdoor game surfaces." },
+  { name: "Ticket Stub", className: "ticket", description: "Event, playoff, GoFan, rivalry, and admissions language with perforated edges." },
+  { name: "Chain Link", className: "chain", description: "Fence geometry for local venue texture, sidelines, fields, and gritty framing." },
+  { name: "Jersey Mesh", className: "mesh", description: "Athletic fabric texture for uniforms, badges, stat cards, and layered collage." },
+];
+
+const MDS_MOTIFS = [
+  { name: "Scoreboard", className: "score", value: "12:00", description: "Use for clock, quarter, final, live, OT, and score-state references." },
+  { name: "Marker Circle", className: "marker", value: "Senior", description: "Use sparingly for human callouts and student-section energy." },
+  { name: "Player ID", className: "barcode", value: "", description: "Use as a structured data artifact for tickets, rosters, and player modules." },
+  { name: "Tape Label", className: "tape-label", value: "Game day", description: "Use for labels, notes, and local context without feeling like a SaaS chip." },
+  { name: "Chrome Badge", className: "chrome", value: "P", description: "Use for awards, verified recognition, player-of-the-game, and premium moments." },
+];
+
+const MDS_PHOTOGRAPHY_TREATMENTS = [
+  {
+    number: "1",
+    name: "High Contrast Sports Grade",
+    description: "Punchy contrast, controlled color, and deep blacks focused on the athlete.",
+    imageId: "profile-athlete",
+    className: "contrast",
+  },
+  {
+    number: "2",
+    name: "Flash Photo Treatment",
+    description: "On-camera flash energy with a crisp subject and a darker, richer background.",
+    imageId: "championship-net",
+    className: "flash",
+  },
+  {
+    number: "3",
+    name: "Sideline Grain",
+    description: "Film grain and rough texture that keeps the image real, local, and imperfect.",
+    imageId: "student-energy",
+    className: "grain",
+  },
+  {
+    number: "4",
+    name: "VHS Scanlines",
+    description: "Subtle scanlines, timecode, and color distortion for broadcast energy.",
+    imageId: "game-poster",
+    className: "vhs",
+  },
+  {
+    number: "5",
+    name: "Torn Paper Edge",
+    description: "Ripped-paper framing for headlines, photo cards, modules, and recap panels.",
+    imageId: "track-state",
+    className: "torn",
+  },
+  {
+    number: "6",
+    name: "Chromatic Offset",
+    description: "A slight broadcast RGB split for motion, tension, and game-night energy.",
+    imageId: "volleyball-final",
+    className: "chromatic",
+  },
+];
+
+const MDS_BUTTON_OVERVIEW = [
+  {
+    id: "primary",
+    title: "Primary",
+    description: "Use for the highest-priority action on a surface. Red is reserved for brand, live, urgent, or true primary actions.",
+    example: "Watch Live",
+  },
+  {
+    id: "secondary",
+    title: "Secondary",
+    description: "Use for supportive actions that should remain visible without competing with the primary action.",
+    example: "Game Details",
+  },
+  {
+    id: "tertiary",
+    title: "Tertiary",
+    description: "Use for quiet actions in dense UI, secondary navigation, or repeated rows where button chrome would add noise.",
+    example: "View Roster",
+  },
+];
+
+const MDS_PAGE_CONTENT = {
+  "mds-foundations-brand": {
+    title: "Brand",
+    intro: "The identity layer for MDS: a MaxPreps ecosystem that feels authoritative, trustworthy, and unmistakably sports-native.",
+    sections: [
+      {
+        id: "brand-position",
+        title: "Position",
+        kicker: "System promise",
+        body: "MaxPreps should feel like the trusted source for every team, athlete, score, schedule, ranking, and local sports moment.",
+        items: ["Trusted sports authority", "Local-first context", "Clear product confidence", "Room for school pride"],
+      },
+      {
+        id: "brand-voice",
+        title: "Voice",
+        kicker: "Tone",
+        body: "Language should be direct, useful, and sports-literate. Avoid hype when the user needs data, and avoid sterile UI copy when the moment deserves energy.",
+        items: ["Plainspoken", "Confident", "Specific", "Moment-aware"],
+      },
+      {
+        id: "brand-logo",
+        title: "Logo Usage",
+        kicker: "Recognition",
+        body: "The MaxPreps mark should be present in product chrome and brand moments without competing with school identity or core task completion.",
+        items: ["Red preferred", "High-contrast lockups", "Avoid decorative distortion", "Respect clear space"],
+      },
+    ],
+  },
+  "mds-foundations-colors": {
+    title: "Colors",
+    intro: "A practical color system where MaxPreps red anchors brand and action while team colors carry local identity.",
+    sections: [
+      {
+        id: "color-brand",
+        title: "Brand",
+        body: "The brand set is intentionally small: red, white, and black. Red is the identity thread and should stay reserved for MaxPreps, live moments, and primary action.",
+        items: ["MaxPreps Red", "White", "Black"],
+      },
+      {
+        id: "color-ui",
+        title: "UI",
+        body: "The UI palette supplies scales for product backgrounds, states, dividers, and emphasis. Use the selector to inspect a family and step without showing every token at once.",
+        items: ["Family selector", "Step selector", "Live token preview"],
+      },
+      {
+        id: "color-teams",
+        title: "Teams",
+        body: "Team colors carry school identity. Use the canonical color name as the bold label, with alternate school-color language shown as supporting copy.",
+        items: ["Canonical name", "Mapped hex", "Common aliases"],
+      },
+    ],
+  },
+  "mds-foundations-type": {
+    title: "Type",
+    intro: "Typography supports fast scanning, sports data precision, and moments where MaxPreps needs broadcast energy without leaving the light product theme.",
+    sections: [
+      {
+        id: "type-display",
+        title: "Champion Gothic",
+        body: "Condensed display type for page titles and big sports moments.",
+        items: ["Page titles", "Hero moments", "Campaign headlines"],
+      },
+      {
+        id: "type-subheads",
+        title: "Siro SemiBold",
+        body: "Subheader and UI emphasis type for clear product hierarchy.",
+        items: ["Section headers", "Module titles", "Navigation emphasis"],
+      },
+      {
+        id: "type-body",
+        title: "Siro Regular",
+        body: "Paragraph and product copy type for readable explanations.",
+        items: ["Body copy", "Descriptions", "Helper text"],
+      },
+      {
+        id: "type-data",
+        title: "Chivo Mono",
+        body: "Structured data type for scores, stats, labels, and timestamps.",
+        items: ["Scores", "Stats", "Tables"],
+      },
+      {
+        id: "type-accent",
+        title: "Marker Sport",
+        body: "Expressive accent type for human callouts and social-energy moments.",
+        items: ["Stickers", "Tape labels", "Callouts"],
+      },
+    ],
+  },
+  "mds-foundations-motifs": {
+    title: "Motifs + Textures",
+    intro: "Analog broadcast collage elements for MaxPreps surfaces: scoreboard hardware, local artifacts, athletic materials, and school-pride texture.",
+    sections: [
+      {
+        id: "motifs-textures",
+        title: "Textures",
+        body: "Use texture to make product moments feel local and tactile while keeping the interface clear.",
+        items: ["Halftone", "Tape", "Turf", "Ticket Stub", "Chain Link", "Jersey Mesh"],
+      },
+      {
+        id: "motifs-elements",
+        title: "Motifs",
+        body: "Motifs are reusable graphic artifacts that connect product UI to game-night culture.",
+        items: ["Scoreboard", "Marker Circle", "Player ID", "Tape Label", "Chrome Badge"],
+      },
+      {
+        id: "motifs-usage",
+        title: "Usage",
+        body: "Use motifs as emphasis and structure, not decoration. They should clarify status, reinforce local identity, or add moment energy.",
+        items: ["Make data legible", "Respect team colors", "Keep red intentional"],
+      },
+    ],
+  },
+  "mds-foundations-photography": {
+    title: "Photography",
+    intro: "Varsity Signal photography should feel real, flash-heavy, imperfect, and local while preserving MaxPreps trust and product readability.",
+    sections: [
+      {
+        id: "photo-principles",
+        title: "Principles",
+        body: "Photography should feel captured, not staged: emotional faces, close crops, gym light, field texture, and real athlete moments.",
+        items: ["Real moments", "High contrast", "Local atmosphere", "No fake athletes"],
+      },
+      {
+        id: "photo-treatments",
+        title: "Treatments",
+        body: "Use the approved image treatments to create visual variety while keeping the system recognizable.",
+        items: ["Contrast", "Flash", "Grain", "VHS", "Torn Paper", "Chromatic Offset"],
+      },
+      {
+        id: "photo-usage",
+        title: "Usage",
+        body: "Choose treatments by product context: clarity for core pages, energy for social, and editorial texture for stories and recaps.",
+        items: ["Product clarity first", "Editorial energy second", "Avoid overprocessing"],
+      },
+    ],
+  },
+  "mds-foundations-motion": {
+    title: "Motion",
+    intro: "Motion should feel fast and broadcast-native while preserving trust, legibility, and user control.",
+    sections: [
+      {
+        id: "motion-principles",
+        title: "Principles",
+        kicker: "Behavior",
+        body: "Use motion to clarify state changes, make live sports feel alive, and celebrate moments without blocking core tasks.",
+        items: ["Fast", "Purposeful", "Readable", "Reduced-motion safe"],
+      },
+      {
+        id: "motion-product",
+        title: "Product Motion",
+        kicker: "Interaction",
+        body: "Product interactions should stay restrained: tabs, filters, drawers, score updates, and loading states need clarity first.",
+        items: ["120-240ms transitions", "No decorative delays", "Stable layout", "Clear state changes"],
+      },
+      {
+        id: "motion-brand",
+        title: "Brand Motion",
+        kicker: "Expression",
+        body: "Brand and campaign surfaces can use score flips, sticker pops, type slams, flash cuts, and ticker crawls.",
+        items: ["Score flip", "Sticker pop", "Type slam", "Camera flash"],
+      },
+    ],
+  },
+  "mds-foundations-spacing": {
+    title: "Spacing",
+    intro: "Spacing and layout rules should make MaxPreps pages dense, calm, and easy to scan across desktop and mobile.",
+    sections: [
+      {
+        id: "spacing-scale",
+        title: "Scale",
+        kicker: "8px grid",
+        body: "Use a predictable spacing scale so modules, controls, cards, and page gutters align across product surfaces.",
+        items: ["4", "8", "12", "16", "24", "32", "48"],
+      },
+      {
+        id: "spacing-density",
+        title: "Density",
+        kicker: "Sports utility",
+        body: "Schedules, rosters, rankings, and score pages need efficient density. Marketing-style spacing should not leak into workhorse product views.",
+        items: ["Dense tables", "Compact filters", "Readable rows", "No oversized product cards"],
+      },
+      {
+        id: "spacing-responsive",
+        title: "Responsive Layout",
+        kicker: "Breakpoints",
+        body: "Layouts should preserve task flow when side rails collapse, sticky context moves, and modules stack.",
+        items: ["Fixed control sizes", "Fluid content columns", "Sticky context rails", "Mobile-first stacking"],
+      },
+    ],
+  },
+  "mds-components": {
+    title: "Components",
+    intro: "A starter catalog for the UI pieces MaxPreps uses every day, beginning with button behavior, hierarchy, and theming.",
+    sections: [
+      {
+        id: "button-overview",
+        title: "Button Overview",
+        body: "Buttons use hierarchy first: primary for decisive action, secondary for support, and tertiary for quiet utility.",
+        items: ["Primary", "Secondary", "Tertiary"],
+      },
+      {
+        id: "button-renderer",
+        title: "Interactive Renderer",
+        body: "Use the renderer to inspect theme, size, icon placement, and variant combinations.",
+        items: ["Light", "Dark", "Dynamic", "Small", "Medium", "Large"],
+      },
+    ],
+  },
+  "mds-patterns": {
+    title: "Patterns",
+    intro: "Reusable product compositions for high-traffic MaxPreps workflows, from team discovery to live game context.",
+    sections: [
+      {
+        id: "team-pages",
+        title: "Team Pages",
+        kicker: "School hub",
+        body: "Team pages combine identity, schedule, updates, rankings, media, and roster context without losing scan speed.",
+        items: ["Team identity header", "Schedule at a glance", "Team updates feed", "Leadership rail"],
+      },
+      {
+        id: "game-context",
+        title: "Game Context",
+        kicker: "Before and after",
+        body: "Game pages should support previews, live states, final recaps, tickets, watch CTAs, and related editorial modules.",
+        items: ["Preview state", "Live state", "Final state", "Ticket/watch module"],
+      },
+      {
+        id: "search",
+        title: "Search + Discovery",
+        kicker: "Find anything",
+        body: "Search should bias toward schools, teams, athletes, schedules, rankings, and local relevance.",
+        items: ["Global search", "Scoped filters", "Recent teams", "Location-aware results"],
+      },
+      {
+        id: "feeds",
+        title: "Feeds + Updates",
+        kicker: "Timeline",
+        body: "Feeds need strong metadata, clear source trust, and media moments without becoming social clutter.",
+        items: ["News update", "Stats update", "Photo update", "Score update"],
+      },
+    ],
+  },
+  "mds-resources": {
+    title: "Resources",
+    intro: "The operating layer for adopting and maintaining MDS across design, engineering, content, and product teams.",
+    sections: [
+      {
+        id: "libraries",
+        title: "Design Libraries",
+        kicker: "Figma",
+        body: "Foundations, components, and templates should live as versioned Figma libraries with usage documentation next to the assets.",
+        items: ["Foundations library", "Components library", "Templates library", "Varsity Signal adjunct"],
+      },
+      {
+        id: "engineering",
+        title: "Engineering References",
+        kicker: "Implementation",
+        body: "Code references should map to production components and include API, state, accessibility, and responsive behavior notes.",
+        items: ["React component map", "Token export", "Storybook", "A11y checklist"],
+      },
+      {
+        id: "governance",
+        title: "Governance",
+        kicker: "Contribution",
+        body: "MDS needs a clear intake path so teams can propose changes without fragmenting the system.",
+        items: ["Request template", "Review cadence", "Version notes", "Decision log"],
+      },
+      {
+        id: "migration",
+        title: "Migration",
+        kicker: "Adoption",
+        body: "Prioritize high-traffic surfaces first, then stabilize shared primitives before broad page-level redesign.",
+        items: ["Inventory", "Token alignment", "Component replacement", "QA signoff"],
+      },
+    ],
+  },
+};
+
+function getReadableColor(hex) {
+  const cleanHex = hex.replace("#", "");
+  const red = Number.parseInt(cleanHex.slice(0, 2), 16);
+  const green = Number.parseInt(cleanHex.slice(2, 4), 16);
+  const blue = Number.parseInt(cleanHex.slice(4, 6), 16);
+  const luminance = (0.299 * red + 0.587 * green + 0.114 * blue) / 255;
+  return luminance > 0.58 ? "#0B0D10" : "#FFFFFF";
+}
+
+function MdsColorsContent() {
+  const [activePaletteId, setActivePaletteId] = useState("red");
+  const [activeStep, setActiveStep] = useState("70");
+  const activePalette = MDS_UI_PALETTES.find((palette) => palette.id === activePaletteId) ?? MDS_UI_PALETTES[0];
+  const activeHex = activePalette.values[activeStep] ?? activePalette.values[70];
+  const readableColor = getReadableColor(activeHex);
+
+  return (
+    <div className="mds-color-page">
+      <section id="color-brand" className="mds-color-section mds-color-section--brand">
+        <div className="mds-color-section__intro">
+          <h2>Brand</h2>
+          <p>The smallest possible brand palette: red, white, and black. Keep red meaningful so it continues to carry identity, live state, and primary action.</p>
+        </div>
+        <div className="mds-brand-color-grid">
+          {MDS_BRAND_COLORS.map((color) => (
+            <article key={color.name} className="mds-brand-color-card" style={{ "--mds-swatch": color.hex }}>
+              <div className="mds-brand-color-card__sample" />
+              <strong>{color.name}</strong>
+              <code>{color.hex}</code>
+              <p>{color.note}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section id="color-ui" className="mds-color-section">
+        <div className="mds-color-section__intro">
+          <h2>UI</h2>
+          <p>Core product colors are organized by family and step. Select a family and code to preview the background color, token name, and value.</p>
+        </div>
+        <div className="mds-ui-color-lab">
+          <div className="mds-ui-color-controls" aria-label="UI palette controls">
+            <div>
+              <strong>Background color</strong>
+              <div className="mds-ui-color-button-grid">
+                {MDS_UI_PALETTES.map((palette) => (
+                  <button
+                    key={palette.id}
+                    type="button"
+                    className={activePalette.id === palette.id ? "is-active" : ""}
+                    onClick={() => setActivePaletteId(palette.id)}
+                  >
+                    <span style={{ background: palette.values[70] ?? palette.values[50] }} />
+                    {palette.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div>
+              <strong>Code</strong>
+              <div className="mds-ui-step-grid">
+                {MDS_UI_COLOR_STEPS.map((step) => (
+                  <button
+                    key={step}
+                    type="button"
+                    className={activeStep === step ? "is-active" : ""}
+                    onClick={() => setActiveStep(step)}
+                  >
+                    {step}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+          <div className="mds-ui-color-preview" style={{ background: activeHex, color: readableColor }}>
+            <span>{activePalette.label}</span>
+            <strong>{activePalette.id} {activeStep}</strong>
+            <code>{activeHex}</code>
+            <p>{activePalette.usage}</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="color-teams" className="mds-color-section">
+        <div className="mds-color-section__intro">
+          <h2>Teams</h2>
+          <p>These are canonical team-color mappings from the source palette. The bold name is the primary label; aliases help map school language back to the system.</p>
+        </div>
+        <div className="mds-team-color-table">
+          {MDS_TEAM_COLORS.map((color) => (
+            <article key={`${color.hex}-${color.name}`} className="mds-team-color-row">
+              <span className="mds-team-color-dot" style={{ background: color.hex }} />
+              <code>{color.hex}</code>
+              <p>
+                <strong>{color.name}</strong>
+                {color.aliases.length > 0 ? `, ${color.aliases.join(", ")}` : ""}
+              </p>
+            </article>
+          ))}
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function MdsTypeContent() {
+  return (
+    <div className="mds-type-page">
+      {MDS_TYPE_SPECIMENS.map((type) => (
+        <section key={type.id} id={type.id} className={`mds-type-specimen ${type.className}`}>
+          <div className="mds-type-specimen__meta">
+            <span>{type.role}</span>
+            <h2>{type.name}</h2>
+            <p>{type.description}</p>
+            {type.options ? (
+              <div className="mds-type-specimen__options" aria-label={`${type.name} options`}>
+                {type.options.map((option) => <strong key={option}>{option}</strong>)}
+              </div>
+            ) : null}
+          </div>
+          <div className="mds-type-specimen__sample">
+            <strong>{type.name}</strong>
+            <div className="mds-type-specimen__alphabet" aria-label={`${type.name} alphabet`}>
+              <span>{MDS_TYPE_ALPHABET}</span>
+              {type.showLowercase === false ? null : <span>{MDS_TYPE_LOWERCASE}</span>}
+              <span>{MDS_TYPE_NUMBERS}</span>
+            </div>
+          </div>
+          <div className="mds-type-specimen__examples">
+            <span>Examples</span>
+            <div>
+              {type.examples.map((example) => (
+                <p key={example}>{example}</p>
+              ))}
+            </div>
+          </div>
+        </section>
+      ))}
+    </div>
+  );
+}
+
+function MdsMotifsContent() {
+  return (
+    <div className="mds-motif-page">
+      <section id="motifs-textures" className="mds-motif-section">
+        <div className="mds-motif-section__intro">
+          <h2>Textures</h2>
+          <p>Use these as low-opacity surfaces, clipped overlays, section dividers, or local detail in high-energy modules. They should add tactility without burying product information.</p>
+        </div>
+        <div className="mds-texture-grid">
+          {MDS_MOTIF_TEXTURES.map((texture) => (
+            <article key={texture.name} className="mds-texture-card">
+              <span className={`mds-texture-card__sample mds-texture-card__sample--${texture.className}`} />
+              <strong>{texture.name}</strong>
+              <p>{texture.description}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section id="motifs-elements" className="mds-motif-section">
+        <div className="mds-motif-section__intro">
+          <h2>Motifs</h2>
+          <p>Motifs should behave like recognizable sports artifacts: scoreboard reads, ticket systems, locker-room labels, player IDs, and award marks.</p>
+        </div>
+        <div className="mds-motif-grid">
+          {MDS_MOTIFS.map((motif) => (
+            <article key={motif.name} className="mds-motif-card">
+              <span className={`mds-motif-sample mds-motif-sample--${motif.className}`}>{motif.value}</span>
+              <strong>{motif.name}</strong>
+              <p>{motif.description}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section id="motifs-usage" className="mds-motif-section mds-motif-section--usage">
+        <div>
+          <h2>Usage</h2>
+          <p>Local authenticity comes first. Use these elements to support a story, status, or school identity moment. Avoid adding every motif to one component.</p>
+        </div>
+        <ul>
+          <li>Scoreboard elements belong near live, final, clock, period, and score states.</li>
+          <li>Ticket and tape motifs work best for event promotion, GoFan, labels, and matchup context.</li>
+          <li>Halftone, mesh, turf, and chain-link textures should stay subtle behind readable content.</li>
+        </ul>
+      </section>
+    </div>
+  );
+}
+
+function MdsPhotographyContent() {
+  const baseUrl = import.meta.env.BASE_URL;
+
+  return (
+    <div className="mds-photo-page">
+      <section id="photo-principles" className="mds-photo-section mds-photo-section--principles">
+        <div>
+          <h2>Principles</h2>
+          <p>Use photography that feels like a real high school sports moment: sweat, flash, gym lights, field texture, scoreboard glow, sideline emotion, and imperfect local atmosphere.</p>
+        </div>
+        <div className="mds-photo-principles-grid">
+          {["Captured, not staged", "Close-cropped emotion", "Punchy highlights", "Trustworthy enough for product"].map((item) => (
+            <span key={item}>{item}</span>
+          ))}
+        </div>
+      </section>
+
+      <section id="photo-treatments" className="mds-photo-section">
+        <div className="mds-photo-section__intro">
+          <h2>Treatments</h2>
+          <p>Approved Varsity Signal photo effects for product, editorial, social, and campaign surfaces.</p>
+        </div>
+        <div className="mds-photo-treatment-grid">
+          {MDS_PHOTOGRAPHY_TREATMENTS.map((effect) => {
+            const image = getVarsitySignalImageAsset(effect.imageId);
+            return (
+              <article key={effect.name} className={`mds-photo-treatment mds-photo-treatment--${effect.className}`}>
+                <figure>
+                  {image ? (
+                    <img
+                      src={getVarsitySignalImageSrc(baseUrl, effect.imageId, 960)}
+                      alt={image.alt}
+                      loading="lazy"
+                    />
+                  ) : null}
+                </figure>
+                <div>
+                  <strong><span>{effect.number}.</span> {effect.name}</strong>
+                  <p>{effect.description}</p>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      </section>
+
+      <section id="photo-usage" className="mds-photo-section mds-photo-section--usage">
+        <div>
+          <h2>Usage</h2>
+          <p>Use heavier treatment in editorial and social surfaces. Keep core product pages readable: image energy should support scores, stats, rankings, schedules, and CTAs.</p>
+        </div>
+        <div className="mds-photo-usage-grid">
+          <article>
+            <strong>Product pages</strong>
+            <p>Use high contrast, flash, and subtle grain. Avoid treatments that reduce athlete recognition or stat legibility.</p>
+          </article>
+          <article>
+            <strong>Editorial + recap</strong>
+            <p>Use halftone, torn paper, and archive feeling to frame rankings, recaps, history, and playoff stories.</p>
+          </article>
+          <article>
+            <strong>Social assets</strong>
+            <p>Use VHS, chromatic offset, sticker energy, and tighter crops for shareable moment graphics.</p>
+          </article>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function MdsButtonExample({ variant, size = "medium", theme = "light", color = "brand", iconLeft = false, iconRight = false, children }) {
+  return (
+    <button
+      type="button"
+      className={`mds-button-example mds-button-example--${variant} mds-button-example--${size} mds-button-example--${theme} mds-button-example--${color}`}
+    >
+      {iconLeft ? <span className="mds-button-example__icon mds-button-example__icon--play" aria-hidden="true" /> : null}
+      <span>{children}</span>
+      {iconRight ? (
+        <span className="mds-button-example__icon mds-button-example__icon--external" aria-hidden="true">
+          <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+        </span>
+      ) : null}
+    </button>
+  );
+}
+
+function MdsComponentsContent() {
+  const [variant, setVariant] = useState("primary");
+  const [theme, setTheme] = useState("light");
+  const [size, setSize] = useState("medium");
+  const [buttonColor, setButtonColor] = useState("brand");
+  const [iconLeft, setIconLeft] = useState(true);
+  const [iconRight, setIconRight] = useState(false);
+
+  const controlGroups = [
+    { label: "Theme", value: theme, setter: setTheme, options: ["light", "dark", "dynamic"] },
+    { label: "Color", value: buttonColor, setter: setButtonColor, options: ["brand", "neutral"] },
+    { label: "Size", value: size, setter: setSize, options: ["small", "medium", "large"] },
+    { label: "Variant", value: variant, setter: setVariant, options: ["primary", "secondary", "tertiary"] },
+  ];
+
+  return (
+    <div className="mds-components-page">
+      <section id="button-overview" className="mds-component-section">
+        <div className="mds-component-section__intro">
+          <h2>Button Overview</h2>
+          <p>Buttons should stay practical and hierarchy-driven. Use red only when the action deserves primary emphasis, live energy, or brand urgency.</p>
+        </div>
+        <div className="mds-button-overview-grid">
+          {MDS_BUTTON_OVERVIEW.map((button) => (
+            <article key={button.id} className="mds-button-overview-card">
+              <div>
+                <span>{button.id}</span>
+                <h3>{button.title}</h3>
+                <p>{button.description}</p>
+              </div>
+              <MdsButtonExample
+                variant={button.id}
+                iconLeft={button.id === "primary"}
+                iconRight={button.id === "tertiary"}
+              >
+                {button.example}
+              </MdsButtonExample>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section id="button-renderer" className="mds-component-section">
+        <div className="mds-component-section__intro">
+          <h2>Interactive Button Renderer</h2>
+          <p>Preview the button API across theme, color, size, icon placement, and variant. Left and right icons can be used independently or together.</p>
+        </div>
+        <div className="mds-button-lab">
+          <div className="mds-button-lab__controls">
+            {controlGroups.map((group) => (
+              <div key={group.label}>
+                <strong>{group.label}</strong>
+                <div>
+                  {group.options.map((option) => (
+                    <button
+                      key={option}
+                      type="button"
+                      className={group.value === option ? "is-active" : ""}
+                      onClick={() => group.setter(option)}
+                    >
+                      {option}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ))}
+            <div>
+              <strong>Icon</strong>
+              <div>
+                <button
+                  type="button"
+                  className={iconLeft ? "is-active" : ""}
+                  onClick={() => setIconLeft((value) => !value)}
+                >
+                  Left
+                </button>
+                <button
+                  type="button"
+                  className={iconRight ? "is-active" : ""}
+                  onClick={() => setIconRight((value) => !value)}
+                >
+                  Right
+                </button>
+              </div>
+            </div>
+          </div>
+          <div className={`mds-button-lab__preview mds-button-lab__preview--${theme}`}>
+            <span>Rendered button</span>
+            <MdsButtonExample
+              variant={variant}
+              size={size}
+              theme={theme}
+              color={buttonColor}
+              iconLeft={iconLeft}
+              iconRight={iconRight}
+            >
+              Watch Live
+            </MdsButtonExample>
+            <code>{`<Button variant="${variant}" theme="${theme}" color="${buttonColor}" size="${size}" icon="${iconLeft && iconRight ? "both" : iconLeft ? "left" : iconRight ? "right" : "none"}" />`}</code>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function MdsProjectPage({ currentPage, onNavigate, onExit }) {
+  const activeId = currentPage === "mds" || currentPage === "mds-foundations" ? "mds-foundations-brand" : currentPage;
+  const activeTopId = activeId.startsWith("mds-foundations") ? "mds-foundations" : activeId;
+  const page = MDS_PAGE_CONTENT[activeId] ?? MDS_PAGE_CONTENT["mds-foundations-brand"];
+  const activeFoundationItem = MDS_FOUNDATION_NAV.find((item) => item.id === activeId);
+  const activeTopItem = MDS_PROJECT_NAV.find((item) => (item.match ?? item.id) === activeTopId);
+  const isComingSoonPage = Boolean(activeFoundationItem?.comingSoon || activeTopItem?.comingSoon);
+  const isBrandPage = activeId === "mds-foundations-brand";
+  const isColorsPage = activeId === "mds-foundations-colors";
+  const isTypePage = activeId === "mds-foundations-type";
+  const isMotifsPage = activeId === "mds-foundations-motifs";
+  const isPhotographyPage = activeId === "mds-foundations-photography";
+  const isComponentsPage = activeId === "mds-components";
+  const overviewItems = activeTopId === "mds-foundations"
+    ? MDS_FOUNDATION_NAV.map((item) => ({
+      ...item,
+      description: MDS_PAGE_CONTENT[item.id]?.intro ?? "",
+    }))
+    : MDS_PROJECT_NAV.map((item) => ({
+      ...item,
+      id: item.id,
+    }));
+  const handleSectionJump = (event, sectionId) => {
+    event.preventDefault();
+    document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  return (
+    <main className="mds-project" aria-label="MaxPreps Design System project">
+      <button
+        type="button"
+        className="graystone-home-button mds-project-home-button"
+        aria-label="Back to projects"
+        onClick={() => onExit("projects")}
+      >
+        <GraystoneIconHome />
+      </button>
+
+      <header className="mds-project-header">
+        <button type="button" className="mds-project-header__brand" onClick={() => onNavigate("mds-foundations-brand")}>
+          <MaxPrepsWordmark fill="#E10500" />
+          <span>MDS</span>
+        </button>
+        <nav className="mds-project-header__nav" aria-label="MDS primary pages">
+          {MDS_PROJECT_NAV.map((item) => (
+            <button
+              key={item.id}
+              type="button"
+              className={`${activeTopId === (item.match ?? item.id) ? "is-active" : ""}${item.comingSoon ? " is-disabled" : ""}`}
+              aria-current={activeTopId === (item.match ?? item.id) ? "page" : undefined}
+              disabled={item.comingSoon}
+              onClick={() => {
+                if (!item.comingSoon) onNavigate(item.id);
+              }}
+            >
+              <span>{item.title}</span>
+              {item.comingSoon ? <em>Coming soon</em> : null}
+            </button>
+          ))}
+        </nav>
+      </header>
+
+      <div className="mds-project-layout">
+        <aside className="mds-project-sidebar" aria-label="MDS side navigation">
+          <div>
+            <span>{activeTopId === "mds-foundations" ? "Foundation pages" : "Sub pages"}</span>
+            {activeTopId === "mds-foundations"
+              ? MDS_FOUNDATION_NAV.map((item) => (
+                <button
+                  key={item.id}
+                  type="button"
+                  className={`${activeId === item.id ? "is-active" : ""}${item.comingSoon ? " is-disabled" : ""}`}
+                  disabled={item.comingSoon}
+                  onClick={() => {
+                    if (!item.comingSoon) onNavigate(item.id);
+                  }}
+                >
+                  <strong>{item.title}</strong>
+                  {item.comingSoon ? <small>Coming soon</small> : null}
+                </button>
+              ))
+              : page.sections.map((section) => (
+                isComingSoonPage ? (
+                  <button key={section.id} type="button" className="is-disabled" disabled>
+                    <strong>{section.title}</strong>
+                    <small>Coming soon</small>
+                  </button>
+                ) : (
+                  <a key={section.id} href={`#${section.id}`} onClick={(event) => handleSectionJump(event, section.id)}>
+                    <strong>{section.title}</strong>
+                  </a>
+                )
+              ))}
+          </div>
+          <div>
+            <span>On this page</span>
+            {isComingSoonPage ? (
+              <button type="button" className="is-disabled" disabled>
+                <strong>Coming soon</strong>
+              </button>
+            ) : page.sections.map((section) => (
+              <a key={section.id} href={`#${section.id}`} onClick={(event) => handleSectionJump(event, section.id)}>{section.title}</a>
+            ))}
+          </div>
+        </aside>
+
+        <section className="mds-project-content" aria-labelledby="mds-page-title">
+          <div className="mds-project-hero">
+            {isComingSoonPage ? <p className="mds-coming-soon-label">Coming soon</p> : null}
+            <h1 id="mds-page-title">{page.title}</h1>
+            <span>{page.intro}</span>
+          </div>
+
+          {isBrandPage && !isComingSoonPage ? (
+            <div className="mds-project-overview-grid mds-project-logo-grid" aria-label="MaxPreps logo assets">
+              {MDS_MAXPREPS_LOGOS.map((logo) => (
+                <article key={logo.file} className={`mds-project-logo-card mds-project-logo-card--${logo.theme} mds-project-logo-card--${logo.kind}`}>
+                  <img src={`${import.meta.env.BASE_URL}mds/logos/${logo.file}`} alt={logo.title} />
+                  <strong>{logo.title}</strong>
+                </article>
+              ))}
+            </div>
+          ) : !isComingSoonPage && !isColorsPage && !isTypePage && !isMotifsPage && !isPhotographyPage && !isComponentsPage ? (
+            <div className="mds-project-overview-grid">
+              {overviewItems.map((item) => (
+                <button
+                  key={item.id}
+                  type="button"
+                  className={activeId === item.id ? "is-active" : ""}
+                  onClick={() => onNavigate(item.id)}
+                >
+                  <strong>{item.title}</strong>
+                  <p>{item.description}</p>
+                </button>
+              ))}
+            </div>
+          ) : null}
+
+          {isComingSoonPage ? (
+            <div className="mds-coming-soon-panel">
+              <strong>Coming soon</strong>
+              <p>This MDS page has not been designed yet. It is intentionally disabled until the page direction is defined.</p>
+            </div>
+          ) : isColorsPage ? (
+            <MdsColorsContent />
+          ) : isTypePage ? (
+            <MdsTypeContent />
+          ) : isMotifsPage ? (
+            <MdsMotifsContent />
+          ) : isPhotographyPage ? (
+            <MdsPhotographyContent />
+          ) : isComponentsPage ? (
+            <MdsComponentsContent />
+          ) : (
+            <div className="mds-project-section-grid">
+              {page.sections.map((section) => (
+                <article key={section.id} id={section.id} className="mds-project-section-card">
+                  <div>
+                    <h2>{section.title}</h2>
+                    <p>{section.body}</p>
+                  </div>
+                  <ul>
+                    {section.items.map((item) => <li key={item}>{item}</li>)}
+                  </ul>
+                </article>
+              ))}
+            </div>
+          )}
+        </section>
+      </div>
+    </main>
+  );
+}
+
 function PlaceholderPage({ title }) {
   const variant = title.toLowerCase() === "brand" ? "brand" : "about";
 
@@ -1803,6 +2937,19 @@ export default function App() {
       {currentPage === "about" ? <AboutPage /> : null}
       {VARSITY_SIGNAL_PAGES.includes(currentPage) ? (
         <VarsitySignalProjectShell
+          currentPage={currentPage}
+          onNavigate={(page) => {
+            setCurrentPage(page);
+            window.history.replaceState(null, "", `#${page.toLowerCase()}`);
+          }}
+          onExit={(page) => {
+            setCurrentPage(page);
+            window.history.replaceState(null, "", `#${page.toLowerCase()}`);
+          }}
+        />
+      ) : null}
+      {MDS_PAGES.includes(currentPage) ? (
+        <MdsProjectPage
           currentPage={currentPage}
           onNavigate={(page) => {
             setCurrentPage(page);
