@@ -13069,11 +13069,8 @@ select {
   height: 3.5rem;
   display: grid;
   place-items: center;
-  border: 1px solid rgba(18, 19, 23, 0.12);
-  border-radius: 4px;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.84), rgba(255, 255, 255, 0.62)),
-    linear-gradient(135deg, color-mix(in srgb, var(--graystone-brand-accent), transparent 74%), transparent 82%);
+  border: 0;
+  background: transparent;
 }
 
 .graystone-home-destination__mark img {
