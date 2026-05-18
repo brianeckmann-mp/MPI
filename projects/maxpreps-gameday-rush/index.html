@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MaxPreps GameDay Rush</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="game-shell">
+      <header class="game-header" aria-label="MaxPreps GameDay Rush header">
+        <div class="game-header__brand">
+          <img src="/mds/logos/maxpreps-logo-red.svg" alt="MaxPreps" />
+          <span>GameDay Rush</span>
+        </div>
+        <div class="game-header__mode">Rivalry Mode</div>
+      </header>
+
+      <section class="game-info-bar" aria-label="Game tips">
+        <span>WASD / Arrow Keys</span>
+        <span><b class="swatch swatch--red"></b>Dodge defenders</span>
+        <span><b class="swatch swatch--gold"></b>Collect MP powerups</span>
+        <span>Reach the north end zone to score</span>
+      </section>
+
+      <main class="game-stage" aria-label="MaxPreps GameDay Rush">
+        <div id="game"></div>
+      </main>
+
+      <footer class="live-ticker" aria-label="Live high school sports ticker">
+        <span class="live-ticker__label">Live</span>
+        <span id="tickerText">Loading Friday night headlines...</span>
+      </footer>
+    </div>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

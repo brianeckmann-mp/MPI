@@ -29,7 +29,7 @@ const MDS_PAGES = [
   "mds-patterns",
   "mds-resources",
 ];
-const STANDALONE_PAGES = [...GRAYSTONE_PAGES, ...VARSITY_SIGNAL_PAGES, ...MDS_PAGES, "unified-playon-design"];
+const STANDALONE_PAGES = [...GRAYSTONE_PAGES, ...VARSITY_SIGNAL_PAGES, ...MDS_PAGES, "unified-playon-design", "maxpreps-gameday-rush"];
 const ALL_PAGES = [...NAV_ITEMS, ...STANDALONE_PAGES];
 const TEAM_THEMES = [
   { name: "Red", primary: "#CC0022", secondary: "#8F0018", dark: "#52000E" },
@@ -1253,6 +1253,12 @@ function ProjectsPage({ onOpenProject }) {
       meta: "Design system",
       description: "A product design system hub for foundations, components, patterns, and resources across MaxPreps experiences.",
       action: () => onOpenProject("mds-foundations-brand"),
+    },
+    {
+      title: "MaxPreps GameDay Rush",
+      meta: "Project #4 / Browser game",
+      description: "A Phaser 3 high school football runner prototype with MaxPreps-inspired branding, live ticker, HUD, spirit meter, and end-game badges.",
+      action: () => onOpenProject("maxpreps-gameday-rush"),
     },
   ];
 
@@ -2600,6 +2606,10 @@ function MdsProjectPage({ currentPage, onNavigate, onExit }) {
   const isMotifsPage = activeId === "mds-foundations-motifs";
   const isPhotographyPage = activeId === "mds-foundations-photography";
   const isComponentsPage = activeId === "mds-components";
+  const sidebarTitle = activeTopId === "mds-foundations" ? "Foundation pages" : activeTopItem?.title ?? "Sub pages";
+  const sidebarSubPages = activeTopId === "mds-foundations"
+    ? MDS_FOUNDATION_NAV
+    : [{ id: activeId, title: isComponentsPage ? "Button" : page.title, comingSoon: isComingSoonPage }];
   const overviewItems = activeTopId === "mds-foundations"
     ? MDS_FOUNDATION_NAV.map((item) => ({
       ...item,
@@ -2652,34 +2662,21 @@ function MdsProjectPage({ currentPage, onNavigate, onExit }) {
       <div className="mds-project-layout">
         <aside className="mds-project-sidebar" aria-label="MDS side navigation">
           <div>
-            <span>{activeTopId === "mds-foundations" ? "Foundation pages" : "Sub pages"}</span>
-            {activeTopId === "mds-foundations"
-              ? MDS_FOUNDATION_NAV.map((item) => (
-                <button
-                  key={item.id}
-                  type="button"
-                  className={`${activeId === item.id ? "is-active" : ""}${item.comingSoon ? " is-disabled" : ""}`}
-                  disabled={item.comingSoon}
-                  onClick={() => {
-                    if (!item.comingSoon) onNavigate(item.id);
-                  }}
-                >
-                  <strong>{item.title}</strong>
-                  {item.comingSoon ? <small>Coming soon</small> : null}
-                </button>
-              ))
-              : page.sections.map((section) => (
-                isComingSoonPage ? (
-                  <button key={section.id} type="button" className="is-disabled" disabled>
-                    <strong>{section.title}</strong>
-                    <small>Coming soon</small>
-                  </button>
-                ) : (
-                  <a key={section.id} href={`#${section.id}`} onClick={(event) => handleSectionJump(event, section.id)}>
-                    <strong>{section.title}</strong>
-                  </a>
-                )
-              ))}
+            <span>{sidebarTitle}</span>
+            {sidebarSubPages.map((item) => (
+              <button
+                key={item.id}
+                type="button"
+                className={`${activeId === item.id ? "is-active" : ""}${item.comingSoon ? " is-disabled" : ""}`}
+                disabled={item.comingSoon}
+                onClick={() => {
+                  if (!item.comingSoon) onNavigate(item.id);
+                }}
+              >
+                <strong>{item.title}</strong>
+                {item.comingSoon ? <small>Coming soon</small> : null}
+              </button>
+            ))}
           </div>
           <div>
             <span>On this page</span>
@@ -2789,10 +2786,27 @@ function PlaceholderPage({ title }) {
   );
 }
 
+function GameDayRushProjectPage({ onExit }) {
+  return (
+    <main className="gameday-rush-project" aria-label="MaxPreps GameDay Rush project">
+      <button type="button" className="gameday-rush-project__back" onClick={() => onExit("projects")}>
+        Projects
+      </button>
+      <iframe
+        className="gameday-rush-project__frame"
+        title="MaxPreps GameDay Rush"
+        src={`${import.meta.env.BASE_URL}projects/maxpreps-gameday-rush/`}
+      />
+    </main>
+  );
+}
+
 export default function App() {
   const [currentPage, setCurrentPage] = useState(() => getPageFromHash());
   const [introState, setIntroState] = useState("active");
-  const [graystoneAuthenticated, setGraystoneAuthenticated] = useState(false);
+  const [graystoneAuthenticated, setGraystoneAuthenticated] = useState(() => {
+    return window.localStorage.getItem("graystone:authenticated") === "true";
+  });
   const [graystoneLoginReturnPage, setGraystoneLoginReturnPage] = useState("graystone-playon-home");
   const isStandalonePage = STANDALONE_PAGES.includes(currentPage);
 
@@ -2811,6 +2825,10 @@ export default function App() {
       window.history.replaceState(null, "", nextHash);
     }
   }, [currentPage]);
+
+  useEffect(() => {
+    window.localStorage.setItem("graystone:authenticated", graystoneAuthenticated ? "true" : "false");
+  }, [graystoneAuthenticated]);
 
   useEffect(() => {
     if (introState !== "opening") {
@@ -2955,6 +2973,14 @@ export default function App() {
             setCurrentPage(page);
             window.history.replaceState(null, "", `#${page.toLowerCase()}`);
           }}
+          onExit={(page) => {
+            setCurrentPage(page);
+            window.history.replaceState(null, "", `#${page.toLowerCase()}`);
+          }}
+        />
+      ) : null}
+      {currentPage === "maxpreps-gameday-rush" ? (
+        <GameDayRushProjectPage
           onExit={(page) => {
             setCurrentPage(page);
             window.history.replaceState(null, "", `#${page.toLowerCase()}`);

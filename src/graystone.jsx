@@ -7,23 +7,32 @@ import {
   faCalendarCheck,
   faCalendarDay,
   faCalendarPlus,
+  faCartShopping,
   faChartLine,
   faChevronRight,
   faCircleDollarToSlot,
   faCircleUser,
+  faDatabase,
   faEnvelope,
   faEye,
+  faFileArrowUp,
   faFootball,
+  faGear,
   faKey,
   faLocationDot,
   faLock,
+  faMoneyBillTransfer,
   faMobileScreenButton,
   faPeopleGroup,
   faPen,
+  faPizzaSlice,
+  faReceipt,
   faShieldHalved,
   faSliders,
   faTableCellsLarge,
   faTicketSimple,
+  faTrophy,
+  faUsers,
   faVideo,
   faVolleyball,
 } from "@fortawesome/free-solid-svg-icons";
@@ -54,6 +63,7 @@ export const GRAYSTONE_PAGES = [
   "graystone-login",
   "graystone-playon-home",
   "graystone-playon-hq",
+  "graystone-gofan-home",
   "graystone-nfhs-home",
   "graystone-maxpreps-home",
   "graystone-maxpreps-videos",
@@ -89,11 +99,39 @@ const LOCAL_PAGES = [
   { id: "graystone-studio", label: "Studio" },
 ];
 
-const BRAND_TREE = [
-  { id: "playon", label: "PlayOn", logo: "po.svg", links: ["Home", "Login", "Account"] },
-  { id: "maxpreps", label: "MaxPreps", logo: "mp.svg", links: ["Home", "Login", "Account"] },
-  { id: "nfhs-network", label: "NFHS Network", logo: "nfhs.svg", links: ["Home", "Login", "Account"] },
-  { id: "gofan", label: "GoFan", logo: "gf.svg", links: ["Home", "Login", "Account"] },
+const GRAYSTONE_BRAND_DESTINATIONS = [
+  {
+    id: "playon",
+    label: "PlayOn",
+    pageId: "graystone-playon-home",
+    iconAsset: "po.svg",
+    description: "Operations, event management, ticketing, streaming, and school workflows.",
+    accent: "#00c9d2",
+  },
+  {
+    id: "maxpreps",
+    label: "MaxPreps",
+    pageId: "graystone-maxpreps-home",
+    iconAsset: "mp.svg",
+    description: "Scores, stats, rankings, teams, athletes, media, and game stories.",
+    accent: "#e10500",
+  },
+  {
+    id: "nfhs-network",
+    label: "NFHS Network",
+    pageId: "graystone-nfhs-home",
+    iconAsset: "nfhs.svg",
+    description: "Live and on-demand viewing for schools, families, and fans.",
+    accent: "#f4c542",
+  },
+  {
+    id: "gofan",
+    label: "GoFan",
+    pageId: "graystone-gofan-home",
+    iconAsset: "gf.svg",
+    description: "Ticket discovery, purchasing, mobile entry, and event access.",
+    accent: "#6f7275",
+  },
 ];
 
 const NFHS_SPORTS_MENU = {
@@ -103,14 +141,6 @@ const NFHS_SPORTS_MENU = {
 };
 
 const NFHS_PRIMARY_LINKS = ["Schools", "States & Associations"];
-
-const CONCEPT_LINKS = [
-  {
-    id: "graystone-cross-brand-animations",
-    title: "Cross brand animations",
-    description: "Shared motion patterns for brand transitions, global navigation, and product handoffs.",
-  },
-];
 
 const DATA_IMAGERY_TOKEN_SETS = {
   Symbols: ["TD", "Q4", "4TH & 1", "QB1", "WR", "DB", "INT", "FG", "PAT", "OT", "1ST", "3RD"],
@@ -1689,7 +1719,7 @@ function GraystoneNfhsFooter() {
   );
 }
 
-function GraystoneNfhsHomePage() {
+function GraystoneNfhsHomePage({ isAuthenticated }) {
   const baseUrl = import.meta.env.BASE_URL;
   const networkRows = [
     {
@@ -1837,7 +1867,7 @@ function GraystoneNfhsHomePage() {
           </div>
 
           <div className="graystone-nfhs-hero__actions">
-            <button type="button">Subscribe to watch</button>
+            {!isAuthenticated && <button type="button">Subscribe to watch</button>}
             <button type="button">Browse schools</button>
           </div>
         </div>
@@ -2120,14 +2150,15 @@ function GraystonePlayOnHomePage() {
 
 function GraystonePlayOnHqPage() {
   const baseUrl = import.meta.env.BASE_URL;
-  const hqNavItems = [
-    { label: "Today", icon: faCalendarDay },
-    { label: "Events", icon: faCalendarCheck },
-    { label: "Seasons", icon: faFootball },
-    { label: "Fan Zone", icon: faPeopleGroup },
-    { label: "Financial Hub", icon: faCircleDollarToSlot },
-    { label: "Account", icon: faCircleUser },
-    { label: "Create", icon: faCalendarPlus },
+  const quickStartItems = [
+    { label: "Create a Season", icon: faTrophy },
+    { label: "Create an Event", icon: faTicketSimple },
+    { label: "Upload Bulk Events", icon: faFileArrowUp },
+    { label: "Create a Mobile Pass", icon: faReceipt },
+    { label: "Create a Fundraiser", icon: faCircleDollarToSlot },
+    { label: "Create a Concession", icon: faPizzaSlice },
+    { label: "Fan Zone", icon: faPeopleGroup, badge: "New" },
+    { label: "Create a Tournament", icon: faUsers },
   ];
   const hqEvents = [
     {
@@ -2222,15 +2253,24 @@ function GraystonePlayOnHqPage() {
   return (
     <section className="graystone-page graystone-playon-hq" aria-label="PlayOn HQ product page">
       <div className="graystone-playon-hq__shell">
-        <aside className="graystone-playon-hq__rail" aria-label="HQ sections">
-          <nav>
-            {hqNavItems.map((item, index) => (
-              <button key={item.label} type="button" className={index === 0 ? "is-active" : ""}>
-                <FontAwesomeIcon icon={item.icon} aria-hidden="true" />
-                {item.label}
-              </button>
-            ))}
-          </nav>
+        <aside className="graystone-playon-hq__quickstart-rail" aria-label="Quick start">
+          <label className="graystone-playon-hq__school-select">
+            <GraystoneIconSearch aria-hidden="true" />
+            <input type="search" aria-label="Select schools" placeholder="Select schools" />
+            <GraystoneIconChevron aria-hidden="true" />
+          </label>
+          <div className="graystone-playon-hq__quickstart">
+            <h2>Quick start</h2>
+            <div className="graystone-playon-hq__quickstart-list">
+              {quickStartItems.map((item) => (
+                <button key={item.label} type="button">
+                  <FontAwesomeIcon icon={item.icon} aria-hidden="true" />
+                  <span>{item.label}</span>
+                  {item.badge ? <em>{item.badge}</em> : null}
+                </button>
+              ))}
+            </div>
+          </div>
         </aside>
 
         <div className="graystone-playon-hq__main">
@@ -2487,6 +2527,389 @@ function GraystonePlayOnHqPage() {
   );
 }
 
+const PLAYON_HQ_TOP_NAV = [
+  { label: "Dashboard", icon: faChartLine },
+  { label: "Accounts", icon: faCircleUser },
+  { label: "Refunds", icon: faMoneyBillTransfer },
+  { label: "Seasons", icon: faTrophy },
+  { label: "Events", icon: faCalendarCheck },
+  { label: "Financial", icon: faTableCellsLarge },
+  { label: "Accounting", icon: faReceipt },
+  { label: "Unified Data", icon: faDatabase },
+  { label: "Systems", icon: faGear },
+];
+
+function GraystonePlayOnHqHeader({
+  accountMenuRef,
+  isAuthenticated,
+  onAuthChange,
+  onLoginReturnPageChange,
+  onNavigate,
+  openMenu,
+  setOpenMenu,
+  setSearchOpen,
+}) {
+  return (
+    <header className="graystone-playon-hq-header">
+      <button
+        type="button"
+        className="graystone-playon-hq-header__logo"
+        aria-label="PlayOn HQ home"
+        onClick={() => onNavigate("graystone-playon-hq")}
+      >
+        <img src={`${import.meta.env.BASE_URL}playon-hq-logo.svg`} alt="PlayOn HQ" />
+      </button>
+      <nav className="graystone-playon-hq-header__nav" aria-label="PlayOn HQ navigation">
+        {PLAYON_HQ_TOP_NAV.map((item, index) => (
+          <button key={item.label} type="button" className={index === 0 ? "is-active" : ""}>
+            <FontAwesomeIcon icon={item.icon} aria-hidden="true" />
+            <span>{item.label}</span>
+          </button>
+        ))}
+      </nav>
+      <div className="graystone-playon-hq-header__account">
+        <div ref={accountMenuRef} className="graystone-maxpreps-account graystone-playon-account graystone-playon-hq-account">
+          <button
+            type="button"
+            className={`graystone-maxpreps-account__trigger${openMenu === "account" ? " is-open" : ""}`}
+            onClick={() => {
+              setSearchOpen(false);
+              setOpenMenu((value) => (value === "account" ? null : "account"));
+            }}
+            aria-haspopup="menu"
+            aria-expanded={openMenu === "account"}
+          >
+            <span className="graystone-maxpreps-account__avatar" aria-hidden="true">
+              {GRAYSTONE_SIMULATED_USER.avatar}
+            </span>
+            <span className="graystone-playon-hq-account__profile">
+              <span className="graystone-maxpreps-account__name">{GRAYSTONE_SIMULATED_USER.firstName}</span>
+              <small>HQ Admin</small>
+            </span>
+          </button>
+
+          <div className={`graystone-maxpreps-account__menu${openMenu === "account" ? " is-open" : ""}`} role="menu" aria-label="Account menu">
+            {GRAYSTONE_ACCOUNT_MENU.map((item) => (
+              <button key={item.id} type="button" className="graystone-maxpreps-account__item" role="menuitem">
+                {item.label}
+              </button>
+            ))}
+            <button
+              type="button"
+              className="graystone-maxpreps-account__item graystone-maxpreps-account__item--logout"
+              role="menuitem"
+              onClick={() => {
+                onAuthChange(false);
+                setOpenMenu(null);
+                setSearchOpen(false);
+                onNavigate("graystone-playon-home");
+              }}
+            >
+              Log out
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+  );
+}
+
+function GraystoneGofanHeader({
+  accountMenuRef,
+  activeBrandId,
+  brandMenuRef,
+  isAuthenticated,
+  onAuthChange,
+  onLoginReturnPageChange,
+  onNavigate,
+  openMenu,
+  setOpenMenu,
+  setSearchOpen,
+}) {
+  return (
+    <div className="graystone-gofan-header">
+      <div ref={brandMenuRef} className="graystone-gofan-header__brand">
+        <button
+          type="button"
+          className="graystone-maxpreps-gridmenu graystone-gofan-header__gridmenu"
+          aria-label="Open menu"
+          onClick={() => {
+            setSearchOpen(false);
+            setOpenMenu((value) => (value === "brands" ? null : "brands"));
+          }}
+        >
+          <GraystoneIconGridMenu />
+        </button>
+        <div className={`graystone-maxpreps-gridmenu-panel graystone-gofan-header__brand-panel${openMenu === "brands" ? " is-open" : ""}`}>
+          <GraystoneBrandSwitcher activeBrandId={activeBrandId} onNavigate={onNavigate} onClose={() => setOpenMenu(null)} />
+        </div>
+        <button
+          type="button"
+          className="graystone-gofan-header__logo"
+          aria-label="GoFan home"
+          onClick={() => onNavigate("graystone-gofan-home")}
+        >
+          <GraystoneGofanWordmark />
+        </button>
+      </div>
+
+      <nav className="graystone-gofan-header__nav" aria-label="GoFan navigation">
+        <button type="button">Tickets</button>
+        <button type="button">Support</button>
+        <button type="button">Mobile app</button>
+      </nav>
+
+      <div className="graystone-gofan-header__actions" aria-label="GoFan actions">
+        <button type="button">
+          <GraystoneIconSearch aria-hidden="true" />
+          <span>Search</span>
+        </button>
+        <button type="button">
+          <GraystoneIconStar aria-hidden="true" />
+          <span>Favorites</span>
+        </button>
+      </div>
+
+      <div className="graystone-gofan-header__social" aria-label="GoFan social links">
+        <button type="button" aria-label="Facebook">
+          <GraystoneIconFacebook />
+        </button>
+        <button type="button" aria-label="X">
+          <GraystoneIconX />
+        </button>
+      </div>
+
+      <div className="graystone-gofan-header__account">
+        <button type="button">
+          <FontAwesomeIcon icon={faCartShopping} aria-hidden="true" />
+          <span>Cart</span>
+        </button>
+        {isAuthenticated ? (
+          <div ref={accountMenuRef} className="graystone-maxpreps-account graystone-gofan-account">
+            <button
+              type="button"
+              className={`graystone-maxpreps-account__trigger${openMenu === "account" ? " is-open" : ""}`}
+              onClick={() => {
+                setSearchOpen(false);
+                setOpenMenu((value) => (value === "account" ? null : "account"));
+              }}
+              aria-haspopup="menu"
+              aria-expanded={openMenu === "account"}
+            >
+              <span className="graystone-maxpreps-account__avatar" aria-hidden="true">
+                {GRAYSTONE_SIMULATED_USER.avatar}
+              </span>
+              <span className="graystone-maxpreps-account__name">{GRAYSTONE_SIMULATED_USER.firstName}</span>
+            </button>
+
+            <div className={`graystone-maxpreps-account__menu${openMenu === "account" ? " is-open" : ""}`} role="menu" aria-label="Account menu">
+              {GRAYSTONE_ACCOUNT_MENU.map((item) => (
+                <button key={item.id} type="button" className="graystone-maxpreps-account__item" role="menuitem">
+                  {item.label}
+                </button>
+              ))}
+              <button
+                type="button"
+                className="graystone-maxpreps-account__item graystone-maxpreps-account__item--logout"
+                role="menuitem"
+                onClick={() => {
+                  onAuthChange(false);
+                  setOpenMenu(null);
+                  setSearchOpen(false);
+                }}
+              >
+                Log out
+              </button>
+            </div>
+          </div>
+        ) : (
+          <button
+            type="button"
+            onClick={() => {
+              onLoginReturnPageChange("graystone-gofan-home");
+              onNavigate("graystone-login");
+            }}
+          >
+            <GraystoneIconUser aria-hidden="true" />
+            <span>Login</span>
+          </button>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function GraystoneGofanHomePage({ isAuthenticated }) {
+  const baseUrl = import.meta.env.BASE_URL;
+  const upcomingEvents = [
+    {
+      id: "rivalry",
+      badge: "Fri 7:00 PM",
+      title: "Northside vs Riverview",
+      meta: "Varsity Football · Memorial Stadium",
+      price: "$8",
+      image: "varsity-signal/scoreboard-huddle-960.jpg",
+      accent: "#e10500",
+      mark: "N",
+    },
+    {
+      id: "sectional",
+      badge: "Sat 1:00 PM",
+      title: "Central Section Final",
+      meta: "Girls Volleyball · East Valley Gym",
+      price: "$6",
+      image: "varsity-signal/volleyball-final-960.jpg",
+      accent: "#1646d8",
+      mark: "C",
+    },
+    {
+      id: "tipoff",
+      badge: "Tue 6:30 PM",
+      title: "Tipoff Classic",
+      meta: "Boys Basketball · Riverside High",
+      price: "$7",
+      image: "varsity-signal/basketball-gym-960.jpg",
+      accent: "#f4b728",
+      mark: "R",
+    },
+    {
+      id: "state",
+      badge: "May 18",
+      title: "State Track Meet",
+      meta: "Track & Field · County Athletic Complex",
+      price: "$10",
+      image: "varsity-signal/track-state-960.jpg",
+      accent: "#16a34a",
+      mark: "S",
+    },
+  ];
+
+  return (
+    <section className={`graystone-page graystone-gofan-homepage${isAuthenticated ? " is-authenticated" : " is-guest"}`} aria-label="GoFan homepage">
+      <section className="graystone-gofan-hero">
+        <div className="graystone-gofan-hero__copy">
+          <h1>
+            <img src={`${baseUrl}gofan-there-every-moment.png`} alt="There for every moment" />
+          </h1>
+          <p>Discover upcoming high school events and get your tickets before the lights come on.</p>
+          <label className="graystone-gofan-hero__search">
+            <GraystoneIconSearch aria-hidden="true" />
+            <input type="search" placeholder="Search for an organization, school, or club" />
+          </label>
+          <div className="graystone-gofan-hero__app">
+            <strong>Get the GoFan Mobile App</strong>
+            <div className="graystone-gofan-hero__stores" aria-label="Download the GoFan app">
+              <button type="button" className="graystone-gofan-store-button" aria-label="Download on the App Store">
+                <img src={`${baseUrl}app-store-badge.svg`} alt="Download on the App Store" />
+              </button>
+              <button type="button" className="graystone-gofan-store-button" aria-label="Get it on Google Play">
+                <img src={`${baseUrl}google-play-badge.svg`} alt="Get it on Google Play" />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div className="graystone-gofan-hero__collage" aria-hidden="true">
+          <img src={`${baseUrl}varsity-signal/scoreboard-huddle-960.jpg`} alt="" />
+          <img src={`${baseUrl}varsity-signal/championship-net-960.jpg`} alt="" />
+          <div className="graystone-gofan-hero__ticket">
+            <div>
+              <strong>Tickets<br />on sale now</strong>
+              <span>Buy tickets</span>
+            </div>
+            <i aria-hidden="true" />
+            <small>02222222</small>
+          </div>
+          <span className="graystone-gofan-hero__score">7:30 PM</span>
+        </div>
+      </section>
+
+      <section className="graystone-gofan-promo" aria-label="Streaming offer">
+        <div className="graystone-gofan-promo__stream" aria-hidden="true">
+          <img src={`${baseUrl}varsity-signal/basketball-gym-960.jpg`} alt="" />
+          <span className="graystone-gofan-promo__live">Live</span>
+          <span className="graystone-gofan-promo__play">
+            <FontAwesomeIcon icon={faVideo} aria-hidden="true" />
+          </span>
+          <div className="graystone-gofan-promo__stream-meta">
+            <strong>Riverside Tipoff Classic</strong>
+            <small>Basketball · Streaming now</small>
+          </div>
+        </div>
+        <div className="graystone-gofan-promo__content">
+          <span className="graystone-gofan-promo__logo"><GraystoneNfhsWordmark /></span>
+          <strong>50% OFF</strong>
+          <p>Your first month of live streaming and on-demand game replays</p>
+        </div>
+        <div className="graystone-gofan-promo__action">
+          <button type="button">Get started</button>
+          <small>Use code <b>WELCOMEGOFAN50</b></small>
+        </div>
+      </section>
+
+      <section className="graystone-gofan-events" aria-label="Upcoming events">
+        <div className="graystone-gofan-section-heading">
+          <span>Upcoming events</span>
+          <h2>Find the next big night near you.</h2>
+        </div>
+        <div className="graystone-gofan-event-grid">
+          {upcomingEvents.map((event) => (
+            <article key={event.id} className="graystone-gofan-event-card" style={{ "--gofan-event-accent": event.accent }}>
+              <div className="graystone-gofan-event-card__media">
+                <img src={`${baseUrl}${event.image}`} alt="" />
+                <span>{event.badge}</span>
+              </div>
+              <div className="graystone-gofan-event-card__body">
+                <span className="graystone-gofan-event-card__mark">{event.mark}</span>
+                <div>
+                  <h3>{event.title}</h3>
+                  <p>{event.meta}</p>
+                </div>
+              </div>
+              <footer>
+                <span>From <strong>{event.price}</strong></span>
+                <button type="button">Tickets</button>
+              </footer>
+            </article>
+          ))}
+        </div>
+      </section>
+      <GraystoneGofanFooter />
+    </section>
+  );
+}
+
+function GraystoneGofanFooter() {
+  const footerGroups = [
+    ["Fans", ["Find events", "Buy tickets", "Use tickets", "Mobile app"]],
+    ["Schools", ["Digital ticketing", "Concessions", "Merchandise", "Registration"]],
+    ["Support", ["Help center", "Refund policy", "Contact support", "Account help"]],
+    ["Company", ["About GoFan", "Careers", "Privacy", "Terms"]],
+  ];
+
+  return (
+    <footer className="graystone-gofan-footer" aria-label="GoFan footer">
+      <div className="graystone-gofan-footer__inner">
+        <div className="graystone-gofan-footer__brand">
+          <GraystoneGofanWordmark />
+          <p>Digital ticketing for school events, game nights, concessions, merchandise, and registration.</p>
+        </div>
+        <nav className="graystone-gofan-footer__links" aria-label="GoFan footer links">
+          {footerGroups.map(([title, links]) => (
+            <div key={title}>
+              <strong>{title}</strong>
+              {links.map((link) => (
+                <button key={link} type="button">{link}</button>
+              ))}
+            </div>
+          ))}
+        </nav>
+        <p className="graystone-gofan-footer__legal">© 2026 GoFan. Built for every school event.</p>
+      </div>
+    </footer>
+  );
+}
+
 function GraystoneMaxPrepsWordmark({ fill = "#E10500" }) {
   return (
     <svg width="88" height="25" viewBox="0 0 88 25" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -2603,6 +3026,8 @@ function GraystoneBrandSwitcher({ activeBrandId = "maxpreps", onNavigate, onClos
                 onNavigate("graystone-maxpreps-home");
               } else if (brand.id === "playon") {
                 onNavigate("graystone-playon-home");
+              } else if (brand.id === "gofan") {
+                onNavigate("graystone-gofan-home");
               } else if (brand.id === "nfhs-network") {
                 onNavigate("graystone-nfhs-home");
               } else {
@@ -2840,6 +3265,8 @@ function GraystoneShell({
   const isMaxPrepsPage =
     currentPage === "graystone-maxpreps-home" ||
     currentPage === "graystone-maxpreps-videos";
+  const isPlayOnHqPage = currentPage === "graystone-playon-hq";
+  const isGofanPage = currentPage === "graystone-gofan-home";
   const isPlayOnPage = currentPage === "graystone-playon-home" || currentPage === "graystone-playon-hq";
   const isNfhsPage = currentPage === "graystone-nfhs-home";
   const isLoginPage = currentPage === "graystone-login";
@@ -2851,7 +3278,6 @@ function GraystoneShell({
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [searchContext, setSearchContext] = useState("general");
-  const [expandedBrands, setExpandedBrands] = useState(() => ["maxpreps"]);
   const brandMenuRef = useRef(null);
   const accountMenuRef = useRef(null);
 
@@ -2943,15 +3369,10 @@ function GraystoneShell({
   if (currentPage === "graystone-home") {
     page = (
       <GraystoneHomePage
-        expandedBrands={expandedBrands}
+        isAuthenticated={isAuthenticated}
+        onAuthChange={onAuthChange}
+        onLoginReturnPageChange={onLoginReturnPageChange}
         onNavigate={onNavigate}
-        onToggleBrand={(brandId) => {
-          setExpandedBrands((current) =>
-            current.includes(brandId)
-              ? current.filter((item) => item !== brandId)
-              : [...current, brandId],
-          );
-        }}
       />
     );
   } else if (currentPage === "graystone-cross-brand-animations") {
@@ -2971,8 +3392,10 @@ function GraystoneShell({
     page = <GraystonePlayOnHomePage />;
   } else if (currentPage === "graystone-playon-hq") {
     page = <GraystonePlayOnHqPage />;
+  } else if (currentPage === "graystone-gofan-home") {
+    page = <GraystoneGofanHomePage isAuthenticated={isAuthenticated} />;
   } else if (currentPage === "graystone-nfhs-home") {
-    page = <GraystoneNfhsHomePage />;
+    page = <GraystoneNfhsHomePage isAuthenticated={isAuthenticated} />;
   } else if (currentPage === "graystone-maxpreps-home") {
     page = (
       <GraystoneMaxPrepsHomePage
@@ -3006,6 +3429,8 @@ function GraystoneShell({
             ? " graystone--light graystone--concept-art"
           : isLoginPage
             ? " graystone--login"
+          : isGofanPage
+            ? " graystone--gofan-light"
           : isPlayOnPage
             ? " graystone--playon-light"
           : isNfhsPage
@@ -3017,6 +3442,7 @@ function GraystoneShell({
             : ""
       }`}
       aria-label="Project Graystone"
+      data-graystone-auth={isAuthenticated ? "authenticated" : "guest"}
     >
       {!isConceptPage && !isLoginPage && (
         <header className="graystone-header">
@@ -3028,27 +3454,47 @@ function GraystoneShell({
                 </button>
               </div>
             </div>
+          ) : isPlayOnHqPage ? (
+            <GraystonePlayOnHqHeader
+              accountMenuRef={accountMenuRef}
+              isAuthenticated={isAuthenticated}
+              onAuthChange={onAuthChange}
+              onLoginReturnPageChange={onLoginReturnPageChange}
+              onNavigate={onNavigate}
+              openMenu={openMenu}
+              setOpenMenu={setOpenMenu}
+              setSearchOpen={setSearchOpen}
+            />
+          ) : isGofanPage ? (
+            <GraystoneGofanHeader
+              accountMenuRef={accountMenuRef}
+              activeBrandId={activeBrandId}
+              brandMenuRef={brandMenuRef}
+              isAuthenticated={isAuthenticated}
+              onAuthChange={onAuthChange}
+              onLoginReturnPageChange={onLoginReturnPageChange}
+              onNavigate={onNavigate}
+              openMenu={openMenu}
+              setOpenMenu={setOpenMenu}
+              setSearchOpen={setSearchOpen}
+            />
           ) : isBrandHeaderPage ? (
             <div className="graystone-header__inner graystone-header__inner--maxpreps">
               <div ref={brandMenuRef} className="graystone-maxpreps-cluster graystone-maxpreps-cluster--brand">
-                {!isNfhsPage && (
-                  <>
-                    <button
-                      type="button"
-                      className="graystone-maxpreps-gridmenu"
-                      aria-label="Open menu"
-                      onClick={() => {
-                        setSearchOpen(false);
-                        setOpenMenu((value) => (value === "brands" ? null : "brands"));
-                      }}
-                    >
-                      <GraystoneIconGridMenu />
-                    </button>
-                    <div className={`graystone-maxpreps-gridmenu-panel${openMenu === "brands" ? " is-open" : ""}`}>
-                      <GraystoneBrandSwitcher activeBrandId={activeBrandId} onNavigate={onNavigate} onClose={() => setOpenMenu(null)} />
-                    </div>
-                  </>
-                )}
+                <button
+                  type="button"
+                  className="graystone-maxpreps-gridmenu"
+                  aria-label="Open menu"
+                  onClick={() => {
+                    setSearchOpen(false);
+                    setOpenMenu((value) => (value === "brands" ? null : "brands"));
+                  }}
+                >
+                  <GraystoneIconGridMenu />
+                </button>
+                <div className={`graystone-maxpreps-gridmenu-panel${openMenu === "brands" ? " is-open" : ""}`}>
+                  <GraystoneBrandSwitcher activeBrandId={activeBrandId} onNavigate={onNavigate} onClose={() => setOpenMenu(null)} />
+                </div>
                 <a
                   className={`graystone-maxpreps-logo${isPlayOnPage ? " graystone-playon-logo" : ""}${isNfhsPage ? " graystone-nfhs-logo" : ""}`}
                   href={`#${brandHomePage}`}
@@ -3382,7 +3828,7 @@ function GraystoneShell({
                   </div>
                 </div>
               )}
-              {isNfhsPage && (
+              {isNfhsPage && !isAuthenticated && (
                 <button type="button" className="graystone-nfhs-subscribe">
                   Subscribe
                 </button>
@@ -3520,78 +3966,85 @@ function GraystoneShell({
   );
 }
 
-function GraystoneHomePage({ expandedBrands, onToggleBrand, onNavigate }) {
+function GraystoneHomePage({ isAuthenticated, onAuthChange, onLoginReturnPageChange, onNavigate }) {
   const baseUrl = import.meta.env.BASE_URL;
+  const authLabel = isAuthenticated ? "Signed in globally" : "Signed out globally";
+
+  const openGlobalLogin = () => {
+    onLoginReturnPageChange("graystone-home");
+    onNavigate("graystone-login");
+  };
 
   return (
     <section className="graystone-page graystone-page--home" aria-label="Graystone home page">
-      <div className="graystone-home-hero">
-        <img src={`${baseUrl}graystone-landing.png`} alt="Graystone brand portfolio" />
-      </div>
-      <div className="graystone-home-tree">
-        {BRAND_TREE.map((brand) => {
-          const isExpanded = expandedBrands.includes(brand.id);
-
-          return (
-            <div key={brand.id} className={`graystone-tree-group${isExpanded ? " is-open" : ""}`}>
-              <button
-                type="button"
-                className="graystone-tree-group__trigger"
-                onClick={() => onToggleBrand(brand.id)}
-              >
-                <span className={`graystone-tree-group__brand${brand.id === "gofan" ? " graystone-tree-group__brand--gofan" : ""}`}>
-                  <img src={`${baseUrl}${brand.logo}`} alt={`${brand.label} logo`} />
-                  <span>{brand.label}</span>
-                </span>
-                <GraystoneIconChevron />
-              </button>
-              <div className="graystone-tree-group__children">
-                <div className="graystone-tree-group__children-inner">
-                  {brand.links.map((link) => (
-                    <button
-                      key={link}
-                      type="button"
-                      className="graystone-tree-link"
-                      onClick={() => {
-                        if (brand.id === "playon" && link === "Home") {
-                          onNavigate("graystone-playon-home");
-                        }
-                        if (brand.id === "maxpreps" && link === "Home") {
-                          onNavigate("graystone-maxpreps-home");
-                        }
-                      }}
-                    >
-                      {link}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-      <section className="graystone-concept-links" aria-label="Concept links">
-        <div className="graystone-concept-links__header">
-          <span className="graystone-kicker">Concepts</span>
-          <h2>Concept art</h2>
+      <div className="graystone-home-shell">
+        <div className="graystone-home-intro">
+          <span className="graystone-kicker">PlayOn ecosystem</span>
+          <h1>One design language across every game-day experience.</h1>
+          <img
+            className="graystone-home-landscape"
+            src={`${baseUrl}graystone-landing.png`}
+            alt="PlayOn ecosystem brand landscape"
+          />
+          <p>
+            Use this hub to move between the four brand surfaces and a single shared login flow.
+          </p>
         </div>
-        <div className="graystone-concept-links__list">
-          {CONCEPT_LINKS.map((concept) => (
+
+        <div className="graystone-home-auth" data-state={isAuthenticated ? "authenticated" : "guest"}>
+          <span className="graystone-home-auth__status">
+            <i aria-hidden="true" />
+            {authLabel}
+          </span>
+          {isAuthenticated ? (
+            <button type="button" onClick={() => onAuthChange(false)}>
+              Sign out
+            </button>
+          ) : (
             <button
-              key={concept.id}
               type="button"
-              className="graystone-concept-link"
-              onClick={() => onNavigate(concept.id)}
+              onClick={openGlobalLogin}
             >
-              <span>
-                <strong>{concept.title}</strong>
-                <small>{concept.description}</small>
+              Global login
+            </button>
+          )}
+        </div>
+
+        <div className="graystone-home-destinations" aria-label="Brand pages">
+          {GRAYSTONE_BRAND_DESTINATIONS.map((brand) => (
+            <button
+              key={brand.id}
+              type="button"
+              className={`graystone-home-destination graystone-home-destination--${brand.id}`}
+              style={{ "--graystone-brand-accent": brand.accent }}
+              onClick={() => onNavigate(brand.pageId)}
+            >
+              <span className="graystone-home-destination__mark" aria-hidden="true">
+                <img src={`${baseUrl}${brand.iconAsset}`} alt="" />
               </span>
-              <GraystoneIconChevron />
+              <span className="graystone-home-destination__copy">
+                <strong>{brand.label}</strong>
+                <small>{brand.description}</small>
+              </span>
+              <span className="graystone-home-destination__action">
+                Open <GraystoneIconChevron />
+              </span>
             </button>
           ))}
         </div>
-      </section>
+
+        <button
+          type="button"
+          className="graystone-home-concept-link"
+          onClick={() => onNavigate("graystone-cross-brand-animations")}
+        >
+          <span>
+            <strong>Cross-brand animations</strong>
+            <small>Shared motion patterns for brand transitions, global navigation, and product handoffs.</small>
+          </span>
+          <GraystoneIconChevron />
+        </button>
+      </div>
     </section>
   );
 }
@@ -4444,7 +4897,7 @@ export function VarsitySignalStyleGuidePage() {
 
 function GraystoneMaxPrepsHomePage({ isAuthenticated, onRequestSearch, onRequestSignIn, onNavigate }) {
   const baseUrl = import.meta.env.BASE_URL;
-  const [homepageMode, setHomepageMode] = useState("personalized");
+  const [homepageMode, setHomepageMode] = useState("national");
   const [preferencesOpen, setPreferencesOpen] = useState(false);
   const [sportFiltersOpen, setSportFiltersOpen] = useState(false);
   const [contentPreferences, setContentPreferences] = useState(MAXPREPS_CONTENT_PREFERENCE_DEFAULTS);
