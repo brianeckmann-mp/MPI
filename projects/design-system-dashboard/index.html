@@ -1,0 +1,2008 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MaxPreps Design System — Stakeholder Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.js" integrity="sha384-iU8HYtnGQ8Cy4zl7gbNMOhsDTTKX02BTXptVP/vqAWIaTfM7isw76iyZCsjL2eVi" crossorigin="anonymous"></script>
+<style>
+  :root { color-scheme: light; }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: #e8e8e8;
+    color: #1a1a1a;
+    min-height: 100vh;
+  }
+
+  /* ─── Page Shell ──────────────────────────────── */
+  .page-shell {
+    max-width: 1600px;
+    margin: 0 auto;
+    background: #f5f5f5;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ─── Header ─────────────────────────────────── */
+  .header {
+    background: #fff;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 14px 36px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    flex-shrink: 0;
+  }
+  .header-left { display: flex; align-items: center; gap: 16px; }
+  .logo-mark { display: flex; align-items: center; flex-shrink: 0; }
+  .logo-mark svg { display: block; }
+  .header-divider { width: 1px; height: 26px; background: #e0e0e0; }
+  .header-title { font-size: 15px; font-weight: 700; color: #1a1a1a; line-height: 1.2; }
+  .header-sub { font-size: 11px; color: #8d8d8d; margin-top: 2px; }
+  .header-right { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .hbadge {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 4px 10px; border-radius: 4px; font-size: 11px; font-weight: 600;
+    background: #f2f2f2; color: #4b4b4b; border: 1px solid #e0e0e0;
+  }
+  .hbadge-dot { width: 5px; height: 5px; border-radius: 50%; background: #f59e0b; flex-shrink: 0; }
+  .updated-at { font-size: 11px; color: #b0b0b0; }
+
+  /* ─── Timeline Bar ────────────────────────────── */
+  .timeline-bar {
+    background: #fff;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 20px 36px 16px;
+    flex-shrink: 0;
+  }
+  .timeline-top {
+    display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 12px;
+  }
+  .timeline-top-left { display: flex; flex-direction: column; gap: 2px; }
+  .timeline-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: #8d8d8d; }
+  .timeline-dates-str { font-size: 12px; color: #adadad; }
+  .timeline-big-pct { font-size: 42px; font-weight: 900; color: #e10500; line-height: 1; letter-spacing: -1px; }
+  .timeline-track {
+    height: 10px; background: #e8e8e8; border-radius: 99px; overflow: visible; position: relative; margin-bottom: 10px;
+  }
+  .timeline-fill {
+    height: 100%; background: #e10500; border-radius: 99px; transition: width 0.9s ease; position: relative;
+  }
+  .timeline-fill::after {
+    content: '';
+    position: absolute; right: -5px; top: 50%;
+    transform: translateY(-50%);
+    width: 14px; height: 14px; border-radius: 50%;
+    background: #e10500; border: 3px solid #fff;
+    box-shadow: 0 0 0 2px #e10500;
+  }
+  .timeline-milestones { display: flex; justify-content: space-between; }
+  .milestone-tick {
+    display: flex; flex-direction: column; align-items: center; gap: 3px;
+    font-size: 9px; color: #c2c2c2; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.04em; text-align: center;
+  }
+  .milestone-tick.done { color: #6e6e6e; }
+  .milestone-tick.now { color: #1a1a1a; font-weight: 800; }
+  .milestone-tick-dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+
+  /* ─── Gantt Chart ────────────────────────────── */
+  .gantt { margin-top: 14px; }
+  .gantt-axis { display: flex; margin-bottom: 3px; }
+  .gantt-axis-spacer { flex-shrink: 0; width: 90px; }
+  .gantt-axis-months { flex: 1; position: relative; height: 14px; }
+  .gantt-month {
+    position: absolute; font-size: 9px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.06em; color: #c8c8c8;
+    transform: translateX(-50%); white-space: nowrap; line-height: 1;
+  }
+  .gantt-rows {
+    position: relative; display: flex; flex-direction: column; gap: 5px;
+  }
+  .gantt-row { display: flex; align-items: center; height: 26px; }
+  .gantt-row-label {
+    flex-shrink: 0; width: 90px; display: flex; flex-direction: column; justify-content: center;
+    padding-right: 10px;
+  }
+  .gantt-phase-name {
+    font-size: 10px; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 0.06em; color: #4b4b4b; line-height: 1;
+  }
+  .gantt-phase-sub { font-size: 9px; color: #b0b0b0; margin-top: 1px; line-height: 1; }
+  .gantt-row-track {
+    flex: 1; height: 22px; background: #f0f0f0; border-radius: 4px;
+    position: relative; overflow: hidden;
+  }
+  .gantt-bar {
+    position: absolute; top: 2px; height: calc(100% - 4px); border-radius: 3px;
+    display: flex; align-items: center; padding: 0 8px;
+    font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+    white-space: nowrap; min-width: 4px; overflow: hidden;
+  }
+  .gantt-done       { background: #16a34a; color: #fff; }
+  .gantt-active     { background: #d97706; color: #fff; }
+  .gantt-concurrent { background: #7c3aed; color: #fff; }
+  .gantt-upcoming   { background: #d0d0d0; color: #6e6e6e; }
+  .gantt-today-line {
+    position: absolute; top: -6px; bottom: -6px; width: 2px;
+    background: #e10500; border-radius: 1px; pointer-events: none; z-index: 10;
+  }
+  .gantt-today-line::before {
+    content: 'Today';
+    position: absolute; bottom: calc(100% + 4px); left: 50%; transform: translateX(-50%);
+    font-size: 8px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.07em;
+    color: #e10500; white-space: nowrap;
+  }
+
+  /* ─── Tabs ────────────────────────────────────── */
+  .tabs-bar {
+    background: #fff;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 0 36px;
+    display: flex;
+    flex-shrink: 0;
+  }
+  .tab-btn {
+    padding: 12px 16px; font-size: 13px; font-weight: 500; color: #8d8d8d;
+    background: none; border: none; border-bottom: 2px solid transparent;
+    cursor: pointer; white-space: nowrap;
+    transition: color 0.15s, border-color 0.15s; margin-bottom: -1px;
+  }
+  .tab-btn:hover { color: #1a1a1a; }
+  .tab-btn.active { color: #1a1a1a; border-bottom-color: #e10500; font-weight: 600; }
+
+  /* ─── Content ─────────────────────────────────── */
+  .content { padding: 28px 36px; flex: 1; }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* ─── Status Pills ────────────────────────────── */
+  .pill {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 3px 9px; border-radius: 4px; font-size: 11px; font-weight: 700;
+    white-space: nowrap; border: 1px solid transparent;
+  }
+  .pill-icon { font-size: 10px; line-height: 1; }
+  .pill-done     { background: #f0fdf4; color: #15803d; border-color: #bbf7d0; }
+  .pill-progress { background: #fffbeb; color: #b45309; border-color: #fde68a; }
+  .pill-active   { background: #eff6ff; color: #1d4ed8; border-color: #bfdbfe; }
+  .pill-concurrent { background: #f5f3ff; color: #6d28d9; border-color: #ddd6fe; }
+  .pill-planned  { background: #fafafa; color: #6e6e6e; border-color: #e0e0e0; }
+  .pill-pending  { background: #fafafa; color: #8d8d8d; border-color: #e0e0e0; }
+  .pill-dark     { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
+
+  /* ─── Status Dot (inline) ─────────────────────── */
+  .sdot {
+    display: inline-block; width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+  }
+  .sdot-green  { background: #16a34a; }
+  .sdot-amber  { background: #d97706; }
+  .sdot-blue   { background: #2563eb; }
+  .sdot-purple { background: #7c3aed; }
+  .sdot-gray   { background: #adadad; }
+  .sdot-light  { background: #dadada; }
+
+  /* ─── Metric Cards ────────────────────────────── */
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 14px; margin-bottom: 24px;
+  }
+  .metric-card {
+    background: #fff; border: 1px solid #e0e0e0; border-radius: 10px;
+    padding: 20px 22px;
+  }
+  .metric-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: #8d8d8d; margin-bottom: 10px; }
+  .metric-value { font-size: 32px; font-weight: 900; color: #1a1a1a; line-height: 1; letter-spacing: -0.5px; }
+  .metric-value.sm { font-size: 22px; }
+  .metric-sub { font-size: 11px; color: #8d8d8d; margin-top: 6px; line-height: 1.4; }
+
+  /* ─── Section ─────────────────────────────────── */
+  .section { margin-bottom: 28px; }
+  .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+  .section-title {
+    font-size: 11px; font-weight: 800; color: #1a1a1a;
+    text-transform: uppercase; letter-spacing: 0.08em;
+  }
+  .section-action { font-size: 12px; color: #6e6e6e; cursor: pointer; text-decoration: none; font-weight: 500; }
+  .section-action:hover { color: #1a1a1a; }
+
+  .card { background: #fff; border: 1px solid #e0e0e0; border-radius: 10px; overflow: hidden; }
+  .card-pad { padding: 20px 22px; }
+
+  /* ─── Grids ───────────────────────────────────── */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+  .four-col { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .five-col { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
+  @media (max-width: 900px) {
+    .two-col, .three-col, .four-col, .five-col { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 600px) {
+    .two-col, .three-col, .four-col, .five-col { grid-template-columns: 1fr; }
+  }
+
+  /* ─── Progress Bars ───────────────────────────── */
+  .prog-wrap { margin-bottom: 10px; }
+  .prog-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
+  .prog-label { font-size: 12px; font-weight: 600; color: #1a1a1a; }
+  .prog-val { font-size: 11px; color: #8d8d8d; }
+  .prog-track { height: 6px; background: #ebebeb; border-radius: 99px; overflow: hidden; }
+  .prog-fill { height: 100%; border-radius: 99px; background: #1a1a1a; }
+  .prog-fill.green  { background: #16a34a; }
+  .prog-fill.amber  { background: #d97706; }
+  .prog-fill.gray   { background: #c8c8c8; }
+
+  /* ─── TL;DR Hero ─────────────────────────────── */
+  .tldr-hero {
+    background: #000; border-radius: 12px;
+    color: #fff; margin-bottom: 20px;
+    overflow: hidden; display: flex; align-items: stretch; min-height: 220px;
+  }
+  .tldr-hero-img {
+    width: 40%; flex-shrink: 0; overflow: hidden; background: #000;
+  }
+  .tldr-hero-img img {
+    width: 100%; height: 100%; object-fit: cover; object-position: center center;
+    display: block;
+  }
+  .tldr-hero-content {
+    flex: 1; padding: 36px 32px;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .tldr-eyebrow {
+    font-size: 10px; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 0.12em; color: rgba(255,255,255,0.35); margin-bottom: 14px;
+  }
+  .tldr-headline {
+    font-size: 18px; font-weight: 600; line-height: 1.35; margin-bottom: 12px;
+  }
+  .tldr-sub { font-size: 13px; color: rgba(255,255,255,0.65); line-height: 1.75; }
+
+  /* ─── Hero Stats Panel (unused, kept for compat) ─ */
+  .hero-prog-fill {
+    height: 100%; background: #e10500; border-radius: 99px; width: 0%;
+    transition: width 0.9s ease;
+  }
+  .hero-prog-dates {
+    display: flex; justify-content: space-between;
+    font-size: 9px; font-weight: 700; color: rgba(255,255,255,0.22);
+    text-transform: uppercase; letter-spacing: 0.06em;
+  }
+  .hero-phase-list { display: flex; flex-direction: column; gap: 8px; }
+  .hero-phase-item {
+    display: flex; align-items: center; gap: 9px;
+    font-size: 11px; color: rgba(255,255,255,0.5); font-weight: 500;
+  }
+  .hero-phase-dot {
+    width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0;
+  }
+
+  /* ─── TL;DR Cards ─────────────────────────────── */
+  .tldr-card {
+    background: #fff; border: 1px solid #e0e0e0; border-radius: 10px; padding: 20px 22px;
+    display: flex; flex-direction: column;
+  }
+  .tldr-card-label { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #8d8d8d; margin-bottom: 8px; }
+  .tldr-card-title { font-size: 15px; font-weight: 700; color: #1a1a1a; margin-bottom: 8px; }
+  .tldr-card-body { font-size: 13px; color: #4b4b4b; line-height: 1.65; flex: 1; margin-bottom: 16px; }
+
+  /* ─── Health Items ────────────────────────────── */
+  .health-row { display: flex; gap: 10px; flex-wrap: wrap; }
+  .health-item {
+    flex: 1; min-width: 150px;
+    background: #fff; border: 1px solid #e0e0e0; border-radius: 10px;
+    padding: 16px 18px; display: flex; flex-direction: column; gap: 8px;
+  }
+  .health-label { font-size: 13px; font-weight: 700; color: #1a1a1a; }
+  .health-sub { font-size: 11px; color: #8d8d8d; }
+
+  /* ─── Success Grid ────────────────────────────── */
+  .success-item { padding: 0; }
+  .success-title { font-size: 13px; font-weight: 700; color: #1a1a1a; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+  .success-body { font-size: 13px; color: #4b4b4b; line-height: 1.65; }
+  .success-icon { width: 20px; height: 20px; border-radius: 5px; background: #f2f2f2; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; flex-shrink: 0; border: 1px solid #e0e0e0; }
+
+  /* ─── Foundation Items ────────────────────────── */
+  .foundation-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 800px) { .foundation-grid { grid-template-columns: 1fr; } }
+  .foundation-item {
+    background: #fff; border: 1px solid #e0e0e0; border-radius: 10px; padding: 18px 20px;
+    border-left: 3px solid var(--fl, #e0e0e0);
+  }
+  .foundation-item-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 8px; }
+  .foundation-item-title { font-size: 13px; font-weight: 700; color: #1a1a1a; }
+  .foundation-item-body { font-size: 12px; color: #6e6e6e; line-height: 1.65; margin-bottom: 12px; }
+  .tag-row { display: flex; gap: 5px; flex-wrap: wrap; }
+  .tag {
+    display: inline-block; padding: 2px 7px; border-radius: 3px; font-size: 10px;
+    font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em;
+    background: #f2f2f2; color: #6e6e6e; border: 1px solid #e8e8e8;
+  }
+  .tag-dark { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
+  .tag-green { background: #f0fdf4; color: #15803d; border-color: #bbf7d0; }
+  .tag-amber { background: #fffbeb; color: #b45309; border-color: #fde68a; }
+
+  /* ─── Component Table ─────────────────────────── */
+  .data-table { width: 100%; border-collapse: collapse; }
+  .data-table th {
+    text-align: left; padding: 10px 18px;
+    font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.07em;
+    color: #8d8d8d; background: #fafafa; border-bottom: 1px solid #e8e8e8;
+  }
+  .data-table td { padding: 10px 18px; border-bottom: 1px solid #f0f0f0; font-size: 13px; vertical-align: middle; }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table tr:hover td { background: #fafafa; }
+  .cat-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #c2c2c2; }
+  .p-label { font-size: 11px; font-weight: 700; }
+  .p0 { color: #1a1a1a; }
+  .p1 { color: #8d8d8d; }
+  .p2 { color: #c2c2c2; }
+
+  /* ─── Adoption ────────────────────────────────── */
+  .adoption-card {
+    background: #fff; border: 1px solid #e0e0e0; border-radius: 10px; padding: 20px 18px;
+    display: flex; flex-direction: column;
+  }
+  .adoption-card.current { border-color: #1a1a1a; border-width: 1.5px; }
+  .stage-num { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.07em; color: #c2c2c2; margin-bottom: 6px; }
+  .adoption-card.current .stage-num { color: #1a1a1a; }
+  .stage-label { font-size: 14px; font-weight: 700; color: #1a1a1a; margin-bottom: 6px; }
+  .stage-desc { font-size: 12px; color: #6e6e6e; line-height: 1.6; flex: 1; }
+  .stage-status { margin-top: 14px; }
+
+  /* ─── Phase Roadmap ───────────────────────────── */
+  .phase-list { display: flex; flex-direction: column; gap: 0; }
+  .phase-row { display: grid; grid-template-columns: 160px 1fr; gap: 0; }
+  .phase-label-col {
+    padding: 22px 18px 22px 0;
+    border-right: 1px solid #e0e0e0;
+    display: flex; flex-direction: column; align-items: flex-end; gap: 5px;
+  }
+  .phase-num { font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.08em; color: #1a1a1a; }
+  .phase-duration { font-size: 10px; color: #adadad; font-weight: 600; }
+  .phase-status-label { }
+  .phase-body-col {
+    padding: 22px 0 22px 28px; display: flex; flex-direction: column; gap: 10px; position: relative;
+  }
+  .phase-body-col::before {
+    content: '';
+    position: absolute; left: 0; top: 30px;
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--ph-dot, #dadada);
+    transform: translateX(-5px);
+    border: 2px solid #f5f5f5;
+    box-shadow: 0 0 0 2px var(--ph-dot, #dadada);
+  }
+  .phase-row.ph-done   .phase-body-col::before { --ph-dot: #16a34a; }
+  .phase-row.ph-active .phase-body-col::before { --ph-dot: #1a1a1a; }
+  .phase-row.ph-concurrent .phase-body-col::before { --ph-dot: #7c3aed; }
+  .phase-row.ph-upcoming .phase-body-col::before { --ph-dot: #dadada; }
+
+  .phase-card { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 14px 18px; }
+  .phase-card.active-card { border-color: #1a1a1a; }
+  .phase-card-header { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 6px; }
+  .phase-card-title { font-size: 13px; font-weight: 700; color: #1a1a1a; }
+  .phase-card-body { font-size: 12px; color: #6e6e6e; line-height: 1.65; }
+  .phase-card-tags { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 10px; }
+
+  /* ─── Infra ──────────────────────────────────── */
+  .infra-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+  .infra-card { background: #fff; border: 1px solid #e0e0e0; border-radius: 10px; padding: 18px 20px; }
+  .infra-title { font-size: 13px; font-weight: 700; color: #1a1a1a; margin-bottom: 5px; }
+  .infra-desc { font-size: 12px; color: #6e6e6e; line-height: 1.6; }
+  .infra-foot { display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 600; color: #3f3f3f; margin-top: 12px; }
+
+  /* ─── Chart ──────────────────────────────────── */
+  .chart-card { background: #fff; border: 1px solid #e0e0e0; border-radius: 10px; padding: 20px 22px; }
+  .chart-canvas-wrap { position: relative; height: 210px; }
+
+  /* ─── Note Bar ───────────────────────────────── */
+  .note-bar {
+    background: #fff; border: 1px solid #e0e0e0; border-left: 3px solid #adadad;
+    border-radius: 6px; padding: 11px 14px; font-size: 12px; color: #6e6e6e;
+    margin-bottom: 20px; line-height: 1.55;
+  }
+  .note-bar.warn { border-left-color: #d97706; background: #fffcf5; }
+  .note-bar.info { border-left-color: #2563eb; background: #f8faff; }
+</style>
+</head>
+<body>
+<div class="page-shell">
+
+<!-- ═══ Header ══════════════════════════════════════════ -->
+<div class="header">
+  <div class="header-left">
+    <div class="logo-mark">
+      <svg width="110" height="31" viewBox="0 0 500 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M211.604 0H184.543L178.123 22.362C183.558 24.0824 187.507 29.2634 187.507 35.4022C187.507 42.9444 181.546 49.0529 174.192 49.0529C166.838 49.0529 160.876 42.9362 160.876 35.394C160.876 29.2047 164.893 23.9997 170.398 22.3235L163.922 0H136.779L158.461 67.1942L134.579 140H162.292L174.273 101.938L186.173 140H213.805L190.086 67.3159L211.604 0Z" fill="#E10500"/>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M164.717 35.662C164.717 41.1956 169.011 45.6814 174.309 45.6814C179.606 45.6814 183.901 41.1956 183.901 35.662C183.901 30.1289 179.606 25.6426 174.309 25.6426C169.011 25.6426 164.717 30.1289 164.717 35.662Z" fill="#E10500"/>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M496.455 48.5911L499.96 36.299L490.097 27.4227H457.494L443.148 36.2994L436.057 60.2774L465.181 68.8463L462.669 77.457H456.891L459.134 69.7594H433.367L429.129 84.3045L439.705 94.2955H470.719L485.777 84.904L493.439 58.6355L464.813 50.298L466.623 44.2612H472.41L471.145 48.5911H496.455Z" fill="#E10500"/>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M407.21 57.2508H401.25L405.132 44.2612H410.878L407.21 57.2508ZM438.693 36.4625L428.729 27.4227H384.53L365.091 94.2955H390.46L396.451 73.6082H415.524L430.502 64.7209L438.693 36.4625Z" fill="#E10500"/>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M342.378 74.0893L344.186 67.835H363.643L368.82 50.5155H349.429L351.207 44.2612H375.178L379.83 27.4227H330.192L310.691 94.2955H360.268L366.13 74.0893H342.378Z" fill="#E10500"/>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M292.655 53.4021H286.537L289.2 44.2612H295.307L292.655 53.4021ZM307.213 60.0672L317.809 53.6383L322.619 36.6997L312.784 27.4227H268.282L248.833 94.2955H274.574L282.319 67.835H288.454L280.744 94.2955H305.93L314.06 66.3407L307.213 60.0672Z" fill="#E10500"/>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M229.862 57.1214C229.862 57.1214 223.83 57.2181 223.82 57.2181L227.58 44.2612H233.611L229.862 57.1214ZM261.12 36.4948L251.409 27.4227H208.122L195.288 67.1134L204.329 94.2955H212.888L219.062 73.6082H237.768L252.929 64.8734L261.12 36.4948Z" fill="#E10500"/>
+        <mask id="mask0_2923_341" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="27" width="153" height="68">
+          <path d="M0 27.4227H152.979V94.2956H0V27.4227Z" fill="white"/>
+        </mask>
+        <g mask="url(#mask0_2923_341)">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M118.99 67.3617L129.152 44.2612H131.081L128.343 67.4036L118.99 67.3617ZM144.421 94.2956L152.979 67.2501L140.504 27.4227H117.097L85.7959 90.2418L103.229 27.4227H68.6508L50.1566 64.5121L53.0765 27.4227H18.6238L-0.00012207 94.2956H21.119L32.673 53.3059L31.6339 94.2956H52.8461L74.7313 53.3059L62.9941 94.2956H109.135L113.753 83.4959L126.174 83.5141L124.737 94.2956H144.421Z" fill="#E10500"/>
+        </g>
+      </svg>
+    </div>
+    <div class="header-divider"></div>
+    <div>
+      <div class="header-title">Design System</div>
+      <div class="header-sub">@playon-maxpreps/dsm &nbsp;·&nbsp; Stakeholder Dashboard</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <span class="hbadge">v0.0.1</span>
+    <span class="hbadge"><span class="hbadge-dot"></span>Phase 1–2 Complete &nbsp;·&nbsp; Phase 3–4 Active</span>
+    <span class="updated-at" id="updated-at">—</span>
+  </div>
+</div>
+
+<!-- ═══ Timeline ════════════════════════════════════════ -->
+<div class="timeline-bar">
+  <div class="timeline-top">
+    <div class="timeline-top-left">
+      <div class="timeline-label">Overall Project Progress</div>
+      <div class="timeline-dates-str">Mar 26, 2026 &nbsp;–&nbsp; Dec 26, 2026 &nbsp;·&nbsp; 9-Month Contract</div>
+    </div>
+    <div class="timeline-big-pct" id="timeline-pct">—%</div>
+  </div>
+  <div class="timeline-track">
+    <div class="timeline-fill" id="timeline-fill" style="width:0%"></div>
+  </div>
+  <div class="gantt">
+    <div class="gantt-axis">
+      <div class="gantt-axis-spacer"></div>
+      <div class="gantt-axis-months">
+        <span class="gantt-month" style="left:0%">Mar</span>
+        <span class="gantt-month" style="left:13.1%">May</span>
+        <span class="gantt-month" style="left:24.4%">Jun</span>
+        <span class="gantt-month" style="left:35.3%">Jul</span>
+        <span class="gantt-month" style="left:46.5%">Aug</span>
+        <span class="gantt-month" style="left:57.8%">Sep</span>
+        <span class="gantt-month" style="left:68.7%">Oct</span>
+        <span class="gantt-month" style="left:80.0%">Nov</span>
+        <span class="gantt-month" style="left:90.9%">Dec</span>
+      </div>
+    </div>
+    <div class="gantt-rows" id="gantt-rows">
+      <div class="gantt-row">
+        <div class="gantt-row-label"><span class="gantt-phase-name">Phase 1</span><span class="gantt-phase-sub">Discovery</span></div>
+        <div class="gantt-row-track"><div class="gantt-bar gantt-done" style="left:0%;width:8%">Discovery &amp; Audit</div></div>
+      </div>
+      <div class="gantt-row">
+        <div class="gantt-row-label"><span class="gantt-phase-name">Phase 2</span><span class="gantt-phase-sub">Architecture</span></div>
+        <div class="gantt-row-track"><div class="gantt-bar gantt-done" style="left:5%;width:14%">Foundational Architecture</div></div>
+      </div>
+      <div class="gantt-row">
+        <div class="gantt-row-label"><span class="gantt-phase-name">Phase 3</span><span class="gantt-phase-sub">Components</span></div>
+        <div class="gantt-row-track"><div class="gantt-bar gantt-active" style="left:18%;width:36%">Core Component System</div></div>
+      </div>
+      <div class="gantt-row">
+        <div class="gantt-row-label"><span class="gantt-phase-name">Phase 4</span><span class="gantt-phase-sub">Migration</span></div>
+        <div class="gantt-row-track"><div class="gantt-bar gantt-concurrent" style="left:22%;width:41%">Migration &amp; Debt Reduction</div></div>
+      </div>
+      <div class="gantt-row">
+        <div class="gantt-row-label"><span class="gantt-phase-name">Phase 5</span><span class="gantt-phase-sub">AI Schemas</span></div>
+        <div class="gantt-row-track"><div class="gantt-bar gantt-upcoming" style="left:35%;width:65%">AI-Ready Schemas</div></div>
+      </div>
+      <div class="gantt-today-line" id="gantt-today"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ Tabs ════════════════════════════════════════════ -->
+<div class="tabs-bar">
+  <button class="tab-btn active" onclick="showTab('tldr',this)">TL;DR</button>
+  <button class="tab-btn" onclick="showTab('overview',this)">Overview</button>
+  <button class="tab-btn" onclick="showTab('infrastructure',this)">Infrastructure</button>
+  <button class="tab-btn" onclick="showTab('components',this)">Roadmap</button>
+  <button class="tab-btn" onclick="showTab('adoption',this)">Adoption</button>
+  <button class="tab-btn" onclick="showTab('phases',this)">Phases</button>
+</div>
+
+<!-- ═══ Content ═════════════════════════════════════════ -->
+<div class="content">
+
+<!-- ══════════ TL;DR ════════════════════════════════════ -->
+<div id="tab-tldr" class="tab-panel active">
+
+  <div class="tldr-hero">
+    <div class="tldr-hero-img">
+      <img src="./assets/hero.png" alt="MaxPreps Design System" />
+    </div>
+    <div class="tldr-hero-content">
+      <div class="tldr-eyebrow">Executive Summary &nbsp;·&nbsp; 9-Month Contract</div>
+      <div class="tldr-headline">Replacing a fragmented UI with one modern, AI-ready design system.</div>
+      <div class="tldr-sub">MaxPreps currently has components scattered across multiple codebases with inconsistent styling, no shared library, and no formal release process. This project delivers a single, unified system that all teams build from — making future product work faster, cheaper, and more consistent.</div>
+    </div>
+  </div>
+
+  <div class="four-col" style="margin-bottom:24px">
+    <div class="tldr-card">
+      <div class="tldr-card-label">Where we are</div>
+      <div class="tldr-card-title">Foundation is done. Building the components.</div>
+      <div class="tldr-card-body">We're <strong id="tldr-weeks-in">—</strong> into the contract. The architecture, token system, and CI/CD pipeline are complete. We're now building the full component library.</div>
+      <span class="pill pill-active"><span class="pill-icon">●</span><span id="tldr-pct-badge">— through the project</span></span>
+    </div>
+    <div class="tldr-card">
+      <div class="tldr-card-label">What's been solved</div>
+      <div class="tldr-card-title">The hardest decisions are behind us.</div>
+      <div class="tldr-card-body">How the codebase is structured, how themes work, how components run efficiently server-side — those decisions are locked in and everything else builds on top of them.</div>
+      <span class="pill pill-done"><span class="pill-icon">✓</span>Phases 1 &amp; 2 complete</span>
+    </div>
+    <div class="tldr-card">
+      <div class="tldr-card-label">What's happening now</div>
+      <div class="tldr-card-title">Building components and replacing legacy code in parallel.</div>
+      <div class="tldr-card-body">Phase 3 is building the full component library. Phase 4 is running concurrently — replacing legacy components in the existing site as new equivalents become available.</div>
+      <span class="pill pill-concurrent"><span class="pill-icon">↔</span>Phases 3 &amp; 4 running concurrently</span>
+    </div>
+    <div class="tldr-card">
+      <div class="tldr-card-label">Where we're headed</div>
+      <div class="tldr-card-title">AI-readiness grows throughout the project.</div>
+      <div class="tldr-card-body">AI capability isn't a single milestone — it layers in as the system matures. Each phase makes the system more usable by AI tools, culminating in full machine-readable schemas and automated UI generation.</div>
+      <span class="pill pill-active"><span class="pill-icon">→</span>AI-ready · rolling rollout</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header"><div class="section-title">Project Health</div></div>
+    <div class="health-row">
+      <div class="health-item">
+        <span class="pill pill-done" style="align-self:flex-start"><span class="pill-icon">✓</span>On Track</span>
+        <div class="health-label">On Schedule</div>
+        <div class="health-sub">Tracking to plan</div>
+      </div>
+      <div class="health-item">
+        <span class="pill pill-done" style="align-self:flex-start"><span class="pill-icon">✓</span>Complete</span>
+        <div class="health-label">Architecture</div>
+        <div class="health-sub">Stable, no changes expected</div>
+      </div>
+      <div class="health-item">
+        <span class="pill pill-active" style="align-self:flex-start"><span class="pill-icon">●</span>In Progress</span>
+        <div class="health-label">Component Build</div>
+        <div class="health-sub">Phase 3 active — 3 of ~28 done</div>
+      </div>
+      <div class="health-item">
+        <span class="pill pill-concurrent" style="align-self:flex-start"><span class="pill-icon">↔</span>Concurrent</span>
+        <div class="health-label">Legacy Migration</div>
+        <div class="health-sub">Phase 4 running alongside Phase 3</div>
+      </div>
+      <div class="health-item">
+        <span class="pill pill-active" style="align-self:flex-start"><span class="pill-icon">→</span>Rolling</span>
+        <div class="health-label">AI-Readiness</div>
+        <div class="health-sub">Progressing with each phase</div>
+      </div>
+      <div class="health-item">
+        <span class="pill pill-done" style="align-self:flex-start"><span class="pill-icon">✓</span>Live</span>
+        <div class="health-label">Docs &amp; Storybook</div>
+        <div class="health-sub">Auto-deploys on every merge</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header"><div class="section-title">What Success Looks Like</div></div>
+    <div class="card card-pad">
+      <div class="two-col" style="gap:28px 40px">
+        <div class="success-item">
+          <div class="success-title"><span class="success-icon">▣</span>One unified system</div>
+          <div class="success-body">A single, atomic design system used consistently across all MaxPreps products — no more components scattered across codebases or rebuilt from scratch per feature.</div>
+        </div>
+        <div class="success-item">
+          <div class="success-title"><span class="success-icon">⇄</span>Design and engineering in sync</div>
+          <div class="success-body">Every component in Figma has an exact counterpart in React with matching APIs. Designers and developers work from the same source of truth.</div>
+        </div>
+        <div class="success-item">
+          <div class="success-title"><span class="success-icon">◈</span>Governed and versioned</div>
+          <div class="success-body">A formal release process, deprecation policy, and review model so the system evolves predictably — no more breaking changes sneaking in or components going stale.</div>
+        </div>
+        <div class="success-item">
+          <div class="success-title"><span class="success-icon">◇</span>Progressively AI-ready</div>
+          <div class="success-body">AI capability layers in throughout the project — not a single end-state but a system that becomes more usable by AI tools at each phase, culminating in full machine-readable schemas.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════ OVERVIEW ═════════════════════════════════ -->
+<div id="tab-overview" class="tab-panel">
+
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-label">Components Shipped</div>
+      <div class="metric-value">3</div>
+      <div class="metric-sub">of ~28 planned</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Packages</div>
+      <div class="metric-value">4</div>
+      <div class="metric-sub">dsm · icons · tokens · types</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Token Themes</div>
+      <div class="metric-value">5<span style="font-size:18px;font-weight:600">+</span></div>
+      <div class="metric-sub">neutral · warm · red · dark</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Days Elapsed</div>
+      <div class="metric-value" id="days-elapsed-card">—</div>
+      <div class="metric-sub" id="days-remaining-card">of 275 total</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Open PRs</div>
+      <div class="metric-value" id="gh-open-prs">—</div>
+      <div class="metric-sub">Live from GitHub</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Open Issues</div>
+      <div class="metric-value" id="gh-open-issues">—</div>
+      <div class="metric-sub">Live from GitHub</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header"><div class="section-title">Recent Commits</div></div>
+    <div class="card card-pad">
+      <div id="gh-commits-list" style="color:#8d8d8d;font-size:12px">Connecting to GitHub…</div>
+    </div>
+  </div>
+
+  <div class="two-col" style="margin-bottom:24px">
+    <div>
+      <div class="section-header"><div class="section-title">Component Build Progress</div><a class="section-action" onclick="showTab('components',document.querySelectorAll('.tab-btn')[3])">View roadmap</a></div>
+      <div class="card card-pad">
+        <div class="prog-wrap">
+          <div class="prog-row"><span class="prog-label">Foundation (Ph 1–2)</span><span class="prog-val">4 / 6</span></div>
+          <div class="prog-track"><div class="prog-fill green" style="width:67%"></div></div>
+        </div>
+        <div style="height:10px"></div>
+        <div class="prog-wrap">
+          <div class="prog-row"><span class="prog-label">Core Components (Ph 3)</span><span class="prog-val">3 / ~28</span></div>
+          <div class="prog-track"><div class="prog-fill amber" style="width:11%"></div></div>
+        </div>
+        <div style="height:10px"></div>
+        <div class="prog-wrap">
+          <div class="prog-row"><span class="prog-label">Legacy Replaced (Ph 4)</span><span class="prog-val">0 / TBD</span></div>
+          <div class="prog-track"><div class="prog-fill gray" style="width:0%"></div></div>
+        </div>
+        <div style="margin-top:18px;padding-top:16px;border-top:1px solid #f0f0f0;display:flex;gap:18px;flex-wrap:wrap">
+          <div style="display:flex;align-items:center;gap:7px;font-size:12px"><span class="sdot sdot-green"></span>Done: 3</div>
+          <div style="display:flex;align-items:center;gap:7px;font-size:12px"><span class="sdot sdot-amber"></span>In Progress: 1</div>
+          <div style="display:flex;align-items:center;gap:7px;font-size:12px"><span class="sdot sdot-light"></span>Planned: 24</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="section-header"><div class="section-title">Components by Phase</div></div>
+      <div class="chart-card">
+        <div class="chart-canvas-wrap"><canvas id="phaseChart"></canvas></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header"><div class="section-title">Recent Activity</div></div>
+    <div class="note-bar warn">
+      GitHub (maxpreps-fe-react) not yet connected — activity will pull live once authenticated via /mcp in Cowork settings.
+    </div>
+    <div class="card">
+      <table class="data-table">
+        <thead><tr><th>Type</th><th>Event</th><th>Date</th></tr></thead>
+        <tbody>
+          <tr><td><span class="pill pill-done"><span class="pill-icon">✓</span>Released</span></td><td><strong>v0.0.1</strong> — dsm, icons, tokens, types published to GitHub Packages</td><td style="color:#8d8d8d;font-size:12px;white-space:nowrap">Mar 26</td></tr>
+          <tr><td><span class="pill pill-done"><span class="pill-icon">✓</span>Done</span></td><td><strong>Button</strong> — server + client variants, full test coverage</td><td style="color:#8d8d8d;font-size:12px;white-space:nowrap">Mar 26</td></tr>
+          <tr><td><span class="pill pill-done"><span class="pill-icon">✓</span>Done</span></td><td><strong>FAIcon + IconWrapper</strong> shipped</td><td style="color:#8d8d8d;font-size:12px;white-space:nowrap">Mar 26</td></tr>
+          <tr><td><span class="pill pill-done"><span class="pill-icon">✓</span>Done</span></td><td><strong>Storybook</strong> deployed to GitHub Pages via CI</td><td style="color:#8d8d8d;font-size:12px;white-space:nowrap">Mar 26</td></tr>
+          <tr><td><span class="pill pill-done"><span class="pill-icon">✓</span>Done</span></td><td><strong>Token system</strong> — 5+ themes (neutral, warm, red, dark variants) via Terrazzo</td><td style="color:#8d8d8d;font-size:12px;white-space:nowrap">Mar 26</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════ FOUNDATIONS ══════════════════════════════ -->
+<div id="tab-foundations" class="tab-panel">
+
+  <div class="note-bar info">
+    Phases 1 and 2 of the SOW are complete. These represent the hardest, most critical work — solving architecture, theming, and patterns once so all future components inherit the right structure automatically.
+  </div>
+
+  <div class="section">
+    <div class="section-header"><div class="section-title">Foundation Workstreams</div></div>
+    <div class="foundation-grid">
+
+      <div class="foundation-item" style="--fl:#16a34a">
+        <div class="foundation-item-header">
+          <div class="foundation-item-title">Token &amp; Theme System</div>
+          <span class="pill pill-done"><span class="pill-icon">✓</span>Complete</span>
+        </div>
+        <div class="foundation-item-body">Built a multi-theme CSS variable system (neutral, warm, red, and dark variants) using Terrazzo. Scales are inverted between light/dark so <code>gray-0</code> is always the softest surface — all components adapt to any theme without per-component logic. Implements the three-level token taxonomy from the SOW: global → semantic → component.</div>
+        <div class="tag-row"><span class="tag tag-dark">Done</span><span class="tag tag-green">Phase 2</span><span class="tag">Terrazzo</span><span class="tag">5 Themes</span><span class="tag">CSS Variables</span></div>
+      </div>
+
+      <div class="foundation-item" style="--fl:#16a34a">
+        <div class="foundation-item-header">
+          <div class="foundation-item-title">Next.js Server / Client Architecture</div>
+          <span class="pill pill-done"><span class="pill-icon">✓</span>Complete</span>
+        </div>
+        <div class="foundation-item-body">Each component ships a <code>.server.tsx</code> and a client variant. The server version is leaner — no JS hydration overhead. This pattern scales to every future component and was critical to establish before building on top of it. This is the architectural decision that took the most iteration to get right.</div>
+        <div class="tag-row"><span class="tag tag-dark">Done</span><span class="tag tag-green">Phase 2</span><span class="tag">RSC</span><span class="tag">Next.js</span><span class="tag">Performance</span></div>
+      </div>
+
+      <div class="foundation-item" style="--fl:#16a34a">
+        <div class="foundation-item-header">
+          <div class="foundation-item-title">Monorepo &amp; Package Structure</div>
+          <span class="pill pill-done"><span class="pill-icon">✓</span>Complete</span>
+        </div>
+        <div class="foundation-item-body">pnpm workspaces with 4 published packages (dsm, icons, tokens, types) and 2 internal libraries (config, utilities). Each package exports ESM + CJS with TypeScript declarations via tsup. Published under <code>@playon-maxpreps</code> to GitHub Packages.</div>
+        <div class="tag-row"><span class="tag tag-dark">Done</span><span class="tag tag-green">Phase 2</span><span class="tag">pnpm</span><span class="tag">tsup</span><span class="tag">GitHub Packages</span></div>
+      </div>
+
+      <div class="foundation-item" style="--fl:#16a34a">
+        <div class="foundation-item-header">
+          <div class="foundation-item-title">CI/CD &amp; Release Pipeline</div>
+          <span class="pill pill-done"><span class="pill-icon">✓</span>Complete</span>
+        </div>
+        <div class="foundation-item-body">Three GitHub Actions workflows: <strong>build</strong> (validates every push), <strong>deploy-storybook</strong> (publishes to GitHub Pages on merge to main), and <strong>release</strong> (Changesets-based versioning and publish). Semantic versioning in place per SOW requirements.</div>
+        <div class="tag-row"><span class="tag tag-dark">Done</span><span class="tag tag-green">Phase 2</span><span class="tag">GitHub Actions</span><span class="tag">Changesets</span><span class="tag">Semantic Versioning</span></div>
+      </div>
+
+      <div class="foundation-item" style="--fl:#16a34a">
+        <div class="foundation-item-header">
+          <div class="foundation-item-title">First Components — Reference Implementations</div>
+          <span class="pill pill-done"><span class="pill-icon">✓</span>Complete</span>
+        </div>
+        <div class="foundation-item-body">Button, FAIcon, and IconWrapper serve as the reference implementations — proving out the server/client split, theming integration, TypeScript types, and test patterns. Button has full unit test coverage via Vitest and validates the complete component authoring pattern all future components will follow.</div>
+        <div class="tag-row"><span class="tag tag-dark">Done</span><span class="tag tag-green">Phase 3</span><span class="tag">Button</span><span class="tag">FAIcon</span><span class="tag">IconWrapper</span><span class="tag">Vitest</span></div>
+      </div>
+
+      <div class="foundation-item" style="--fl:#d97706">
+        <div class="foundation-item-header">
+          <div class="foundation-item-title">Typography System</div>
+          <span class="pill pill-progress"><span class="pill-icon">●</span>In Progress</span>
+        </div>
+        <div class="foundation-item-body">Defining the full type scale — headings, body, labels, captions — as token-aware components. Includes font loading strategy for Next.js. Once complete, this unlocks all layout and content components in Phase 3 that depend on consistent text styling.</div>
+        <div class="tag-row"><span class="tag tag-amber">Active</span><span class="tag">Type Scale</span><span class="tag">Next.js Fonts</span></div>
+      </div>
+
+      <div class="foundation-item" style="--fl:#dadada">
+        <div class="foundation-item-header">
+          <div class="foundation-item-title">Link Component</div>
+          <span class="pill pill-planned"><span class="pill-icon">○</span>Planned</span>
+        </div>
+        <div class="foundation-item-body">Wraps Next.js <code>Link</code> with design system styling and the server/client pattern. Required before any navigation or content components can be built.</div>
+        <div class="tag-row"><span class="tag">Planned</span><span class="tag">Next.js Link</span></div>
+      </div>
+
+      <div class="foundation-item" style="--fl:#dadada">
+        <div class="foundation-item-header">
+          <div class="foundation-item-title">Spinner / Loader</div>
+          <span class="pill pill-planned"><span class="pill-icon">○</span>Planned</span>
+        </div>
+        <div class="foundation-item-body">Loading state primitive needed by forms, async content, and skeleton patterns. Depends on animation tokens being finalized alongside the typography system.</div>
+        <div class="tag-row"><span class="tag">Planned</span><span class="tag">Animation Tokens</span></div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header"><div class="section-title">Foundation Progress</div></div>
+    <div class="card card-pad" style="display:flex;flex-direction:column;gap:14px">
+      <div class="prog-wrap"><div class="prog-row"><span class="prog-label">Token &amp; Theme System</span><span class="pill pill-done" style="font-size:10px"><span class="pill-icon">✓</span>Complete</span></div><div class="prog-track"><div class="prog-fill green" style="width:100%"></div></div></div>
+      <div class="prog-wrap"><div class="prog-row"><span class="prog-label">Next.js Server/Client Architecture</span><span class="pill pill-done" style="font-size:10px"><span class="pill-icon">✓</span>Complete</span></div><div class="prog-track"><div class="prog-fill green" style="width:100%"></div></div></div>
+      <div class="prog-wrap"><div class="prog-row"><span class="prog-label">Monorepo, CI/CD &amp; Release Pipeline</span><span class="pill pill-done" style="font-size:10px"><span class="pill-icon">✓</span>Complete</span></div><div class="prog-track"><div class="prog-fill green" style="width:100%"></div></div></div>
+      <div class="prog-wrap"><div class="prog-row"><span class="prog-label">Reference Components (Button, FAIcon, IconWrapper)</span><span class="pill pill-done" style="font-size:10px"><span class="pill-icon">✓</span>Complete</span></div><div class="prog-track"><div class="prog-fill green" style="width:100%"></div></div></div>
+      <div class="prog-wrap"><div class="prog-row"><span class="prog-label">Typography System</span><span class="pill pill-progress" style="font-size:10px"><span class="pill-icon">●</span>In Progress</span></div><div class="prog-track"><div class="prog-fill amber" style="width:40%"></div></div></div>
+      <div class="prog-wrap"><div class="prog-row"><span class="prog-label">Link + Spinner</span><span class="pill pill-planned" style="font-size:10px"><span class="pill-icon">○</span>Planned</span></div><div class="prog-track"><div class="prog-fill gray" style="width:0%"></div></div></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════ COMPONENTS ═══════════════════════════════ -->
+<div id="tab-components" class="tab-panel">
+
+  <div class="four-col" style="margin-bottom:24px">
+    <div class="metric-card"><div class="metric-label">Shipped</div><div class="metric-value">3</div><div class="metric-sub">Button, FAIcon, IconWrapper</div></div>
+    <div class="metric-card"><div class="metric-label">In Progress</div><div class="metric-value">1</div><div class="metric-sub">Typography system</div></div>
+    <div class="metric-card"><div class="metric-label">Phase 3 Planned</div><div class="metric-value">~16</div><div class="metric-sub">Forms, display, overlay</div></div>
+    <div class="metric-card"><div class="metric-label">Phase 3+4 Total</div><div class="metric-value">~28</div><div class="metric-sub">Full library target</div></div>
+  </div>
+
+  <div class="section">
+    <div class="section-header"><div class="section-title">All Components</div></div>
+    <div class="card">
+      <table class="data-table">
+        <thead><tr><th>Component</th><th>Category</th><th>Status</th><th>Tests</th><th>Priority</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Button</strong></td><td><span class="cat-label">Foundation</span></td><td><span class="pill pill-done"><span class="pill-icon">✓</span>Done</span></td><td><span class="pill pill-done" style="font-size:10px"><span class="pill-icon">✓</span>Yes</span></td><td><span class="p-label p0">P0</span></td></tr>
+          <tr><td><strong>FAIcon</strong></td><td><span class="cat-label">Foundation</span></td><td><span class="pill pill-done"><span class="pill-icon">✓</span>Done</span></td><td style="color:#c2c2c2">—</td><td><span class="p-label p0">P0</span></td></tr>
+          <tr><td><strong>IconWrapper</strong></td><td><span class="cat-label">Foundation</span></td><td><span class="pill pill-done"><span class="pill-icon">✓</span>Done</span></td><td style="color:#c2c2c2">—</td><td><span class="p-label p0">P0</span></td></tr>
+          <tr><td><strong>Typography</strong></td><td><span class="cat-label">Foundation</span></td><td><span class="pill pill-progress"><span class="pill-icon">●</span>In Progress</span></td><td style="color:#c2c2c2">—</td><td><span class="p-label p0">P0</span></td></tr>
+          <tr><td><strong>Link</strong></td><td><span class="cat-label">Foundation</span></td><td><span class="pill pill-active"><span class="pill-icon">→</span>Next Up</span></td><td style="color:#c2c2c2">—</td><td><span class="p-label p0">P0</span></td></tr>
+          <tr><td><strong>Spinner / Loader</strong></td><td><span class="cat-label">Foundation</span></td><td><span class="pill pill-planned"><span class="pill-icon">○</span>Planned</span></td><td style="color:#c2c2c2">—</td><td><span class="p-label p0">P0</span></td></tr>
+          <tr><td><strong>Input</strong></td><td><span class="cat-label">Forms</span></td><td><span class="pill pill-planned"><span class="pill-icon">○</span>Planned</span></td><td style="color:#c2c2c2">—</td><td><span class="p-label p0">P0</span></td></tr>
+          <tr><td><strong>Select / Dropdown</strong></td><td><span class="cat-label">Forms</span></td><td><span class="pill pill-planned"><span class="pill-icon">○</span>Planned</span></td><td style="color:#c2c2c2">—</td><td><span class="p-label p0">P0</span></td></tr>
+          <tr><td><strong>Checkbox</strong></td><td><span class="cat-label">Forms</span></td><td><span class="pill pill-planned"><span class="pill-icon">○</span>Planned</span></td><td style="color:#c2c2c2">—</td><td><span class="p-label p1">P1</span></td></tr>
+          <tr><td><strong>Radio</strong></td><td><span class="cat-label">Forms</span></td><td><span class="pill pill-planned"><span class="pill-icon">○</span>Planned</span></td><td style="color:#c2c2c2">—</td><td><span class="p-label p1">P1</span></td></tr>
+          <tr><td><strong>Card</strong></td><td><span class="cat-label">Layout</span></td><td><span class="pill pill-planned"><span class="pill-icon">○</span>Planned</span></td><td style="color:#c2c2c2">—</td><td><span class="p-label p0">P0</span></td></tr>
+          <tr><td><strong>Badge / Tag</strong></td><td><span class="cat-label">Display</span></td><td><span class="pill pill-planned"><span class="pill-icon">○</span>Planned</span></td><td style="color:#c2c2c2">—</td><td><span class="p-label p1">P1</span></td></tr>
+          <tr><td><strong>Avatar</strong></td><td><span class="cat-label">Display</span></td><td><span class="pill pill-planned"><span class="pill-icon">○</span>Planned</span></td><td style="color:#c2c2c2">—</td><td><span class="p-label p1">P1</span></td></tr>
+          <tr><td><strong>Tooltip</strong></td><td><span class="cat-label">Overlay</span></td><td><span class="pill pill-planned"><span class="pill-icon">○</span>Planned</span></td><td style="color:#c2c2c2">—</td><td><span class="p-label p1">P1</span></td></tr>
+          <tr><td><strong>Alert / Banner</strong></td><td><span class="cat-label">Feedback</span></td><td><span class="pill pill-planned"><span class="pill-icon">○</span>Planned</span></td><td style="color:#c2c2c2">—</td><td><span class="p-label p1">P1</span></td></tr>
+          <tr><td><strong>Toggle / Switch</strong></td><td><span class="cat-label">Forms</span></td><td><span class="pill pill-planned"><span class="pill-icon">○</span>Planned</span></td><td style="color:#c2c2c2">—</td><td><span class="p-label p1">P1</span></td></tr>
+          <tr><td><strong>Modal / Dialog</strong></td><td><span class="cat-label">Overlay</span></td><td><span class="pill pill-planned"><span class="pill-icon">○</span>Planned</span></td><td style="color:#c2c2c2">—</td><td><span class="p-label p0">P0</span></td></tr>
+          <tr><td><strong>Table</strong></td><td><span class="cat-label">Data</span></td><td><span class="pill pill-planned"><span class="pill-icon">○</span>Planned</span></td><td style="color:#c2c2c2">—</td><td><span class="p-label p0">P0</span></td></tr>
+          <tr><td><strong>Navigation / Nav Bar</strong></td><td><span class="cat-label">Navigation</span></td><td><span class="pill pill-planned"><span class="pill-icon">○</span>Planned</span></td><td style="color:#c2c2c2">—</td><td><span class="p-label p0">P0</span></td></tr>
+          <tr><td><strong>Tabs</strong></td><td><span class="cat-label">Navigation</span></td><td><span class="pill pill-planned"><span class="pill-icon">○</span>Planned</span></td><td style="color:#c2c2c2">—</td><td><span class="p-label p1">P1</span></td></tr>
+          <tr><td><strong>Toast / Notification</strong></td><td><span class="cat-label">Feedback</span></td><td><span class="pill pill-planned"><span class="pill-icon">○</span>Planned</span></td><td style="color:#c2c2c2">—</td><td><span class="p-label p1">P1</span></td></tr>
+          <tr><td><strong>Date Picker</strong></td><td><span class="cat-label">Forms</span></td><td><span class="pill pill-planned"><span class="pill-icon">○</span>Planned</span></td><td style="color:#c2c2c2">—</td><td><span class="p-label p1">P1</span></td></tr>
+          <tr><td><strong>Pagination</strong></td><td><span class="cat-label">Navigation</span></td><td><span class="pill pill-planned"><span class="pill-icon">○</span>Planned</span></td><td style="color:#c2c2c2">—</td><td><span class="p-label p1">P1</span></td></tr>
+          <tr><td><strong>Skeleton Loader</strong></td><td><span class="cat-label">Feedback</span></td><td><span class="pill pill-planned"><span class="pill-icon">○</span>Planned</span></td><td style="color:#c2c2c2">—</td><td><span class="p-label p1">P1</span></td></tr>
+          <tr><td><strong>Accordion</strong></td><td><span class="cat-label">Layout</span></td><td><span class="pill pill-planned"><span class="pill-icon">○</span>Planned</span></td><td style="color:#c2c2c2">—</td><td><span class="p-label p2">P2</span></td></tr>
+          <tr><td><strong>Breadcrumb</strong></td><td><span class="cat-label">Navigation</span></td><td><span class="pill pill-planned"><span class="pill-icon">○</span>Planned</span></td><td style="color:#c2c2c2">—</td><td><span class="p-label p2">P2</span></td></tr>
+          <tr><td><strong>Progress Bar</strong></td><td><span class="cat-label">Feedback</span></td><td><span class="pill pill-planned"><span class="pill-icon">○</span>Planned</span></td><td style="color:#c2c2c2">—</td><td><span class="p-label p2">P2</span></td></tr>
+          <tr><td><strong>Search</strong></td><td><span class="cat-label">Forms</span></td><td><span class="pill pill-planned"><span class="pill-icon">○</span>Planned</span></td><td style="color:#c2c2c2">—</td><td><span class="p-label p1">P1</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════ ADOPTION ════════════════════════════════ -->
+<div id="tab-adoption" class="tab-panel">
+
+  <div class="note-bar warn">
+    Adoption metrics are not yet live. Once maxpreps-fe-react is connected, these will calculate automatically — counting pages, components, and imports using the design system.
+  </div>
+
+  <div class="section">
+    <div class="section-header"><div class="section-title">Adoption Stages</div></div>
+    <div class="four-col">
+      <div class="adoption-card current">
+        <div class="stage-num">Stage 1</div>
+        <div class="stage-label">Awareness</div>
+        <div class="stage-desc">Teams have access to Storybook docs and the npm packages. The system exists and is discoverable.</div>
+        <div class="stage-status"><span class="pill pill-active"><span class="pill-icon">→</span>Current</span></div>
+      </div>
+      <div class="adoption-card">
+        <div class="stage-num">Stage 2</div>
+        <div class="stage-label">First Use</div>
+        <div class="stage-desc">At least one team has integrated the package and is using components in a production feature.</div>
+        <div class="stage-status"><span class="pill pill-planned"><span class="pill-icon">○</span>Phase 3 Target</span></div>
+      </div>
+      <div class="adoption-card">
+        <div class="stage-num">Stage 3</div>
+        <div class="stage-label">Growing Use</div>
+        <div class="stage-desc">Multiple teams adopted. % of UI surface area built with the system is measurable and growing.</div>
+        <div class="stage-status"><span class="pill pill-planned"><span class="pill-icon">○</span>Phase 4 Target</span></div>
+      </div>
+      <div class="adoption-card">
+        <div class="stage-num">Stage 4</div>
+        <div class="stage-label">Default Choice</div>
+        <div class="stage-desc">New features default to the design system. Custom one-offs require explicit justification.</div>
+        <div class="stage-status"><span class="pill pill-planned"><span class="pill-icon">○</span>End of Contract</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header"><div class="section-title">Planned Metrics — maxpreps-fe-react</div></div>
+    <div class="card">
+      <table class="data-table">
+        <thead><tr><th>Metric</th><th>How We'll Measure It</th><th>Target</th><th>Current</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Import coverage</strong></td><td style="font-size:12px;color:#6e6e6e">Count <code>@playon-maxpreps/dsm</code> imports in site repo</td><td style="color:#8d8d8d">—</td><td><span class="pill pill-pending"><span class="pill-icon">○</span>Not tracking</span></td></tr>
+          <tr><td><strong>Component usage count</strong></td><td style="font-size:12px;color:#6e6e6e">Grep for each component name in consuming files</td><td style="color:#8d8d8d">—</td><td><span class="pill pill-pending"><span class="pill-icon">○</span>Not tracking</span></td></tr>
+          <tr><td><strong>Page coverage %</strong></td><td style="font-size:12px;color:#6e6e6e">Pages using ≥1 DS component / total pages</td><td style="color:#8d8d8d">50% by end</td><td><span class="pill pill-pending"><span class="pill-icon">○</span>Not tracking</span></td></tr>
+          <tr><td><strong>Teams using DS</strong></td><td style="font-size:12px;color:#6e6e6e">Track by team directory / PR author</td><td style="color:#8d8d8d">3+ by end</td><td><span class="pill pill-pending"><span class="pill-icon">○</span>Not tracking</span></td></tr>
+          <tr><td><strong>Legacy component reduction</strong></td><td style="font-size:12px;color:#6e6e6e">Detect remaining one-off rewrites vs DS usage</td><td style="color:#8d8d8d">Decreasing</td><td><span class="pill pill-pending"><span class="pill-icon">○</span>Not tracking</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header"><div class="section-title">Rollout Plan</div></div>
+    <div class="card card-pad" style="display:flex;flex-direction:column;gap:0">
+      <div style="padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid #f0f0f0;display:flex;align-items:flex-start;justify-content:space-between;gap:16px">
+        <div><div style="font-size:13px;font-weight:700;margin-bottom:5px">Phase 3 — Stable foundation, first internal adopter identified</div><div style="font-size:12px;color:#6e6e6e;line-height:1.6">Deliver a stable set of foundation components. Identify the first internal team to integrate and use the design system in a production feature.</div></div>
+        <span class="pill pill-progress" style="flex-shrink:0"><span class="pill-icon">●</span>Active</span>
+      </div>
+      <div style="padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid #f0f0f0;display:flex;align-items:flex-start;justify-content:space-between;gap:16px">
+        <div><div style="font-size:13px;font-weight:700;margin-bottom:5px">Phase 4 — Core components shipped, 2+ teams using the system</div><div style="font-size:12px;color:#6e6e6e;line-height:1.6">Ship forms and display components concurrently with legacy replacement. Begin tracking import coverage in maxpreps-fe-react.</div></div>
+        <span class="pill pill-concurrent" style="flex-shrink:0"><span class="pill-icon">↔</span>Concurrent</span>
+      </div>
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px">
+        <div><div style="font-size:13px;font-weight:700;margin-bottom:5px">Phase 5 — Machine-readable schemas, design system is the default for new feature work</div><div style="font-size:12px;color:#6e6e6e;line-height:1.6">~28 components, machine-readable schemas complete. AI-readiness matures throughout — this phase finalizes structured metadata and a proof-of-concept. All new features use DS components.</div></div>
+        <span class="pill pill-planned" style="flex-shrink:0"><span class="pill-icon">○</span>Upcoming</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════ PHASES ═══════════════════════════════════ -->
+<div id="tab-phases" class="tab-panel">
+
+  <div class="note-bar info">
+    Work is structured in 5 phases that can run concurrently. Duration ranges reflect complexity — phases overlap in practice rather than running strictly end-to-end.
+  </div>
+
+  <div class="five-col" style="margin-bottom:28px">
+    <div class="metric-card"><div class="metric-label">Phase 1</div><div class="metric-value sm">Done</div><div class="metric-sub">Discovery &amp; Audit<br>2–3 weeks</div></div>
+    <div class="metric-card"><div class="metric-label">Phase 2</div><div class="metric-value sm">Done</div><div class="metric-sub">Foundational Arch.<br>4–6 weeks</div></div>
+    <div class="metric-card" style="border-color:#d97706"><div class="metric-label">Phase 3</div><div class="metric-value sm">Active</div><div class="metric-sub">Core Components<br>10–14 weeks</div></div>
+    <div class="metric-card" style="border-color:#7c3aed"><div class="metric-label">Phase 4</div><div class="metric-value sm">Active</div><div class="metric-sub">Migration<br>8–14 weeks</div></div>
+    <div class="metric-card"><div class="metric-label">Phase 5</div><div class="metric-value sm">Upcoming</div><div class="metric-sub">Schemas &amp; AI Rollout<br>1–3 weeks</div></div>
+  </div>
+
+  <div class="section">
+    <div class="section-header"><div class="section-title">Phase Detail</div></div>
+    <div class="phase-list">
+
+      <div class="phase-row ph-done">
+        <div class="phase-label-col">
+          <div class="phase-num">Phase 1</div>
+          <div class="phase-duration">2–3 weeks</div>
+          <span class="pill pill-done" style="font-size:10px"><span class="pill-icon">✓</span>Complete</span>
+        </div>
+        <div class="phase-body-col">
+          <div class="phase-card">
+            <div class="phase-card-header">
+              <div class="phase-card-title">Discovery &amp; Audit</div>
+              <span class="pill pill-done"><span class="pill-icon">✓</span>Complete</span>
+            </div>
+            <div class="phase-card-body">Full audit of existing UI components and tokens. Theme and architecture analysis. Design debt and bundle size assessment. Produced the target architecture proposal that all subsequent phases are built on.</div>
+            <div class="phase-card-tags"><span class="tag tag-dark">Done</span><span class="tag">Component Audit</span><span class="tag">Token Analysis</span><span class="tag">Architecture Proposal</span><span class="tag">Debt Assessment</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-row ph-done">
+        <div class="phase-label-col">
+          <div class="phase-num">Phase 2</div>
+          <div class="phase-duration">4–6 weeks</div>
+          <span class="pill pill-done" style="font-size:10px"><span class="pill-icon">✓</span>Complete</span>
+        </div>
+        <div class="phase-body-col">
+          <div class="phase-card">
+            <div class="phase-card-header">
+              <div class="phase-card-title">Foundational Architecture</div>
+              <span class="pill pill-done"><span class="pill-icon">✓</span>Complete</span>
+            </div>
+            <div class="phase-card-body">Isolated monorepo with pnpm workspaces. Automated CI/CD (build, Storybook deploy, Changesets release). Semantic versioning. Three-level token taxonomy (global → semantic → component) built with Terrazzo. Theme-agnostic token system supporting 5+ themes. Next.js server/client component architecture established. v0.0.1 published.</div>
+            <div class="phase-card-tags"><span class="tag tag-dark">Done</span><span class="tag">Monorepo</span><span class="tag">CI/CD</span><span class="tag">Token Taxonomy</span><span class="tag">5+ Themes</span><span class="tag">v0.0.1</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-row ph-active">
+        <div class="phase-label-col">
+          <div class="phase-num">Phase 3</div>
+          <div class="phase-duration">10–14 weeks</div>
+          <span class="pill pill-progress" style="font-size:10px"><span class="pill-icon">●</span>Active</span>
+        </div>
+        <div class="phase-body-col">
+          <div class="phase-card active-card">
+            <div class="phase-card-header">
+              <div class="phase-card-title">Core Component System</div>
+              <span class="pill pill-progress"><span class="pill-icon">●</span>In Progress</span>
+            </div>
+            <div class="phase-card-body">Building the full atomic component library — primitives through patterns — with production-grade quality. Each component ships with WCAG accessibility compliance, a matching Figma component with 1:1 React API parity, and Storybook documentation including auto-generated prop docs and visual regression tests.</div>
+            <div class="phase-card-tags"><span class="tag tag-amber">Active</span><span class="tag">3 of ~28 done</span><span class="tag">WCAG</span><span class="tag">Figma Parity</span><span class="tag">Storybook</span><span class="tag">Visual Regression</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-row ph-concurrent">
+        <div class="phase-label-col">
+          <div class="phase-num">Phase 4</div>
+          <div class="phase-duration">8–14 weeks</div>
+          <span class="pill pill-concurrent" style="font-size:10px"><span class="pill-icon">↔</span>Concurrent</span>
+        </div>
+        <div class="phase-body-col">
+          <div class="phase-card active-card">
+            <div class="phase-card-header">
+              <div class="phase-card-title">Migration &amp; Debt Reduction</div>
+              <span class="pill pill-concurrent"><span class="pill-icon">↔</span>Running concurrently</span>
+            </div>
+            <div class="phase-card-body">Runs in parallel with Phase 3. Creates the migration playbook and deprecation strategy, then incrementally replaces legacy components in maxpreps-fe-react as new design system equivalents become available. Targets bundle size reduction and elimination of duplicate component imports. Codemods and linting rules prevent regression.</div>
+            <div class="phase-card-tags"><span class="tag" style="background:#f5f3ff;color:#6d28d9;border-color:#ddd6fe">Concurrent w/ Ph 3</span><span class="tag">Migration Playbook</span><span class="tag">Deprecation Strategy</span><span class="tag">Bundle Reduction</span><span class="tag">Codemods</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-row ph-upcoming">
+        <div class="phase-label-col">
+          <div class="phase-num">Phase 5</div>
+          <div class="phase-duration">1–3 weeks</div>
+          <span class="pill pill-planned" style="font-size:10px"><span class="pill-icon">○</span>Upcoming</span>
+        </div>
+        <div class="phase-body-col">
+          <div class="phase-card">
+            <div class="phase-card-header">
+              <div class="phase-card-title">AI-Ready System Design</div>
+              <span class="pill pill-planned"><span class="pill-icon">○</span>Planned</span>
+            </div>
+            <div class="phase-card-body">Defines machine-readable component metadata and deterministic schemas — structured definitions of every component's props, variants, and composition rules that AI tools can consume to generate UI automatically. Includes AI usage guidelines and a proof-of-concept demonstrating AI-generated UI built from the design system.</div>
+            <div class="phase-card-tags"><span class="tag">Component Schemas</span><span class="tag">Machine-Readable Metadata</span><span class="tag">AI Guidelines</span><span class="tag">AI UI Proof-of-Concept</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header"><div class="section-title">Engineering Outcomes</div></div>
+    <div class="card">
+      <table class="data-table">
+        <thead><tr><th>Outcome</th><th>Phase</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>Isolated monorepo with semantic versioning and automated CI/CD</td><td><span class="cat-label">Phase 2</span></td><td><span class="pill pill-done"><span class="pill-icon">✓</span>Done</span></td></tr>
+          <tr><td>Normalized token architecture (global, semantic, component-level)</td><td><span class="cat-label">Phase 2</span></td><td><span class="pill pill-done"><span class="pill-icon">✓</span>Done</span></td></tr>
+          <tr><td>Elimination of hard theme coupling — 5+ theme variants</td><td><span class="cat-label">Phase 2</span></td><td><span class="pill pill-done"><span class="pill-icon">✓</span>Done</span></td></tr>
+          <tr><td>Fully atomic component architecture (primitives → components → patterns)</td><td><span class="cat-label">Phase 3</span></td><td><span class="pill pill-progress"><span class="pill-icon">●</span>In Progress</span></td></tr>
+          <tr><td>1:1 parity between Figma components and React APIs</td><td><span class="cat-label">Phase 3</span></td><td><span class="pill pill-progress"><span class="pill-icon">●</span>In Progress</span></td></tr>
+          <tr><td>Production-grade Storybook (auto docs, visual regression, a11y)</td><td><span class="cat-label">Phase 3</span></td><td><span class="pill pill-progress"><span class="pill-icon">●</span>In Progress</span></td></tr>
+          <tr><td>Migration playbook with codemods and linting rules</td><td><span class="cat-label">Phase 4</span></td><td><span class="pill pill-concurrent"><span class="pill-icon">↔</span>Concurrent</span></td></tr>
+          <tr><td>Reduction in duplicate components and unnecessary imports</td><td><span class="cat-label">Phase 4</span></td><td><span class="pill pill-concurrent"><span class="pill-icon">↔</span>Concurrent</span></td></tr>
+          <tr><td>Machine-readable component schemas for AI-assisted UI generation</td><td><span class="cat-label">Phase 5</span></td><td><span class="pill pill-planned"><span class="pill-icon">○</span>Planned</span></td></tr>
+          <tr><td>Formal governance model — review, deprecation, version upgrade processes</td><td><span class="cat-label">Phase 5</span></td><td><span class="pill pill-planned"><span class="pill-icon">○</span>Planned</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════ INFRASTRUCTURE ══════════════════════════ -->
+<div id="tab-infrastructure" class="tab-panel">
+
+  <div class="four-col" style="margin-bottom:24px">
+    <div class="metric-card"><div class="metric-label">CI Workflows</div><div class="metric-value">3</div><div class="metric-sub">All active</div></div>
+    <div class="metric-card"><div class="metric-label">Test Runner</div><div class="metric-value sm">Vitest</div><div class="metric-sub">Configured</div></div>
+    <div class="metric-card"><div class="metric-label">Token Pipeline</div><div class="metric-value sm">Terrazzo</div><div class="metric-sub">5+ theme variants</div></div>
+    <div class="metric-card"><div class="metric-label">Package Registry</div><div class="metric-value sm">GitHub</div><div class="metric-sub">@playon-maxpreps</div></div>
+  </div>
+
+  <div class="section">
+    <div class="section-header"><div class="section-title">Package Inventory</div></div>
+    <div class="card">
+      <table class="data-table">
+        <thead><tr><th>Package</th><th>Name</th><th>Version</th><th>Purpose</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td><strong>design-system</strong></td><td style="font-family:monospace;font-size:12px">@playon-maxpreps/dsm</td><td>0.0.1</td><td>React components (client + server)</td><td><span class="pill pill-done"><span class="pill-icon">✓</span>Active</span></td></tr>
+          <tr><td><strong>tokens</strong></td><td style="font-family:monospace;font-size:12px">@playon-maxpreps/tokens</td><td>—</td><td>Design tokens — CSS vars, 5+ themes</td><td><span class="pill pill-done"><span class="pill-icon">✓</span>Active</span></td></tr>
+          <tr><td><strong>icons</strong></td><td style="font-family:monospace;font-size:12px">@playon-maxpreps/icons</td><td>—</td><td>SVG icon library (Font Awesome)</td><td><span class="pill pill-done"><span class="pill-icon">✓</span>Active</span></td></tr>
+          <tr><td><strong>types</strong></td><td style="font-family:monospace;font-size:12px">@playon-maxpreps/types</td><td>—</td><td>Shared TypeScript types &amp; env utils</td><td><span class="pill pill-done"><span class="pill-icon">✓</span>Active</span></td></tr>
+          <tr><td><strong>config</strong></td><td style="font-family:monospace;font-size:12px">@playon-maxpreps/config</td><td>—</td><td>Shared lint / build config</td><td><span class="pill pill-done"><span class="pill-icon">✓</span>Active</span></td></tr>
+          <tr><td><strong>utilities</strong></td><td style="font-family:monospace;font-size:12px">@playon-maxpreps/utilities</td><td>—</td><td>Shared JS utility functions</td><td><span class="pill pill-done"><span class="pill-icon">✓</span>Active</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header"><div class="section-title">CI / Tooling</div></div>
+    <div class="infra-grid">
+      <div class="infra-card"><div class="infra-title">build.yml</div><div class="infra-desc">Runs on every push. Compiles all packages via tsup and validates the monorepo build.</div><div class="infra-foot"><span class="sdot sdot-green"></span>Active</div></div>
+      <div class="infra-card"><div class="infra-title">deploy-storybook.yml</div><div class="infra-desc">Deploys Storybook to GitHub Pages on every push to main. Docs always up to date.</div><div class="infra-foot"><span class="sdot sdot-green"></span>Active</div></div>
+      <div class="infra-card"><div class="infra-title">release.yml</div><div class="infra-desc">Changesets-based release — tags, changelogs, and publishes to GitHub Packages.</div><div class="infra-foot"><span class="sdot sdot-green"></span>Active</div></div>
+      <div class="infra-card"><div class="infra-title">Vitest</div><div class="infra-desc">Unit test runner at repo root. Button has initial coverage. Full coverage required per component going forward.</div><div class="infra-foot"><span class="sdot sdot-amber"></span>Partial coverage</div></div>
+      <div class="infra-card"><div class="infra-title">Terrazzo</div><div class="infra-desc">Token pipeline — transforms design tokens into CSS vars across all 5 color themes.</div><div class="infra-foot"><span class="sdot sdot-green"></span>Active</div></div>
+      <div class="infra-card"><div class="infra-title">tsup + pnpm workspaces</div><div class="infra-desc">Monorepo build — each package exports ESM + CJS with TypeScript declarations.</div><div class="infra-foot"><span class="sdot sdot-green"></span>Active</div></div>
+      <div class="infra-card"><div class="infra-title">Storybook</div><div class="infra-desc">Component docs deployed to GitHub Pages. Expanding to include auto-generated prop docs, a11y checks, and visual regression per Phase 3 requirements.</div><div class="infra-foot"><span class="sdot sdot-amber"></span>Expanding</div></div>
+      <div class="infra-card"><div class="infra-title">Playground</div><div class="infra-desc">Local development sandbox for testing components in context before committing to Storybook stories.</div><div class="infra-foot"><span class="sdot sdot-gray"></span>Local dev only</div></div>
+    </div>
+  </div>
+
+</div>
+</div><!-- /content -->
+</div><!-- /page-shell -->
+
+<script>
+function showTab(id, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  if (btn) btn.classList.add('active');
+}
+
+// Timeline
+const START = new Date('2026-03-26');
+const END   = new Date('2026-12-26');
+const NOW   = new Date();
+const totalMs   = END - START;
+const elapsedMs = Math.min(Math.max(NOW - START, 0), totalMs);
+const pct       = Math.round((elapsedMs / totalMs) * 100);
+const daysElapsed   = Math.round(elapsedMs / 86400000);
+const daysRemaining = Math.round((totalMs - elapsedMs) / 86400000);
+const weeksIn   = Math.floor(daysElapsed / 7);
+
+requestAnimationFrame(() => {
+  document.getElementById('timeline-fill').style.width = pct + '%';
+  document.getElementById('timeline-pct').textContent  = pct + '%';
+
+  // Hero card KPIs
+  const heroPct  = document.getElementById('hero-pct');
+  const heroFill = document.getElementById('hero-prog-fill');
+  if (heroPct)  heroPct.textContent   = pct + '%';
+  if (heroFill) heroFill.style.width  = pct + '%';
+
+  // Position Gantt today line
+  const ganttRows  = document.getElementById('gantt-rows');
+  const ganttToday = document.getElementById('gantt-today');
+  if (ganttRows && ganttToday) {
+    const LABEL_W = 90;
+    const rowsW   = ganttRows.offsetWidth;
+    const trackW  = rowsW - LABEL_W;
+    ganttToday.style.left = (LABEL_W + (pct / 100) * trackW) + 'px';
+  }
+});
+
+const el  = document.getElementById('days-elapsed-card');
+const rem = document.getElementById('days-remaining-card');
+if (el)  el.textContent  = daysElapsed;
+if (rem) rem.textContent = daysRemaining + ' days remaining';
+
+const weeksEl  = document.getElementById('tldr-weeks-in');
+const pctBadge = document.getElementById('tldr-pct-badge');
+if (weeksEl)  weeksEl.textContent  = weeksIn + ' weeks';
+if (pctBadge) pctBadge.textContent = pct + '% through the project';
+
+document.getElementById('updated-at').textContent =
+  'Updated ' + NOW.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+
+// Chart
+const ctx = document.getElementById('phaseChart').getContext('2d');
+const phaseChart = new Chart(ctx, {
+  type: 'doughnut',
+  data: {
+    labels: ['Available', 'Detected', 'Consumer Imports', 'Not Used'],
+    datasets: [{
+      data: [3, 1, 1, 23],
+      backgroundColor: ['#16a34a', '#d97706', '#2563eb', '#e8e8e8'],
+      borderColor: '#fff',
+      borderWidth: 2,
+      hoverOffset: 4
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    cutout: '68%',
+    plugins: {
+      legend: {
+        position: 'bottom',
+        labels: {
+          font: { size: 11, family: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' },
+          padding: 14, usePointStyle: true, pointStyleWidth: 8, boxHeight: 8, color: '#6e6e6e'
+        }
+      },
+      tooltip: { callbacks: { label: ctx => ` ${ctx.label}: ${ctx.raw} components` } }
+    }
+  }
+});
+
+// ─── Local Repo + GitHub Live Data ─────────────────────────────────────────
+const LOCAL_DATA_URL = '/api/design-system-dashboard';
+const STATIC_DATA_URL = './data/live.json';
+const REPO = 'playon-maxpreps/maxpreps-design-system';
+const GH_TOKEN_KEY = 'mpi_gh_token';
+
+function getToken() { return localStorage.getItem(GH_TOKEN_KEY); }
+
+function ghHeaders() {
+  const t = getToken();
+  return t ? { Authorization: `Bearer ${t}`, Accept: 'application/vnd.github+json' } : { Accept: 'application/vnd.github+json' };
+}
+
+async function ghFetch(path) {
+  const res = await fetch(`https://api.github.com/repos/${REPO}${path}`, { headers: ghHeaders() });
+  if (!res.ok) return null;
+  return res.json();
+}
+
+function escapeHtml(value) {
+  return String(value ?? '').replace(/[&<>"']/g, char => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  })[char]);
+}
+
+function formatDate(value) {
+  if (!value) return '—';
+  return new Date(value).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+}
+
+function pill(status, compact = false) {
+  const map = {
+    available: ['pill-done', '✓', 'Available'],
+    detected: ['pill-active', '●', 'Detected'],
+    missing: ['pill-planned', '○', 'Not detected'],
+    done: ['pill-done', '✓', 'Done'],
+    'in-progress': ['pill-progress', '●', 'In Progress'],
+    'next-up': ['pill-active', '→', 'Next Up'],
+    planned: ['pill-planned', '○', 'Planned'],
+    current: ['pill-active', '→', 'Current'],
+    concurrent: ['pill-concurrent', '↔', 'Concurrent'],
+    pending: ['pill-pending', '○', 'Not tracking'],
+    yes: ['pill-done', '✓', 'Yes'],
+    no: ['pill-planned', '○', 'No'],
+    active: ['pill-done', '✓', 'Active'],
+    disabled: ['pill-planned', '○', 'Disabled']
+  };
+  const [klass, icon, label] = map[status] || map.planned;
+  return `<span class="pill ${klass}"${compact ? ' style="font-size:10px"' : ''}><span class="pill-icon">${icon}</span>${label}</span>`;
+}
+
+function priorityPill(priority) {
+  const safePriority = escapeHtml(priority || 'P1').toLowerCase();
+  return `<span class="p-label ${safePriority}">${escapeHtml(priority || 'P1')}</span>`;
+}
+
+function setMetric(label, value, sub, root = document) {
+  const cards = [...root.querySelectorAll('.metric-card')];
+  const card = cards.find(item => item.querySelector('.metric-label')?.textContent.trim() === label);
+  if (!card) return;
+
+  const valueEl = card.querySelector('.metric-value');
+  const subEl = card.querySelector('.metric-sub');
+  if (valueEl && value !== undefined) valueEl.textContent = value;
+  if (subEl && sub !== undefined) subEl.textContent = sub;
+}
+
+function setMetricAny(labels, value, sub, root = document) {
+  for (const label of labels) {
+    const cards = [...root.querySelectorAll('.metric-card')];
+    const card = cards.find(item => item.querySelector('.metric-label')?.textContent.trim() === label);
+    if (!card) continue;
+    const valueEl = card.querySelector('.metric-value');
+    const subEl = card.querySelector('.metric-sub');
+    if (valueEl && value !== undefined) valueEl.textContent = value;
+    if (subEl && sub !== undefined) subEl.textContent = sub;
+    return card;
+  }
+  return null;
+}
+
+function renameMetric(label, nextLabel, root = document) {
+  const cards = [...root.querySelectorAll('.metric-card')];
+  const card = cards.find(item => item.querySelector('.metric-label')?.textContent.trim() === label);
+  const labelEl = card?.querySelector('.metric-label');
+  if (labelEl) labelEl.textContent = nextLabel;
+}
+
+function setProgress(label, value, percent, color = 'amber') {
+  const rows = [...document.querySelectorAll('.prog-row')];
+  const row = rows.find(item => item.querySelector('.prog-label')?.textContent.trim() === label);
+  if (!row) return;
+
+  const valEl = row.querySelector('.prog-val');
+  const fillEl = row.parentElement?.querySelector('.prog-fill');
+  if (valEl) valEl.textContent = value;
+  if (fillEl) {
+    fillEl.className = `prog-fill ${color}`;
+    fillEl.style.width = `${Math.max(0, Math.min(100, percent))}%`;
+  }
+}
+
+function renderCommitList(commits) {
+  const list = document.getElementById('gh-commits-list');
+  if (!list) return;
+  if (!commits?.length) {
+    list.textContent = 'No commits found.';
+    return;
+  }
+
+  list.innerHTML = commits.slice(0, 8).map(c => `
+    <div style="padding:10px 0;border-bottom:1px solid #f0f0f0;display:flex;gap:12px;align-items:flex-start">
+      <div style="flex:1;min-width:0">
+        <div style="font-size:12px;font-weight:600;color:#1a1a1a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">
+          ${escapeHtml(c.message)}
+        </div>
+        <div style="font-size:11px;color:#8d8d8d;margin-top:2px">
+          ${escapeHtml(c.author)} · ${formatDate(c.date)}
+        </div>
+      </div>
+      <span style="font-size:10px;font-family:monospace;color:#adadad;flex-shrink:0;text-decoration:none;margin-top:2px">${escapeHtml(c.shortSha)}</span>
+    </div>`).join('');
+}
+
+function renderComponentRows(components) {
+  const tab = document.getElementById('tab-components');
+  if (!tab) return;
+  const queue = window.__dashboardData?.roadmapQueue || { source: 'Manual queue', sections: [] };
+  const queueSections = queue.sections || [];
+
+  tab.innerHTML = `
+    <div class="note-bar info">Roadmap queue items are manual inputs, not inferred from repository status. Repo-detected component folders are listed separately below.</div>
+
+    <div class="three-col" style="margin-bottom:24px">
+      ${queueSections.map(section => `
+        <div class="metric-card">
+          <div class="metric-label">${escapeHtml(section.title)}</div>
+          <div class="metric-value">${section.items?.length || 0}</div>
+          <div class="metric-sub">${escapeHtml(queue.source || 'Manual queue')}</div>
+        </div>`).join('')}
+    </div>
+
+    ${queueSections.map(section => `
+      <div class="section">
+        <div class="section-header"><div class="section-title">${escapeHtml(section.title)} Queue</div></div>
+        <div class="card">
+          <table class="data-table">
+            <thead><tr><th>Queue Item</th><th>Source</th><th>Status</th></tr></thead>
+            <tbody>
+              ${(section.items || []).length
+                ? section.items.map(item => `
+                  <tr>
+                    <td><strong>${escapeHtml(item)}</strong></td>
+                    <td style="font-family:monospace;font-size:12px">${escapeHtml(queue.source || 'Manual queue')}</td>
+                    <td>${pill('detected')}</td>
+                  </tr>`).join('')
+                : `<tr>
+                    <td><strong>No manual queue items</strong></td>
+                    <td style="font-family:monospace;font-size:12px">${escapeHtml(queue.source || 'Manual queue')}</td>
+                    <td>${pill('missing')}</td>
+                  </tr>`}
+            </tbody>
+          </table>
+        </div>
+      </div>`).join('')}
+
+    <div class="section">
+      <div class="section-header"><div class="section-title">Repo-Detected Component Folders</div></div>
+      <div class="card">
+        <table class="data-table">
+          <thead><tr><th>Component Folder</th><th>Source Path</th><th>Repo Signal</th><th>Tests</th><th>Storybook</th></tr></thead>
+          <tbody>
+            ${(components || []).map(component => `
+              <tr>
+                <td><strong>${escapeHtml(component.name)}</strong></td>
+                <td style="font-family:monospace;font-size:12px">${escapeHtml(component.path || '—')}</td>
+                <td>${pill(component.status)}</td>
+                <td>${component.tests ? pill('yes', true) : '<span style="color:#c2c2c2">—</span>'}</td>
+                <td>${component.storybook ? pill('yes', true) : '<span style="color:#c2c2c2">—</span>'}</td>
+              </tr>`).join('')}
+          </tbody>
+        </table>
+      </div>
+    </div>`;
+}
+
+function renderPackageRows(packages) {
+  const tbody = document.querySelector('#tab-infrastructure .data-table tbody');
+  if (!tbody || !packages?.length) return;
+  const head = document.querySelector('#tab-infrastructure .data-table thead tr');
+  if (head) {
+    head.innerHTML = '<th>Directory</th><th>Package Name</th><th>Version</th><th>Private</th><th>Source</th>';
+  }
+
+  tbody.innerHTML = packages.map(pkg => `
+    <tr>
+      <td><strong>${escapeHtml(pkg.dir)}</strong></td>
+      <td style="font-family:monospace;font-size:12px">${escapeHtml(pkg.name)}</td>
+      <td>${escapeHtml(pkg.version)}</td>
+      <td>${escapeHtml(pkg.private ? 'true' : 'false')}</td>
+      <td style="font-family:monospace;font-size:12px">${escapeHtml(pkg.source || '—')}</td>
+    </tr>`).join('');
+}
+
+function renderWorkflowCards(workflows) {
+  const cards = [...document.querySelectorAll('.infra-card')];
+  if (!cards.length || !workflows?.length) return;
+
+  const byName = new Map(workflows.map(workflow => [workflow.name.replace(/\.ya?ml$/, ''), workflow]));
+  cards.forEach(card => {
+    const title = card.querySelector('.infra-title')?.textContent.trim();
+    const key = title?.replace(/\.ya?ml$/, '');
+    const workflow = byName.get(key);
+    if (!workflow) return;
+
+    const foot = card.querySelector('.infra-foot');
+    if (foot) {
+      foot.innerHTML = `<span class="sdot ${workflow.active ? 'sdot-green' : 'sdot-gray'}"></span>${workflow.active ? 'Active' : 'Disabled'}`;
+    }
+  });
+
+  const grid = document.querySelector('#tab-infrastructure .infra-grid');
+  if (!grid) return;
+
+  const existing = new Set(cards.map(card => card.querySelector('.infra-title')?.textContent.trim()));
+  workflows
+    .filter(workflow => !existing.has(workflow.name))
+    .forEach(workflow => {
+      grid.insertAdjacentHTML('beforeend', `
+        <div class="infra-card">
+          <div class="infra-title">${escapeHtml(workflow.name)}</div>
+          <div class="infra-desc">Workflow detected in the design-system repository.</div>
+          <div class="infra-foot"><span class="sdot ${workflow.active ? 'sdot-green' : 'sdot-gray'}"></span>${workflow.active ? 'Active' : 'Disabled'}</div>
+        </div>`);
+    });
+}
+
+function updateChart(counts) {
+  if (!counts) return;
+  phaseChart.data.datasets[0].data = [
+    counts.done || 0,
+    counts.inProgress || 0,
+    window.__dashboardData?.consumer?.metrics?.importStatements || 0,
+    0
+  ];
+  phaseChart.update();
+}
+
+function renderLocalRepoStatus(source) {
+  const bar = document.getElementById('gh-status-bar');
+  if (!bar || !source) return;
+
+  const consumer = window.__dashboardData?.consumer?.source;
+  const dirty = source.dirty ? ' · uncommitted changes' : '';
+  const consumerText = consumer?.exists
+    ? ` · Consumer: ${escapeHtml(consumer.branch)}${consumer.dirty ? ' · dirty' : ''}`
+    : '';
+  bar.innerHTML = `
+    <span style="color:#166534;font-weight:700">Local repo connected</span>
+    <span>DS: ${escapeHtml(source.branch)}${dirty}${consumerText}</span>
+    <a href="./update.html"
+      style="margin-left:auto;padding:3px 10px;background:#fff;color:#1a1a1a;border:1px solid #e0e0e0;border-radius:4px;font-size:12px;text-decoration:none">
+      Update commands
+    </a>
+    <button onclick="loadLiveData()"
+      style="padding:3px 10px;background:#1a1a1a;color:#fff;border:none;border-radius:4px;font-size:12px;cursor:pointer">
+      Refresh
+    </button>`;
+}
+
+function statusForLabel(status) {
+  return status === 'available' ? 'Available' : status === 'detected' ? 'Detected' : status === 'missing' ? 'Not detected' : status === 'done' ? 'Complete' : status === 'in-progress' ? 'In Progress' : status === 'next-up' ? 'Next Up' : 'Planned';
+}
+
+function statusColor(status) {
+  return status === 'available' || status === 'done' ? '#16a34a' : status === 'detected' || status === 'in-progress' ? '#2563eb' : status === 'next-up' ? '#2563eb' : '#dadada';
+}
+
+function sectionByTitle(title, root = document) {
+  return [...root.querySelectorAll('.section')].find(section =>
+    section.querySelector('.section-title')?.textContent.trim() === title
+  );
+}
+
+function sectionByAnyTitle(titles, root = document) {
+  return [...root.querySelectorAll('.section')].find(section =>
+    titles.includes(section.querySelector('.section-title')?.textContent.trim())
+  );
+}
+
+function headerBlockByTitle(title) {
+  const header = [...document.querySelectorAll('.section-header')].find(item =>
+    item.querySelector('.section-title')?.textContent.trim() === title
+  );
+  return header?.parentElement;
+}
+
+function renderActivityRows(activity) {
+  const tbody = sectionByTitle('Recent Activity')?.querySelector('tbody');
+  if (!tbody || !activity?.length) return;
+
+  tbody.innerHTML = activity.slice(0, 8).map(item => `
+    <tr>
+      <td>${pill(item.status, true)}</td>
+      <td><strong>${escapeHtml(item.type)}</strong> — ${escapeHtml(item.event)}</td>
+      <td style="color:#8d8d8d;font-size:12px;white-space:nowrap">${escapeHtml(item.date === 'Live' ? 'Live' : formatDate(item.date))}</td>
+    </tr>`).join('');
+
+  const note = sectionByTitle('Recent Activity')?.querySelector('.note-bar');
+  if (note) {
+    note.className = 'note-bar info';
+    note.textContent = 'Activity is generated from maxpreps-design-system package/component/workflow state plus adoption signals from maxpreps-fe-react.';
+  }
+}
+
+function renderFoundationSections(foundations) {
+  if (!foundations?.length) return;
+
+  const note = document.querySelector('#tab-foundations > .note-bar');
+  if (note) {
+    note.className = 'note-bar info';
+    note.textContent = 'This tab only shows repository signals detected in maxpreps-design-system. It does not infer contract completion or roadmap status.';
+  }
+
+  const grid = document.querySelector('#tab-foundations .foundation-grid');
+  if (grid) {
+    grid.innerHTML = foundations.map(item => `
+      <div class="foundation-item" style="--fl:${statusColor(item.status)}">
+        <div class="foundation-item-header">
+          <div class="foundation-item-title">${escapeHtml(item.title)}</div>
+          ${pill(item.status)}
+        </div>
+        <div class="foundation-item-body">${escapeHtml(item.detail)}</div>
+        <div class="tag-row">${(item.tags || []).map(tag => `<span class="tag">${escapeHtml(tag)}</span>`).join('')}</div>
+      </div>`).join('');
+  }
+
+  const progressCard = sectionByTitle('Foundation Progress')?.querySelector('.card');
+  if (progressCard) {
+    progressCard.innerHTML = foundations.map(item => `
+      <div class="prog-wrap">
+        <div class="prog-row"><span class="prog-label">${escapeHtml(item.title)}</span>${pill(item.status, true)}</div>
+        <div class="prog-track"><div class="prog-fill ${item.status === 'available' || item.status === 'done' ? 'green' : item.status === 'detected' || item.status === 'in-progress' ? 'amber' : 'gray'}" style="width:${Math.max(0, Math.min(100, item.progress || 0))}%"></div></div>
+      </div>`).join('');
+  }
+}
+
+function renderOverviewProgress(data) {
+  const counts = data.counts || {};
+  const consumer = data.consumer || {};
+  const metrics = consumer.metrics || {};
+  const foundationDone = (data.foundations || []).filter(item => item.status === 'available').length;
+  const foundationTotal = (data.foundations || []).length;
+
+  document.querySelectorAll('.prog-label').forEach(label => {
+    const text = label.textContent.trim();
+    if (text === 'Foundation (Ph 1–2)') label.textContent = 'Foundation Signals';
+    if (text === 'Core Components (Ph 3)') label.textContent = 'Available Component Folders';
+    if (text === 'Legacy Replaced (Ph 4)') label.textContent = 'Consumer DS Imports';
+  });
+  setProgress('Foundation Signals', `${foundationDone} / ${foundationTotal}`, foundationTotal ? (foundationDone / foundationTotal) * 100 : 0, 'green');
+  setProgress('Consumer DS Imports', `${metrics.importStatements || 0} DS imports`, metrics.migrationCandidates ? ((metrics.importStatements || 0) / metrics.migrationCandidates) * 100 : 0, metrics.importStatements ? 'amber' : 'gray');
+
+  const progressBlock = headerBlockByTitle('Component Build Progress') || headerBlockByTitle('Component Repo Signals');
+  const progressTitle = progressBlock?.querySelector('.section-title');
+  if (progressTitle) progressTitle.textContent = 'Component Repo Signals';
+  const chartTitle = headerBlockByTitle('Components by Phase')?.querySelector('.section-title');
+  if (chartTitle) chartTitle.textContent = 'Repo Signal Mix';
+
+  const legend = progressBlock?.querySelector('.card > div:last-child');
+  if (legend) {
+    legend.innerHTML = `
+      <div style="display:flex;align-items:center;gap:7px;font-size:12px"><span class="sdot sdot-green"></span>Available: ${counts.done || 0}</div>
+      <div style="display:flex;align-items:center;gap:7px;font-size:12px"><span class="sdot sdot-amber"></span>Detected without full pattern: ${counts.inProgress || 0}</div>
+      <div style="display:flex;align-items:center;gap:7px;font-size:12px"><span class="sdot sdot-light"></span>Consumer imports: ${data.consumer?.metrics?.importStatements || 0}</div>`;
+  }
+}
+
+function renderAdoption(consumer) {
+  if (!consumer) return;
+  const metrics = consumer.metrics || {};
+  const note = document.querySelector('#tab-adoption > .note-bar');
+  if (note) {
+    note.className = metrics.importStatements ? 'note-bar info' : 'note-bar warn';
+    note.textContent = `${consumer.packageName}: ${consumer.adoptionStatus} Adoption is measured only from package dependencies and source imports in maxpreps-fe-react.`;
+  }
+
+  const stageSection = sectionByAnyTitle(['Adoption Stages', 'Current Consumer Repo Signals'], document.getElementById('tab-adoption'));
+  if (stageSection) {
+    stageSection.querySelector('.section-title').textContent = 'Current Consumer Repo Signals';
+    const grid = stageSection.querySelector('.four-col');
+    if (grid) {
+      grid.innerHTML = `
+        <div class="adoption-card current">
+          <div class="stage-num">Dependency</div>
+          <div class="stage-label">${consumer.hasDesignSystemDependency ? 'Detected' : 'Not detected'}</div>
+          <div class="stage-desc">Checks package.json for @playon-maxpreps/dsm or @playon-maxpreps/design-system.</div>
+          <div class="stage-status">${pill(consumer.hasDesignSystemDependency ? 'available' : 'missing')}</div>
+        </div>
+        <div class="adoption-card current">
+          <div class="stage-num">Imports</div>
+          <div class="stage-label">${metrics.importStatements || 0}</div>
+          <div class="stage-desc">Exact @playon-maxpreps/dsm import statements found in source files.</div>
+          <div class="stage-status">${pill(metrics.importStatements ? 'available' : 'missing')}</div>
+        </div>
+        <div class="adoption-card current">
+          <div class="stage-num">Page Coverage</div>
+          <div class="stage-label">${metrics.pageCoverage || 0}%</div>
+          <div class="stage-desc">${metrics.pagesWithDesignSystem || 0} of ${metrics.totalPages || 0} page/layout files import the design system.</div>
+          <div class="stage-status">${pill(metrics.pagesWithDesignSystem ? 'available' : 'missing')}</div>
+        </div>
+        <div class="adoption-card current">
+          <div class="stage-num">Name Overlap</div>
+          <div class="stage-label">${metrics.migrationCandidates || 0}</div>
+          <div class="stage-desc">Existing shared UI/core folder names that match current design-system component folder names.</div>
+          <div class="stage-status">${pill(metrics.migrationCandidates ? 'detected' : 'missing')}</div>
+        </div>`;
+    }
+  }
+
+  const metricsSection = sectionByAnyTitle(['Planned Metrics — maxpreps-fe-react', 'Measured Signals — maxpreps-fe-react'], document.getElementById('tab-adoption'));
+  if (metricsSection) metricsSection.querySelector('.section-title').textContent = 'Measured Signals — maxpreps-fe-react';
+  const tbody = metricsSection?.querySelector('tbody');
+  if (tbody) {
+    const head = metricsSection.querySelector('thead tr');
+    if (head) head.innerHTML = '<th>Metric</th><th>Measurement</th><th>Source</th><th>Current</th>';
+    tbody.innerHTML = `
+      <tr><td><strong>Import statements</strong></td><td style="font-size:12px;color:#6e6e6e">Exact @playon-maxpreps/dsm or @playon-maxpreps/design-system import matches</td><td style="font-family:monospace;font-size:12px">maxpreps-fe-react/src</td><td>${metrics.importStatements || 0}</td></tr>
+      <tr><td><strong>Import files</strong></td><td style="font-size:12px;color:#6e6e6e">Files containing a design-system package import</td><td style="font-family:monospace;font-size:12px">maxpreps-fe-react/src</td><td>${metrics.importFiles || 0}</td></tr>
+      <tr><td><strong>Page files with imports</strong></td><td style="font-size:12px;color:#6e6e6e">page/layout files containing a design-system package import</td><td style="font-family:monospace;font-size:12px">src/pages, src/app</td><td>${metrics.pagesWithDesignSystem || 0}/${metrics.totalPages || 0}</td></tr>
+      <tr><td><strong>Project folders with imports</strong></td><td style="font-size:12px;color:#6e6e6e">Unique src/projects/* folder names among import files</td><td style="font-family:monospace;font-size:12px">src/projects/*</td><td>${metrics.teamsUsingDesignSystem || 0}</td></tr>
+      <tr><td><strong>Name overlaps</strong></td><td style="font-size:12px;color:#6e6e6e">Exact folder-name overlap with current design-system component folders</td><td style="font-family:monospace;font-size:12px">shared ui/core/radix folders</td><td>${metrics.migrationCandidates || 0}</td></tr>
+      <tr><td><strong>Consumer repo context</strong></td><td style="font-size:12px;color:#6e6e6e">Branch, source size, and working tree state</td><td style="font-family:monospace;font-size:12px">git, src/**/*</td><td>${escapeHtml(consumer.source?.branch || '—')} · ${metrics.sourceFiles || 0} files · ${metrics.dirtyFiles || 0} dirty</td></tr>`;
+  }
+
+  const rolloutSection = sectionByAnyTitle(['Rollout Plan', 'Migration Candidate Names'], document.getElementById('tab-adoption'));
+  const rollout = rolloutSection?.querySelector('.card');
+  if (rollout) {
+    rolloutSection.querySelector('.section-title').textContent = 'Migration Candidate Names';
+    const examples = consumer.legacyExamples || [];
+    rollout.innerHTML = `
+      <div style="font-size:12px;color:#6e6e6e;line-height:1.6;margin-bottom:12px">These are not confirmed migrations. They are exact folder-name overlaps between current design-system components and maxpreps-fe-react shared UI/core component folders.</div>
+      <div class="tag-row">${examples.length ? examples.map(name => `<span class="tag">${escapeHtml(name)}</span>`).join('') : '<span class="tag">No overlaps detected</span>'}</div>`;
+  }
+}
+
+function renderPhases(data) {
+  const counts = data.counts || {};
+  const consumer = data.consumer || {};
+  const metrics = consumer.metrics || {};
+  const tab = document.getElementById('tab-phases');
+  if (!tab) return;
+  tab.innerHTML = `
+    <div class="note-bar info">This tab no longer infers phase completion. It lists repo-backed signals only; contract dates remain static in the timeline above.</div>
+    <div class="five-col" style="margin-bottom:28px">
+      <div class="metric-card"><div class="metric-label">Component Folders</div><div class="metric-value sm">${counts.total || 0}</div><div class="metric-sub">${counts.done || 0} with index/server files</div></div>
+      <div class="metric-card"><div class="metric-label">Theme Selectors</div><div class="metric-value sm">${data.themes?.length || 0}</div><div class="metric-sub">from tokens CSS</div></div>
+      <div class="metric-card"><div class="metric-label">Workflow Files</div><div class="metric-value sm">${data.workflows?.length || 0}</div><div class="metric-sub">${data.workflows?.filter(w => w.active).length || 0} active</div></div>
+      <div class="metric-card"><div class="metric-label">Consumer Imports</div><div class="metric-value sm">${metrics.importStatements || 0}</div><div class="metric-sub">in maxpreps-fe-react</div></div>
+      <div class="metric-card"><div class="metric-label">Name Overlaps</div><div class="metric-value sm">${metrics.migrationCandidates || 0}</div><div class="metric-sub">candidate matches only</div></div>
+    </div>
+    <div class="section">
+      <div class="section-header"><div class="section-title">Repo-Backed Signals</div></div>
+      <div class="card">
+        <table class="data-table">
+          <thead><tr><th>Signal</th><th>Source</th><th>Value</th></tr></thead>
+          <tbody>
+            <tr><td>Design-system branch</td><td><span class="cat-label">git</span></td><td>${escapeHtml(data.source?.branch || '—')}${data.source?.dirty ? ' · dirty' : ''}</td></tr>
+            <tr><td>Consumer branch</td><td><span class="cat-label">git</span></td><td>${escapeHtml(consumer.source?.branch || '—')}${consumer.source?.dirty ? ' · dirty' : ''}</td></tr>
+            <tr><td>Available component folders</td><td><span class="cat-label">packages/design-system/components</span></td><td>${counts.done || 0}</td></tr>
+            <tr><td>Storybook-backed components</td><td><span class="cat-label">apps/storybook/stories</span></td><td>${(data.components || []).filter(c => c.storybook).length}</td></tr>
+            <tr><td>Test-backed components</td><td><span class="cat-label">*.spec / *.test</span></td><td>${(data.components || []).filter(c => c.tests).length}</td></tr>
+            <tr><td>Design-system imports in consumer</td><td><span class="cat-label">source scan</span></td><td>${metrics.importStatements || 0}</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>`;
+}
+
+function renderInfrastructure(data) {
+  const tab = document.getElementById('tab-infrastructure');
+  if (!tab) return;
+  const infra = data.designSystem?.infrastructure || {};
+  const packages = data.packages || [];
+  const workflows = data.workflows || [];
+  const signals = infra.signals || [];
+
+  tab.innerHTML = `
+    <div class="note-bar info">Infrastructure shows detected repository signals only. Cards list the file or directory used as the source.</div>
+
+    <div class="four-col" style="margin-bottom:24px">
+      <div class="metric-card"><div class="metric-label">Workflow Files</div><div class="metric-value">${infra.activeWorkflows || 0}/${infra.totalWorkflows || 0}</div><div class="metric-sub">from .github/workflows</div></div>
+      <div class="metric-card"><div class="metric-label">Package JSON Files</div><div class="metric-value">${packages.length || 0}</div><div class="metric-sub">packages/* and libraries/*</div></div>
+      <div class="metric-card"><div class="metric-label">Theme Selectors</div><div class="metric-value">${data.themes?.length || 0}</div><div class="metric-sub">from packages/tokens/themes.css</div></div>
+      <div class="metric-card"><div class="metric-label">Publish Registry</div><div class="metric-value sm">${escapeHtml(infra.packageRegistry || 'Not declared')}</div><div class="metric-sub">publishConfig.registry</div></div>
+    </div>
+
+    <div class="section">
+      <div class="section-header"><div class="section-title">Infrastructure Signals</div></div>
+      <div class="card">
+        <table class="data-table">
+          <thead><tr><th>Signal</th><th>Value</th><th>Status</th><th>Source</th><th>Detail</th></tr></thead>
+          <tbody>
+            ${signals.map(signal => `
+              <tr>
+                <td><strong>${escapeHtml(signal.title)}</strong></td>
+                <td>${escapeHtml(signal.value)}</td>
+                <td>${pill(signal.status)}</td>
+                <td style="font-family:monospace;font-size:12px">${escapeHtml(signal.source)}</td>
+                <td style="font-size:12px;color:#6e6e6e">${escapeHtml(signal.detail)}</td>
+              </tr>`).join('')}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header"><div class="section-title">Package Inventory</div></div>
+      <div class="card">
+        <table class="data-table">
+          <thead><tr><th>Directory</th><th>Package Name</th><th>Version</th><th>Private</th><th>Source</th></tr></thead>
+          <tbody>
+            ${packages.map(pkg => `
+              <tr>
+                <td><strong>${escapeHtml(pkg.dir)}</strong></td>
+                <td style="font-family:monospace;font-size:12px">${escapeHtml(pkg.name)}</td>
+                <td>${escapeHtml(pkg.version)}</td>
+                <td>${escapeHtml(pkg.private ? 'true' : 'false')}</td>
+                <td style="font-family:monospace;font-size:12px">${escapeHtml(pkg.source || '—')}</td>
+              </tr>`).join('')}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header"><div class="section-title">Workflow Files</div></div>
+      <div class="card">
+        <table class="data-table">
+          <thead><tr><th>Workflow</th><th>Status</th><th>Source</th></tr></thead>
+          <tbody>
+            ${workflows.map(workflow => `
+              <tr>
+                <td><strong>${escapeHtml(workflow.name)}</strong></td>
+                <td>${pill(workflow.active ? 'active' : 'disabled')}</td>
+                <td style="font-family:monospace;font-size:12px">${escapeHtml(workflow.source || '—')}</td>
+              </tr>`).join('')}
+          </tbody>
+        </table>
+      </div>
+    </div>`;
+}
+
+function renderTldr(data) {
+  const counts = data.counts || {};
+  const consumer = data.consumer || {};
+  const foundationsAvailable = (data.foundations || []).filter(item => item.status === 'available').length;
+  const foundationsTotal = (data.foundations || []).length;
+  const headline = document.querySelector('#tab-tldr .tldr-headline');
+  const sub = document.querySelector('#tab-tldr .tldr-sub');
+  if (headline) headline.textContent = 'Repo-backed design system dashboard.';
+  if (sub) sub.textContent = 'This view reports local repository signals from maxpreps-design-system and maxpreps-fe-react. It does not infer roadmap progress, adoption maturity, completion, or future state.';
+
+  const healthItems = [...document.querySelectorAll('#tab-tldr .health-item')];
+  const scheduleHealth = healthItems.find(item => item.querySelector('.health-label')?.textContent.trim() === 'On Schedule');
+  if (scheduleHealth) {
+    scheduleHealth.querySelector('.health-label').textContent = 'Contract Timeline';
+    scheduleHealth.querySelector('.health-sub').textContent = `${daysElapsed} days elapsed; ${daysRemaining} days remaining`;
+  }
+  const architectureHealth = healthItems.find(item => item.querySelector('.health-label')?.textContent.trim() === 'Architecture');
+  if (architectureHealth) {
+    architectureHealth.querySelector('.health-label').textContent = 'Foundation Signals';
+    architectureHealth.querySelector('.health-sub').textContent = `${foundationsAvailable} of ${foundationsTotal} detected`;
+  }
+  const componentHealth = healthItems.find(item => item.querySelector('.health-label')?.textContent.trim() === 'Component Build');
+  if (componentHealth) {
+    componentHealth.querySelector('.health-label').textContent = 'Component Repo';
+    componentHealth.querySelector('.health-sub').textContent = `${counts.done || 0} of ${counts.total || 0} component folders match the index/server pattern`;
+  }
+  const migrationHealth = healthItems.find(item => item.querySelector('.health-label')?.textContent.trim() === 'Legacy Migration');
+  if (migrationHealth) {
+    migrationHealth.querySelector('.health-label').textContent = 'Consumer Signals';
+    migrationHealth.querySelector('.health-sub').textContent = `${consumer.metrics?.importStatements || 0} imports; ${consumer.metrics?.migrationCandidates || 0} name overlaps`;
+  }
+  const aiHealth = healthItems.find(item => item.querySelector('.health-label')?.textContent.trim() === 'AI-Readiness');
+  if (aiHealth) {
+    aiHealth.querySelector('.health-label').textContent = 'Roadmap Claims';
+    aiHealth.querySelector('.health-sub').textContent = 'Not inferred by this dashboard';
+  }
+  const docsHealth = healthItems.find(item => item.querySelector('.health-label')?.textContent.trim() === 'Docs & Storybook');
+  const storybookWorkflow = (data.workflows || []).find(workflow => workflow.name === 'deploy-storybook.yml');
+  if (docsHealth && storybookWorkflow) {
+    docsHealth.querySelector('span.pill').outerHTML = storybookWorkflow.active ? pill('available') : pill('missing');
+    docsHealth.querySelector('.health-sub').textContent = storybookWorkflow.active ? 'Storybook workflow active' : 'Storybook workflow disabled';
+  }
+
+  const cards = [...document.querySelectorAll('#tab-tldr .tldr-card')];
+  const current = cards.find(card => card.querySelector('.tldr-card-label')?.textContent.trim() === 'Where we are');
+  if (current) {
+    const title = current.querySelector('.tldr-card-title');
+    const body = current.querySelector('.tldr-card-body');
+    if (title) title.textContent = 'Repo-backed status only.';
+    if (body) body.innerHTML = `We're <strong id="tldr-weeks-in">${weeksIn} weeks</strong> into the contract. The repo scan shows ${counts.done || 0} component folders with index/server files, ${counts.inProgress || 0} detected without that full pattern, and ${consumer.metrics?.importStatements || 0} imports in maxpreps-fe-react.`;
+  }
+  const solved = cards.find(card => card.querySelector('.tldr-card-label')?.textContent.trim() === "What's been solved");
+  if (solved) {
+    solved.querySelector('.tldr-card-title').textContent = 'Foundations are detected, not assumed.';
+    solved.querySelector('.tldr-card-body').textContent = `${foundationsAvailable} of ${foundationsTotal} foundation signals are present in maxpreps-design-system.`;
+    solved.querySelector('span.pill').outerHTML = pill(foundationsAvailable ? 'available' : 'missing');
+  }
+  const now = cards.find(card => card.querySelector('.tldr-card-label')?.textContent.trim() === "What's happening now");
+  if (now) {
+    now.querySelector('.tldr-card-title').textContent = 'Consumer usage is source-scanned.';
+    now.querySelector('.tldr-card-body').textContent = `${consumer.packageName || 'maxpreps-fe-react'} has ${consumer.metrics?.importStatements || 0} design-system imports and ${consumer.metrics?.migrationCandidates || 0} folder-name overlaps with the current component folders.`;
+    now.querySelector('span.pill').outerHTML = pill(consumer.metrics?.importStatements ? 'available' : 'missing');
+  }
+  const headed = cards.find(card => card.querySelector('.tldr-card-label')?.textContent.trim() === "Where we're headed");
+  if (headed) {
+    headed.querySelector('.tldr-card-title').textContent = 'Roadmap status is not inferred.';
+    headed.querySelector('.tldr-card-body').textContent = 'Contract dates stay static. Component, foundation, infrastructure, and adoption content comes from the local design-system and consumer repos.';
+    headed.querySelector('span.pill').outerHTML = pill('detected');
+  }
+
+  const successSection = sectionByTitle('What Success Looks Like', document.getElementById('tab-tldr')) || sectionByTitle('Dashboard Data Boundaries', document.getElementById('tab-tldr'));
+  if (successSection) {
+    successSection.querySelector('.section-title').textContent = 'Dashboard Data Boundaries';
+    const grid = successSection.querySelector('.two-col');
+    if (grid) {
+      grid.innerHTML = `
+        <div class="success-item">
+          <div class="success-title"><span class="success-icon">▣</span>Component folders</div>
+          <div class="success-body">${counts.total || 0} folders detected in packages/design-system/components; ${counts.done || 0} match the index/server file pattern.</div>
+        </div>
+        <div class="success-item">
+          <div class="success-title"><span class="success-icon">⇄</span>Consumer imports</div>
+          <div class="success-body">${consumer.metrics?.importStatements || 0} design-system package imports found in ${consumer.metrics?.importFiles || 0} source files.</div>
+        </div>
+        <div class="success-item">
+          <div class="success-title"><span class="success-icon">◈</span>Foundation signals</div>
+          <div class="success-body">${foundationsAvailable} of ${foundationsTotal} foundation checks are present in the current design-system repo scan.</div>
+        </div>
+        <div class="success-item">
+          <div class="success-title"><span class="success-icon">◇</span>Not inferred</div>
+          <div class="success-body">The dashboard does not claim completion, readiness, team adoption, rollout progress, or future scope unless a repo signal directly supports it.</div>
+        </div>`;
+    }
+  }
+
+  const headerBadges = document.querySelectorAll('.header-right .hbadge');
+  if (headerBadges[0]) {
+    headerBadges[0].innerHTML = `<span class="hbadge-dot"></span>Repo-backed dashboard`;
+  }
+  if (headerBadges[1]) {
+    headerBadges[1].innerHTML = `<span class="hbadge-dot"></span>${counts.done || 0}/${counts.total || 0} component folders available · ${consumer.metrics?.importStatements || 0} consumer imports`;
+  }
+}
+
+function applyDesignSystemData(data) {
+  window.__dashboardData = data;
+  const counts = data.counts || {};
+  const packages = data.packages || [];
+  const themes = data.themes || [];
+
+  setMetricAny(['Components Shipped', 'Component Folders'], counts.total ?? '—', `${counts.done || 0} with index/server files`);
+  setMetric('Packages', packages.length || '—', packages.map(pkg => pkg.dir).join(' · '));
+  setMetric('Token Themes', themes.length ? `${themes.length}` : '—', themes.slice(0, 5).join(' · '));
+  const availableComponents = (data.components || []).filter(c => c.status === 'available').map(c => c.name);
+  const detectedComponents = (data.components || []).filter(c => c.status === 'detected').map(c => c.name);
+  const storybookComponents = (data.components || []).filter(c => c.storybook).map(c => c.name);
+  const testComponents = (data.components || []).filter(c => c.tests).map(c => c.name);
+  setMetricAny(['Shipped', 'Available'], counts.done ?? '—', availableComponents.join(', ') || 'None detected', document.getElementById('tab-components'));
+  setMetricAny(['In Progress', 'Detected'], counts.inProgress ?? '—', detectedComponents.join(', ') || 'None detected', document.getElementById('tab-components'));
+  setMetricAny(['Phase 3 Planned', 'With Storybook'], storybookComponents.length, storybookComponents.join(', ') || 'None detected', document.getElementById('tab-components'));
+  setMetricAny(['Phase 3+4 Total', 'Total Folders'], counts.total ?? '—', `${testComponents.length} with tests`, document.getElementById('tab-components'));
+
+  document.querySelectorAll('#tab-overview .metric-label').forEach(label => {
+    if (label.textContent.trim() === 'Components Shipped') label.textContent = 'Component Folders';
+  });
+  document.querySelectorAll('#tab-components .metric-card').forEach(card => {
+    const label = card.querySelector('.metric-label');
+    if (!label) return;
+    const text = label.textContent.trim();
+    if (text === 'Shipped') label.textContent = 'Available';
+    if (text === 'In Progress') label.textContent = 'Detected';
+    if (text === 'Phase 3 Planned') label.textContent = 'With Storybook';
+    if (text === 'Phase 3+4 Total') label.textContent = 'Total Folders';
+  });
+
+  setProgress('Available Component Folders', `${counts.done || 0} / ${counts.total || 0}`, counts.total ? ((counts.done || 0) / counts.total) * 100 : 0, 'amber');
+  updateChart(counts);
+  renderCommitList(data.commits);
+  renderComponentRows(data.components);
+  renderPackageRows(packages);
+  renderWorkflowCards(data.workflows);
+  renderActivityRows(data.activity);
+  renderFoundationSections(data.foundations);
+  renderOverviewProgress(data);
+  renderAdoption(data.consumer);
+  renderPhases(data);
+  renderInfrastructure(data);
+  renderTldr(data);
+  renderLocalRepoStatus(data.source);
+
+  if (data.version) {
+    const badge = document.querySelector('.hbadge');
+    if (badge) badge.textContent = `v${data.version}`;
+  }
+}
+
+async function loadLocalRepoData() {
+  let res = await fetch(`${LOCAL_DATA_URL}?t=${Date.now()}`, { cache: 'no-store' });
+  if (!res.ok) {
+    res = await fetch(`${STATIC_DATA_URL}?t=${Date.now()}`, { cache: 'no-store' });
+  }
+  if (!res.ok) throw new Error(`Dashboard data unavailable (${res.status})`);
+  const data = await res.json();
+  if (!data.ok) throw new Error(data.error || 'Local repo endpoint failed');
+  applyDesignSystemData(data);
+}
+
+async function loadGitHubData() {
+  try {
+    const [repo, prs, release] = await Promise.all([
+      ghFetch(''),
+      ghFetch('/pulls?state=open&per_page=100'),
+      ghFetch('/releases/latest'),
+    ]);
+
+    // Version badge
+    if (release?.tag_name) {
+      const badge = document.querySelector('.hbadge');
+      if (badge) badge.textContent = release.tag_name;
+    }
+
+    // Open PRs
+    if (prs !== null) {
+      const el = document.getElementById('gh-open-prs');
+      if (el) el.textContent = prs.length;
+    }
+
+    // Repo stats
+    if (repo) {
+      const el = document.getElementById('gh-open-issues');
+      if (el) el.textContent = repo.open_issues_count - (prs?.length || 0);
+    }
+  } catch(e) {
+    console.warn('GitHub fetch failed:', e);
+  }
+}
+
+function showTokenPrompt(message = 'Local repo data unavailable') {
+  document.querySelectorAll('.tab-panel').forEach(panel => {
+    panel.innerHTML = `
+      <div class="note-bar warn">
+        Repo-backed dashboard data is unavailable. Static fallback content is hidden so the dashboard does not show inferred status.
+      </div>`;
+  });
+
+  const bar = document.getElementById('gh-status-bar');
+  if (bar) {
+    bar.innerHTML = `
+      <span style="color:#b45309">${escapeHtml(message)} —</span>
+      run <code>npm run dashboard:snapshot</code> or <code>npm run dashboard:update</code>, then refresh.
+      <a href="./update.html"
+        style="margin-left:auto;padding:3px 10px;background:#fff;color:#1a1a1a;border:1px solid #e0e0e0;border-radius:4px;font-size:12px;text-decoration:none">
+        Update commands
+      </a>`;
+  }
+}
+
+function saveToken() {
+  const val = document.getElementById('gh-token-input')?.value?.trim();
+  if (val) { localStorage.setItem(GH_TOKEN_KEY, val); loadLiveData(); }
+}
+
+async function loadLiveData() {
+  try {
+    await loadLocalRepoData();
+  } catch (e) {
+    console.warn('Local repo fetch failed:', e);
+    showTokenPrompt(e.message);
+  }
+
+  await loadGitHubData();
+}
+
+// Inject status bar below header
+(function injectStatusBar() {
+  const bar = document.createElement('div');
+  bar.id = 'gh-status-bar';
+  bar.style.cssText = 'background:#fffcf5;border-bottom:1px solid #fde68a;padding:8px 36px;font-size:12px;color:#6e6e6e;display:flex;align-items:center;gap:8px;flex-shrink:0';
+  bar.textContent = 'Loading design system repo data...';
+  document.querySelector('.tabs-bar')?.insertAdjacentElement('beforebegin', bar);
+})();
+
+loadLiveData();
+setInterval(loadLiveData, 30000);
+</script>
+</body>
+</html>

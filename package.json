@@ -6,6 +6,9 @@
   "scripts": {
     "dev": "vite",
     "build:varsity-signal-assets": "node scripts/build-varsity-signal-assets.mjs",
+    "dashboard:snapshot": "node scripts/design-system-dashboard-data.mjs snapshot",
+    "dashboard:update": "node scripts/design-system-dashboard-data.mjs update",
+    "dashboard:update:dry-run": "node scripts/design-system-dashboard-data.mjs update --dry-run",
     "build": "vite build",
     "preview": "vite preview"
   },

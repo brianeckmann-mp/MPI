@@ -1,0 +1,818 @@
+{
+  "ok": true,
+  "source": {
+    "label": "maxpreps-design-system",
+    "repoPath": "/Users/brian.eckmann/Documents/GitHub/maxpreps-design-system",
+    "exists": true,
+    "branch": "deploy/stakeholder-dashboard",
+    "dirty": true,
+    "updatedAt": "2026-06-08T16:55:00.991Z"
+  },
+  "generatedAt": "2026-06-08T16:55:01.992Z",
+  "packages": [
+    {
+      "dir": "design-system",
+      "kind": "Package",
+      "name": "@playon-maxpreps/dsm",
+      "version": "0.0.1",
+      "private": false,
+      "description": "No package.json description",
+      "source": "packages/design-system/package.json"
+    },
+    {
+      "dir": "icons",
+      "kind": "Package",
+      "name": "@playon-maxpreps/icons",
+      "version": "0.0.1",
+      "private": false,
+      "description": "No package.json description",
+      "source": "packages/icons/package.json"
+    },
+    {
+      "dir": "tokens",
+      "kind": "Package",
+      "name": "@playon-maxpreps/tokens",
+      "version": "0.0.1",
+      "private": false,
+      "description": "No package.json description",
+      "source": "packages/tokens/package.json"
+    },
+    {
+      "dir": "types",
+      "kind": "Package",
+      "name": "@playon-maxpreps/types",
+      "version": "0.0.1",
+      "private": false,
+      "description": "No package.json description",
+      "source": "packages/types/package.json"
+    },
+    {
+      "dir": "config",
+      "kind": "Library",
+      "name": "@playon-maxpreps/config",
+      "version": "0.0.1",
+      "private": true,
+      "description": "No package.json description",
+      "source": "libraries/config/package.json"
+    },
+    {
+      "dir": "utilities",
+      "kind": "Library",
+      "name": "@playon-maxpreps/utils",
+      "version": "0.0.1",
+      "private": true,
+      "description": "No package.json description",
+      "source": "libraries/utilities/package.json"
+    }
+  ],
+  "themes": [
+    "neutral-light",
+    "neutral-dark",
+    "neutral-warm-light",
+    "neutral-warm-dark",
+    "red-light",
+    "red-dark",
+    "blue-light",
+    "blue-dark",
+    "green-light",
+    "green-dark",
+    "orange-light",
+    "orange-dark",
+    "yellow-light",
+    "yellow-dark"
+  ],
+  "components": [
+    {
+      "name": "Button",
+      "category": "Component folder",
+      "priority": "—",
+      "status": "available",
+      "tests": true,
+      "storybook": true,
+      "hasIndex": true,
+      "hasServer": true,
+      "path": "packages/design-system/components/Button"
+    },
+    {
+      "name": "FAIcon",
+      "category": "Component folder",
+      "priority": "—",
+      "status": "available",
+      "tests": false,
+      "storybook": false,
+      "hasIndex": true,
+      "hasServer": true,
+      "path": "packages/design-system/components/FAIcon"
+    },
+    {
+      "name": "IconWrapper",
+      "category": "Component folder",
+      "priority": "—",
+      "status": "available",
+      "tests": false,
+      "storybook": false,
+      "hasIndex": true,
+      "hasServer": true,
+      "path": "packages/design-system/components/IconWrapper"
+    }
+  ],
+  "counts": {
+    "done": 3,
+    "inProgress": 0,
+    "nextUp": 0,
+    "planned": 0,
+    "total": 3
+  },
+  "workflows": [
+    {
+      "name": "build.yml",
+      "file": "build.yml",
+      "active": true,
+      "source": ".github/workflows/build.yml"
+    },
+    {
+      "name": "deploy-site.yml",
+      "file": "deploy-site.yml",
+      "active": true,
+      "source": ".github/workflows/deploy-site.yml"
+    },
+    {
+      "name": "deploy-storybook.yml",
+      "file": "deploy-storybook.yml.disabled",
+      "active": false,
+      "source": ".github/workflows/deploy-storybook.yml.disabled"
+    },
+    {
+      "name": "release.yml",
+      "file": "release.yml",
+      "active": true,
+      "source": ".github/workflows/release.yml"
+    }
+  ],
+  "foundations": [
+    {
+      "title": "Token Theme File",
+      "status": "available",
+      "detail": "14 [data-theme] selectors found in packages/tokens/themes.css.",
+      "tags": [
+        "packages/tokens/themes.css",
+        "14 themes"
+      ],
+      "progress": 100
+    },
+    {
+      "title": "Component Folders",
+      "status": "available",
+      "detail": "3 component folders found in packages/design-system/components.",
+      "tags": [
+        "packages/design-system/components",
+        "3 server exports"
+      ],
+      "progress": 100
+    },
+    {
+      "title": "Workspace Packages",
+      "status": "available",
+      "detail": "6 workspace packages/libraries detected under packages/* and libraries/*.",
+      "tags": [
+        "packages/*",
+        "libraries/*",
+        "6 workspaces"
+      ],
+      "progress": 100
+    },
+    {
+      "title": "GitHub Workflows",
+      "status": "available",
+      "detail": "4 workflow files detected; 3 are active and 1 are disabled.",
+      "tags": [
+        ".github/workflows",
+        "3 active"
+      ],
+      "progress": 75
+    },
+    {
+      "title": "Storybook Stories",
+      "status": "available",
+      "detail": "2 Storybook story/doc files found in apps/storybook/stories.",
+      "tags": [
+        "apps/storybook/stories",
+        "Button.mdx",
+        "Button.stories.tsx"
+      ],
+      "progress": 100
+    },
+    {
+      "title": "Component Tests",
+      "status": "available",
+      "detail": "1 component test files found under packages/design-system.",
+      "tags": [
+        "*.spec.tsx",
+        "*.test.tsx",
+        "Button.spec.tsx"
+      ],
+      "progress": 100
+    },
+    {
+      "title": "Typography CSS",
+      "status": "available",
+      "detail": "packages/design-system/system/typography.css exists.",
+      "tags": [
+        "packages/design-system/system/typography.css"
+      ],
+      "progress": 100
+    },
+    {
+      "title": "Package Build Script",
+      "status": "available",
+      "detail": "The design-system package has a build script configured.",
+      "tags": [
+        "tsup",
+        "ESM",
+        "CJS",
+        "Types"
+      ],
+      "progress": 100
+    }
+  ],
+  "roadmapQueue": {
+    "source": "Manual queue provided in dashboard request on 2026-06-08",
+    "sections": [
+      {
+        "title": "Foundations",
+        "items": [
+          "Type",
+          "Shadows / Elevation"
+        ]
+      },
+      {
+        "title": "Components",
+        "items": [
+          "Card",
+          "Text Input",
+          "Modal",
+          "Tabs",
+          "Select (Dropdown)"
+        ]
+      },
+      {
+        "title": "Patterns",
+        "items": []
+      }
+    ]
+  },
+  "commits": [
+    {
+      "sha": "497d4213f3530f49cdf8d6f3daf429ee432c95b1",
+      "shortSha": "497d421",
+      "author": "brianeckmann-mp",
+      "date": "2026-05-18T10:58:11-06:00",
+      "message": "Refine button token states"
+    },
+    {
+      "sha": "bf864209267be65ef29371f2a5f3a083343dc6b0",
+      "shortSha": "bf86420",
+      "author": "Phil Moody",
+      "date": "2026-05-16T12:35:54-04:00",
+      "message": "chore: update package dependencies and config"
+    },
+    {
+      "sha": "e40b7dcbfe4c09ed9f0a502b0848622d6088eab9",
+      "shortSha": "e40b7dc",
+      "author": "Phil Moody",
+      "date": "2026-05-16T12:28:24-04:00",
+      "message": "chore: add workflow dispatch event to ci/cd"
+    },
+    {
+      "sha": "db3c3d1a94ab75a7d7fcf8636356434fb576755b",
+      "shortSha": "db3c3d1",
+      "author": "Nathanael Moody",
+      "date": "2026-05-16T12:25:30-04:00",
+      "message": "Merge pull request #3 from playon-maxpreps/changeset-release/main"
+    },
+    {
+      "sha": "16a57f7ea716af1171c69861ec873f67097ce74b",
+      "shortSha": "16a57f7",
+      "author": "github-actions[bot]",
+      "date": "2026-05-16T16:14:54Z",
+      "message": "chore: release packages"
+    },
+    {
+      "sha": "6370f3d851a45e571adb124103fbfb0d6e96e58e",
+      "shortSha": "6370f3d",
+      "author": "Phil Moody",
+      "date": "2026-05-16T12:14:23-04:00",
+      "message": "chore: update storybook package name and config"
+    },
+    {
+      "sha": "79d5d14596786581b16ec834a24f6d5d6e32fb27",
+      "shortSha": "79d5d14",
+      "author": "Phil Moody",
+      "date": "2026-05-16T12:11:21-04:00",
+      "message": "chore: update dsm package references and icons"
+    },
+    {
+      "sha": "3955633e352f314ace183fcf6d7c49597d11c5e2",
+      "shortSha": "3955633",
+      "author": "Phil Moody",
+      "date": "2026-05-16T11:50:14-04:00",
+      "message": "chore: update storybook package name and config"
+    }
+  ],
+  "version": "0.0.1",
+  "designSystem": {
+    "source": {
+      "label": "maxpreps-design-system",
+      "repoPath": "/Users/brian.eckmann/Documents/GitHub/maxpreps-design-system",
+      "exists": true,
+      "branch": "deploy/stakeholder-dashboard",
+      "dirty": true,
+      "updatedAt": "2026-06-08T16:55:00.991Z"
+    },
+    "packages": [
+      {
+        "dir": "design-system",
+        "kind": "Package",
+        "name": "@playon-maxpreps/dsm",
+        "version": "0.0.1",
+        "private": false,
+        "description": "No package.json description",
+        "source": "packages/design-system/package.json"
+      },
+      {
+        "dir": "icons",
+        "kind": "Package",
+        "name": "@playon-maxpreps/icons",
+        "version": "0.0.1",
+        "private": false,
+        "description": "No package.json description",
+        "source": "packages/icons/package.json"
+      },
+      {
+        "dir": "tokens",
+        "kind": "Package",
+        "name": "@playon-maxpreps/tokens",
+        "version": "0.0.1",
+        "private": false,
+        "description": "No package.json description",
+        "source": "packages/tokens/package.json"
+      },
+      {
+        "dir": "types",
+        "kind": "Package",
+        "name": "@playon-maxpreps/types",
+        "version": "0.0.1",
+        "private": false,
+        "description": "No package.json description",
+        "source": "packages/types/package.json"
+      },
+      {
+        "dir": "config",
+        "kind": "Library",
+        "name": "@playon-maxpreps/config",
+        "version": "0.0.1",
+        "private": true,
+        "description": "No package.json description",
+        "source": "libraries/config/package.json"
+      },
+      {
+        "dir": "utilities",
+        "kind": "Library",
+        "name": "@playon-maxpreps/utils",
+        "version": "0.0.1",
+        "private": true,
+        "description": "No package.json description",
+        "source": "libraries/utilities/package.json"
+      }
+    ],
+    "themes": [
+      "neutral-light",
+      "neutral-dark",
+      "neutral-warm-light",
+      "neutral-warm-dark",
+      "red-light",
+      "red-dark",
+      "blue-light",
+      "blue-dark",
+      "green-light",
+      "green-dark",
+      "orange-light",
+      "orange-dark",
+      "yellow-light",
+      "yellow-dark"
+    ],
+    "components": [
+      {
+        "name": "Button",
+        "category": "Component folder",
+        "priority": "—",
+        "status": "available",
+        "tests": true,
+        "storybook": true,
+        "hasIndex": true,
+        "hasServer": true,
+        "path": "packages/design-system/components/Button"
+      },
+      {
+        "name": "FAIcon",
+        "category": "Component folder",
+        "priority": "—",
+        "status": "available",
+        "tests": false,
+        "storybook": false,
+        "hasIndex": true,
+        "hasServer": true,
+        "path": "packages/design-system/components/FAIcon"
+      },
+      {
+        "name": "IconWrapper",
+        "category": "Component folder",
+        "priority": "—",
+        "status": "available",
+        "tests": false,
+        "storybook": false,
+        "hasIndex": true,
+        "hasServer": true,
+        "path": "packages/design-system/components/IconWrapper"
+      }
+    ],
+    "counts": {
+      "done": 3,
+      "inProgress": 0,
+      "nextUp": 0,
+      "planned": 0,
+      "total": 3
+    },
+    "workflows": [
+      {
+        "name": "build.yml",
+        "file": "build.yml",
+        "active": true,
+        "source": ".github/workflows/build.yml"
+      },
+      {
+        "name": "deploy-site.yml",
+        "file": "deploy-site.yml",
+        "active": true,
+        "source": ".github/workflows/deploy-site.yml"
+      },
+      {
+        "name": "deploy-storybook.yml",
+        "file": "deploy-storybook.yml.disabled",
+        "active": false,
+        "source": ".github/workflows/deploy-storybook.yml.disabled"
+      },
+      {
+        "name": "release.yml",
+        "file": "release.yml",
+        "active": true,
+        "source": ".github/workflows/release.yml"
+      }
+    ],
+    "foundations": [
+      {
+        "title": "Token Theme File",
+        "status": "available",
+        "detail": "14 [data-theme] selectors found in packages/tokens/themes.css.",
+        "tags": [
+          "packages/tokens/themes.css",
+          "14 themes"
+        ],
+        "progress": 100
+      },
+      {
+        "title": "Component Folders",
+        "status": "available",
+        "detail": "3 component folders found in packages/design-system/components.",
+        "tags": [
+          "packages/design-system/components",
+          "3 server exports"
+        ],
+        "progress": 100
+      },
+      {
+        "title": "Workspace Packages",
+        "status": "available",
+        "detail": "6 workspace packages/libraries detected under packages/* and libraries/*.",
+        "tags": [
+          "packages/*",
+          "libraries/*",
+          "6 workspaces"
+        ],
+        "progress": 100
+      },
+      {
+        "title": "GitHub Workflows",
+        "status": "available",
+        "detail": "4 workflow files detected; 3 are active and 1 are disabled.",
+        "tags": [
+          ".github/workflows",
+          "3 active"
+        ],
+        "progress": 75
+      },
+      {
+        "title": "Storybook Stories",
+        "status": "available",
+        "detail": "2 Storybook story/doc files found in apps/storybook/stories.",
+        "tags": [
+          "apps/storybook/stories",
+          "Button.mdx",
+          "Button.stories.tsx"
+        ],
+        "progress": 100
+      },
+      {
+        "title": "Component Tests",
+        "status": "available",
+        "detail": "1 component test files found under packages/design-system.",
+        "tags": [
+          "*.spec.tsx",
+          "*.test.tsx",
+          "Button.spec.tsx"
+        ],
+        "progress": 100
+      },
+      {
+        "title": "Typography CSS",
+        "status": "available",
+        "detail": "packages/design-system/system/typography.css exists.",
+        "tags": [
+          "packages/design-system/system/typography.css"
+        ],
+        "progress": 100
+      },
+      {
+        "title": "Package Build Script",
+        "status": "available",
+        "detail": "The design-system package has a build script configured.",
+        "tags": [
+          "tsup",
+          "ESM",
+          "CJS",
+          "Types"
+        ],
+        "progress": 100
+      }
+    ],
+    "commits": [
+      {
+        "sha": "497d4213f3530f49cdf8d6f3daf429ee432c95b1",
+        "shortSha": "497d421",
+        "author": "brianeckmann-mp",
+        "date": "2026-05-18T10:58:11-06:00",
+        "message": "Refine button token states"
+      },
+      {
+        "sha": "bf864209267be65ef29371f2a5f3a083343dc6b0",
+        "shortSha": "bf86420",
+        "author": "Phil Moody",
+        "date": "2026-05-16T12:35:54-04:00",
+        "message": "chore: update package dependencies and config"
+      },
+      {
+        "sha": "e40b7dcbfe4c09ed9f0a502b0848622d6088eab9",
+        "shortSha": "e40b7dc",
+        "author": "Phil Moody",
+        "date": "2026-05-16T12:28:24-04:00",
+        "message": "chore: add workflow dispatch event to ci/cd"
+      },
+      {
+        "sha": "db3c3d1a94ab75a7d7fcf8636356434fb576755b",
+        "shortSha": "db3c3d1",
+        "author": "Nathanael Moody",
+        "date": "2026-05-16T12:25:30-04:00",
+        "message": "Merge pull request #3 from playon-maxpreps/changeset-release/main"
+      },
+      {
+        "sha": "16a57f7ea716af1171c69861ec873f67097ce74b",
+        "shortSha": "16a57f7",
+        "author": "github-actions[bot]",
+        "date": "2026-05-16T16:14:54Z",
+        "message": "chore: release packages"
+      },
+      {
+        "sha": "6370f3d851a45e571adb124103fbfb0d6e96e58e",
+        "shortSha": "6370f3d",
+        "author": "Phil Moody",
+        "date": "2026-05-16T12:14:23-04:00",
+        "message": "chore: update storybook package name and config"
+      },
+      {
+        "sha": "79d5d14596786581b16ec834a24f6d5d6e32fb27",
+        "shortSha": "79d5d14",
+        "author": "Phil Moody",
+        "date": "2026-05-16T12:11:21-04:00",
+        "message": "chore: update dsm package references and icons"
+      },
+      {
+        "sha": "3955633e352f314ace183fcf6d7c49597d11c5e2",
+        "shortSha": "3955633",
+        "author": "Phil Moody",
+        "date": "2026-05-16T11:50:14-04:00",
+        "message": "chore: update storybook package name and config"
+      }
+    ],
+    "version": "0.0.1",
+    "infrastructure": {
+      "activeWorkflows": 3,
+      "totalWorkflows": 4,
+      "testRunner": "Vitest",
+      "tokenPipeline": "^2.0.2",
+      "packageRegistry": "https://npm.pkg.github.com",
+      "signals": [
+        {
+          "title": "Workflow Files",
+          "value": "3/4",
+          "status": "available",
+          "detail": "4 files detected; 3 active.",
+          "source": ".github/workflows"
+        },
+        {
+          "title": "Root Test Script",
+          "value": "vitest",
+          "status": "available",
+          "detail": "package.json contains scripts.test.",
+          "source": "package.json"
+        },
+        {
+          "title": "Token Pipeline Dependency",
+          "value": "^2.0.2",
+          "status": "available",
+          "detail": "@terrazzo/cli is declared in the tokens package.",
+          "source": "packages/tokens/package.json"
+        },
+        {
+          "title": "Theme Selectors",
+          "value": "14",
+          "status": "available",
+          "detail": "14 [data-theme] selectors parsed from the token CSS file.",
+          "source": "packages/tokens/themes.css"
+        },
+        {
+          "title": "Package Manager",
+          "value": "pnpm@10.32.1",
+          "status": "available",
+          "detail": "pnpm-lock.yaml detected.",
+          "source": "pnpm-lock.yaml"
+        },
+        {
+          "title": "Workspace Packages",
+          "value": "6",
+          "status": "available",
+          "detail": "6 package/library package.json files detected.",
+          "source": "packages/*, libraries/*"
+        },
+        {
+          "title": "Storybook Story Files",
+          "value": "2",
+          "status": "available",
+          "detail": "2 Storybook story/doc files detected.",
+          "source": "apps/storybook/stories"
+        },
+        {
+          "title": "Component Test Files",
+          "value": "1",
+          "status": "available",
+          "detail": "1 test files detected under packages/design-system.",
+          "source": "packages/design-system"
+        },
+        {
+          "title": "Component Folders",
+          "value": "3",
+          "status": "available",
+          "detail": "3 folders detected in packages/design-system/components.",
+          "source": "packages/design-system/components"
+        },
+        {
+          "title": "Publish Registry",
+          "value": "https://npm.pkg.github.com",
+          "status": "available",
+          "detail": "publishConfig.registry is declared.",
+          "source": "package.json, packages/design-system/package.json"
+        }
+      ]
+    }
+  },
+  "consumer": {
+    "source": {
+      "label": "maxpreps-fe-react",
+      "repoPath": "/Users/brian.eckmann/Documents/GitHub/maxpreps-fe-react",
+      "exists": true,
+      "branch": "edge",
+      "dirty": true,
+      "updatedAt": "2026-06-08T16:55:01.294Z"
+    },
+    "packageName": "maxpreps-fe-react",
+    "hasDesignSystemDependency": false,
+    "imports": [],
+    "usageByComponent": [],
+    "metrics": {
+      "importFiles": 0,
+      "importStatements": 0,
+      "totalPages": 111,
+      "pagesWithDesignSystem": 0,
+      "pageCoverage": 0,
+      "teamsUsingDesignSystem": 0,
+      "migrationCandidates": 1,
+      "legacySharedUiComponents": 31,
+      "legacyCoreComponents": 69,
+      "radixComponents": 7,
+      "sourceFiles": 3187,
+      "dirtyFiles": 12
+    },
+    "adoptionStage": 1,
+    "adoptionLabel": "Awareness",
+    "adoptionStatus": "No @playon-maxpreps/dsm imports found yet.",
+    "legacyExamples": [
+      "Button"
+    ],
+    "commits": [
+      {
+        "sha": "adceb11a0651071cb05a7e9ac52d1205ff3743b5",
+        "shortSha": "adceb11a0",
+        "author": "brianeckmann-mp",
+        "date": "2026-03-27T09:57:24-06:00",
+        "message": "mar 27"
+      },
+      {
+        "sha": "c421a6d7c6ff711b5b3efd0b9cd937a10c65f6bc",
+        "shortSha": "c421a6d7c",
+        "author": "brianeckmann-mp",
+        "date": "2026-03-20T20:34:04-06:00",
+        "message": "mar 20"
+      },
+      {
+        "sha": "2dd9fdc7e34f468d0d1ac418cedb8e38cef43d87",
+        "shortSha": "2dd9fdc7e",
+        "author": "brianeckmann-mp",
+        "date": "2026-03-11T10:58:17-06:00",
+        "message": "mar 11"
+      },
+      {
+        "sha": "b60088ab2d36510259c5b3b8cc1ed0389f40e32e",
+        "shortSha": "b60088ab2",
+        "author": "brianeckmann-mp",
+        "date": "2026-03-02T16:22:16-07:00",
+        "message": "agentation"
+      },
+      {
+        "sha": "3f04d8eb0ff88662c29d44e0a4707832b7c1bf00",
+        "shortSha": "3f04d8eb0",
+        "author": "brianeckmann-mp",
+        "date": "2026-03-02T16:18:51-07:00",
+        "message": "mar 2"
+      }
+    ]
+  },
+  "activity": [
+    {
+      "type": "Package",
+      "status": "available",
+      "event": "@playon-maxpreps/dsm package.json reports v0.0.1",
+      "date": "Live"
+    },
+    {
+      "type": "Components",
+      "status": "available",
+      "event": "3 available component folders with index/server files; 0 detected without the full file pattern",
+      "date": "Live"
+    },
+    {
+      "type": "Consumer",
+      "status": "missing",
+      "event": "No @playon-maxpreps/dsm imports found yet.",
+      "date": "Live"
+    },
+    {
+      "type": "Migration",
+      "status": "detected",
+      "event": "1 consumer UI folder names overlap current design-system component folders",
+      "date": "Live"
+    },
+    {
+      "type": "Commit",
+      "status": "active",
+      "event": "Refine button token states",
+      "date": "2026-05-18T10:58:11-06:00"
+    },
+    {
+      "type": "Commit",
+      "status": "active",
+      "event": "chore: update package dependencies and config",
+      "date": "2026-05-16T12:35:54-04:00"
+    },
+    {
+      "type": "Commit",
+      "status": "active",
+      "event": "chore: add workflow dispatch event to ci/cd",
+      "date": "2026-05-16T12:28:24-04:00"
+    },
+    {
+      "type": "Commit",
+      "status": "active",
+      "event": "Merge pull request #3 from playon-maxpreps/changeset-release/main",
+      "date": "2026-05-16T12:25:30-04:00"
+    }
+  ]
+}

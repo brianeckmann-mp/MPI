@@ -984,6 +984,10 @@ function SystemPage() {
               </div>
 
               <p className="system-hero__subcopy">Built for every team, designed for every fan.</p>
+              <a className="system-dashboard-link" href={`${baseUrl}projects/design-system-dashboard/`}>
+                <span>Open design system dashboard</span>
+                <FontAwesomeIcon icon={faArrowUpRightFromSquare} aria-hidden="true" />
+              </a>
             </div>
           </div>
         </section>

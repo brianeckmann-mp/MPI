@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Design System Dashboard — Update Commands</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    min-height: 100vh;
+    background: #e8e8e8;
+    color: #1a1a1a;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  .page-shell {
+    max-width: 1100px;
+    min-height: 100vh;
+    margin: 0 auto;
+    background: #f5f5f5;
+  }
+  .header {
+    background: #fff;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 18px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .title {
+    font-size: 20px;
+    line-height: 1.2;
+    font-weight: 800;
+  }
+  .subtitle {
+    margin-top: 4px;
+    color: #6e6e6e;
+    font-size: 13px;
+  }
+  .back-link {
+    color: #1a1a1a;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 700;
+    border: 1px solid #d8d8d8;
+    background: #fff;
+    border-radius: 6px;
+    padding: 8px 12px;
+  }
+  .content {
+    padding: 28px 32px 44px;
+  }
+  .notice {
+    background: #fffcf5;
+    border: 1px solid #fde68a;
+    border-left: 4px solid #d97706;
+    border-radius: 8px;
+    padding: 14px 16px;
+    color: #5f4300;
+    font-size: 13px;
+    line-height: 1.55;
+    margin-bottom: 22px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+  .panel {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 18px;
+  }
+  .panel.full { grid-column: 1 / -1; }
+  .panel-title {
+    font-size: 14px;
+    font-weight: 800;
+    margin-bottom: 6px;
+  }
+  .panel-body {
+    font-size: 13px;
+    line-height: 1.55;
+    color: #6e6e6e;
+    margin-bottom: 14px;
+  }
+  .command-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 8px;
+    align-items: stretch;
+  }
+  code {
+    display: block;
+    background: #111;
+    color: #f7f7f7;
+    border-radius: 6px;
+    padding: 11px 12px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 12px;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  button {
+    border: none;
+    border-radius: 6px;
+    background: #1a1a1a;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 0 12px;
+    cursor: pointer;
+  }
+  button.copied {
+    background: #166534;
+  }
+  .repo-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 4px;
+  }
+  .repo-table th,
+  .repo-table td {
+    text-align: left;
+    border-bottom: 1px solid #f0f0f0;
+    padding: 10px 0;
+    font-size: 13px;
+    vertical-align: top;
+  }
+  .repo-table th {
+    color: #8d8d8d;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+  }
+  .repo-table tr:last-child td { border-bottom: none; }
+  .mono {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 12px;
+  }
+  .footer-note {
+    margin-top: 18px;
+    color: #8d8d8d;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+  @media (max-width: 760px) {
+    .content, .header { padding-left: 18px; padding-right: 18px; }
+    .grid { grid-template-columns: 1fr; }
+    .command-row { grid-template-columns: 1fr; }
+    button { min-height: 38px; }
+  }
+</style>
+</head>
+<body>
+<div class="page-shell">
+  <header class="header">
+    <div>
+      <div class="title">Dashboard Update Commands</div>
+      <div class="subtitle">Pull the source repos and regenerate the design system dashboard data.</div>
+    </div>
+    <a class="back-link" href="./">Back to dashboard</a>
+  </header>
+
+  <main class="content">
+    <div class="notice">
+      The update command refuses to pull if either sibling repo has uncommitted changes. Commit, stash, or discard those changes first, then run the update again.
+    </div>
+
+    <section class="grid">
+      <div class="panel">
+        <div class="panel-title">Update Everything</div>
+        <div class="panel-body">Fetches and fast-forwards the configured branches, then writes the dashboard snapshot.</div>
+        <div class="command-row">
+          <code>npm run dashboard:update</code>
+          <button type="button" data-copy="npm run dashboard:update">Copy</button>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">Preview Git Commands</div>
+        <div class="panel-body">Shows the exact git commands without pulling or changing branches.</div>
+        <div class="command-row">
+          <code>npm run dashboard:update:dry-run</code>
+          <button type="button" data-copy="npm run dashboard:update:dry-run">Copy</button>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">Refresh Snapshot Only</div>
+        <div class="panel-body">Rebuilds dashboard data from current local repo state without fetching remote changes.</div>
+        <div class="command-row">
+          <code>npm run dashboard:snapshot</code>
+          <button type="button" data-copy="npm run dashboard:snapshot">Copy</button>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">Run Dashboard Locally</div>
+        <div class="panel-body">Starts Vite. The dashboard reads live repo data from the local API while this is running.</div>
+        <div class="command-row">
+          <code>npm run dev</code>
+          <button type="button" data-copy="npm run dev">Copy</button>
+        </div>
+      </div>
+
+      <div class="panel full">
+        <div class="panel-title">Default Repositories</div>
+        <div class="panel-body">The updater uses these sibling repo paths and branch defaults unless overridden by environment variables.</div>
+        <table class="repo-table">
+          <thead>
+            <tr><th>Repo</th><th>Default Path</th><th>Branch</th><th>Override</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>maxpreps-design-system</strong></td>
+              <td class="mono">../maxpreps-design-system</td>
+              <td class="mono">main</td>
+              <td class="mono">MAXPREPS_DESIGN_SYSTEM_REPO<br />MAXPREPS_DESIGN_SYSTEM_BRANCH</td>
+            </tr>
+            <tr>
+              <td><strong>maxpreps-fe-react</strong></td>
+              <td class="mono">../maxpreps-fe-react</td>
+              <td class="mono">master</td>
+              <td class="mono">MAXPREPS_REACT_REPO<br />MAXPREPS_REACT_BRANCH</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="panel full">
+        <div class="panel-title">Override Example</div>
+        <div class="panel-body">Use this when a repo lives somewhere else or you need a different branch for a one-off refresh.</div>
+        <div class="command-row">
+          <code>MAXPREPS_DESIGN_SYSTEM_BRANCH=main MAXPREPS_REACT_BRANCH=master npm run dashboard:update</code>
+          <button type="button" data-copy="MAXPREPS_DESIGN_SYSTEM_BRANCH=main MAXPREPS_REACT_BRANCH=master npm run dashboard:update">Copy</button>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer-note">
+      Static build fallback data is written to <span class="mono">projects/design-system-dashboard/data/live.json</span>. In dev, the dashboard uses <span class="mono">/api/design-system-dashboard</span> first and falls back to the snapshot if the API is unavailable.
+    </div>
+  </main>
+</div>
+
+<script>
+async function copyCommand(button) {
+  const value = button.getAttribute('data-copy');
+  try {
+    await navigator.clipboard.writeText(value);
+    button.textContent = 'Copied';
+    button.classList.add('copied');
+    setTimeout(() => {
+      button.textContent = 'Copy';
+      button.classList.remove('copied');
+    }, 1400);
+  } catch {
+    const temp = document.createElement('textarea');
+    temp.value = value;
+    document.body.appendChild(temp);
+    temp.select();
+    document.execCommand('copy');
+    temp.remove();
+  }
+}
+
+document.querySelectorAll('[data-copy]').forEach(button => {
+  button.addEventListener('click', () => copyCommand(button));
+});
+</script>
+</body>
+</html>
