@@ -29,7 +29,7 @@ const MDS_PAGES = [
   "mds-patterns",
   "mds-resources",
 ];
-const STANDALONE_PAGES = [...GRAYSTONE_PAGES, ...VARSITY_SIGNAL_PAGES, ...MDS_PAGES, "unified-playon-design", "maxpreps-gameday-rush"];
+const STANDALONE_PAGES = [...GRAYSTONE_PAGES, ...VARSITY_SIGNAL_PAGES, ...MDS_PAGES, "unified-playon-design", "maxpreps-gameday-rush", "school-os"];
 const ALL_PAGES = [...NAV_ITEMS, ...STANDALONE_PAGES];
 const TEAM_THEMES = [
   { name: "Red", primary: "#CC0022", secondary: "#8F0018", dark: "#52000E" },
@@ -1240,6 +1240,12 @@ function AboutPage() {
 
 function ProjectsPage({ onOpenProject }) {
   const cards = [
+    {
+      title: "School OS",
+      meta: "Project #6 / Athletic operations prototype",
+      description: "Athletic-operations software for K–12 schools — the system an athletic director uses to run a season: schedules, facilities, transportation, officials, rosters, eligibility, and school setup.",
+      action: () => onOpenProject("school-os"),
+    },
     {
       title: "Unified PlayOn Design",
       meta: "Project Graystone",
@@ -2805,6 +2811,21 @@ function GameDayRushProjectPage({ onExit }) {
   );
 }
 
+function SchoolOsProjectPage({ onExit }) {
+  return (
+    <main className="gameday-rush-project" aria-label="School OS project">
+      <button type="button" className="gameday-rush-project__back" onClick={() => onExit("projects")}>
+        Projects
+      </button>
+      <iframe
+        className="gameday-rush-project__frame"
+        title="School OS"
+        src={`${import.meta.env.BASE_URL}projects/school-os/`}
+      />
+    </main>
+  );
+}
+
 export default function App() {
   const [currentPage, setCurrentPage] = useState(() => getPageFromHash());
   const [introState, setIntroState] = useState("active");
@@ -2985,6 +3006,14 @@ export default function App() {
       ) : null}
       {currentPage === "maxpreps-gameday-rush" ? (
         <GameDayRushProjectPage
+          onExit={(page) => {
+            setCurrentPage(page);
+            window.history.replaceState(null, "", `#${page.toLowerCase()}`);
+          }}
+        />
+      ) : null}
+      {currentPage === "school-os" ? (
+        <SchoolOsProjectPage
           onExit={(page) => {
             setCurrentPage(page);
             window.history.replaceState(null, "", `#${page.toLowerCase()}`);
