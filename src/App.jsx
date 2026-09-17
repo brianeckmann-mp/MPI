@@ -2811,12 +2811,9 @@ function GameDayRushProjectPage({ onExit }) {
   );
 }
 
-function SchoolOsProjectPage({ onExit }) {
+function SchoolOsProjectPage() {
   return (
     <main className="gameday-rush-project" aria-label="School OS project">
-      <button type="button" className="gameday-rush-project__back" onClick={() => onExit("projects")}>
-        Projects
-      </button>
       <iframe
         className="gameday-rush-project__frame"
         title="School OS"
@@ -2971,7 +2968,7 @@ export default function App() {
         <ProjectsPage
           onOpenProject={(page) => {
             setCurrentPage(page);
-            window.history.replaceState(null, "", `#${page.toLowerCase()}`);
+            window.history.pushState(null, "", `#${page.toLowerCase()}`);
           }}
         />
       ) : null}
@@ -3012,14 +3009,7 @@ export default function App() {
           }}
         />
       ) : null}
-      {currentPage === "school-os" ? (
-        <SchoolOsProjectPage
-          onExit={(page) => {
-            setCurrentPage(page);
-            window.history.replaceState(null, "", `#${page.toLowerCase()}`);
-          }}
-        />
-      ) : null}
+      {currentPage === "school-os" ? <SchoolOsProjectPage /> : null}
       {GRAYSTONE_PAGES.includes(currentPage) ? (
         <GraystoneExperience
           currentPage={currentPage}
