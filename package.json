@@ -9,7 +9,8 @@
     "dashboard:snapshot": "node scripts/design-system-dashboard-data.mjs snapshot",
     "dashboard:update": "node scripts/design-system-dashboard-data.mjs update",
     "dashboard:update:dry-run": "node scripts/design-system-dashboard-data.mjs update --dry-run",
-    "build": "vite build",
+    "build:school-os-shadcn": "npm --prefix projects/school-os/shadcn run build -- --outDir ../../../dist/projects/school-os/shadcn --emptyOutDir",
+    "build": "vite build && npm run build:school-os-shadcn",
     "preview": "vite preview"
   },
   "dependencies": {

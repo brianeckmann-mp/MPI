@@ -2817,7 +2817,7 @@ function SchoolOsProjectPage() {
       <iframe
         className="gameday-rush-project__frame"
         title="School OS"
-        src={`${import.meta.env.BASE_URL}projects/school-os/`}
+        src={`${import.meta.env.BASE_URL}projects/school-os/glass/`}
       />
     </main>
   );

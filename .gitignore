@@ -2,3 +2,4 @@
 dist
 node_modules
 source-images
+projects/school-os/shadcn/*.tsbuildinfo
