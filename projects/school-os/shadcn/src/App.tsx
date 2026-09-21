@@ -6,9 +6,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import {
-  AlertCircle, ArrowRight, Bell, Building2, Bus, CalendarDays, Check, ChevronDown, ChevronRight,
+  AlertCircle, ArrowRight, Bell, Building2, Bus, CalendarDays, Check, ChevronDown, ChevronLeft, ChevronRight, IdCard,
   CircleGauge, ClipboardList, Clock3, FileBarChart, GraduationCap, LayoutDashboard,
-  ListChecks, LogOut, Menu, Moon, MoreHorizontal, Palette, PanelLeft, Plus, School, Search, Settings,
+  List, ListChecks, LogOut, Menu, Moon, MoreHorizontal, Palette, PanelLeft, Plus, School, Search, Settings,
   ShieldCheck, SlidersHorizontal, Sun, Users, UserRound, Volleyball, XCircle, Zap
 } from "lucide-react";
 import { Badge } from "./components/ui/badge";
@@ -47,12 +47,12 @@ const SPORT_ICONS: Record<Sport, IconDefinition> = {
 const NAV: { group: string; items: { id: Page; label: string; icon: typeof CalendarDays; count?: number }[] }[] = [
   { group: "School", items: [
     { id: "today", label: "Today", icon: CircleGauge, count: 10 }, { id: "calendar", label: "Calendar", icon: CalendarDays },
-    { id: "events", label: "Events", icon: ListChecks, count: 4 }, { id: "teams", label: "Teams", icon: Users },
+    { id: "events", label: "Events", icon: List, count: 4 }, { id: "teams", label: "Teams", icon: Users },
     { id: "players", label: "Players", icon: UserRound, count: 3 }, { id: "students", label: "Students", icon: GraduationCap },
     { id: "facilities", label: "Facilities", icon: Building2, count: 1 }, { id: "reports", label: "Reports", icon: FileBarChart }
   ]},
   { group: "Administration", items: [
-    { id: "users", label: "Users", icon: Users }, { id: "alerts", label: "Alerts", icon: Bell, count: 10 },
+    { id: "users", label: "Users", icon: IdCard }, { id: "alerts", label: "Alerts", icon: Bell, count: 10 },
     { id: "integrations", label: "Integrations", icon: Zap, count: 1 }, { id: "settings", label: "Settings", icon: Settings }
   ]}
 ];
@@ -162,7 +162,7 @@ function SettingsPage({ themeMode, setThemeMode, notify }: { themeMode: ThemeMod
     notifications: "Which alerts reach you, how they arrive, and when they escalate.",
     appearance: "Theme and density for this browser. Nothing here changes what other people see.",
     defaults: "What School OS assumes when you start something new.",
-    setup: "What School OS has on file for Riverside High. You can read it here; your sales rep makes any changes.",
+    setup: "Review the read-only school information below to verify School OS is configured correctly. Your Sales representative makes any changes.",
   };
   const cardData: Record<string, { title: string; note: string; rows: [string, string, Tone?][]; action?: string; message?: string }[]> = {
     account: [
@@ -205,18 +205,74 @@ function SettingsPage({ themeMode, setThemeMode, notify }: { themeMode: ThemeMod
   }, []);
 
   return <div className="settings-page">
-    <div className="settings-header"><div><h1>Settings</h1><p>{subtitles[section]}</p></div>{section === "appearance" ? <Button variant="outline" onClick={() => { setThemeMode("light"); notify("Appearance reset to light theme."); }}>Reset to defaults</Button> : section === "setup" ? <Button onClick={() => notify("School setup confirmed.")}>Confirm and continue</Button> : <Button onClick={save}>Save changes</Button>}</div>
-    {section === "setup" && <Card className="settings-banner"><CardContent className="flex items-center gap-3 p-4"><span className="icon-chip"><School/></span><div><b>First run</b><p>Check that School OS is set up correctly for your school. Anything wrong here is fixed by your sales representative.</p></div><Button variant="ghost" className="ml-auto" onClick={() => notify("School setup skipped for now.")}>Skip for now</Button></CardContent></Card>}
+    <div className="settings-header"><div><h1>Settings</h1><p>{subtitles[section]}</p></div>{section === "appearance" ? <Button variant="outline" onClick={() => { setThemeMode("light"); notify("Appearance reset to light theme."); }}>Reset to defaults</Button> : section === "setup" ? null : <Button onClick={save}>Save changes</Button>}</div>
+    {section === "setup" && <Card className="settings-banner"><CardContent className="flex items-center gap-3 p-4"><span className="icon-chip"><School/></span><div><b>Verify your school information</b><p>This information is read only. If anything is missing or incorrect, contact your Sales representative.</p></div></CardContent></Card>}
     <Tabs value={section} onValueChange={setSection} className="settings-layout"><TabsList ref={settingsTabsRef} className="settings-rail" aria-label="Settings sections">{sections.map(item => <TabsTrigger value={item.id} key={item.id}><item.icon/><span>{item.label}</span></TabsTrigger>)}</TabsList>
       {hasMoreSettingsTabs && <button type="button" className="settings-tabs-more" aria-label="Show more settings sections" onClick={() => settingsTabsRef.current?.scrollBy({ left: 160, behavior: "smooth" })}><ChevronRight/></button>}
       {sections.map(item => <TabsContent key={item.id} value={item.id} className="settings-cards">{item.id === "setup" ? <>
-        <Card className="settings-record"><CardHeader><div className="settings-card-title"><CardTitle>School record</CardTitle><Badge variant="secondary">Read only</Badge></div></CardHeader><CardContent className="settings-list"><p><span>School name<small>Legal name on the district record.</small></span>Riverside High</p><p><span>Mascot name<small>Reads under the crest in the school rail.</small></span>Ravens</p><p><span>District name<small>Sets the conference and shared facility pool.</small></span>North Valley Unified</p><p><span>School address<small>Printed on day sheets and bus requests.</small></span>1450 Riverside Drive</p><p><span>School main number<small>Front office line.</small></span>(555) 204-1100</p><p><span>Athletic director<small>Reply-to on messages families receive.</small></span>Jordan Lee<br/>jordan.lee@riversidehigh.org</p></CardContent></Card>
-        <Card className="settings-record"><CardHeader><div className="settings-card-title"><CardTitle>School colors</CardTitle><Badge variant="secondary">Read only</Badge></div><CardDescription>The primary paints the navigation band and crest ring. The secondary paints the crest edge and conference line.</CardDescription></CardHeader><CardContent className="color-rows">{[["Primary","Navigation band and crest ring","#52237D"],["Secondary","Crest edge and conference line","#F2DFBF"],["Tertiary","Print day sheets and jersey reference","#B42435"]].map(([label,note,hex]) => <div key={label}><i style={{background:hex}}/><span><b>{label}</b><small>{note}</small></span><code>{hex}</code></div>)}</CardContent></Card>
-        <Card className="settings-record"><CardHeader><div className="settings-card-title"><CardTitle>School logo</CardTitle><Badge variant="secondary">Read only</Badge></div><CardDescription>Shows in the school rail, on printed day sheets and at the top of every message families receive.</CardDescription></CardHeader><CardContent className="logo-record"><div className="brand-mark">R</div><div><b>Logo on file</b><p>Supplied at sale and cropped to a circle. Send a replacement to your sales representative.</p></div></CardContent></Card>
-        <Card className="settings-record"><CardHeader><CardTitle>Need a change?</CardTitle><CardDescription>Nothing in this section is editable in School OS. Contact your sales representative and they will update the record for you.</CardDescription></CardHeader><CardContent className="settings-list"><p><span>Representative</span>Alex Morgan</p><p><span>Email</span>alex.morgan@playonsports.com</p><p><span>Phone</span>(555) 555-0184</p><Button variant="outline" className="mt-5" onClick={() => notify("Draft opened to Alex Morgan.")}>Email Alex Morgan</Button></CardContent></Card>
+        <Card className="settings-record">
+          <CardHeader><div className="settings-card-title"><CardTitle>School record</CardTitle><Badge variant="secondary">Read only</Badge></div><CardDescription>School and contact information captured during setup.</CardDescription></CardHeader>
+          <CardContent className="settings-list">
+            <p><span>School name<small>Legal name on the district record.</small></span>Riverside High</p>
+            <p><span>Mascot name<small>Reads under the crest in the school rail.</small></span>Ravens</p>
+            <p><span>District name<small>Shown where a district applies.</small></span>North Valley Unified</p>
+            <p><span>School address<small>Printed on day sheets and bus requests.</small></span>1450 Riverside Drive<br/>Riverside, MN 55364</p>
+            <p><span>School main phone number<small>Front office line.</small></span>(555) 204-1100</p>
+            <p><span>Athletic Director<small>Primary athletics contact.</small></span>Jordan Lee</p>
+            <p><span>Athletic Director phone number<small>Direct athletics office line.</small></span>(555) 204-1180</p>
+            <p><span>Athletic Director email<small>Reply-to on messages families receive.</small></span>jordan.lee@riversidehigh.org</p>
+            <p><span>Other emails on file<small>Additional contacts captured by Sales.</small></span><span className="settings-value-list">athletics@riversidehigh.org<br/>facilities@riversidehigh.org</span></p>
+          </CardContent>
+        </Card>
+        <Card className="settings-record"><CardHeader><div className="settings-card-title"><CardTitle>School colors</CardTitle><Badge variant="secondary">Read only</Badge></div><CardDescription>Primary, secondary, and tertiary colors captured by Sales. Editing is planned after the December launch.</CardDescription></CardHeader><CardContent className="color-rows">{[["Primary","Navigation band and crest ring","#52237D"],["Secondary","Crest edge and conference line","#F2DFBF"],["Tertiary","Print day sheets and jersey reference","#B42435"]].map(([label,note,hex]) => <div key={label}><i style={{background:hex}}/><span><b>{label}</b><small>{note}</small></span><code>{hex}</code></div>)}</CardContent></Card>
+        <Card className="settings-record"><CardHeader><div className="settings-card-title"><CardTitle>School logo</CardTitle><Badge variant="secondary">Read only</Badge></div><CardDescription>Shows in the school rail, on printed day sheets, and at the top of messages families receive. Editing is planned after the December launch.</CardDescription></CardHeader><CardContent className="logo-record"><div className="brand-mark">R</div><div><b>Logo on file</b><p>Supplied during setup and cropped to a circle. Send a replacement to your Sales representative.</p></div></CardContent></Card>
       </> : cardData[item.id].map(card => <Card key={card.title} className="settings-record"><CardHeader><CardTitle>{card.title}</CardTitle><CardDescription>{card.note}</CardDescription></CardHeader><CardContent className="settings-list">{card.rows.map(([label,value,tone]) => <p key={label}><span>{label}</span><span className={cn("settings-value", tone && `value-${tone}`)}>{tone && <i/>}{value}</span></p>)}{card.action && <Button variant="outline" className="mt-5" onClick={() => act(card)}>{card.action}</Button>}</CardContent></Card>)}</TabsContent>)}
     </Tabs>
   </div>;
+}
+
+type ComponentSample = "alerts" | "theme" | "profile" | "school";
+
+const componentSamples: { id: ComponentSample; label: string; note: string; icon: typeof Bell }[] = [
+  { id: "alerts", label: "Alerts dropdown", note: "Header notification menu", icon: Bell },
+  { id: "theme", label: "Theme menu", note: "Appearance selector", icon: Palette },
+  { id: "profile", label: "Profile dropdown", note: "Account action menu", icon: UserRound },
+  { id: "school", label: "School panel", note: "School switcher", icon: School },
+];
+
+function ComponentPreview({ sample, isOpen, dark, onThemeChange }: { sample: ComponentSample; isOpen: boolean; dark: boolean; onThemeChange: () => void }) {
+  const staticOpen = isOpen ? { open: true } : { open: false };
+  const menuProps = isOpen ? {} : { open: false };
+  if (sample === "alerts") return <DropdownMenu modal={false} {...staticOpen}>
+    <DropdownMenuTrigger asChild><Button variant="ghost" size="icon" className="header-icon alerts-trigger" aria-label="Alerts"><Bell/><Badge>10</Badge></Button></DropdownMenuTrigger>
+    <DropdownMenuContent align="end" className="alerts-menu component-menu"> <div className="alerts-menu-head"><b>Alerts</b><span>2 blocking · 10 open</span></div><div className="alerts-menu-list">{headerAlerts.map(alert => <DropdownMenuItem key={alert.title} className="alert-menu-item"><span className={cn("icon-chip", `icon-${alert.tone}`)}>{alert.tone === "ok" ? <Check/> : <AlertCircle/>}</span><span className="alert-menu-copy"><span><b>{alert.title}</b><Status tone={alert.tone}>{alert.level}</Status></span><small>{alert.meta}</small><p>{alert.note}</p></span></DropdownMenuItem>)}</div><DropdownMenuSeparator/><DropdownMenuItem className="alerts-menu-footer"><Bell/><b>Open all alerts</b><span>10</span></DropdownMenuItem></DropdownMenuContent>
+  </DropdownMenu>;
+  if (sample === "theme") return <DropdownMenu modal={false} {...staticOpen}>
+    <DropdownMenuTrigger asChild><Button variant="ghost" size="icon" className="header-icon" aria-label="Select theme" onClick={onThemeChange}>{dark ? <Moon/> : <Sun/>}</Button></DropdownMenuTrigger>
+    <DropdownMenuContent align="end" className="theme-menu component-menu"><DropdownMenuLabel>Theme</DropdownMenuLabel><DropdownMenuSeparator/><DropdownMenuItem><Sun/><span>Light</span>{!dark && <Check className="theme-check"/>}</DropdownMenuItem><DropdownMenuItem><Moon/><span>Dark</span>{dark && <Check className="theme-check"/>}</DropdownMenuItem><DropdownMenuItem><CircleGauge/><span>System</span></DropdownMenuItem></DropdownMenuContent>
+  </DropdownMenu>;
+  if (sample === "profile") return <DropdownMenu modal={false} {...staticOpen}>
+    <DropdownMenuTrigger asChild><Button variant="outline" className="profile-trigger" aria-label="Jordan Lee, Athletic Director"><span>JL</span><ChevronDown/></Button></DropdownMenuTrigger>
+    <DropdownMenuContent align="end" className="profile-menu component-menu"><div className="profile-menu-head"><b>Jordan Lee</b><span>Athletic Director · Riverside High</span></div><DropdownMenuSeparator/><DropdownMenuItem><Settings/>Account settings</DropdownMenuItem><DropdownMenuItem><Bell/>Notification rules</DropdownMenuItem><DropdownMenuItem><UserRound/>Impersonate user</DropdownMenuItem><DropdownMenuSeparator/><DropdownMenuItem className="text-destructive"><LogOut/>Sign out</DropdownMenuItem></DropdownMenuContent>
+  </DropdownMenu>;
+  return <DropdownMenu modal={false} {...menuProps} open={isOpen}>
+    <DropdownMenuTrigger asChild><Button variant="secondary" className="school-trigger component-school-trigger" aria-label="Switch school"><School className="school-trigger-icon"/><span>Riverside High</span><ChevronDown className="school-trigger-chevron"/></Button></DropdownMenuTrigger>
+    <DropdownMenuContent align="start" side="bottom" className="w-52 component-menu school-menu">{["Riverside High", "Oak Ridge High", "Kenwood Academy"].map(name => <DropdownMenuItem key={name}>{name}{name === "Riverside High" && <Check className="ml-auto h-4 w-4"/>}</DropdownMenuItem>)}</DropdownMenuContent>
+  </DropdownMenu>;
+}
+
+function ComponentsPage({ navigate }: { navigate: (path: string) => void }) {
+  const [sample, setSample] = useState<ComponentSample>("alerts");
+  const [isOpen, setIsOpen] = useState(true);
+  const [dark, setDark] = useState(false);
+  const current = componentSamples.find(item => item.id === sample)!;
+  return <main className={cn("component-page", dark && "dark")}>
+    <header className="component-page-header"><button className="component-back" onClick={() => navigate("/")}><ChevronLeft/>School OS</button><span>COMPONENT CAPTURE</span></header>
+    <div className="component-layout">
+      <aside className="component-panel"><div><p className="component-eyebrow">App shell</p><h1>Components</h1><p>Pick a component, set its state, then capture the stage with html.to.design.</p></div><div className="component-list">{componentSamples.map(item => <button key={item.id} className={cn("component-choice", sample === item.id && "active")} onClick={() => setSample(item.id)}><item.icon/><span><b>{item.label}</b><small>{item.note}</small></span><ChevronRight/></button>)}</div><div className="component-controls"><p className="component-eyebrow">State</p><div className="component-switch"><span>Menu</span><button aria-pressed={isOpen} onClick={() => setIsOpen(value => !value)}><i className={cn(isOpen && "on")}/>{isOpen ? "Open" : "Closed"}</button></div><div className="component-switch"><span>Canvas</span><button aria-pressed={dark} onClick={() => setDark(value => !value)}><i className={cn(dark && "on")}/>{dark ? "Dark" : "Light"}</button></div></div></aside>
+      <section className="component-stage-wrap"><div className="component-stage-meta"><span>{current.label}</span><span>{isOpen ? "OPEN" : "CLOSED"} · {dark ? "DARK" : "LIGHT"}</span></div><div className="component-stage"><div className="component-mock-shell"><div className="component-mock-brand"><div className="brand-mark">R</div><b>Riverside Ravens</b><small>NORTHSTAR CONFERENCE</small>{sample === "school" && <ComponentPreview sample={sample} isOpen={isOpen} dark={dark} onThemeChange={() => setDark(value => !value)}/>}</div><div className="component-mock-workspace"><div className="component-mock-topbar"><Button variant="outline" className="season-trigger"><span>Fall</span><b>2026–27</b><ChevronDown/></Button><div className="ml-auto flex items-center gap-2"><span className="last-sync">LAST SYNC 06:52</span>{sample !== "school" && <ComponentPreview sample={sample} isOpen={isOpen} dark={dark} onThemeChange={() => setDark(value => !value)}/>}</div></div><div className="component-mock-content"><p className="component-eyebrow">Component preview</p><h2>{current.label}</h2><p>The surrounding shell gives the component its real placement and contrast.</p></div></div></div></div><p className="component-capture-note">This state is held open by the capture page, so it stays visible when you trigger the browser extension.</p></section>
+    </div>
+  </main>;
 }
 
 function ScheduleRail({ schedule, setSchedule, notify }: { schedule: ScheduleEvent[]; setSchedule: (s: ScheduleEvent[]) => void; notify: (m: string) => void }) {
@@ -342,9 +398,9 @@ function SchoolApp({ navigate }: { navigate: (path: string) => void }) {
   </div>;
 }
 
-type AppRoute = "landing" | "login" | "school";
-const routeFromPath = (): AppRoute => /\/landing\/?$/.test(window.location.pathname) ? "landing" : /\/login\/?$/.test(window.location.pathname) ? "login" : "school";
-const appRootPath = () => window.location.pathname.replace(/(?:landing|login)\/?$/, "").replace(/\/?$/, "/");
+type AppRoute = "landing" | "login" | "components" | "school";
+const routeFromPath = (): AppRoute => /\/landing\/?$/.test(window.location.pathname) ? "landing" : /\/login\/?$/.test(window.location.pathname) ? "login" : /\/components\/?$/.test(window.location.pathname) ? "components" : "school";
+const appRootPath = () => window.location.pathname.replace(/(?:landing|login|components)\/?$/, "").replace(/\/?$/, "/");
 
 export default function App() {
   const [route, setRoute] = useState<AppRoute>(routeFromPath);
@@ -353,7 +409,7 @@ export default function App() {
     window.addEventListener("popstate", onPopState);
     return () => window.removeEventListener("popstate", onPopState);
   }, []);
-  useEffect(() => { document.title = route === "landing" ? "School OS" : route === "login" ? "Log In · PlayOn HQ" : "School OS · Shadcn"; }, [route]);
+  useEffect(() => { document.title = route === "landing" ? "School OS" : route === "login" ? "Log In · PlayOn HQ" : route === "components" ? "Components · School OS" : "School OS · Shadcn"; }, [route]);
   const navigate = (path: string) => {
     const segment = path.replace(/^\/+|\/+$/g, "");
     window.history.pushState({}, "", segment ? `${appRootPath()}${segment}/` : appRootPath());
@@ -362,5 +418,6 @@ export default function App() {
   };
   if (route === "landing") return <LandingPage navigate={navigate} />;
   if (route === "login") return <LoginPage navigate={navigate} />;
+  if (route === "components") return <ComponentsPage navigate={navigate} />;
   return <SchoolApp navigate={navigate} />;
 }
