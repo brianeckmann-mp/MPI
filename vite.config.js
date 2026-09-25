@@ -32,6 +32,7 @@ export default defineConfig({
       input: {
         main: "index.html",
         gamedayRush: "projects/maxpreps-gameday-rush/index.html",
+        maxprepsGamespace: "projects/maxpreps-gamespace/index.html",
         designSystemDashboard: "projects/design-system-dashboard/index.html",
         designSystemDashboardUpdate: "projects/design-system-dashboard/update.html",
       },
